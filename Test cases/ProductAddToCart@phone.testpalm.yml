@@ -1,0 +1,59 @@
+feature: ProductAddToCart
+
+params:
+  exp_flags:
+    - turboforms_endpoint=https://test-turbo-forms.common.yandex.ru/
+    - analytics-disabled=1
+
+browsers:
+  - ios-safari-12-touch
+  - ios-safari-11-touch
+  - ios-safari-10-touch
+  - ios-safari-9-touch
+
+specs:
+  Добавление товара в корзину:
+    - do: |
+        открыть ссылку https://yandex.ru/turbo?stub=cart/default.json
+        если в корзине есть товары - нажать `Удалить` на каждой карточке
+        открыть ссылку https://yandex.ru/turbo?stub=productaddtocart/default.json
+    - screenshot: внешний вид кнопок соответствует скриншоту [empty]
+    - do: нажать на первую кнопку "Добавить в корзину"
+    - assert: внешний вид кнопки изменился
+    - screenshot: внешний вид соответствует скриншоту [first]
+    - do: нажать на вторую кнопку "Добавить в корзину"
+    - assert: кнопка изменилась также, как первая
+    - do: кликнуть на первую кнопку
+    - assert: |
+        в той же вкладке открылась страница `https://yandex.ru/turbo?stub=ecomcartpage/default.json`
+        в корзине лежит 2 товара
+
+  Товар добавлен в корзину при загрузке:
+    - do: |
+        открыть ссылку https://yandex.ru/turbo?stub=cart/default.json
+        если в корзине есть товары - нажать `Удалить` на каждой карточке
+        открыть ссылку https://yandex.ru/turbo?stub=productaddtocart/default.json
+    - assert: на странице есть 2 кнопки
+    - do: кликнуть на первую кнопку
+    - assert: внешний вид кнопки изменился
+    - do: перезагрузить страницу
+    - assert: первая кнопка осталось прокрашенной в зеленый
+
+  Проверка отправки подписи:
+    - tags: no_assessors
+    - do: перейти по ссылке https://yandex.ru/turbo?text=https%3A%2F%2Fkupicase.ru%2Fproducts%2Fchernyi-chekhol-knizhka-s-prozrachnoi-kryshkoi-dlya-samsung-galaxy-a30-a50
+    - do: нажать на кнопку добавления товара
+    - tech: запрос на добавления товара содержит параметр sk
+
+tags:
+  - e-commerce
+  - no_assessors #раскатили новый дизайн на 100%
+
+files:
+  - platform/components/ProductAddToCart/__tests__/ProductAddToCart@phone.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+tlds: none

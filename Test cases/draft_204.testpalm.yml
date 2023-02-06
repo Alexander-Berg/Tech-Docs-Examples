@@ -1,0 +1,14 @@
+feature:  station, loudspeaker Голосовое подключение лампочки - сеть 5G
+
+specs:
+    station, loudspeaker Голосовое подключение лампочки - сеть 5G:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/2814
+        - release_Smarthome
+        - smarthome_regress
+        - surface_station
+        - surface_loudspeaker
+        - iot_voice_connection
+    - do: "Preconditions Прошивка станции не меньше <Firmware 2.33.5.16.774462553.20200917.33> мини не меньше  <Firmware 1.33.4.12.769007619.20200910>; ; Подключить колонку к сети 5G"
+    - do: "Сказать в колонку `Подключи лампочку`"
+    - assert: "- начинает искать лампочку, если есть обе сети (2,4 и 5 ГГц) от одного роутера одновременно; - Лампочка должна успешно подключится при присутствии дублирующей сети."

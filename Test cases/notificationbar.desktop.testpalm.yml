@@ -1,0 +1,32 @@
+feature: Уведомления
+
+import-steps:
+    - tests/hermione/suites/desktop/shared-steps/open-backoffice.testpalm.steps.yml
+
+tlds: ru
+
+specs:
+    beforeEach:
+        - do: убедиться, что для адреса "https:#yandex.ru:443" не запрещены уведомления (см. "https://yandex.ru/support/common/browsers-settings/notifications.html")
+        - attach: Авторизация и открытие бэкоффиса
+
+    При отказе от уведомлений показывается плашка о необходимости их включения:
+        - automation: YDO-6833
+        - assert: после загрузки бэкоффиса показывается браузерное окно с предложением разрешить уведомления
+        - do: отказаться от уведомлений
+        - assert: показалась плашка о необходимости включения уведомлений
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/antalovc/enable%20notification%20bar%202019-05-28%20%D0%B2%2017.52.43.png]
+        - assert: |
+              при нажатии на кнопку "Как включить уведомления" открывается новая вкладка браузера
+              адрес новой вкладки "https://yandex.ru/dev/dialogs/chats/doc/chat-notifications-docpage/#desktop__desktop-notifications-on"
+        - assert: при нажатии на крестик в правой части плашки она закрывается
+
+files: []
+
+v-team: Uslugi
+
+tags:
+    - no_assessors
+    - skip_manual_check
+    - floyd
+    - smoke

@@ -1,0 +1,27 @@
+feature: LcCheckout
+
+specs:
+  Внешний вид с оплатой и доставкой:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=lccheckout/default.json
+    - screenshot: внешний вид соответствует скриншоту [full]
+
+  Внешний вид без оплаты:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=lccheckout/without-payment.json
+    - screenshot: внешний вид соответствует скриншоту [noPayment]
+
+  Внешний вид без оплаты и доставки:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=lccheckout/without-payment-and-delivery.json
+    - screenshot: внешний вид соответствует скриншоту [short]
+
+  Выбор оплаты заблокирован, если есть только один вариант оплаты:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=lccheckout/with-single-payment.json
+    - screenshot: внешний вид соответствует скриншоту [singlePaymentSelect]
+
+files:
+  - platform/components/LcCheckout/__tests__/LcCheckout.hermione.js
+
+v-team: Lc
+
+manager: osumerina
+
+tlds: none

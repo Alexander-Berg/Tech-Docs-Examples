@@ -1,0 +1,39 @@
+feature: Саджест
+type: Паранджа
+ 
+specs:
+  beforeEach:
+    - do: |
+        получить выдачу по запросу "вк"
+        кликнуть в инпут поисковой стрелки
+    - assert: саджест открыт
+  Внешний вид:
+    С паранжой:
+      - screenshot: пример внешнего вида саджеста [plain]
+    С паранжой до 930px:
+      - do: установить ширину окна браузера 800px
+      - screenshot: пример внешнего вида саджеста [plain]
+    С паранжой до 722px:
+      - do: установить ширину окна браузера 700px
+      - screenshot: пример внешнего вида саджеста [plain]
+    C пустым саджестом:
+      - do: ввести в поисковую строку текст, по которому не будет подсказок (например 'ddddddddddd')
+      - screenshot: пример внешнего вида саджеста [plain]
+  Закрытие по клику на оверлей:
+    - do: кликнуть на оверлей
+    - assert: саджест закрыт
+
+files:
+  - features/desktop/suggest/suggest-overlay.hermione.js
+ 
+qa-engineer:
+  - etestova
+ 
+tlds: [ru, by, kz, ua]
+ 
+tags:
+  - skip_e2e_check
+ 
+v-team: Suggest
+ 
+priority: high

@@ -1,0 +1,22 @@
+feature: Спец.размещение
+type: Коллаутсы на РВ на тачах
+
+specs:
+  Внешний вид:
+    - do: получить выдачу по запросу 'пвх окна'
+    - do: |
+      в мобильном браузере: в адресной строке браузера добавить после 'search/touch/' параметр 'direct' (т.е. .../search/touch/direct?...) и перейти
+      в поисковом приложении: вставить в адресную строку "https://yandex.ru/search/touch/direct?lr=213&text=пвх%20окна&noredirect=1&appsearch_header=1" и перейти
+    - assert: в выдаче присутствуют рекламные сниппеты
+    - screenshot: внешний вид первого сниппета соответствует скриншоту [callouts]
+
+files:
+  - features/touch-phone/serp-adv-item/direct_vertical_callouts/adapter-adv__callouts.hermione.js
+
+tags:
+  - adv_vertical
+  - no_assessors
+
+v-team: Freshness
+
+tlds: [ru]

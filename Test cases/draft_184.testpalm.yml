@@ -1,0 +1,20 @@
+feature:  Звонки в колонку - настройки внутри колонки
+
+specs:
+    Звонки в колонку - настройки внутри колонки:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/2792
+        - release_Webview
+        - app_regress
+        - surface_my_alice
+        - platform_searchapp
+        - platform_ios
+        - platform_android
+        - webview_regress
+    - do: "Preconditions На аккаунт добавлена Станция; ; ПП андроид начиная с 20.74; ПП ios - начиная с 41 (20.8.3)"
+    - do: "Открыть настройки Станции"
+    - assert: "Отображается выключенный тоггл Принимать входящие звонки; <img src=`https://jing.yandex-team.ru/files/rbol/IMG_3052.PNG` alt=`Скриншот` width=`300`/>"
+    - do: "Включить тоггл"
+    - assert: "Появляется зеленая кнопка звонка; <img src=`https://jing.yandex-team.ru/files/rbol/IMG_3053.PNG` alt=`Скриншот` width=`300`/>"
+    - do: "Нажать на кнопку звонка"
+    - assert: "Начинается звонок в мессенджере"

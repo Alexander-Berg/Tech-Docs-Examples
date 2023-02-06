@@ -1,0 +1,96 @@
+feature: Колдунщик 1орг
+type: Новый признак для переехавших
+
+specs-integration:
+  Проверка статуса "Больше не работает":
+    - counter: /$page/$parallel/$result[@wizard_name="companies" and @subtype="company"]/composite/tabs/about/notice-stripe[@type="close/unlimited"]
+    - tags: no_assessors
+    - do: получить выдачу по запросу 'прокондитер ру'
+    - assert: |
+        в правой колонке появился колдунщик одной организации,
+        под картой есть красный лейбл с тектом 'Больше не работает'
+  Проверка статуса "Адрес изменился":
+    - counter: /$page/$parallel/$result[@wizard_name="companies" and @subtype="company"]/composite/tabs/about/notice-stripe[@type="move/somewhere"]
+    - tags: no_assessors
+    - do: получить выдачу по запросу 'гк березовец'
+    - assert: |
+        в правой колонке появился колдунщик одной организации,
+        под картой есть красный лейбл с тектом 'Адрес изменился'
+  Проверка статуса "Организация переехала" со ссылкой на новый:
+    - counter: /$page/$parallel/$result[@wizard_name="companies" and @subtype="company"]/composite/tabs/about/notice-stripe[@type="move/to"]
+    - do: получить выдачу по запросу 'делимобиль ленинский проспект' _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: |
+        в правой колонке появился колдунщик одной организации,
+        под картой есть красный лейбл со ссылкой 'Организация переехала'
+
+specs:
+  Проверка статуса "Больше не работает":
+    - params:
+        foreverdata: '2387969277'
+    - do: Получить выдачу по запросу 'foreverdata'
+    - tech: /$page/$parallel/$result/composite/tabs/about/notice-stripe[@type="close/unlimited"]
+    - assert: |
+        В выдаче есть блок 1орг в правой колонке
+        Под картой есть полоска с текстовым статусом 'Больше не работает'
+    - screenshot: Полоска с текстовым статусом 'Больше не работает' [plain]
+
+  Проверка статуса "Временно не работает":
+    - params:
+        foreverdata: '3869642402'
+    - do: Получить выдачу по запросу 'foreverdata'
+    - tech: /$page/$parallel/$result/composite/tabs/about/notice-stripe[@type="close/short"]
+    - assert: |
+        В выдаче есть блок 1орг в правой колонке
+        Под картой есть полоска с текстовым статусом 'Временно не работает'
+    - screenshot: Полоска с текстовым статусом 'Временно не работает' [plain]
+
+  Проверка статуса "Возможно, не работает":
+    - params:
+        foreverdata: '3069198875'
+    - do: Получить выдачу по запросу 'foreverdata'
+    - tech: /$page/$parallel/$result/composite/tabs/about/notice-stripe[@type="close/maybe"]
+    - assert: |
+        В выдаче есть блок 1орг в правой колонке
+        Под картой есть полоска с текстовым статусом 'Возможно, не работает'
+    - screenshot: Полоска с текстовым статусом 'Возможно, не работает' [plain]
+
+  Проверка статуса "Адрес изменился":
+    - params:
+        foreverdata: '4115549131'
+    - do: Получить выдачу по запросу 'foreverdata'
+    - tech: /$page/$parallel/$result/composite/tabs/about/notice-stripe[@type="move/somewhere"]
+    - assert: |
+        В выдаче есть блок 1орг в правой колонке
+        Под картой есть полоска с текстовым статусом 'Адрес изменился'
+    - screenshot: Полоска с текстовым статусом 'Адрес изменился' [plain]
+
+  Проверка статуса "Организация переехала" со ссылкой на новый:
+    - params:
+        foreverdata: '1816174980'
+    - do: Получить выдачу по запросу 'foreverdata'
+    - assert: |
+        В выдаче есть блок 1орг в правой колонке
+        Под картой есть полоска со статусом-ссылкой 'Организация переехала'
+    - screenshot: Полоска со статусом-ссылкой 'Организация переехала' [plain]
+    - do: Кликнуть на ссылку 'Организация переехала'
+    - tech: Сработал счетчик path = '/$page/$parallel/$result/composite/tabs/about/notice-stripe[@type="move/to"]/link
+    - assert: В новой вкладке открылась страница Яндекс.Карт с новым адресом организации
+
+  Вход по QR-коду:
+    - params:
+        oid: 'b:229842109311'
+    - do: Получить выдачу по запросу 'кофейня на братиславской'
+    - assert: |
+        В выдаче есть блок 1орг в правой колонке
+        Под картой есть полоска со статусом '"Вход по QR-коду"'
+    - screenshot: Пример внешнего вида [plain]
+
+files:
+- src/features/Companies/Companies.features/OrgNoticeStripe/OrgNoticeStripe.test/OrgNoticeStripe@desktop.hermione.js
+- src/features/Companies/Companies.features/OrgNoticeStripe/OrgNoticeStripe.test/OrgNoticeStripe@desktop.hermione.e2e.js
+
+v-team: VanillaGeo
+
+counter: /$page/$parallel/$result[@wizard_name="companies" and @subtype="company"]//notice-stripe
+
+tlds: all

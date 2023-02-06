@@ -1,0 +1,29 @@
+feature: marketPrice
+
+specs:
+  afterEach:
+    - tech: нет клиентских ошибок
+
+  Внешний вид блока size=m:
+    - do: открыть страницу примера блока marketPrice (https://yandex.ru/turbo?stub=marketprice/size_m.json)
+    - assert: должен быть виден компонент с ценой
+    - screenshot: внешний вид соответствует скриншоту [size_m]
+
+  Внешний вид блока size=s:
+    - do: открыть страницу примера блока marketPrice (https://yandex.ru/turbo?stub=marketprice/size_s.json)
+    - assert: должен быть виден компонент с ценой
+    - screenshot: внешний вид соответствует скриншоту [size_s]
+
+  Внешний вид блока size=xs:
+    - do: открыть страницу примера блока marketPrice (https://yandex.ru/turbo?stub=marketprice/size_xs.json)
+    - assert: должен быть виден компонент с ценой
+    - screenshot: внешний вид соответствует скриншоту [size_xs]
+
+files:
+    - platform/components/MarketPrice/__tests__/MarketPrice.hermione.js
+
+v-team: Market
+
+manager: seoshnik
+
+tlds: none

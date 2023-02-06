@@ -1,0 +1,23 @@
+feature: Колдунщик видео
+type: XL
+tlds: ['ru', 'ua', 'by', 'kz', 'com', 'com.tr']
+priority: high
+tags: wizard
+params: 
+  foreverdata: '452028317'
+
+specs:
+  Внешний вид:
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: виден XL колдунщик видео
+    - screenshot: примерный внешний вид колдуна (содержимое может отличаться) [common-view]
+
+  Правильный гринурл для ролика:
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: виден XL колдунщик видео
+    - assert: гринурл содержит хост ролика
+
+files:
+  - features/touch-phone/adapter-videowiz/adapter-videowiz_type_xl.hermione.js
+
+v-team: Video

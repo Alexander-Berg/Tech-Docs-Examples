@@ -1,0 +1,27 @@
+feature: Сетка карточек
+
+specs:
+  Базовый вид блока:
+    - do: открыть мок /turbo?stub=mgpagelayout/default.json
+    - assert: сетка видна
+    - do: ресайзим 1920x1080
+    - screenshot: внешний вид соответствует скриншоту [layout-1920x1080]
+    - do: ресайзим 1600x900
+    - screenshot: внешний вид соответствует скриншоту [layout-1600x900]
+    - do: ресайзим 1366x768
+    - screenshot: внешний вид соответствует скриншоту [layout-1366x768]
+    - do: ресайзим 1280x720
+    - screenshot: внешний вид соответствует скриншоту [layout-1280x720]
+    - do: ресайзим 1279x720
+    - screenshot: внешний вид соответствует скриншоту [layout-1279x720]
+
+files:
+  - platform/components/MgPageLayout/__tests__/MgPageLayout.hermione.js
+
+v-team: Sport
+
+qa-engineer: nightsonne
+
+manager: skhovaev
+
+tlds: none

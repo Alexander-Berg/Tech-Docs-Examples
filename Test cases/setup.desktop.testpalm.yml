@@ -1,0 +1,21 @@
+feature: Установка приложения
+
+import-steps:
+    - tests/hermione/suites/desktopApp/shared-steps/setup.testpalm.steps.yml
+
+tlds: none
+
+specs:
+    Установка приложения[manual]:
+        - automation: MSSNGRFRONT-3314
+        - do: убедиться, что на устройстве нет приложения старой версии, при необходимости удалить
+        - attach: Скачивание архива с последним предрелизным приложением
+        - attach: Установка приложения
+
+files: []
+
+v-team: Chat
+
+tags:
+    - no_assessors
+    - desktop-app

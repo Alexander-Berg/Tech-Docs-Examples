@@ -1,0 +1,718 @@
+feature: Эмбед
+
+specs:
+  aliases:
+    - &embedAutoLoadedCheck
+      - tech: Проверка серверного счетчика (/turbo/embed/loaded)
+      - tech: Проверка серверного счетчика (/turbo/embed/failed)
+      - do: Проскроллить до каждого эмбеда и дождаться загрузки (содержимое самого эмбеда скроллить не нужно)
+      - tech: Проверка клиентского счетчика (/turbo/embed/loaded)
+    - &embedAssertLoadedCheck
+      - assert: Все эмбеды загрузились (может быть один эмбед), вместо блока загрузки или "дырки" появился блок с данными
+    - &embedAssertVideoLoadedCheck
+      - assert: Вместо блока загрузки появилось видео
+    - &embedAssertError
+      - assert: Вместо блока загрузки появилась заглушка
+
+  #  Проверка на загрузку эмбеда clipiki-video:
+  #    - params:
+  #        foreverdata: '2746736602'
+  #    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-clipiki-video — турбо'
+  #    - assert: открывается турбо-страница в той же вкладке
+  #    - *embedAutoLoadedCheck
+  #    - *embedAssertLoadedCheck
+
+  beforeEach:
+    - do: при дальнейшей проверке указанных ожидаемых результатов обращайте внимание на любые некорректные на ваш взгляд поведения, основываясь на свой опыт использования web-приложений (например, сохранение позиции при переходах туда-обратно кнопками на устройстве, пустые экраны при переходах, кривая верстка, скачкИ элементов, плавность скролла, неработающая функциональность и т.п.)
+
+  Проверка на загрузку эмбеда dailymotion-old:
+    - params:
+        foreverdata: '2978170056'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-old-format-dailymotion — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда dailymotion-video:
+    - params:
+        foreverdata: '2723884100'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-dailymotion-video — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда default-html:
+    - params:
+        foreverdata: '1759762421'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-default-html — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда default-old:
+    - params:
+        foreverdata: '2328343445'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-old-format-default — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда default-src:
+    - params:
+        foreverdata: '2918991364'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-default-src — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  #  Проверка на загрузку эмбеда dzenkino-video:
+  #    - params:
+  #        foreverdata: '240533062'
+  #    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-dzenkino-video — турбо'
+  #    - assert: открывается турбо-страница в той же вкладке
+  #    - *embedAutoLoadedCheck
+  #    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда facebook-comment:
+    - params:
+        foreverdata: '790253083'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-facebook-comment — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда facebook-comments:
+    - params:
+        foreverdata: '250495688'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-facebook-comments — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда facebook-like-button:
+    - params:
+        foreverdata: '570289382'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-facebook-like-button — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда facebook-old:
+    - params:
+        foreverdata: '1530145815'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-old-format-facebook — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда facebook-page:
+    - params:
+        foreverdata: '24656439'
+    - browsers:
+        notFor:
+        - ios-yandex-browser-17-touch
+        - android-yandex-browser-17-touch
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-facebook-page — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда facebook-post:
+    - params:
+        foreverdata: '2247314838'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-facebook-post — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда facebook-share-button:
+    - params:
+        foreverdata: '1829762226'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-facebook-share-button — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда facebook-video:
+    - params:
+        foreverdata: '1458267644'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-facebook-video — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда instagram-old:
+    - params:
+        foreverdata: '4228867465'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-old-format-instagram — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда instagram-post:
+    - params:
+        foreverdata: '3069823831'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-instagram-post — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда instagram-igtv:
+    - do: открыть страницу https://yandex.ru/turbo?stub=embed/instagram-igtv.json
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда izlesene-old:
+    - params:
+        foreverdata: '240773519'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-old-format-izlesene — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда izlesene-video:
+    - params:
+        foreverdata: '3945521414'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-izlesene-video — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда mail-video:
+    - params:
+        foreverdata: '2908583067'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-mail-video — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда mailru-old:
+    - params:
+        foreverdata: '2751488328'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-old-format-mailru — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда mailru-video:
+    - params:
+        foreverdata: '4255700679'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-mail-video — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда myvi-video:
+    - params:
+        foreverdata: '2363065116'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-myvi-video — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда ok-group:
+    - params:
+        foreverdata: '1785779865'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-ok-group — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда ok-share:
+    - browsers:
+        notFor:
+        - android-pp-4.99-touch
+        - android-pp-7-touch
+    - params:
+        foreverdata: '1897896637'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-ok-share — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда ok-video:
+    - params:
+        foreverdata: '597637206'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-ok-video — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда rutube-old:
+    - params:
+        foreverdata: '1628379862'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-old-format-rutube — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда rutube-video:
+    - params:
+        foreverdata: '4061255368'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-rutube-video — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда twitter-air-button:
+    - params:
+        foreverdata: '3161981589'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-twitter-air-button — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда twitter-follow-button:
+    - params:
+        foreverdata: '3283743474'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-twitter-follow-button — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда twitter-moment:
+    - params:
+        foreverdata: '2155598627'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-twitter-moment — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда twitter-old:
+    - params:
+        foreverdata: '2802903591'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-old-format-twitter — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда twitter-timeline:
+    - params:
+        foreverdata: '4131579108'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-twitter-timeline — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда twitter-tweet:
+    - params:
+        foreverdata: '2782078971'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-twitter-tweet — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда twitter-tweet-button:
+    - params:
+        foreverdata: '3194103048'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-twitter-tweet-button — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда twitter-video:
+    - params:
+        foreverdata: '734526496'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-twitter-video — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда vimeo-old:
+    - params:
+        foreverdata: '2841918660'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-old-format-vimeo — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда vimeo-video:
+    - params:
+        foreverdata: '3189996277'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-vimeo-video — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда vk-allow-messages-from-community:
+    - browsers:
+        notFor:
+        - android-pp-4.99-touch
+        - android-pp-7-touch
+    - params:
+        foreverdata: '1208047133'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-vk-allow-messages-from-community — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда vk-comments:
+    - browsers:
+        notFor:
+        - android-pp-4.99-touch
+        - android-pp-7-touch
+    - params:
+        foreverdata: '701750262'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-vk-comments — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда vk-community-messages:
+    - browsers:
+        notFor:
+        - android-pp-4.99-touch
+        - android-pp-7-touch
+    - params:
+        foreverdata: '3556954545'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-vk-community-messages — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда vk-contact-us:
+    - params:
+        foreverdata: '1639057750'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-vk-contact-us — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда vk-like:
+    - browsers:
+        notFor:
+        - android-pp-4.99-touch
+        - android-pp-7-touch
+    - params:
+        foreverdata: '71590352'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-vk-like — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - tech: проверить серверный счетчик (/turbo/embed/loaded)
+    - tech: проверить серверный счетчик (/turbo/embed/failed)
+    - do: дождаться загрузки эмбеда
+    - tech: проверить клиентский счетчик (/turbo/embed/loaded)
+    - assert: эмбед загрузился (вместо блока загрузки или "дырки" появился блок с данными)
+
+  Проверка на загрузку эмбеда vk-poll:
+    - browsers:
+        notFor:
+        - android-pp-4.99-touch
+        - android-pp-7-touch
+    - params:
+        foreverdata: '3060440984'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-vk-poll — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда vk-post:
+    - params:
+        foreverdata: '2222296720'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-vk-post — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда vk-recommended:
+    - params:
+        foreverdata: '3390257986'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-vk-recommended — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда vk-share:
+    - params:
+        foreverdata: '2754390317'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-vk-share — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда vk-subscribe:
+    - browsers:
+        notFor:
+        - android-pp-4.99-touch
+        - android-pp-7-touch
+    - params:
+        foreverdata: '4108463362'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-vk-subscribe — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - tech: Проверка серверного счетчика (/turbo/embed/loaded)
+    - tech: Проверка серверного счетчика (/turbo/embed/failed)
+    - tech: Проверка клиентского счетчика (/turbo/embed/loaded)
+    - assert: эмбед Подписаться ВКонтакте загрузился (вместо блока загрузки или "дырки" появился блок с данными)
+
+  Проверка на загрузку эмбеда vk-video:
+    - params:
+        foreverdata: '1233664312'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-vk-video — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда yamusic-album:
+    - params:
+        foreverdata: '2962904825'
+    - do: получить выдачу по запросу ‘foreverdata’ и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-yamusic-album — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда yamusic-track:
+    - params:
+        foreverdata: '4004082847'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-yamusic-track — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда yamusic-playlist:
+    - params:
+        foreverdata: '702754402'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-yamusic-playlist — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда youtube-old:
+    - params:
+        foreverdata: '4227947849'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-old-format-youtube — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда youtube-video:
+    - params:
+        foreverdata: '1303384681'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-youtube-video — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда playbuzz-convo:
+    - browsers:
+        notFor:
+          - android-browser-4.4-touch
+          - ios-safari-9-touch
+    - params:
+        foreverdata: '3289614946'
+    - do: получить выдачу по запросу ‘foreverdata’ и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-playbuzz-convo — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда playbuzz-flip-card:
+    - browsers:
+        notFor:
+          - android-browser-4.4-touch
+          - ios-safari-9-touch
+    - params:
+        foreverdata: '2758241866'
+    - do: получить выдачу по запросу ‘foreverdata’ и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-playbuzz-flip-card — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда playbuzz-list:
+    - browsers:
+        notFor:
+          - android-browser-4.4-touch
+          - ios-safari-9-touch
+    - params:
+        foreverdata: '2431804245'
+    - do: получить выдачу по запросу ‘foreverdata’ и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-playbuzz-list — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда playbuzz-personality-quiz:
+    - browsers:
+        notFor:
+          - android-browser-4.4-touch
+          - ios-safari-9-touch
+    - params:
+        foreverdata: '438142616'
+    - do: получить выдачу по запросу ‘foreverdata’ и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-playbuzz-personality-quiz — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда playbuzz-poll:
+    - browsers:
+        notFor:
+          - android-browser-4.4-touch
+          - ios-safari-9-touch
+    - params:
+        foreverdata: '3576264587'
+    - do: получить выдачу по запросу ‘foreverdata’ и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-playbuzz-poll — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда playbuzz-quiz:
+    - browsers:
+        notFor:
+          - android-browser-4.4-touch
+          - ios-safari-9-touch
+    - params:
+        foreverdata: '1694593602'
+    - do: получить выдачу по запросу ‘foreverdata’ и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-playbuzz-quiz — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда playbuzz-ranked-list:
+    - browsers:
+        notFor:
+          - android-browser-4.4-touch
+          - ios-safari-9-touch
+    - params:
+        foreverdata: '3665676826'
+    - do: получить выдачу по запросу ‘foreverdata’ и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-playbuzz-ranked-list — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда playbuzz-trivia:
+    - browsers:
+        notFor:
+          - android-browser-4.4-touch
+          - ios-safari-9-touch
+    - params:
+        foreverdata: '3811271176'
+    - do: получить выдачу по запросу ‘foreverdata’ и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-playbuzz-trivia — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда playbuzz-video:
+    - browsers:
+        notFor:
+          - android-browser-4.4-touch
+          - ios-safari-9-touch
+    - params:
+        foreverdata: '1046299890'
+    - do: получить выдачу по запросу ‘foreverdata’ и кликнуть в заголовок сниппета с названием 'Тестовая cтраница для Test_embed-playbuzz-video — турбо'
+    - assert: в новой вкладке открылась турбо страница
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда market-models:
+    - browsers:
+        notFor:
+          - android-browser-4.4-touch
+          - ios-safari-9-touch
+    - do: открыть ссылку https://yandex.ru/turbo?stub=embed/market-models.json
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда market-offers:
+    - browsers:
+        notFor:
+          - android-browser-4.4-touch
+          - ios-safari-9-touch
+    - do: открыть ссылку https://yandex.ru/turbo?text=bin:dakhetov_TURBOUI-6052
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Проверка на загрузку эмбеда market-specifications:
+    - browsers:
+        notFor:
+          - android-browser-4.4-touch
+          - ios-safari-9-touch
+    - do: открыть ссылку https://yandex.ru/turbo?stub=embed/market-specifications.json
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  Загрузка эмбеда market не находящегося в зоне видимости:
+      - automation: TURBOUI-4196
+      - browsers:
+            notFor:
+                - android-browser-4.4-touch
+                - ios-safari-9-touch
+      - do: тестировать только на реальном девайсе, а не в Колхозе
+      - do: перейти по ссылке https://yandex.ru/turbo?text=bin:TURBOUI-4079-2
+      - assert: загрузилась турбо страница статьи
+      - do: подождать 10 секунд после загрузки страницы
+      - do: пролистать статью до конца второго раздела
+      - assert: загрузился виджет Яндекс Маркета [https://jing.yandex-team.ru/files/skurhanski/chrome_stDJfg428g.png]
+
+  Проверка на загрузку эмбеда apester-quiz:
+    - browsers:
+        notFor:
+          - android-browser-4.4-touch
+          - ios-safari-9-touch
+    - do: открыть ссылку https://yandex.ru/turbo?stub=embed/apester-quiz.json
+    - *embedAutoLoadedCheck
+    - *embedAssertLoadedCheck
+
+  vh-плеер:
+    Горизонтальный:
+      - do: открыть ссылку https://yandex.ru/turbo?stub=embed/vh.json
+      - *embedAutoLoadedCheck
+      - *embedAssertVideoLoadedCheck
+      - assert: ширина эмбеда больше высоты
+
+    Горизонтальный с ошибкой эмбеда:
+      - tags: no_assessors
+      - do: открыть ссылку https://yandex.ru/turbo?stub=embed/vh-embed-error.json
+      - *embedAutoLoadedCheck
+      - *embedAssertVideoLoadedCheck
+      - assert: ширина эмбеда больше высоты
+
+    Горизонтальный с ошибкой эмбеда без фолбека:
+      - do: открыть ссылку https://yandex.ru/turbo?stub=embed/vh-embed-error-no-fallback.json
+      - *embedAssertError
+
+    Горизонтальный с ошибками эмбеда и видео:
+      - browsers:
+          notFor:
+            - android-browser-4.4-touch
+      - do: в режиме инкогнито открыть ссылку https://yandex.ru/turbo?stub=embed/vh-video-error.json и подождать до 30сек
+      - *embedAssertError
+
+    Вертикальный:
+      - do: открыть ссылку https://yandex.ru/turbo?stub=embed/vh-long.json
+      - *embedAutoLoadedCheck
+      - *embedAssertVideoLoadedCheck
+      - assert: эмбед имеет квадратную форму
+
+    Вертикальный с ошибкой эмбеда:
+      - tags: no_assessors
+      - do: открыть ссылку https://yandex.ru/turbo?stub=embed/vh-long-embed-error.json
+      - *embedAutoLoadedCheck
+      - *embedAssertVideoLoadedCheck
+      - assert: эмбед имеет квадратную форму
+
+    Вставлены без песочницы:
+      - do: открыть ссылку https://yandex.ru/turbo?stub=embed/vh-embed-no-sandbox.json
+      - *embedAutoLoadedCheck
+      - *embedAssertVideoLoadedCheck
+      - assert: первый эмбед показан сразу, второй после плашки Загрузка
+      - tech: ссылки в корневых iframe ведут на frontend.vh.yandex.ru
+
+  market-виджет:
+    В src iframe эмбеда указан скрипт из данных:
+      - tags: no_assessors
+      - do: открыть ссылку https://yandex.ru/turbo?stub=embed/market-with-script-url.json
+      - assert: url в атрибуте src у iframe содержит "example.com"
+
+    В src iframe эмбеда указан скрипт из флага:
+      - tags: no_assessors
+      - params:
+          exp_flags: market-widget-url=https://example2.com/
+      - do: открыть ссылку https://yandex.ru/turbo?stub=embed/market-with-script-url.json&exp_flags=market-widget-url=https://example2.com/
+      - assert: url в атрибуте src у iframe содержит "example2.com"
+
+files:
+  - platform/components/Embed/__tests__/embed@phone.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: olga0321, dakhetov
+
+tlds: none

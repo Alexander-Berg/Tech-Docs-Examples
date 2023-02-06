@@ -1,0 +1,57 @@
+feature: Счётчики скорости
+type: touch-phone
+
+specs:
+    beforeEach:
+        - do: получить выдачу по запросу 'Rammstein'
+    Проверка информации о сети:
+        - tech: проверить наличие счётчика 690.1033 (/tech/timing), он должен быть единственным
+        - tech: |
+            проверить наличие переменных 2437 (connection_type), 2439 (downlink_max)
+            их значения не должны быть пустыми, null или undefined
+    Проверка меток времени загрузки страницы:
+        - tech: |
+            проверить наличие счётчиков 690.2096.207 (/tech/perf/time), где есть переменные
+            1701=2295 (id=bem-inited),
+            каждый ID должен встречаться только один раз
+        - tech: |
+            проверить наличие переменных
+            207 (time), 143 (page), 287 (region), 1042 (ua),
+            143.2129 (page.navigation_start),
+            143.2112 (page.domain_lookup_start), 143.2119 (page.response_start),
+            их значения не должны быть пустыми, null или undefined
+        - tech: |
+            значения переменных таймингов должны лежать в пределах от 0 до 60000, к таким переменным относятся
+            207 (time), 143.2112 (page.domain_lookup_start), 143.2119 (page.response_start)
+    Проверка счётчиков загрузки ресурсов:
+        - tech: |
+            проверить наличие счётчиков 690.2096.2044 (/tech/perf/resource_timing), где есть переменные
+            1701=2095 (id=main-js),
+            каждый ID должен встречаться только один раз
+        - tech: |
+            проверить наличие переменных
+            2136 (duration), 2322 (start_time), 2111 (fetch_start), 2112 (domain_lookup_start),
+            2113 (domain_lookup_end), 2114 (connect_start), 2116 (connect_end),
+            2117 (request_start), 2119 (response_start), 2120 (response_end),
+            143 (page), 287 (region), 1042 (ua),
+            143.2129 (page.navigation_start),
+            143.2112 (page.domain_lookup_start), 143.2119 (page.response_start),
+            их значения не должны быть пустыми, null или undefined
+        - tech: |
+            значения переменных таймингов должны лежать в пределах от 0 до 60000, к таким переменным относятся
+            2136 (duration), 2322 (start_time), 2111 (fetch_start), 2112 (domain_lookup_start),
+            2113 (domain_lookup_end), 2114 (connect_start), 2116 (connect_end),
+            2117 (request_start), 2119 (response_start), 2120 (response_end),
+            143.2129 (page.navigation_start), 143.2112 (page.domain_lookup_start), 143.2119 (page.response_start)
+
+files:
+    - features/touch-phone/rum/rum_type_touch-phone.hermione.js
+
+v-team: Velocity
+
+tags:
+    - counters
+    - rum
+    - reviewed
+
+tlds: none

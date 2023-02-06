@@ -1,0 +1,55 @@
+feature: Hotels / Колдунщик одной организации
+type: Стандартный вид
+
+specs:
+  Внешний вид с одним бейджем в правой колонке:
+    - params:
+        srcparams: GEOV:experimental=middle_yandex_travel_Exp=4495&GEOV:experimental=middle_yandex_travel_EnableOpId=44
+    - do: получить выдачу по запросу 'отель вега измайлово'
+    - assert: |
+        в правой колонке присутствует карточка организации с отельной формой и списком офферов
+        в офферах может присутствовать бейдж 'Низкая цена'
+    - screenshot: внешний вид [badges-tab-about]
+    - do: перейти в таб 'Hомера'
+    - assert: под формой загрузились офферы c бейджами
+    - screenshot: внешний вид [badges-tab-rooms]
+    - assertMetrics: '-'
+  Внешний вид с одним бейджем в попапе:
+    - params:
+        srcparams: GEOV:experimental=middle_yandex_travel_Exp=4495&GEOV:experimental=middle_yandex_travel_EnableOpId=44
+        exp_flags: direct_raw_parameters=aoff=1
+    - do: получить выдачу по запросу 'отель вега измайлово'
+    - assert: |
+        в правой колонке присутствует карточка организации с отельной формой и списком офферов
+        в офферах может присутствовать бейдж 'Низкая цена'
+    - do: кликнуть в заголовок отельной карточки
+    - assert: |
+        загрузился попап на табе 'Про отель',
+        присутствует отельная форма и список офферов с бейджами
+    - screenshot: внешний вид [badges-popup-tab-about]
+    - do: перейти в таб 'Hомера'
+    - assert: под формой загрузились офферы c бейджами
+    - screenshot: внешний вид [badges-popup-tab-room]
+    - do: установить ширину экрана 900px
+    - assert: офферы стали уже
+    - screenshot: внешний вид [badges-popup-tab-room-900]
+    - do: перейти в таб 'Про отель'
+    - assert: офферы стали уже
+    - screenshot: внешний вид [badges-popup-tab-about-900]
+    - assertMetrics: '-'
+
+files:
+  - features/companies/hotels/badges/hotels-offer-badges@desktop.hermione.js
+
+v-team: KotTeam
+
+counter: /parallel/result/snippet/companies/travel_company
+
+tags:
+  - offers
+  - popup
+  - 1org
+  - label
+
+tlds:
+  - ru

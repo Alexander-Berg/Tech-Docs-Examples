@@ -1,0 +1,24 @@
+feature: Опечатка и Ко
+type: Антизеркальный
+
+params:
+  exp_flags: 'intent_show_english_bar=1'
+
+specs:
+  Оборачивание в блочку:
+    - params:
+        foreverdata: '1169882913'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: получена выдача по указанному запросу
+    - assert: в нижней части страницы выдачи присутствует сообщение "Некоторые ссылки отсутствуют в результатах поиска в силу требований применимого законодательства." и ссылка "Подробнее"
+    - screenshot: Внешний вид фичи [plain]
+
+files:
+  - features/misspell/card-view/misspell_type_anti-mirror@common.hermione.js
+
+v-team: Freshness
+
+tags:
+  - skip_e2e_check #эксперимент
+
+tlds: all

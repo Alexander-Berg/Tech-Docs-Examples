@@ -1,0 +1,85 @@
+feature: Объектный ответ
+type: Карточка объекта
+
+specs:
+  Карточка с флагом:
+    - do: получить выдачу по запросу 'флаг Казахстана'
+    - assert: |
+        на выдаче есть карточка объекта с флагом
+        на некоторых планшетах с низким разрешением экрана в книжной ориентации карточка может не отображаться, переверните устройство в альбомную ориентацию
+    - screenshot: пример внешнего вида [card-with-flag]
+  Карточка фильма без постера:
+    - tags: [no_assessors]
+    - do: открыть выдачу по запросу 'тайны пирамид'
+    - screenshot: пример внешнего вида [card-without-poster]
+    - assert: |
+        отображается объектный ответ (на некоторых планшетах с низким разрешением экрана в книжной ориентации карточка может не отображаться, переверните устройство в альбомную ориентацию), |
+        в карточке фильма есть тумба с видео, |
+        постер и галерея с картинками отсутствует
+  Проверка переведенной карточки:
+    - do: получить выдачу по запросу 'Джоанна Бакалсо' (альтернативные запросы 'Бенджамин де Ротшильд', 'Лёгкая атлетика на летних Олимпийских играх 2008')
+    - assert: на выдаче есть карточка объекта
+    - assert: в карточке есть ссылки "Переведено" и "Посмотреть оригинал (Англ.)"
+    - screenshot: пример внешнего вида [card-with-translation]
+    - do: кликнуть на ссылку 'Переведено'
+    - assert: в новой вкладке открылся сервис Яндекс.Переводчик, с переводом исходной страницы
+    - tech: сработал счётчик '$page/$parallel/$result/object-badge/translation-info/translation-link'
+    - do: кликнуть на ссылку 'Посмотреть оригинал (Англ.)'
+    - assert: в новой вкладке открылась страница с языком оригинала
+    - tech: сработал счётчик '$page/$parallel/$result/object-badge/translation-info/original-link'
+  Карточка с картой и флагом страны:
+    - do: получить выдачу по запросу 'Испания'
+    - screenshot: пример внешнего вида [map-with-flag]
+    - assert: появилась карточка объектного ответа с картой (на некоторых планшетах с низким разрешением экрана в книжной ориентации карточка может не отображаться, переверните устройство в альбомную ориентацию)
+    - assertMetrics:
+        - daily.total_session_count
+        - web.total_request_count
+        - web.total_click_count
+        - web.total_all_click
+        - web.abandonment
+        - web.tech_part_misc_click
+        - all.total_dynamic_click_count
+        - feature.web.wizards_common.entity_search_wizard_main.total.clicks
+  Длинный заголовок карточки:
+    С картой:
+      - do: получить выдачу по запросу 'Тауматауакатангиангакоауауотаматеапокануэнуакитанатаху'
+      - screenshot: появилась карточка объекта (кнопка Избранного может отсутствовать, также на некоторых планшетах с низким разрешением экрана в книжной ориентации карточка может не отображаться, переверните устройство в альбомную ориентацию) [plain]
+      - assertMetrics:
+          - daily.total_session_count
+          - web.total_request_count
+          - web.total_click_count
+          - web.total_all_click
+          - web.abandonment
+          - web.tech_part_misc_click
+          - all.total_dynamic_click_count
+          - feature.web.wizards_common.entity_search_wizard_main.total.clicks
+    С одинокой картинкой:
+      - do: получить выдачу по запросу 'LateNightTales:The Flaming Lips'
+      - screenshot: появилась карточка объекта (на некоторых планшетах с низким разрешением экрана в книжной ориентации карточка может не отображаться, переверните устройство в альбомную ориентацию. Иногда под названием альбома может отображаться слово "Альбом" или название группы) [plain]
+      - assertMetrics:
+          - daily.total_session_count
+          - web.total_request_count
+          - web.total_click_count
+          - web.total_all_click
+          - web.abandonment
+          - web.tech_part_misc_click
+          - all.total_dynamic_click_count
+          - feature.web.wizards_common.entity_search_wizard_main.total.clicks
+
+files:
+  - features/common/z-entity-search/card/card.hermione.js
+
+v-team: OO
+
+tags:
+  - smoke_extended
+  - oo_feature_card
+
+tlds:
+  - ru
+  - ua
+  - by
+  - kz
+  - com
+  - com.tr
+  - fr

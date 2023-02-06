@@ -1,0 +1,21 @@
+feature:  Видеосторис
+
+specs:
+    Видеосторис:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/4324
+        - release_Webview
+        - platform_android
+        - platform_ios
+        - webview_regress
+    - do: "Preconditions Залипнуть в тестид 411175; Перейти в Настройки -> Debug Page -> Онбординги сторей -> ввести videoMusic, videoSmartHome, videoAlarm, videoFacts"
+    - do: "Отображаются 4 стори"
+    - assert: "<img src=`https://jing.yandex-team.ru/files/osennikovak/2022-03-19T09:14:27Z.f56162b.png` alt=`Скриншот` width=`300`/>"
+    - do: "Тапнуть на первую сторю; "
+    - assert: "Сторя открывается на весь экран плавно, без рывков; Включается без звука, вверху кнопка `Включить звук`; Видео идёт без торможений; ; "
+    - do: "Тапнуть на `Включить звук`"
+    - assert: "Включается звук видео; Видео начинается сначала"
+    - do: "Пролистать все сторисы последовательно до конца; Досмотреть последнее видео полностью"
+    - assert: "Видео заканчивается, появляется кнопка `Повторить`; <img src=`https://jing.yandex-team.ru/files/osennikovak/uhura_2022-03-19T12%3A15%3A49.378553.jpg` alt=`Скриншот` width=`200`/>"
+    - do: "Тапнуть на `Повторить`"
+    - assert: "Видео начинается заново"

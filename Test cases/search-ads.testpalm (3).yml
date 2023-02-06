@@ -1,0 +1,19 @@
+feature: Страница всех объявлений
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу 'пластиковые окна'
+    - do: в адресной строке браузера после 'search/touch' добавить 'direct', чтобы получилось 'search/touch/direct' (без слэша после 'direct'), и перейти по полученной ссылке (для ПП нужно перейти на табик 'Реклама' в шапке)
+  Внешний вид нижней подсказки:
+    - screenshot: внешний вид нижней подсказки вместе с отступами [direct-info-bottom]
+  
+files:
+  - features/touch-phone/search-ads/search-ads.hermione.js
+
+tags:
+  - skip_e2e_check #не зависит от данных
+
+tlds:
+  - ru
+
+v-team: Freshness

@@ -1,0 +1,67 @@
+feature: Колдунщик топонимов
+type: Перекрёсток
+
+params:
+  rearr: EntitySearch_off
+  # колдунщик топонимов отключен на стороне данных, этот флаг возвращает колдун
+  srcparams: 'UPPER:rearr=scheme_Local/ToponymWizard/Enabled=1'
+
+specs-integration:
+  Наличие колдунщика:
+    - do: получить выдачу по запросу 'перекрёсток академика королёва и новомосковской'
+    - assert: в выдаче появился колдунщик топонимов
+    - counter: /$page/$main/$result[@wizard_name="maps" and @subtype="street"]/map/goto-map
+
+specs:
+  aliases:
+    - &CheckMetrics
+      - assertMetrics:
+          - feature.web.wizards_common.maps_wizard.total.shows
+          - feature.web.wizards_common.maps_wizard.total.external_clicks
+          - feature.web.wizards_common.maps_wizard.total.dynamic_clicks
+          - web.total_request_results_clicks
+          - web.total_request_results_ext_clicks
+          - web.total_request_results_dyn_clicks
+          - web.total_request_results_main_column_clicks
+          - web.total_request_results_main_column_ext_clicks
+          - web.total_request_results_main_column_dyn_clicks
+          - web.total_request_results_parallel_column_clicks
+          - web.total_request_results_parallel_column_ext_clicks
+          - web.total_request_results_parallel_column_dyn_clicks
+          - web.tech_part_misc_click
+          - web.total_request_count
+          - daily.total_session_count
+  beforeEach:
+    - do: получить выдачу по запросу 'перекрёсток академика королёва и новомосковской'
+  Проверить внешний вид, общие ссылки и счётчики колдунщика топонимов:
+    - tags:
+        - title
+        - greenurl
+        - maps
+    - screenshot: на выдаче появился колдунщик топонимов, его внешний вид [plain]
+    - do: нажать на тайтл
+    - assert: в новой вкладке открылись Яндекс.Карты с пином, проставленном на нужном перекрёстке
+    - *CheckMetrics
+
+files:
+  - features/adapter-maps/crossroad@deskpad.hermione.js
+  - features/adapter-maps/crossroad@deskpad.hermione.e2e.js
+
+tlds: all
+
+v-team: VanillaGeo
+
+regions:
+  ru: 213
+  by: 157
+  kz: 163
+  ua: 143
+
+requests:
+  ru: перекрёсток академика королёва и новомосковской
+
+counter: /$page/$main/$result[@wizard_name="maps" and @subtype="street"]/map/goto-map
+
+tags:
+  - reviewed
+  - hasE2E

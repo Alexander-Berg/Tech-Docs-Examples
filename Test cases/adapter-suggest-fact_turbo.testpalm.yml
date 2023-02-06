@@ -1,0 +1,73 @@
+feature: Факт
+type: Саджест (с турбо)
+
+specs:
+  aliases:
+    - &turboIframeInOverlayChecks
+      - assert: |
+          открылся сайд-блок
+          в сайд-блоке показывается Турбо-страница
+          сайд-блоке (внизу) есть кнопка перехода на страницу-источник ('Читать на...')
+          в сайд-блоке есть кнопка 'Назад'
+      - do: нажать на кнопку 'Назад'
+      - tech: проверить, что сработали счетчики кнопки 'Назад' и закрытия всех оверлеев
+      - assert: сайд-блок должен закрыться
+  beforeEach:
+    - do: получить выдачу Поиска по запросу 'foreverdata'
+    - assert: на первой позиции выдачи есть Фактовый ответ
+  Внешний вид:
+    - params:
+        foreverdata: '94971548'
+    - tags:
+        - smoke
+    - screenshot: на первой позиции выдачи есть Фактовый ответ (это примерный вид, если отсутствует 'Читать еще', то это не баг) [plain]
+  Заголовок в факте - новая вкладка:
+    - params:
+        foreverdata: '94971548'
+    - browsers:
+        notFor:
+          - chrome-phone
+          - android-browser-4.4-touch
+          - android-browser-5.1-touch
+          - android-opera-42-touch
+          - android-samsung-internet-5-touch
+          - ios-chrome-mobile-touch
+          - ios-safari-9-touch
+          - ios-safari-10-touch
+          - ios-safari-11-touch
+          - ios-safari-12-touch
+          - ios-safari-13-touch
+          - ios-safari-14-touch
+          - android-browser-6-touch
+          - android-uc-browser-touch
+          - android-uc-browser-11-touch
+          - android-mz-browser-touch
+          - android-miui-9-touch
+          - android-browser-7-touch
+          - searchapp-phone-group
+    - do: кликнуть по синей ссылке в Фактовом ответе
+    - tech: проверить счетчик в синем тайтле
+    - assert: в новой вкладке открылась турбо-страница
+
+files:
+  - features/touch-phone/adapter-suggest-fact/adapter-suggest-fact_turbo.hermione.js
+
+v-team: Facts
+
+browsers:
+  notFor:
+    - android-uc-browser-11-touch
+    - android-uc-browser-touch
+
+tlds:
+  - ru
+  - by
+  - ua
+  - kz
+  - uz
+  - com.tr
+  - com
+
+counter: /$page/$main/$result[@wizard_name="suggest_fact" and @subtype="wikipedia_fact"]/link
+
+priority: high

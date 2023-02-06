@@ -1,0 +1,80 @@
+feature: Расширенный сниппет
+type: Спецсниппет
+
+specs:
+  aliases:
+    - &CheckMetrics
+      - assertMetrics:
+          - web.abandonment
+          - web.total_all_click
+          - web.total_click_count
+          - web.tech_part_misc_click
+          - web.full_abandonment
+  Проверка раскрытия/закрытия кликом на "Читать еще":
+    - tags:
+        - smoke
+        - smoke_extended
+    - do: получить выдачу Поиска по запросу 'собачки'
+    - screenshot: в выдаче есть расширенный сниппет со ссылкой 'Читать ещё' (если нужного сниппета нет на первых позициях нужно проскроллить выдачу) [plain]
+    - tech: проверить счетчик на ссылке 'Читать ещё' (path = "/web/item/more/", vars="-adapters=extended-snippet,action=dynamic_click,-source=web")
+    - *CheckMetrics
+    - do: тапнуть на ссылку 'Читать ещё'
+    - screenshot: появился полный текст сниппета с ссылкой "Скрыть" [clicked]
+    - tech: проверить счетчик на ссылке 'Скрыть' (path = "/web/item/close/", vars="-adapters=extended-snippet,action=dynamic_click,-source=web")
+    - *CheckMetrics
+    - do: тапнуть на ссылку 'Скрыть'
+    - assert: восстановился сокращённый вариант текста сниппета с ссылкой "Читать еще"
+  Проверка раскрытия/закрытия кликом на текст в сниппете:
+    - do: получить выдачу Поиска по запросу 'собачки'
+    - screenshot: в выдаче есть расширенный сниппет со ссылкой 'Читать ещё' [plain]
+    - tech: проверить счетчик на ссылке 'Читать ещё' (path = "/web/item/more/", vars="-adapters=extended-snippet,action=dynamic_click,-source=web")
+    - *CheckMetrics
+    - do: тапнуть в текст сниппета
+    - screenshot: появился полный текст сниппета с ссылкой "Скрыть" [clicked]
+    - tech: проверить счетчик на ссылке 'Скрыть' (path = "/web/item/close/", vars="-adapters=extended-snippet,action=dynamic_click,-source=web")
+    - *CheckMetrics
+    - do: тапнуть в текст сниппета
+    - assert: восстановился сокращённый вариант текста сниппета с ссылкой "Читать еще"
+  Проверка раскрытия кликом в область сниппета без текста:
+    - params:
+        foreverdata: '3701248483'
+    - do: получить выдачу Поиска по запросу 'foreverdata'
+    - assert: первым элементом выдачи являеся расширенный сниппет со ссылкой 'Читать ещё'
+    - do: тапнуть в область сниппета, незаполненную текстом, справа от ссылки 'Читать ещё'
+    - assert: появился полный текст сниппета со ссылкой "Скрыть"
+  Проверка раскрытия кликом во вложенный блок:
+    - params:
+        foreverdata: '2462669510'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: |
+        первым элементом выдачи является расширенный сниппет со ссылкой 'Читать ещё'
+        в тексте сниппета есть выделенное слово ("котиками")
+    - do: тапнуть в выделенный текст
+    - assert: появился полный текст сниппета с ссылкой "Скрыть"
+
+specs-integration:
+  Проверка раскрытия/закрытия:
+    - do: получить выдачу Поиска по запросу 'test'
+    - screenshot: в выдаче есть расширенный сниппет со ссылкой 'Читать ещё' [https://jing.yandex-team.ru/files/vtroshina/2021-07-30T15%3A04%3A07Z.15ef031.png]
+    - tech: проверить счетчик на ссылке 'Читать ещё' (path = "/web/item/more/", vars="-adapters=extended-snippet,action=dynamic_click,pos=p0,-source=web")
+    - do: тапнуть на ссылку 'Читать ещё'
+    - screenshot: появился полный текст сниппета с ссылкой "Скрыть" [https://jing.yandex-team.ru/files/vtroshina/2021-07-30T15%3A19%3A14Z.3994774.png]
+    - tech: проверить счетчик на ссылке 'Скрыть' (path = "/web/item/close/", vars="-adapters=extended-snippet,action=dynamic_click,pos=p2,-source=web")
+    - do: тапнуть на ссылку 'Скрыть'
+    - assert: |
+        восстановился сокращённый вариант текста сниппета с ссылкой "Читать еще"
+
+files:
+  - features/extended-snippet/extended-snippet@touch-phone.hermione.js
+  - features/extended-snippet/extended-snippet@touch-phone.hermione.e2e.js
+
+v-team: Beauty
+
+counter: /web/item/more
+
+priority: high
+
+tags:
+  - reviewed
+
+tlds: all

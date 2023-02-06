@@ -1,0 +1,21 @@
+feature: Приманка для блокировщиков
+
+specs:
+  Приманка присутствует:
+    - params:
+        exp_flags:
+          - direct_adblock_count_visible_phone=1
+    - do: получить выдачу по любому запросу
+    - assert: в коде страницы присутствует элементс классом b-spec-adv
+
+files:
+  - features/direct_adblock_count_visible_phone/direct_adblock_count_visible_phone@touch-phone.hermione.js
+
+tags:
+  - no_assessors
+  - adblock
+
+v-team: Distribution
+
+tlds:
+  - ru

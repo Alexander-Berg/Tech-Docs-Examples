@@ -1,0 +1,67 @@
+feature: Переводный сниппет
+
+specs:
+  Внешний вид и основные проверки:
+    - params:
+        foreverdata: '2527448692'
+    - tags:
+        - smoke_extended
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на выдаче присутствует сниппет с переводом
+    - screenshot: внешний вид соответствует скриншоту [plain]
+    - tech: проверить серверный счетчик c path='/$page/$main/$result/translated_snippet'
+    - do: кликнуть в переведенный заголовок сниппета
+    - assert: в новой вкладке открылась страница по адресу 'https://translated.turbopages.org/proxy_u/en-ru.ru.5d171189-62b2fc6b-cb6e7c5f-74722d776562/https/en.wikipedia.org/wiki/Ángel_Gaspar'
+    - tech: проверить что сработал счетчик c path='/$page/$main/$result/translated_snippet/title' со свойством 'isTranslated' равным true
+    - do: кликнуть в непереведенный заголовок сниппета
+    - assert: в новой вкладке открылась страница по адресу 'https://en.wikipedia.org/wiki/%C3%81ngel_Gaspar'
+    - tech: проверить что сработал счетчик c path='/$page/$main/$result/translated_snippet/title' со свойством 'isTranslated' равным false
+    - do: кликнуть в гринурл сниппета
+    - assert: в новой вкладке открылась страница по адресу 'https://en.wikipedia.org/wiki/%C3%81ngel_Gaspar'
+    - tech: проверить что сработал счетчик c path='/$page/$main/$result/translated_snippet/path/urlnav'
+
+  Проверка метки официальности:
+    - params:
+        foreverdata: '2527448692'
+    - tags:
+        - smoke_extended
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на выдаче присутствует сниппет с переводом
+    - do: навести ховер на синюю метку официальности
+    - assert: появился попап с текстом "Официальный сайт"
+    - screenshot: внешний вид соответствует скриншоту [plain]
+    - tech: проверить серверный счетчик c path='/$page/$main/$result/translated_snippet/official'
+
+  Клик по кебабу:
+    - params:
+        foreverdata: '2527448692'
+    - tags:
+        - smoke_extended
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на выдаче присутствует сниппет с переводом
+    - do: нажать на кебаб
+    - assert: открылось меню
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Без метки официальности:
+    - params:
+        foreverdata: '3175275683'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на выдаче присутствует сниппет с переводом
+    - assert: сниппет не содержит синей метки официальности
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Избыточный текст:
+    - params:
+        foreverdata: '2443408956'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на выдаче присутствует сниппет с переводом
+    - assert: текст сниппета не выходит за границы сниппета
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - src/features/TranslatedSnippet/TranslatedSnippet.test/TranslatedSnippet@desktop.hermione.js
+
+v-team: Beauty
+
+tlds: [ru]

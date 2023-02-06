@@ -1,0 +1,32 @@
+feature: Колдунщик топонимов
+type: Маршруты общественного транспорта
+
+params:
+  # колдунщик топонимов отключен на стороне данных, этот флаг возвращает колдун
+  srcparams: 'UPPER:rearr=scheme_Local/ToponymWizard/Enabled=1'
+
+specs-integration:
+  Наличие колдунщика:
+    - counter: /$page/$main/$result[@wizard_name="maps" and @subtype="transit"]
+    - do: получить выдачу по запросу 'транспорт онлайн' _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: |
+        появился колдунщик топонимов,
+        в колдунщике есть тайтл, статическая карта и текстовое описание
+  Вариант колдунщика с картой:
+    - counter: /$page/$main/$result[@wizard_name="maps" and @subtype="transit"]/map/map
+    - do: получить выдачу по запросу 'трамвай 17 маршрут москва' _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: |
+        появился колдунщик топонимов,
+        в колдунщике есть тайтл, статическая карта и текстовое описание
+
+files:
+  - features/adapter-maps/transit@common.hermione.e2e.js
+
+v-team: VanillaGeo
+
+tlds: all
+
+counter: /$page/$main/$result[@wizard_name="maps" and @subtype="transit"]/map/map
+
+tags:
+  - hasE2E

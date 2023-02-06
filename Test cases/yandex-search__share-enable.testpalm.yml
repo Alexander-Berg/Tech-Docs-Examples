@@ -1,0 +1,28 @@
+feature: Шапка
+
+specs:
+  Проверка флага share-enable=1:
+    - params:
+        exp_flags:
+          - share-enable=1
+    - do: получить выдачу по запросу 'колендарь'
+    - assert: выдача открылась, выдача не сломана
+    - assert: нет клиентских ошибок
+    - screenshot: внешний вид шапки [plain]
+
+files:
+  - features/deskpad/yandex-search/yandex-search__share-enable.hermione.js
+
+v-team: Freshness
+
+tags:
+  - no_assessors
+  # фича под флагом
+  - skip_e2e_check
+
+tlds:
+  - ru
+  - by
+  - ua
+  - kz
+  - uz

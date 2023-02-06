@@ -1,0 +1,26 @@
+feature: Общий транспортный колдунщик
+type: Список предложений
+
+specs:
+  Проверка внешнего вида авиа:
+    - do: получить выдачу по запросу 'авиабилеты Москва Санкт-Петербург'
+    - assert: показался колдунщик авиабилетов
+    - screenshot: внешний вид [avia-offers]
+  Проверка внешнего вида поезда:
+    - do: получить выдачу по запросу 'поезд Москва Санкт-Петербург'
+    - assert: показался колдунщик поездов
+    - screenshot: внешний вид [trains-offers]
+  Проверка внешнего вида автобусы:
+    - do: получить выдачу по запросу 'автобус Москва Санкт-Петербург'
+    - assert: показался колдунщик автобусов
+    - screenshot: внешний вид [bus-offers]
+
+files:
+  - features/touch-phone/transports/geo-common-offers/geo-common-offers.hermione.js
+
+tlds: [ru, by, ua, kz]
+
+v-team: KotTeam
+
+tags:
+  - skip_e2e_check

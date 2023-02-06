@@ -1,0 +1,49 @@
+feature: Отели
+type: ''
+description: >-
+  Для генерации ошибки нужно дернуть ручку тестового контекста (поменять дату
+  заезда на актуальную)
+
+  https://api.travel-balancer-test.yandex.net/api/test_context/v1/tokens?originalId=2399&partnerId=PI_DOLPHIN&checkinDate=2021-02-19&occupancy=2&forceAvailability=true&cancellation=CR_FULLY_REFUNDABLE&pansionType=PT_BB&offerName=%D1%82%D0%B5%D1%81%D1%82%D0%BE%D0%B2%D1%8B%D0%B9&priceAmount=100000&getOfferOutcome=OO_SUCCESS&createOrderOutcome=OO_SUCCESS&hotelDataLookupOutcome=HO_REAL&reservationOutcome=RO_SUCCESS&confirmationOutcome=CO_SUCCESS&refundOutcome=RF_UNEXPECTED_PENALTY&priceMismatchRate=1.1
+
+
+
+  При ответе с кодом 200 в booking_page_url будет содержаться урл страницы
+  брони.
+
+  Для тестовой оплаты использовать карту
+
+  Карта для тестовой оплаты тестовой брони: 5100002767155462
+
+  Месяц и год: 12/22
+
+  CVV: 454
+specs:
+  Дельфин. Обработка ошибки при возврате:
+    - do: >-
+        Забронировать заказ по ссылке из описания с датой заезда не ранее, чем
+        через 4 дня от текущего
+
+        Перейти на страницу заказа
+    - assert: |-
+        assert: Открылась страница заказа
+        assert: На странице есть кнопка Отменить бронирование
+        | Кнопка кликабельна
+    - do: Кликнуть по кнопке Отменить бронирование
+    - do: В раскрывшемся попапе кликнуть Отменить бронирование
+    - assert: >-
+        assert: Появился лоадер с текстом “Загрузка заказа Загружаем подробную
+        информацию о заказе”
+
+        | Далее открылась страница ошибки при возврате
+
+        | Заголовок ошибки Не получилось отменить бронирование
+
+        | Далее указан номер поддержки и номер заказа в формате
+        YA-XXXX-XXXX-XXXX
+manual: true
+Устройство: Десктоп
+Сервис: Отели
+Тестирование асессорами: Нет
+Окружение: Testing
+Автор: iliasova

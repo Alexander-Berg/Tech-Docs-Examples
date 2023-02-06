@@ -1,0 +1,72 @@
+feature: Страница сервиса
+
+specs:
+  aliases:
+    - &prepareTestData
+      - do: (PREPARE) перейти на страницу сервиса "autotest-activity" (/services/autotest-activity/)
+      - do: (PREPARE) если поле "Деятельность" заполнено, то нажать на карандашик рядом с заголовком блока "Деятельность"
+      - do: (PREPARE) если поле "Деятельность" было заполнено, то в модальном окне "Редактирование деятельности" удалить текст из обоих полей ввода - "На русском", "На английском"
+      - do: (PREPARE) если поле "Деятельность" было изменено, то нажать "Сохранить"
+
+  Положительные:
+    1. Заполнение блока "Деятельность" у сервиса на русском:
+      - automation: ABC-10797
+      - *prepareTestData
+      - do: открыть страницу сервиса "autotest-activity" (/services/autotest-activity/)
+      - assert: в правой части есть блок "Деятельность", под ним написано "пусто"
+      - screenshot: вид незаполненного блока "Деятельность" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-05-21%2018-06-02.png]
+      - do: навести курсор на заголовок "Деятельность"
+      - assert: справа от заголовка появилась иконка карандашика
+      - do: кликнуть на карандашик
+      - assert: появилось модальное окно "Редактирование деятельности"
+      - screenshot: внешний вид модального окна "Редактирование деятельности" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-05-24%2011-50-31.png]
+      - do: ввести в модальном окне в поле "На русском" текст "ABCASSESSORS-1"
+      - do: ввести в модальном окне в поле "На английском" текст "**Жирный текст**"
+      - screenshot: внешний вид модального окна "Редактирование деятельности" с заполненными полями [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-06-23%2013-12-39.png]
+      - do: кликнуть на кнопку "Сохранить"
+      - assert: модальное окно закрылось
+      - screenshot: в блоке "Деятельность" под заголовком появилась зачёркнутая надпись "T ABCASSESSORS-1 Закрыт test1" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-07-20%2014-32-14.png]
+
+    2. Заполнение блока "Деятельность" у сервиса на английском:
+      - automation: ABC-10797
+      - *prepareTestData
+      - do: открыть страницу сервиса "autotest-activity" (/services/autotest-activity/?lang=en)
+      - assert: в правой части есть блок "Activity", под ним написано "empty"
+      - screenshot: вид незаполненного блока "Activity" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-05-24%2011-56-33.png]
+      - do: навести курсор на заголовок "Activity"
+      - assert: справа от заголовка появилась иконка карандашика
+      - do: кликнуть на карандашик
+      - assert: появилось модальное окно "Edit activity"
+      - screenshot: внешний вид модального окна "Edit activity" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-05-24%2011-57-05.png]
+      - do: ввести в модальном окне в поле "On russian" текст "ABCASSESSORS-1"
+      - do: в модальном окне над полем "On English" нажать на кнопку "B"
+      - assert: в поле ввода "On English" появился текст "**Bold**"
+      - screenshot: внешний вид модального окна "Edit activity" с заполненными полями [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-06-23%2013-16-19.png]
+      - do: кликнуть на кнопку "Preview"
+      - screenshot: показан предварительный просмотр описания сервиса [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-06-23%2013-16-51.png]
+      - do: кликнуть на кнопку "Save"
+      - assert: модальное окно закрылось
+      - screenshot: вид заполненного блока "Activity" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-06-23%2013-17-40.png]
+
+    3. Просмотр картинки в поле "Деятельность" в описании сервиса:
+      - automation: ABC-10797
+      - do: открыть страницу сервиса "autotest-screens-in-activity" (/services/autotest-screens-in-activity)
+      - screenshot: в блоке "Деятельность" под заголовком есть надпись "Картинка в описании деятельности" и картинка, под картинкой - серая стрелочка, направленная вниз [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-06-23%2013-10-14.png]
+      - do: кликнуть на стрелочку под картинкой
+      - screenshot: картинка показана полностью, стрелочка под картинкой теперь направлена вверх [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-06-23%2013-10-55.png]
+      - do: навести курсор на заголовок "Деятельность"
+      - assert: справа от заголовка появилась иконка карандашика
+      - do: кликнуть на карандашик
+      - assert: появилось модальное окно "Редактирование деятельности"
+      - screenshot: внешний вид модального окна "Редактирование деятельности" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-06-23%2013-18-54.png]
+      - do: кликнуть на кнопку "Превью" в правой нижней части модального окна
+      - screenshot: показан предварительный просмотр описания сервиса [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-06-23%2013-19-57.png]
+      - do: кликнуть на кнопку "Отменить" в левой нижней части модального окна
+      - assert: модальное окно закрылось
+
+files: []
+
+priority: normal
+
+tags:
+  - reviewed

@@ -1,0 +1,18 @@
+feature: Спецсниппет фотоперевода
+
+specs:
+  Проверка формы загрузки картинки:
+    - tags: [no_assessors]
+    - do: получить выдачу по запросу 'фотоперевод'
+    - assert: появился сниппет фотоперевода
+    - do: кликнуть в кнопку запуска камеры
+    - tech: проверить метрики
+    - do: кликнуть в кнопку выбора картинки из галереи
+    - tech: проверить метрики
+ 
+files:
+  - src/features/Translate/_ocr/Translate.test/Translate@touch-phone.hermione.js
+ 
+v-team: Translations_misspell
+ 
+tlds: all

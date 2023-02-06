@@ -1,0 +1,20 @@
+feature: Поиск по блогам
+
+specs-integration:
+  Выдача поиска по блогам:
+    - do: открыть поиск по блогам по запросу 'дудь'
+    - assert: на странице должны присутствовать документы
+
+files:
+  - features/blogs-search/blogs-search@common.hermione.e2e.js
+
+tags:
+  - no_assessors
+
+v-team: Suggest_Freshness
+
+browsers:
+  notFor:
+    - searchapp-phone
+
+tlds: none

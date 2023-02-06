@@ -1,0 +1,49 @@
+feature: Опечатка и Ко
+type: Плашка под меморандум
+
+specs:
+  Основные проверки:
+    - params:
+        foreverdata: '3268967208'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: получена выдача по указанному запросу
+    - assert: в нижней части страницы выдачи присутствует сообщение "Некоторые ссылки отсутствуют в результатах поиска."
+    - assert: следом присутствует сообщение "Причины удаления:" и список документов через запятую
+    - screenshot: внешний вид плашки [plain]
+    - do: нажать на ссылку первого документа
+    - assert: в новой вкладке открылся сервис "Яндекс.Справка"
+    - tech: сработал счетчик '/$page/$main/misspell/type_memorandum/document'
+    - assertMetrics: '*'
+
+specs-integration:
+  Основные проверки:
+    - counter: /$page/$main/misspell/type_memorandum/document
+    - do: получить выдачу по запросу 'гарри поттер смотреть бесплатно' (или 'бесстыжие', или 'чики смотреть онлайн')
+    - assert: получена выдача по указанному запросу
+    - assert: в нижней части страницы выдачи присутствует сообщение "Некоторые ссылки отсутствуют в результатах поиска."
+    - assert: следом присутствует сообщение "Причины удаления:" и список документов через запятую
+    - do: нажать на ссылку первого документа
+    - assert: в новой вкладке открылся сервис "Яндекс.Справка"
+    - tech: сработал счетчик '/$page/$main/misspell/type_memorandum/document'
+    - assertMetrics: '*'
+
+files:
+  - features/common/misspell/misspell_type_memorandum.hermione.js
+  - features/common/misspell/misspell_type_memorandum.hermione.e2e.js
+
+v-team: Freshness
+
+tags:
+  - antipiracy
+  - misprint
+  - popular
+  - reviewed
+
+counter: /$page/$main/misspell/type_memorandum
+
+tlds:
+  - ru
+  - by
+  - ua
+  - kz
+  - uz

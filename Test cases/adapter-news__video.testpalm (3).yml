@@ -1,0 +1,102 @@
+feature: Колдунщик новостей
+type: Видеохостинг
+
+specs:
+  Список видео:
+    - params:
+        foreverdata: '3907895604'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на странице еть новостной колдунщик
+    - screenshot: пример внешнего вида блока новостей [newsListRight]
+
+  Одно видео:
+    - params:
+        foreverdata: '91222920'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на странице есть новостной колдунщик
+    - screenshot: пример внешнего вида блока новостей [newsListRight]
+
+  Проверить ссылки и счётчики:
+    Список видео:
+      params:
+        foreverdata: '3907895604'
+      beforeEach:
+        - do: получить выдачу по запросу 'foreverdata'
+      Тумба:
+        - do: нажать на тумбу второго видео в карусели новостного видеохостинга
+        - tech: отправился счётчик '/$page/$main/$result[@wizard_name="news"]/video-block/showcase/item/thumb'
+        - assert: в новой вкладке открылся сайт с сюжетом выбранного видео (проверяется сам факт открытия новой вкладки. Отсутствие видео в новой вкладке не является ошибкой теста)
+      Заголовок:
+        - do: нажать на тайтл второго видео в карусели новостного видеохостинга
+        - tech: отправился счётчик '/$page/$main/$result[@wizard_name="news"]/video-block/showcase/item/subtitle'
+        - assert: в новой вкладке открылся сайт с сюжетом выбранного видео (проверяется сам факт открытия новой вкладки. Отсутствие видео в новой вкладке не является ошибкой теста)
+
+    Одно видео:
+      params:
+        foreverdata: '91222920'
+      beforeEach:
+        - do: получить выдачу по запросу 'foreverdata'
+      Тумба:
+        - do: нажать на тумбу видео новостного видеохостинга
+        - tech: отправился счётчик '/$page/$main/$result[@wizard_name="news"]/video-block/card/video'
+        - assert: в новой вкладке открылся сайт выбранной новости
+      Заголовок:
+        - do: нажать на тайтл видео новостного видеохостинга
+        - tech: отправился счётчик '/$page/$main/$result[@wizard_name="news"]/video-block/card/link'
+        - assert: в новой вкладке открылся сайт выбранной новости
+      Хост:
+        - do: нажать на гринурл видео новостного видеохостинга
+        - tech: отправился счётчик '/$page/$main/$result[@wizard_name="news"]/video-block/card/path/host'
+        - assert: в новой вкладке открылся сайт выбранной новости
+
+  Видео в рубричном колдунщике:
+    Проверить ссылки и счётчики:
+      Список видео:
+        params:
+          foreverdata: '1209745582'
+        beforeEach:
+          - do: получить выдачу по запросу 'foreverdata'
+        Тумба:
+          - do: кликнуть в тумбу видео в карусели новостного видеохостинга
+          - tech: отправился счётчик '/$page/$main/$result[@wizard_name="news"]/video-block/showcase/item/thumb'
+          - assert: в текущей вкладке открылось видео выбранной новости
+          - assertMetrics: '-'
+        Заголовок:
+          - do: кликнуть в тайтл видео в карусели новостного видеохостинга
+          - tech: отправился счётчик '/$page/$main/$result[@wizard_name="news"]/video-block/showcase/item/subtitle'
+          - assert: в текущей вкладке открылось видео выбранной новости
+          - assertMetrics: '-'
+
+      Одно видео:
+        params:
+          foreverdata: '4180194985'
+        beforeEach:
+          - do: получить выдачу по запросу 'foreverdata'
+        Тумба:
+          - do: кликнуть в тумбу видео новостного видеохостинга
+          - tech: отправился счётчик '/$page/$main/$result[@wizard_name="news"]/video-block/card/video'
+          - assert: ссылка открылась в новой вкладке (данные тестовые, видео может отсутствовать, проверка заключается в открытии ссылки)
+          - assertMetrics: '-'
+        Хост:
+          - do: кликнуть в гринурл видео новостного видеохостинга
+          - tech: отправился счётчик '/$page/$main/$result[@wizard_name="news"]/video-block/card/path/host'
+          - assert: ссылка открылась в новой вкладке (данные тестовые, видео может отсутствовать, проверка заключается в открытии ссылки)
+          - assertMetrics: '-'
+        Заголовок:
+          - do: кликнуть в тайтл видео новостного видеохостинга
+          - tech: отправился счётчик '/$page/$main/$result[@wizard_name="news"]/video-block/card/link'
+          - assert: ссылка открылась в новой вкладке (данные тестовые, видео может отсутствовать, проверка заключается в открытии ссылки)
+          - assertMetrics: '-'
+
+files:
+  - features/touch-phone/news/__video/adapter-news__video.hermione.js
+
+tags:
+  - skip_e2e_check # фича не запущена в проде
+  - news
+
+v-team: Freshness
+
+counter: /$page/$main/$result[@wizard_name="news"]
+
+tlds: ru

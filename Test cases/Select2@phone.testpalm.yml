@@ -1,0 +1,29 @@
+feature: Select2
+
+specs:
+  Внешний вид блока:
+    - do: открыть страницу yandex.ru/turbo?stub=select2/default.json
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Выбор значения:
+    - do: открыть страницу yandex.ru/turbo?stub=select2/default.json
+    - do: кликнуть на селект под текстом "_size_m"
+    - do: выбрать третий пункт, который начинается с "Все каналы которые..."
+    - screenshot: внешний вид соответствует скриншоту [long-value]
+    - do: кликнуть на селект под текстом "_size_m"
+    - do: выбрать "Все каналы"
+    - assert: значение изменилось на выбранное
+    - do: кликнуть на селект под тесктом "_size_s + value"
+    - do: кликнуть на первую строку "Выберите дату"
+    - assert: значение не изменилось
+    - do: кликнуть на селект под текстом "disabled"
+    - assert: реакции на клик быть не должно
+
+files:
+  - platform/components/Select2/__tests__/Select2@phone.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+tlds: none

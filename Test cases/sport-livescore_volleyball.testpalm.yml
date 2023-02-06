@@ -1,0 +1,61 @@
+feature: Спорт
+type: Волейбол
+
+specs:
+  Без табов:
+    params:
+        foreverdata: '1646899999'
+        user_time: '20190812'
+    beforeEach:
+      - do: получить выдачу по запросу "foreverdata"
+      - assert: на выдаче присутствует колдунщик матча
+      - screenshot: внешний вид [sport-livescore_volleyball-{{PLATFORM}}-{{BROWSER_TYPE}} >> plain]
+    Внешний вид:
+      - label: sport-livescore_volleyball-{{PLATFORM}}-{{BROWSER_TYPE}}
+      - screenshot: внешний вид [plain]
+      - assertMetrics: '-'
+    Ссылка первой команды:
+      - do: нажать на иконку первой команды
+      - assert: выдача обновилась
+      - assert: в поисковой стрелке отображается запрос "Волейбольно-футбольный клуб Динамо"
+      - tech: сработал баобаб-счетчик '/$page/$main/$result[@wizard_name="sport/livescore" and @subtype="volleyball_match"]/team/p0'
+      - assertMetrics: '-'
+  С табами:
+    params:
+        foreverdata: '4258103759'
+    beforeEach:
+      - do: получить выдачу по запросу "foreverdata"
+      - assert: на выдаче присутствует колдунщик матча
+      - screenshot: внешний вид [sport-livescore_volleyball-{{PLATFORM}}-{{BROWSER_TYPE}}-stats >> plain]
+    Внешний вид:
+      - label: sport-livescore_volleyball-{{PLATFORM}}-{{BROWSER_TYPE}}-stats
+      - screenshot: внешний вид [plain]
+      - assertMetrics: '-'
+    Ссылка на чемпионат:
+      - do: нажать на "Чемпионат России"
+      - assert: выдача обновилась
+      - assert: в поисковой стрелке отображается запрос "Чемпионат России"
+      - tech: сработал баобаб-счетчик '/$page/$main/$result[@wizard_name="sport/livescore" and @subtype="volleyball_match"]/tournament'
+      - assertMetrics: '-'
+  С новостями:
+    - params:
+        foreverdata: '3381644094'
+    - do: получить выдачу по запросу "foreverdata"
+    - assert: на выдаче присутствует колдунщик матча
+    - screenshot: внешний вид [news]
+
+v-team: Sport
+
+tags:
+  - reviewed
+  - sport
+  - volleyball
+  - skip_e2e_check #фича не запущена в проде
+
+files:
+  - features/common/sport/livescore/sport-livescore_volleyball.hermione.js
+
+counter: /$page/$main/$result[@wizard_name="sport/livescore" and @subtype="volleyball_match"]
+
+tlds:
+  - ru

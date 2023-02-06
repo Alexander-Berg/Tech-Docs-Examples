@@ -1,0 +1,24 @@
+feature: newsVideoBlock
+
+specs:
+  Внешний вид блока:
+    - tags:
+      - sportauto
+    - do: Открыть страницу /turbo?stub=newsvideoblock/default.json
+    - screenshot: внешний вид на 1000px соответствует скриншоту [plain-1000]
+    - screenshot: внешний вид на 1280px соответствует скриншоту [plain-1280]
+    - screenshot: внешний вид на 1366px соответствует скриншоту [plain-1366]
+    - screenshot: внешний вид на 1600px соответствует скриншоту [plain-1600]
+    - screenshot: внешний вид на 1920px соответствует скриншоту [plain-1700]
+
+files:
+  - platform/components/NewsVideoBlock/__tests__/newsVideoBlock@desktop.hermione.js
+
+v-team: News
+
+qa-engineer:
+  - volkhonov
+
+manager: skhovaev
+
+tlds: none

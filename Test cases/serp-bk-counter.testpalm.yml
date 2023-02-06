@@ -1,0 +1,60 @@
+feature: Счётчики учёта видимости рекламы
+experiment: просто в html
+
+specs:
+  aliases:
+  - &BaseActions
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на странице должен быть текст bk848484(https://yabs...) в одном скрытом блоке
+
+  Счетчик link-head должен быть на странице:
+    - params:
+        prefetch: '1'
+        foreverdata: '3286532970'
+
+    - *BaseActions
+    - tech: на сервере сработал счетчик /tech/direct/visibility/html/counter/valid с vars-ами
+    - tech: на сервере сработал счетчик /tech/direct/visibility/html/counter/tail/invalid с vars-ами
+    - tech: в запросах network виден счетчик /tech/direct/visibility/client/counter/before_bem-init/ajax
+    - tech: в запросах network виден счетчик /tech/direct/visibility/client/counter/before_bem-init/image
+    - tech: в запросах network виден счетчик /tech/direct/visibility/client/counter/ajax
+    - tech: в запросах network виден счетчик /tech/direct/visibility/client/counter/image
+    - do: нажать "Показать ещё"
+    - assert: в коде страницы присутствуют 2 скрытых блока счетчика видимости с текстом bk848484(https://yabs...)
+
+  Счетчик hit_counter должен быть на странице:
+    - params:
+        prefetch: '1'
+        foreverdata: '3286532970'
+
+    - *BaseActions
+    - tech: на сервере сработал счетчик /tech/direct/visibility/html/hit_counter/valid с vars-ами
+    - tech: на сервере сработал счетчик /tech/direct/visibility/html/hit_counter/tail/invalid с vars-ами
+    - tech: в запросах network виден счетчик /tech/direct/visibility/client/hit_counter/before_bem-init/ajax
+    - tech: в запросах network виден счетчик /tech/direct/visibility/client/hit_counter/before_bem-init/image
+    - tech: в запросах network виден счетчик /tech/direct/visibility/client/hit_counter/ajax
+    - tech: в запросах network виден счетчик /tech/direct/visibility/client/hit_counter/image
+    - do: нажать "Показать ещё"
+    - assert: в коде страницы присутствуют 2 скрытых блока счетчика видимости с текстом bk848484(https://yabs...)
+
+  Счетчик невалидной ссылки hit_counter должен быть на странице:
+    - params:
+        prefetch: '1'
+        foreverdata: '2694445784'
+    - do: получить выдачу по запросу 'foreverdata'
+    - tech: на сервере сработал счетчик /tech/direct/visibility/html/hit_counter/invalid с vars-ами
+
+files:
+  - features/touch-phone/serp-bk-counter/serp-bk-counter.hermione.js
+
+tags:
+  - no_assessors
+  - skip_e2e_check
+  - adv
+
+v-team: Distribution
+
+tlds: [ru]
+
+browsers:
+  - searchapp-phone

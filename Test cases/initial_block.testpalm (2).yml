@@ -1,0 +1,40 @@
+feature: Приветстсвующий блок
+
+specs:
+  Проверка блока с табами [manual]:
+    - automation: VACANCIES-780
+    - do: открыть страницу /jobs/locations/<город с переключателем на подробную информацию>
+    - screenshot: пример внешнего вида приветствующего блока с переключателем [https://jing.yandex-team.ru/files/alex-murashev/initial_block_touch.png]
+    - assert: на странице отображается список вакансий
+    - do: нажать кнопку информации (подробнее/о сервисе/о городе и тп)  
+    - assert: |
+        в url добавляется /about
+        на странице отображается вспомогательная информация
+        список вакансий пропал
+        активна нажатая кнопка
+    - do: нажать кнопку 'вакансии' в приветствующем блоке  
+    - assert: |
+        url стало изначальным (/about пропало)
+        на странице отображается список вакансий
+        вспомогательная информация пропала
+        активна нажатая кнопка
+  Проверка блока с кнопкой [manual]:
+    - automation: VACANCIES-780
+    - do: открыть страницу /jobs/vacancies/<вакансия>
+    - do: проверить приветствующий блок
+    - screenshot: пример внешнего вида приветствующего блока с кнопкой отклика [https://jing.yandex-team.ru/files/alex-murashev/initial_block_vacancy_touch.png]
+
+platform:
+  - touch
+
+tlds:
+  - ru
+  - by
+  - ua
+
+priority: critical
+
+browsers:
+  - android-yandex-browser-touch
+  - android-browser-touch
+  - ios-safari-touch

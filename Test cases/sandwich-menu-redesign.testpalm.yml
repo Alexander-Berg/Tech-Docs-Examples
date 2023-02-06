@@ -1,0 +1,55 @@
+feature: sandwich-menu
+experiment: Редизайн публичных компонентов
+params:
+  exp_flags: publishers-redesign=1
+
+specs:
+  aliases:
+  - &DeepMenuInteraction
+    - do: нажать на иконку меню
+    - assert: с правой стороны выехал блок меню
+    - do: кликнуть на иконку в пункте меню "Верхний уровень 1"
+    - assert: |
+        появились вложенные элементы
+        стрелка перевернулась с анимацей
+    - do: кликнуть на текст в пункте меню "Верхний уровень 1"
+    - assert: Произошёл переход турбо-в-турбо
+
+  - &OpenAndScreenshot
+    - do: нажать на иконку меню
+    - assert: с правой стороны выехал блок меню
+    - screenshot: Внешний вид соответствует скриншоту [plain]
+
+  beforeEach:
+    - do: при дальнейшей проверке указанных ожидаемых результатов обращайте внимание на любые некорректные на ваш взгляд поведения, основываясь на свой опыт использования web-приложений (например, сохранение позиции при переходах туда-обратно кнопками на устройстве, пустые экраны при переходах, кривая верстка, скачкИ элементов, плавность скролла, неработающая функциональность и т.п.)
+ 
+  На БЭМ:
+    Меню с вложенными элементами:
+    - automation: TURBOUI-4960
+    - do: открыть ссылку https://yandex.ru/turbo?stub=sandwich-menu%2Ftwo-sections.json
+    - *DeepMenuInteraction
+
+    Внешний вид:
+    - automation: TURBOUI-4960
+    - do: открыть ссылку https://yandex.ru/turbo?stub=sandwich-menu%2Ftwo-sections.json
+    - *OpenAndScreenshot
+
+  На React:
+    Меню с вложенными элементами:
+    - automation: TURBOUI-4960
+    - tags: no_assessors
+    - do: открыть ссылку https://yandex.ru/turbo?stub=sandwich-menu%2Ftwo-sections-react.json
+    - *DeepMenuInteraction
+
+    Внешний вид:
+    - automation: TURBOUI-4960
+    - do: открыть ссылку https://yandex.ru/turbo?stub=sandwich-menu%2Ftwo-sections-react.json
+    - *OpenAndScreenshot
+
+v-team: Turbo
+
+manager: sergey-kuldin
+
+qa-engineer: narbutovich
+
+tlds: none

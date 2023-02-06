@@ -1,0 +1,38 @@
+feature: Превью-объявлений
+
+import-labels:
+  - features/direct-preview/direct-preview@common.testpalm.yml
+
+specs:
+  Проверка ссылок:
+    - params:
+        text: '1'
+        lr: '213'
+        type: yabs_proxy
+    - do: |
+        получить объявление на /search/direct-preview/ с параметрами text, lr, type из params
+        добавить в ссылку параметр &adv равный содержимому файла features/direct-preview/assets/serp-adv-item-dump.json (копировать все из файла, ссылка будет длинной - это норм) 
+    - assert: проверить, что в выдаче есть рекламный сниппет
+    - screenshot: пример внешнего вида [direct-preview-{{PLATFORM}}-{{BROWSER_TYPE}} >> plain]
+    - do: кликнуть на ссылку в заголовке
+    - tech: ссылка ведёт на yabs.yandex.ru/count
+    - assert: открылась страница https://yabs.yandex.ru/count/
+    - do: кликнуть на ссылку в гринурле
+    - tech: ссылка ведёт на yabs.yandex.ru/count
+    - assert: открылась страница https://yabs.yandex.ru/count/
+    - do: кликнуть на ссылку в первом сайтлинке
+    - tech: ссылка ведёт на yabs.yandex.ru/count
+    - assert: открылась страница https://yabs.yandex.ru/count/
+
+files:
+  - features/direct-preview/direct-preview@desktop.hermione.js
+
+tags:
+  - no_assessors
+  - skip_e2e_check
+  - direct_preview
+
+v-team: Distribution
+
+tlds:
+  - ru

@@ -1,0 +1,24 @@
+feature: Колдунщик картинок
+type: Блюр порно
+
+specs:
+  Проверка наличия блюра тумбнейлов:
+    - do: получить выдачу по запросу 'секс', 'порно частное' или 'эротика порно фото видео бесплатно'
+    - assert: появился колдунщик картинок
+    - do: если ни по одному из запросов колдунщик не появился, попробовать несколько связанных запросов в конце выдачи
+    - assert: тумбы заблюрены
+    - tech: ссылки тумбов содержат параметр &shower
+
+priority: medium
+
+v-team: Images
+
+tags:
+  -smoke
+  -smoke_extended
+  -reviewed
+
+tlds: [ru, by, kz, ua, com.tr, com, fr]
+
+files:
+  - features/common/adapters/adapter-images/adapter-images-porno.hermione.js

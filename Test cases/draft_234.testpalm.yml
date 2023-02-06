@@ -1,0 +1,13 @@
+feature:  Уведомления - на аккаунте нет ст/ст2/мини/jbl
+
+specs:
+    Уведомления - на аккаунте нет ст/ст2/мини/jbl:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/2957
+        - release_Webview
+        - platform_common
+    - do: "Preconditions На аккаунте нет ни одной станции, станции-2, мини-станции или JBL, но есть любая другая колонка"
+    - do: "Открыть ПП - Устройства - Настройки - Контент - Уведомления"
+    - assert: "Отображается, что доступно только на Станции, Станции Макс, Станции Мини, Станции Лайт,  JBL Link Portable и JBL Link Music с Алисой; ; <img src=`https://jing.yandex-team.ru/files/levkovskayama/photo_2021-12-03%2012.35.22.b2bb525.jpeg` alt=`Скриншот` width=`300`/>"
+    - do: "Нажать на ссылку `Выбрать колонку`"
+    - assert: "Открывается Маркет с каталогом колонок: https://m.market.yandex.ru/catalog--umnye-kolonki/26992350/list?hid=15553892&glfilter=7893318%3A152794%2C15562112&pokupki=1&cpa=1"

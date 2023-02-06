@@ -1,0 +1,16 @@
+feature: marketRatingStars
+
+specs:
+  Внешний вид блока:
+    - do: открыть страницу примера блока MarketRatingStars (https://yandex.ru/turbo?stub=marketratingstars/default.json)
+    - assert: должны быть виден блок c 5ю звездами
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+    - platform/components/MarketRatingStars/__tests__/MarketRatingStars.hermione.js
+
+v-team: Market
+
+manager: seoshnik
+
+tlds: none

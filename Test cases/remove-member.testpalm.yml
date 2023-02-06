@@ -1,0 +1,22 @@
+feature: Роли сотрудников
+
+specs:
+  beforeEach:
+    - do: Залогиниться под пользователем robot-internal-003
+
+  Удаление сотрудника:
+    Положительные:
+      1. Удаление пользователя из команды со страницы сервиса:
+        - do: открыть страницу команды сервиса "Мой тестовый сервис 007" (/services/zanartestservice007)
+        - do: кликнуть на иконку корзины на последней строке с пользователем
+        - screenshot: роль пользователя на последней строке отображается с пометкой "отзывается" [role-depriving]
+        - do: (PREPARE) добавить в команду пользователя с ролью, которая может удалиться
+
+files:
+  - test/features/desktop/roles/remove-member.hermione.js
+
+priority: blocker
+
+tags:
+  - reviewed
+  - no_assessors

@@ -1,0 +1,146 @@
+feature: Специальные события
+type: Команда
+
+specs:
+  priority: high
+  Внешний вид - последний матч:
+    - params:
+        foreverdata: '1221878188'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: колдунщик спортивной команды присутствует на выдаче
+    - screenshot: внешний вид карточки последнего матча (время матча может отсутствовать) [last-match]
+    - assertMetrics: '-'
+  Внешний вид - последний матч - длинное название команды:
+    - params:
+        foreverdata: '3711873410'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: колдунщик спортивной команды присутсвует на выдаче
+    - screenshot: внешний вид заголовка карточки последнего матча [long-team]
+    - assertMetrics: '-'
+  Внешний вид - колокольчик для матча в статусе in_progress:
+    - params:
+        foreverdata: '221289564'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: для матча в состоянии "Идет сейчас" есть колокольчик подписки
+    - screenshot: внешний вид заголовка карточки последнего матча [in-progress-subscribe-button]
+    - assertMetrics: '-'
+  Внешний вид - таблица с названием чемпионата:
+    - tags:
+        - smoke
+        - pp_new_core
+    - params:
+        foreverdata: '1221878188'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: колдунщик спортивной команды присутсвует на выдаче
+    - do: клик в таб "Расписание матчей"
+    - assert: отображается таблица с расписанием
+    - tech: сработал счетчик '/wiz/special/event/sport/team/tab/table'
+    - screenshot: внешний вид таблицы расписания (для UCBrower должен совпадать с iphone) [schedule]
+    - assertMetrics: '-'
+  Настраиваемый внешний вид иконок команд в шапке и лайвскоре:
+    - params:
+        foreverdata: '4242678131'
+    - do: получить выдачу по запросу 'foreverdata'
+    - screenshot: внешний вид [with-customized-icons]
+    - assert: иконки команд в шапке и таблице 'Последний матч' не обрезаны
+    - assertMetrics: '-'
+  Мульти-селект:
+    # нет в проде, а аяксы на fd не работают, локальная бета ненадежна
+    tags: no_assessors
+    params:
+      srcrwr: BIATHLON:malvina.sas.yp-c.yandex.net:17645:1000000
+      text: фк зенит
+    beforeEach:
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: колдунщик спортивной команды присутствует на выдаче
+      - assert: в табах выбран "Ближайший матч"
+      - do: кликнуть на таб турнирная таблица
+      - assert: в первом селекте выбрана "Чемпионат России"
+    Внешний вид колунщика:
+      - assert: колдунщик спортивной команды присутствует на выдаче
+      - screenshot: внешний вид колдунщика [tournament_tabs]
+      - assertMetrics: '-'
+    Внешний вид - турнирная таблица:
+      - assert: отображается таблица с количеством игр и очков команды
+      - screenshot: внешний вид турнирной таблицы [tournament_table]
+      - assertMetrics: '-'
+    Функциональность - смена страниц в таблице:
+      - do: перелистнуть на следующую страницу в таблице
+      - assert: появилась следующая страница таблицы
+      - tech: сработал счетчик '/wiz/special/event/sport/team/table/pager/next'
+      - screenshot: внешний вид турнирной таблицы [switched_tournament_table]
+      - assertMetrics: '-'
+    Функциональность - смена чемпионатов:
+      - do: нажать на селект выбора чемпионатов
+      - assert: появилось нативное меню для выбора чемпионата
+      - tech: сработал счетчик '/wiz/special/event/sport/team/select'
+      - do: нажать на пункт в меню Лига наций УЕФА
+      - assert: снизу есть таблица по результатам группы
+      - assert: справа от селекта с выбором чемпионата есть селект для выбора группы
+      - tech: сработал счетчик '/wiz/special/event/sport/team/tabs'
+      - screenshot: внешний вид турнирной таблицы [switched_tournament_championship]
+      - assertMetrics: '-'
+    Функциональность - смена таблиц групп:
+      - do: нажать на селект выбора групп рядом с выбором чемпионата
+      - assert: появилось нативное меню для выбора группы
+      - tech: сработал счетчик '/wiz/special/event/sport/team/select'
+      - do: нажать на пункт в меню c группой "B"
+      - assert: появилась новая таблица для группы "B"
+      - tech: сработал  счетчик '/wiz/special/event/sport/team/tabs'
+      - screenshot: внешний вид турнирной таблицы [switched_tournament_tabs]
+      - assertMetrics: '-'
+  Синхронизация иконок подписки:
+    - browsers:
+        notFor:
+          - ios-touch-group
+          - android-mz-browser-touch
+    - params:
+        foreverdata: '3257991549'
+        user_time: '202005121153'
+    - do: проверить в настройках браузера, что уведомления от yandex.ru не запрещены (при необходимости удалить yandex.ru из списка сайтов, которым запрещены уведомления)
+    - assert: уведомления от yandex.ru не заблокированы
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: колдунщик спортивной команды присутствует на выдаче
+    - screenshot: внешний вид колдунщика [sync-test-livescore-before]
+    - do: кликнуть на иконку колокольчика
+    - assert: иконка колокольчика выделилась
+    - screenshot: внешний вид колдунщика после подписки [sync-test-livescore-after]
+    - do: перейти в таб "расписание матчей"
+    - assert: иконка колокольчика напротив ближайшего матча также выделена
+    - screenshot: внешний вид колдунщика в табе "расписание матчей" после подписки [sync-test-table-after]
+    - assertMetrics: '-'
+  Внешний вид хедера:
+    params:
+      foreverdata: '977821974'
+    beforeEach:
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: колдунщик спортивной команды присутствует на выдаче
+    Портретная ориентация:
+      - tags:
+        - pp_new_core
+      - screenshot: внешний вид соответствует скриншоту [plain]
+    Ландшафтная ориентация:
+      - do: повернуть устройство в горизонтальную ориентацию
+      - screenshot: внешний вид соответствует скриншоту [horizontal]
+
+specs-integration:
+  Основные проверки:
+    - do: получить выдачу по запросу "футбольный клуб Рубин"
+    - assert: на выдаче присутствует колдунщик специальных событий
+    - assert: в заголовке присутствует иконка команды и название команды
+    - assert: под заголовком присутствует как минимум одна таблица с данными
+
+files:
+  - features/touch-phone/adapter-special-event/adapter-special-event_type_team/adapter-special-event_type_team.hermione.js
+  - features/touch-phone/adapter-special-event/adapter-special-event_type_team/adapter-special-event_type_team.hermione.e2e.js
+
+v-team: Sport
+
+counter: /$page/$main/$result[@wizard_name="special/event" and @subtype="sport/team"]/title
+
+tlds:
+  - ru
+
+tags:
+  - other
+  - reviewed

@@ -1,0 +1,56 @@
+feature: Колдунщик истории запросов в stateful сценарии
+experiment: Редизайн
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на выдаче присутствует колдунщик с историей запросов
+  Базовый вариант:
+    params:
+      foreverdata: '1232541256'
+    Внешний вид:
+      - screenshot: внешний вид [stateful-history]
+    Клик в айтем:
+      - do: кликнуть в первый запрос
+      - assert: обновилась выдача по выбранному запросу
+      - tech: сработал счетчик '/$page/$main/$result/stateful-history/day-requests/request/search-request-link'
+    Клик в сайт:
+      - do: кликнуть в какой-нибудь сайт из списка
+      - assert: ссылка открылась в новой вкладке
+      - tech: сработал счетчик '/$page/$main/$result/stateful-history/day-requests/request/site/link'
+  Доступность:
+    - tags:
+        - no_assessors
+        - a11y_serp
+    - params:
+        exp_flags: 'a11y_validate=1'
+        foreverdata: '1232541256'
+    - do: выполнить скрипт в console браузера await axe.run('.ECommerceCarousel')
+    - tech: в консоль вывелся объект, у которого свойство `violations` - пустой массив []
+  Без истории:
+    params:
+      foreverdata: '3038592289'
+    Внешний вид:
+      - screenshot: внешний вид [stateful-history-empty]
+  С ссылкой Ещё сайты:
+    params:
+      foreverdata: '1027963223'
+    Внешний вид и догрузка сайтов:
+      - assert: в одном из блоков есть ссылка "Ещё ... сайтов"
+      - screenshot: внешний вид колдунщика [stateful-history-with-more-link]
+      - do: нажать на ссылку "Ещё ... сайтов"
+      - assert: |
+          ссылка скрылась
+          отобразились еще ссылки на сайты
+      - tech: сработал счетчик '/$page/$main/$result/stateful-history/day-requests/request/show-all-link'
+      - screenshot: внешний вид [stateful-history-with-all-sites]
+
+files:
+  - src/features/StatefulHistory/StatefulHistory.test/StatefulHistory_redesign@touch-phone.hermione.js
+
+tags:
+  - skip_e2e_check
+
+v-team: Freshness
+
+tlds: all

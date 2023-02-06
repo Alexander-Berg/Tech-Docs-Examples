@@ -1,0 +1,38 @@
+feature: beru-search-form
+
+specs:
+  Внешний вид блока:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=berusearchform/default.json)
+    - assert: должен быть виден блок
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Внешний вид блока в заполненном состоянии и в фокусе:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=berusearchform/default.json)
+    - assert: должен быть виден блок
+    - screenshot: внешний вид соответствует скриншоту [filled-focused-form]
+
+  Внешний вид блока в заполненном состоянии без фокуса:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=berusearchform/default.json)
+    - assert: должен быть виден блок
+    - screenshot: внешний вид соответствует скриншоту [filled-form]
+
+  Проверка функциональности поля ввода:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=berusearchform/default.json)
+    - do: ввести в поле "phone"
+    - assert: в поле ввода должна быть фраза "phone" и появится кнопка крестик сброса поля ввода
+    - do: кликнуть по кнопке крестику
+    - assert: поле ввода должно очистится, а кнопка крестик должна исчезнуть
+    - do: ввести "рh"
+    - do: нажать "Backspace"
+    - assert: в поле ввода должна быть буква "р" и видна кнопка крестик
+    - do: нажать "Backspace"
+    - assert: поле ввода должно очистится, а кнопка крестик исчезнуть
+
+files:
+    - platform/components/BeruSearchForm/__tests__/BeruSearchForm@phone.hermione.js
+
+v-team: Beru
+
+manager: seoshnik
+
+tlds: none

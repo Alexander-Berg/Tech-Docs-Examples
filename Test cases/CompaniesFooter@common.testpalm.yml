@@ -1,0 +1,17 @@
+feature: Колдунщик 1Орг
+type: Футер
+
+specs:
+  На выдаче:
+    - do: получить выдачу по запросу "кафе пушкин"
+    - assert: на странице присутствует карточка одной организации
+    - screenshot: внешний вид [serp]
+
+files:
+  - src/features/Companies/Companies.features/CompaniesFooter/CompaniesFooter.test/CompaniesFooter@common.hermione.js
+
+v-team: VanillaGeo
+
+tags: react
+
+tlds: all

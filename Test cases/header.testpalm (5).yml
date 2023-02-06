@@ -1,0 +1,37 @@
+feature: Шапка
+
+specs:
+  Проверка внешнего вида [manual]:
+    - automation: VACANCIES-780
+    - do: открыть страницу /jobs
+    - screenshot: вверху страницы отображается шапка [https://jing.yandex-team.ru/files/alex-murashev/header_touch-pad.png]
+    - do: нажать на 'Карьера'
+    - screenshot: раскрылось меню [https://jing.yandex-team.ru/files/alex-murashev/header_full_touch-pad.png]
+    - do: перевести устройство в горизонтальное положение
+    - assert: меню скрылось 
+    - screenshot: пример внешнего вида шапки [https://jing.yandex-team.ru/files/alex-murashev/header_desktop.png]
+    - do: перевести устройство в вертикальное положение
+    - assert: меню появилось
+    - do: нажать на 'Карьера' в самом вверху
+    - assert: меню закрылось
+  Проверка табов [manual]:
+    - automation: VACANCIES-780
+    - do: открыть страницу /jobs
+    - do: нажать на кнопку 'Карьера'
+    - do: нажать на таб 'О компании'
+    - assert: открылась новая страница
+
+platform:
+  - touch-pad
+
+tlds:
+  - ru
+  - by
+  - ua
+
+priority: blocker
+
+browsers:
+  - android-yandex-browser-touch
+  - android-browser-touch
+  - ios-safari-touch

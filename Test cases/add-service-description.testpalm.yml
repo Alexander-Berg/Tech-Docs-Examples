@@ -1,0 +1,56 @@
+feature: Страница сервиса
+
+specs:
+  afterEach:
+    - do: (PREPARE) перейти на страницу сервиса "Автотестовый сервис для теста описания" (/services/autotestservicedescription/)
+    - do: (PREPARE) нажать на карандашик рядом с заголовком блока "Описание"
+    - do: (PREPARE) в модальном окне "Редактирование описания" удалить текст из обоих полей ввода - "На русском", "На английском"
+    - do: (PREPARE) нажать "Сохранить"
+
+  Положительные:
+    1. Задание описания сервиса на русском:
+      - automation: ABC-9842
+      - do: открыть страницу сервиса "Автотестовый сервис для теста описания" (/services/autotestservicedescription/)
+      - assert: в правой части есть блок "Описание", под ним написано "пусто"
+      - screenshot: вид незаполненного блока "Описание" [https://jing.yandex-team.ru/files/zomb-prj-204/empty-service-description-ru.jpeg]
+      - do: навести курсор на заголовок "Описание"
+      - assert: справа от заголовка появилась иконка карандашика
+      - do: кликнуть на карандашик
+      - assert: появилось модальное окно "Редактирование описания"
+      - screenshot: внешний вид модального окна "Редактирование описания" [https://jing.yandex-team.ru/files/zomb-prj-204/service-description-editor-ru.png]
+      - do: ввести в модальном окне в поле "На русском" текст "//Курсивный текст//"
+      - do: ввести в модальном окне в поле "На английском" текст "**Жирный текст**"
+      - screenshot: внешний вид модального окна "Редактирование описания" с заполненными полями [https://jing.yandex-team.ru/files/zomb-prj-204/service-description-editor-ru-filled.png]
+      - do: кликнуть на кнопку "Сохранить"
+      - assert: |
+              модальное окно закрылось
+              в блоке "Описание" под заголовком появилась курсивная надпись "Курсивный текст"
+      - screenshot: вид заполненного блока "Описание" [https://jing.yandex-team.ru/files/zomb-prj-204/service-description-with-text-ru.png]
+
+    2. Задание описания сервиса на английском:
+      - automation: ABC-9842
+      - do: открыть страницу сервиса "Autotest service for description test" (/services/autotestservicedescription/?lang=en)
+      - assert: в правой части есть блок "Description", под ним написано "empty"
+      - screenshot: вид незаполненного блока "Description" [https://jing.yandex-team.ru/files/zomb-prj-204/empty-service-description-en.jpeg]
+      - do: навести курсор на заголовок "Description"
+      - assert: справа от заголовка появилась иконка карандашика
+      - do: кликнуть на карандашик
+      - assert: появилось модальное окно "Edit description"
+      - screenshot: внешний вид модального окна "Edit description" [https://jing.yandex-team.ru/files/zomb-prj-204/service-description-editor-en.png]
+      - do: ввести в модальное окно в поле "On Russian" текст "--Striked text--"
+      - do: ввести в модальное окно в поле "On English" текст "Underlined text", перед словом "Underlined" и после "text" ввести два символа нижних подчёркивания
+      - screenshot: внешний вид модального окна "Edit description" с заполненными полями [https://jing.yandex-team.ru/files/zomb-prj-204/service-description-editor-en-filled.png]
+      - do: кликнуть на кнопку "Preview"
+      - screenshot: показан предварительный просмотр описания сервиса [https://jing.yandex-team.ru/files/zomb-prj-204/Screenshot%20from%202021-04-06%2020-21-55.png]
+      - do: кликнуть на кнопку "Save"
+      - assert: |
+              модальное окно закрылось
+              в блоке "Description" под заголовком появилась подчёркнутая надпись "Underlined text"
+      - screenshot: вид заполненного блока "Description" [https://jing.yandex-team.ru/files/zomb-prj-204/service-description-with-text-en.png]
+
+files: []
+
+priority: critical
+
+tags:
+  - reviewed

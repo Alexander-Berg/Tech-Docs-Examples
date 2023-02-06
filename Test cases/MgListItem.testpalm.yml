@@ -1,0 +1,33 @@
+feature: MgListItem
+
+specs:
+  Размеры:
+    - do: открыть страницу блока MgListItem (https://yandex.ru/turbo?stub=mglistitem/sizes.json)
+    - assert: все варианты размера элемента списка отображаются корректно
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Иконки слева:
+    - do: открыть страницу блока MgListItem (https://yandex.ru/turbo?stub=mglistitem/icon-left.json)
+    - assert: в элементах списка с левой стороны есть иконки
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Иконки справа:
+    - do: открыть страницу блока MgListItem (https://yandex.ru/turbo?stub=mglistitem/icon-right.json)
+    - assert: в элементах списка с правой стороны есть иконки
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Иконки с обеих сторон:
+    - do: открыть страницу блока MgListItem (https://yandex.ru/turbo?stub=mglistitem/icon-both.json)
+    - assert: в элементах списка с обеих сторон есть иконки
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+    - platform/components/MgListItem/MgListItem.tests/MgListItem.hermione.js
+
+v-team: District
+
+manager: gorelikiss
+
+qa-engineer: vulpes, kudyukova
+
+tlds: none

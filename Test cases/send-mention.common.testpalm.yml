@@ -1,0 +1,52 @@
+feature: Отправка меншенов
+
+import-steps:
+    - tests/hermione/suites/messenger/shared-steps/open-messenger.testpalm.steps.yml
+
+specs:
+
+  Отправка меншена пользователю в q[manual]:
+    - automation: MSSNGRFRONT-3156
+    - attach: Открытие чата q
+    - do: найти в поиске по пользователям бота Автотестер Мессенджеров и кликнуть на него
+    - assert: открылся чат с ботом
+    - do: написать в поле ввода @Афанасий Петро
+    - assert: открылся саджет меншенов со списком пользователей
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/ismateush/uhura_2019-10-02T14:10:45.590638.jpg]
+    - do: выбрать в саджесте любого из Афанасиев
+    - assert: в поле ввода вставилось полное имя пользователя с пробелом в конце
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/ismateush/uhura_2019-10-02T14:12:30.910776.jpg]
+    - do: отправить в чат
+    - assert: в чат отправилось сообщение-меншен с призывом пользователя
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/ismateush/uhura_2019-10-02T14:12:42.079779.jpg]
+    - do: кликнуть на меншен
+    - assert: открылась карточка информации о пользователе (может незначительно отличаться из-за доступов)
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/ismateush/uhura_2019-10-02T14:12:55.824375.jpg]
+
+  Отправка меншена в групповой чат в q[manual]:
+    - automation: MSSNGRFRONT-3156
+    - attach: Открытие чата q
+    - do: найти в поиске по пользователям "Чат с ботом" и кликнуть на него
+    - assert: открылся чат
+    - do: написать в поле ввода @Афанасий Петро
+    - assert: открылся саджет меншенов со списком пользователей
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/ismateush/uhura_2019-10-02T14:10:45.590638.jpg]
+    - do: выбрать в саджесте любого Афанасия
+    - assert: в поле ввода вставилось полное имя пользователя с пробелом в конце
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/ismateush/uhura_2019-10-02T14:12:30.910776.jpg]
+    - do: отправить в чат
+    - assert: в чат отправилось сообщение-меншен с призывом пользователя (может незначительно отличаться из-за доступов)
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/ismateush/uhura_2019-10-02T14:12:42.079779.jpg]
+    - do: нажать на меншен
+    - assert: открылась крточкаа информаации о пользователе (может незначительно отличаться из-за доступов)
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/ismateush/uhura_2019-10-02T14:12:55.824375.jpg]
+
+files: []
+
+v-team: Chat
+
+tags:
+  - release
+  - q
+
+tlds: ru

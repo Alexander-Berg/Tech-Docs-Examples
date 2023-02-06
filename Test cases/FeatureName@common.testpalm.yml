@@ -1,0 +1,13 @@
+feature: Feature-name
+
+params:
+  rearr: '1'
+
+specs:
+  Should check something:
+    - do: получить выдачу по запросу 'some-text'
+    - screenshot: на странице появился элемент, пример внешнего вида [plain]
+
+tlds: all
+
+v-team: '2'

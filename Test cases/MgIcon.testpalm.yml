@@ -1,0 +1,21 @@
+feature: MgIcon
+
+specs:
+  Иконки размера s:
+    - do: открыть страницу блока MgIcon с размером M https://yandex.ru/turbo?stub=mgicon/size_s.json
+    - assert: иконки не «мылятся»
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Иконки размера m:
+      - do: открыть страницу блока MgIcon с размером L https://yandex.ru/turbo?stub=mgicon/size_m.json
+      - assert: иконки не «мылятся»
+      - screenshot: внешний вид соответствует скриншоту [plain]
+files:
+    - platform/components/MgIcon/MgIcon.tests/MgIcon.hermione.js
+
+v-team: District
+
+manager: gorelikiss
+
+qa-engineer: vulpes, kudyukova
+
+tlds: none

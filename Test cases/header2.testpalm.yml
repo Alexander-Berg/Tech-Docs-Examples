@@ -1,0 +1,160 @@
+feature: Header2
+params:
+  exp_flags:
+    - header2=1
+
+specs:
+  Внешний вид — без бокового меню:
+    - do: Открыть ссылку yandex.ru/turbo?stub=header%2Fno-aside.json
+    - assert: Должна открыться страница турбо
+    - screenshot: Внешний вид [no-aside]
+
+  Внешний вид — лого картинкой:
+    - do: Открыть ссылку yandex.ru/turbo?stub=header%2Flogo-image.json
+    - assert: Должна открыться страница турбо
+    - screenshot: Внешний вид [logo-image]
+
+  Внешний вид — лого длинной картинкой:
+    - do: Открыть ссылку yandex.ru/turbo?stub=header%2Flogo-image-long.json
+    - assert: Должна открыться страница турбо
+    - screenshot: Внешний вид [logo-image-long]
+
+  Внешний вид — лого текстом:
+    - do: Открыть ссылку yandex.ru/turbo?stub=header%2Flogo-text.json
+    - assert: Должна открыться страница турбо
+    - screenshot: Внешний вид [logo-text]
+
+  Внешний вид — лого длинным текстом:
+    - do: Открыть ссылку yandex.ru/turbo?stub=header%2Flogo-text-long.json
+    - assert: Должна открыться страница турбо
+    - screenshot: Внешний вид [logo-text-long]
+
+  Внешний вид c текстом размером size-17:
+    - do: Открыть ссылку https://yandex.ru/turbo?stub=header%2Flogo-text_size-17.json
+    - screenshot: Внешний вид [logo-text_size-17]
+
+  Внешний вид c текстом размером size-20:
+    - do: Открыть ссылку https://yandex.ru/turbo?stub=header%2Flogo-text_size-20.json
+    - screenshot: Внешний вид [logo-text_size-20]
+
+  Внешний вид c текстом размером size-24:
+    - do: Открыть ссылку https://yandex.ru/turbo?stub=header%2Flogo-text_size-24.json
+    - screenshot: Внешний вид [logo-text_size-24]
+
+  Внешний вид c текстом размером size-26:
+    - do: Открыть ссылку https://yandex.ru/turbo?stub=header%2Flogo-text_size-26.json
+    - screenshot: Внешний вид [logo-text_size-26]
+
+  Внешний вид c текстом размером size-28:
+    - do: Открыть ссылку https://yandex.ru/turbo?stub=header%2Flogo-text_size-28.json
+    - screenshot: Внешний вид [logo-text_size-28]
+
+  Внешний вид c текстом размером size-30:
+    - do: Открыть ссылку https://yandex.ru/turbo?stub=header%2Flogo-text_size-30.json
+    - screenshot: Внешний вид [logo-text_size-30]
+
+  Внешний вид c текстом размером size-34:
+    - do: Открыть ссылку https://yandex.ru/turbo?stub=header%2Flogo-text_size-34.json
+    - screenshot: Внешний вид [logo-text_size-34]
+
+  Внешний вид c текстом размером size-36:
+    - do: Открыть ссылку https://yandex.ru/turbo?stub=header%2Flogo-text_size-36.json
+    - screenshot: Внешний вид [logo-text_size-36]
+
+  Hover элементов:
+    - do: Открыть ссылку https://yandex.ru/turbo?stub=header2/default.json
+    - screenshot: Внешний вид [before]
+    - do: навести мышкой на второй элемент меню (политика)
+    - screenshot: Внешний вид [with-hover]
+
+  Открытие меню:
+    - do: Открыть ссылку https://yandex.ru/turbo?stub=header2/default.json
+    - screenshot: Внешний вид [before]
+    - do: Кликнуть по кнопке "еще"
+    - screenshot: Появился дропдаун [menu-opened]
+    - do: Навести мышкой на второй элемент меню (политика)
+    - screenshot: Внешний вид [with-hover]
+    - do: Изменить ширину экрана до 1000px
+    - screenshot: Внешний вид [minified]
+    - do: Кликнуть по параграфу
+    - assert: Дропдаун скрылся
+
+  Открытие поиска:
+    - do: Открыть ссылку https://yandex.ru/turbo?stub=header2/default.json
+    - screenshot: Внешний вид [before]
+    - do: Кликнуть по иконке лупы
+    - screenshot: Появился дропдаун [menu-opened]
+    - do: Навести мышкой на второй элемент меню (политика)
+    - screenshot: Внешний вид [with-hover]
+    - do: Изменить ширину экрана до 1000px
+    - screenshot: Внешний вид [minified]
+    - do: Кликнуть по параграфу
+    - assert: Дропдаун скрылся
+
+  Открытие дополнительного меню:
+    - do: Открыть ссылку https://yandex.ru/turbo?stub=header2/default.json
+    - screenshot: Внешний вид [before]
+    - do: Кликнуть по иконке бургера (последняя иконка справа)
+    - screenshot: Появился дропдаун [menu-opened]
+    - do: Навести мышкой на второй элемент меню (политика)
+    - screenshot: Внешний вид [with-hover]
+    - do: Изменить ширину экрана до 1000px
+    - screenshot: Внешний вид [minified]
+    - do: Кликнуть по параграфу
+    - assert: Дропдаун скрылся
+
+  Не падает, если нет меню:
+    - do: Открыть ссылку https://yandex.ru/turbo?stub=header2/no-big-menu.json
+    - assert: На странице есть меню
+
+  Не показывает кнопку еще, если нет ничего в дропдауне:
+    - do: Открыть ссылку https://yandex.ru/turbo?stub=header2/no-more.json
+    - screenshot: Внешний вид [full-menu]
+
+  Реклама не перекрывает дропдаун:
+    - do: Открыть ссылку https://yandex.ru/turbo?stub=header2/advert-incut.json
+    - do: Кликнуть по иконке бургера (последняя иконка справа)
+    - screenshot: Реклама не перекрывает список в дропдауне [menu-opened]
+
+  Включается с помощью cgi-параметра h2:
+    - tags: no_assessors
+    - params:
+        h2: '1'
+        exp_flags: header2=0
+    - do: Открыть ссылку https://yandex.ru/turbo?stub=header%2Flogo-image.json
+    - assert: Страница открылась с новой шапкой, в разметке есть елемент с классом .header2
+
+  Фиксированная шапка:
+    Шапка зафиксировалась:
+      - tags: no_assessors
+      - params:
+          exp_flags:
+            - header-fixed=1
+            - header2=1
+      - do: открыть страницу https://yandex.ru/turbo?stub=header2/default.json
+      - do: проскроллить вниз до конца страницы
+      - assert: шапка страницы осталась на месте — зафиксировалась
+      - screenshot: внешний вид шапки аналогичен примеру [header-fixed]
+    Тень убралась:
+      - tags: no_assessors
+      - params:
+          exp_flags:
+            - header-fixed=1
+            - header2=1
+      - do: открыть страницу https://yandex.ru/turbo?stub=header2/default.json
+      - do: проскроллить вниз до конца страницы
+      - do: проскроллить вверх до верха страницы
+      - do: подождать 1 секунду
+      - assert: тень шапки страницы убралась
+      - screenshot: внешний вид шапки аналогичен примеру [no-shadow]
+
+files:
+  - features/desktop/blocks/header2/header2.hermione.js
+
+v-team: Turbo
+
+qa-engineer: olga0321, dakhetov
+
+manager: tanzwuta
+
+tlds: none

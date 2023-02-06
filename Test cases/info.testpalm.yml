@@ -1,0 +1,19 @@
+feature: Инфо
+
+specs:
+    Данные:
+        beforeEach:
+            - do: перейти по адресу "/"
+            - do: дождаться появления жучка
+            - do: нажать на иконку жука
+            - do: кликнуть на вкладку Инфо
+            - do: дождаться открытия вкладки Инфо
+
+        В вкладке содержатся корректные данные:
+            - assert: в вкладке написаны инициализируемые данные
+            - screenshot: внешний вид [info]
+
+v-team: Butterfly
+
+files:
+  - tests/hermione/suites/common/tabs/Info/info.hermione.js

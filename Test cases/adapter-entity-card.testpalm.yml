@@ -1,0 +1,30 @@
+feature: Колдунщик ОО
+type: Окно просмотра картинок
+
+params:
+  foreverdata:
+    - '3448812783'
+
+specs:
+  beforeEach:
+    - do: перейти на страницу выдачи по запросу "foreverdata"
+    - assert: появился колдунщик ОО
+
+  Домен на остальных картинках:
+    - do: нажать на любую картинку колдунщика, кроме первой
+    - assert: открылось окно просмотра картинки
+    - assert: в окне просмотра картинки присутствует домен
+
+files:
+  - features/touch-phone/adapter-entity-card/adapter-entity-card.hermione.js
+
+tags:
+  - img_viewer
+  - img_smoke
+  - img_crp
+
+priority: normal
+
+v-team: Images
+
+tlds: ['ru', 'ua', 'by', 'kz']

@@ -1,0 +1,28 @@
+feature:  Умный дом - добавление сценария - валидация полей
+
+specs:
+    Умный дом - добавление сценария - валидация полей:
+    - tags:
+        - https://testpalm.yandex-team.ru/alice/testcases/2234
+        - release_Webview
+        - release_Smarthome
+        - platform_common
+        - iot_scenario
+    - do: "Preconditions На аккаунте уже есть какой-нибудь любой сценарий"
+    - do: "На странице со списком устройств нажать `+` и выбрать `Сценарий`"
+    - assert: "Открывается экран создания сценария (Если Выберете событие)"
+    - do: "Тапнуть на `Название сценария` -> написать фразу, содержащую латинские буквы, попробовать сохранить"
+    - assert: "- Появляется предупреждение; - Название не сохраняется; [collapsed-image](https://jing.yandex-team.ru/files/bleakfox/predupr.PNG){title=Предупреждение}"
+    - do: "Написать фразу, содержащую пунктуацию (кроме ',', '!', `-' - эти знаки препинания сохраняться должны), попробовать сохранить"
+    - assert: "- Появляется предупреждение; - Название не сохраняется; [collapsed-image](https://jing.yandex-team.ru/files/levkovskayama/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202021-11-12%20%D0%B2%2018.04.29.8856923.png){title=Предупреждение}"
+    - do: "Написать слово кириллицей + цифры слитно (например `Лампа1`)"
+    - assert: "- Появляется предупреждение; - Название не сохраняется; [collapsed-image](https://jing.yandex-team.ru/files/levkovskayama/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202021-11-12%20%D0%B2%2018.06.08.c518bfd.png){title=Предупреждение}"
+    - do: "Написать фразу больше 100 символов "
+    - assert: "- Появляется предупреждение; - Название не сохраняется; [collapsed-image](https://jing.yandex-team.ru/files/bleakfox/100simv.PNG){title=Предупреждение}"
+    - do: "Попытаться сохранить название сценария идентичное уже имеющемуся сценарию"
+    - assert: "- Появляется предупреждение; - Название не сохраняется; [collapsed-image](https://jing.yandex-team.ru/files/bleakfox/dubl.PNG){title=Предупреждение}"
+    - do: "Сохранить любое валидное название, добавить в сценарий шаг с колонкой `прочтёт фразу`"
+    - assert: ""
+    - do: "В команде на колонку написать фразу длиннее 100 символов"
+    - assert: "- Появляется [предупреждение](https://yadi.sk/i/yeNLIVtZ8kfzSw);"
+    - assert: "- Фраза не сохраняется; [collapsed-image](https://jing.yandex-team.ru/files/bleakfox/100sinvnazv.PNG){title=Предупреждение}"

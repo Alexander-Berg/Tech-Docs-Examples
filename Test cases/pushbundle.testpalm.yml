@@ -1,0 +1,74 @@
+feature: Доставка и кеширование бандлов
+
+params:
+  exp_flags:
+    - pushbundle_test_view=1
+
+description: |
+  Документация:
+  https://wiki.yandex-team.ru/SERP/pushbundle/
+  Для тестов используется два тестовых бандла, которые включаются флагом pushbundle_test_view
+  Первый из них для тестирования загрузки, второй – для аякса
+
+specs:
+  Первичная загрузка:
+    - do: получить выдачу по запросу 'Rammstein'
+    - tech: на странице присутствует тестовый блок с селектором `.pushbundle-test-view`
+  Загрузка по AJAX:
+    - do: получить выдачу по запросу 'Rammstein'
+    - do: кликнуть на картинку в тестовом блоке, `.pushbundle-test-view__image`
+    - tech: текст запроса изменился на "amazing horse", выдача перезагрузилась через AJAX
+    - tech: в DOM присутствует элемент `.pushbundle-test-view_ajax_yes`
+  Перекладывание прогрессивных стилей после AJAX:
+    - params:
+        user_time: '20180905'
+    - do: получить выдачу по запросу 'тасс новости'
+    - tech: выполнить в консоли `BEM.blocks['serp-request'].navigateTo('?text=риа новости')`
+    - tech: выдача перезагрузилась через AJAX
+    - tech: выполнить в консоли `BEM.blocks['serp-request'].navigateTo('?text=спутник новости')`
+    - tech: выдача перезагрузилась через AJAX
+    - screenshot: появился колдунщик новостей, внешний вид [plain]
+  Дублирование хешей:
+    - do: получить выдачу по запросу 'тасс новости'
+    - tech: посмотреть что `BEM.blocks['i-global'].param('bundlesMetadata').lb` более 3-х символов
+    - tech: посмотреть что в `BEM.blocks['i-global'].param('bundlesMetadata').lb` нет повторяющихся 3-х символьных хешей
+    - tech: выполнить в консоли `BEM.blocks['serp-request'].navigateTo('?text=риа новости')`
+    - tech: выдача перезагрузилась через AJAX
+    - tech: посмотреть что в `BEM.blocks['i-global'].param('bundlesMetadata').lb` добавились новые хеши
+    - tech: посмотреть что в `BEM.blocks['i-global'].param('bundlesMetadata').lb` нет повторяющихся 3-х символьных хешей
+  Подмена стилей bundles-assets после AJAX с включенным inter-search:
+    - browser: iphone
+    - do: получить выдачу по запросу 'кафе пушкин'
+    - tech: |
+        проверить, что находит 1 элемент стилей bundles-assets внутри serp-list,
+        document.querySelectorAll('.serp-list>style[data-stylesheet=bundles-assets]')
+    - tech: |
+        запомнить все стили с идентификатором bundles-assets,
+        var before = [...document.querySelectorAll('style[data-stylesheet=bundles-assets]')].map(el => el.outerHTML).join('');
+    - tech: |
+        получить аяксом новую выдачу,
+        BEM.blocks['serp-request'].navigateTo('/search/touch/?text=a')
+    - tech: |
+        проверить, что находит 0 элементов стилей bundles-assets внутри serp-list,
+        document.querySelectorAll('.serp-list>style[data-stylesheet=bundles-assets]')
+    - tech: |
+        получить все стили с идентификатором bundles-assets,
+        var after = [...document.querySelectorAll('style[data-stylesheet=bundles-assets]')].map(el => el.outerHTML).join('');
+    - tech: |
+        сравнить полученные css-стили с ранее запомненными, должно совпадать 1 в 1,
+        before === after
+
+files:
+    - features/common/pushbundle/pushbundle.hermione.js
+
+v-team: Velocity
+
+tags:
+  - pushbundle
+  - ajax
+  - progressive
+  - reviewed
+  - no_assessors
+  - skip_e2e_check
+
+tlds: none

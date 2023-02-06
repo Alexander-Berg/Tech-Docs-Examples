@@ -1,0 +1,91 @@
+feature: Спецсниппет ответа на вопрос
+type: С Турбо
+
+description: |
+  Везде, кроме Яндекс Браузера (на Android и на iOs>13), вместо турбо-слайдера открывается отдельная турбо-страница;
+  в шапке нет точек навигации и имени ресурса;
+  вместо крестика - кнопка "Назад"
+
+specs:
+  aliases:
+    - &turboIframeInOverlayChecks
+      - assert: открылся сайд-блок с контентом страницы
+      - tech: в сайд-блоке есть iframe
+      - assert: |
+          в сайд-блоке показывается Турбо-страница (с ракетой в заголовке),
+          в сайд-блоке есть кнопка 'Назад' или крестик в верхнем правом углу, (если iOS 12 и ниже, страница откроется в новой вкладке)
+          в сайд-блоке есть метка турбо-страницы (иконка с ракетой),
+          в сайд-блоке (внизу) есть кнопка перехода на страницу-источник ('Перейти на оригинал')
+      - do: тапнуть на кнопку 'Назад' или на крестик в верхнем правом углу
+      - tech: проверить, что сработал счетчик кнопки 'Назад' - path = '/web/item/turbo/sideblock/back' ; vars = '-adapter=snippet-with-extended-preview,-source=web,preview=true,action=dynamic_click' (могут быть и другие переменные, они не значимы)
+      - tech: проверить, что сработал счетчик кнопки закрытия всех оверлеев - path = '/web/item/turbo/sideblock/back' ; vars = '-adapter=snippet-with-extended-preview,-source=web,preview=true,action=dynamic_click' (могут быть и другие переменные, они не значимы)
+      - assert: сайд-блок турбо закрылся
+  Открытие оверлея:
+    Заголовок - оверлей:
+     # мы тут проверяем только оверлей, отключили везде, кроме ЯБро
+      - browsers:
+        - ios-yandex-browser-17-touch
+        - android-yandex-browser-17-touch
+      - params:
+          foreverdata: '4125000664'
+      - do: получить выдачу Поиска по запросу 'foreverdata'
+      - assert: на выдаче есть сниппет ответа на вопрос 'Как правильно завязать галстук?'
+      - tags:
+          - smoke_extended
+      - tech: проверить счетчик на показ заголовка (невозможно вручную)
+      - tech: проверить счетчик в заголовке - path = '/web/item/title' ; vars = '-adapter=snippet-with-extended-preview,-source=web,preview=true' (могут быть и другие переменные, они не значимы)
+      - tech: ссылка в заголовке ведёт на 'yandex.ru/turbo?' c непустым параметром text
+      - do: тапнуть на заголовок сниппета турбо-страницы
+      - *turboIframeInOverlayChecks
+    Другие ответы - оверлей:
+      # мы тут проверяем только оверлей, отключили везде, кроме ЯБро
+      - browsers:
+        - ios-yandex-browser-17-touch
+        - android-yandex-browser-17-touch
+      - params:
+          foreverdata: '4125000664'
+      - do: получить выдачу Поиска по запросу 'foreverdata'
+      - assert: на выдаче есть сниппет ответа на вопрос 'Как правильно завязать галстук?'
+      - tech: проверить счетчик на показ 'Другие ответы' (невозможно вручную)
+      - tech: проверить счетчик в 'Другие ответы' - path = '/web/item/other' ; vars = '-adapter=snippet-with-extended-preview,-source=web,preview=true' (могут быть и другие переменные, они не значимы)
+      - tech: ссылка в 'Другие ответы' ведёт на 'yandex.ru/turbo?' c непустым параметром text
+      - do: тапнуть на 'Другие ответы' сниппета турбо-страницы
+      - *turboIframeInOverlayChecks
+  Внешний вид без вопроса:
+    - params:
+        foreverdata: '2884460909'
+    - do: получить выдачу Поиска по запросу 'foreverdata'
+    - assert: на выдаче есть сниппет ответа на вопрос 'Как правильно завязать галстук?'
+    - screenshot: внешний вид [plain]
+  Внешний вид с вопросом:
+    - params:
+        foreverdata: '4125000664'
+    - do: получить выдачу Поиска по запросу 'foreverdata'
+    - assert: на выдаче есть сниппет ответа на вопрос 'Как правильно завязать галстук?'
+    - screenshot: внешний вид [plain]
+
+files:
+  - features/touch-phone/adapter-snip-question-schema/adapter-snip-question-schema_with-turbo.hermione.js
+
+v-team: Turbo
+
+counter: /web/item/other
+
+browsers:
+  notFor:
+    - android-uc-browser-11-touch
+    - android-uc-browser-touch
+
+tags:
+  - reviewed
+  - turbo
+  - skip_e2e_check
+
+tlds:
+  - ru
+  - by
+  - ua
+  - uz
+  - kz
+  - com.tr
+  - com

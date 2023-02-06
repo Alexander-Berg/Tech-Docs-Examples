@@ -1,0 +1,25 @@
+feature: LcTextComponent
+
+tags: no_assessors
+
+specs:
+  Внешний вид заголовка:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lctextcomponent/title.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Внешний вид подзаголовка:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lctextcomponent/subtitle.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Внешний вид простого текста:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lctextcomponent/text.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/components/LcTextComponent/__tests__/LcTextComponent.hermione.js
+
+v-team: Lc
+
+manager: hanky
+
+qa-engineer: kudyukova
+
+tlds: none

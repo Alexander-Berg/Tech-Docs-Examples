@@ -1,0 +1,25 @@
+feature: tags
+
+specs:
+  Теги - проверка скроллов:
+    - browsers:
+        notFor:
+          - ios-touch-group
+    - do: открыть страницу 'https://yandex.ru/turbo?stub=page/tags.json'
+    - do: найти блок с текстом 'текст как он есть в тэге pre'
+    - do: если тест расположен в одну строку, прокрутить его влево
+    - assert: текст прокрутился, если он расположен в одну строку
+    - do: прокрутить влево до упора блок с текстом 'Привет я тэг pre и внутри меня тэг code ----> !'
+    - assert: текст прокрутился
+    - do: прокрутить влево до упора блок с кодом
+    - assert: блок прокрутился
+    - screenshot: внешний вид соответствует скриншоту [scrolled]
+
+files:
+  - features/touch-phone/blocks/tags/tags.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+tlds: none

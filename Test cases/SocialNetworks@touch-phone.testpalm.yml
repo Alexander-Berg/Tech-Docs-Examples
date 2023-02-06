@@ -1,0 +1,27 @@
+feature: 1Орг
+type: Соцсети
+
+specs:
+  Внешний вид:
+    - do: получить выдачу по запросу 'кафе Пушкин'
+    - assert: на странице появился колдунщик организации с блоком с ссылками на соцсети
+    - screenshot: внешний вид блока [plain]
+
+  Проверка ссылок:
+    - do: получить выдачу по запросу 'кафе Пушкин'
+    - assert: на странице появился колдунщик организации с блоком с ссылками на соцсети
+    - do: кликнуть в первую ссылку на фейсбук
+    - assert: осуществился переход на страницу кафе Пушкин в фейсбуке
+    - tech: сработал счетчик path='/$page/$main/$result/composite/sites/scroller/"socnet/facebook"'
+    - assertMetrics: '*'
+tlds: all
+
+counter: /$page/$main/$result[@wizard_name="companies" and @subtype="company"]/composite/sites
+
+v-team: VanillaGeo
+
+files:
+  - src/features/Companies/Companies.features/SocialNetworks/SocialNetworks.test/SocialNetworks@touch-phone.hermione.js
+
+tags:
+  - react

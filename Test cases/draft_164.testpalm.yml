@@ -1,0 +1,15 @@
+feature:  Умный дом - другое устройство (обученный пульт) - экран голосовых команд
+
+specs:
+    Умный дом - другое устройство (обученный пульт) - экран голосовых команд:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/2737
+        - release_Smarthome
+        - smarthome_regress
+        - platform_common
+        - iot_suggests
+        - iot_voice
+        - iot_remote
+    - do: "Preconditions На устройстве добавлен ИК-пульт; Также необходим обычный ИК-пульт от ТВ или кондиционера; На аккаунте добавлено устройство `Другое устройство` через обучение пульта (см. связанный кейс); ; **На пульте обучено больше одной кнопки**; Как сделать https://testpalm2.yandex-team.ru/testcase/alice-2649"
+    - do: "Открываем экран голосовых команд https://jing.yandex-team.ru/files/osennikovak/uhura_2020-10-08T16%3A22%3A42.242213.jpg;  Тапаем на команды"
+    - assert: "Все команды выполняются "

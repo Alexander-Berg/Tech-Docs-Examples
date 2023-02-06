@@ -1,0 +1,62 @@
+feature: LcJobsContentHeader
+
+tags: no_assessors
+
+specs:
+  default:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcjobscontentheader/default.json)
+    - screenshot: внешний вид соответствует скриншоту [default]
+
+  size_l:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcjobscontentheader/size_l.json)
+    - screenshot: внешний вид соответствует скриншоту [size_l]
+
+  size_s:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcjobscontentheader/size_s.json)
+    - screenshot: внешний вид соответствует скриншоту [size_s]
+
+  with_button:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcjobscontentheader/with_button.json)
+    - screenshot: внешний вид соответствует скриншоту [with_button]
+
+  with_logo:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcjobscontentheader/with_logo.json)
+    - screenshot: внешний вид соответствует скриншоту [with_logo]
+
+  with_share:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcjobscontentheader/with_share.json)
+    - screenshot: внешний вид соответствует скриншоту [with_share]
+
+  with_tabs:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcjobscontentheader/with_tabs.json)
+    - screenshot: внешний вид соответствует скриншоту [with_tabs]
+
+  with_tabs_and_button:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcjobscontentheader/with_tabs_and_button.json)
+    - screenshot: внешний вид соответствует скриншоту [with_tabs_and_button]
+
+  with_tabs_and_share:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcjobscontentheader/with_tabs_and_share.json)
+    - screenshot: внешний вид соответствует скриншоту [with_tabs_and_share]
+
+  with_gradient:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcjobscontentheader/with_gradient.json)
+    - screenshot: внешний вид соответствует скриншоту [with_gradient]
+
+  with_button_only:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcjobscontentheader/with_button_only.json)
+    - screenshot: внешний вид соответствует скриншоту [with_button_only]
+
+  disabled:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcjobscontentheader/disabled.json)
+    - screenshot: внешний вид соответствует скриншоту [disabled]
+files:
+  - platform/components/LcJobsContentHeader/__tests__/LcJobsContentHeader.hermione.js
+
+v-team: Backoffice
+
+manager: kiparis
+
+qa-engineer: grikyan
+
+tlds: none

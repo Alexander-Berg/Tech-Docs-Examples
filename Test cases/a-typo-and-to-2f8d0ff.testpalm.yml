@@ -1,0 +1,30 @@
+feature: 'Опечатка и Ко'
+type: 'Ничего не найдено'
+
+specs:
+  Обязательные проверки:
+    - do: получить выдачу по запросу "Bdhdhdhdjsjdjxhdhsnskjdjdjehxjcjdbdhsjjdhfhdjdjjcjdjdjdjjdksjjdjdjdjdhexhhdhe"
+    - assert: результаты поиска отсутствуют
+    - assert: в правой части экрана отсутствует блок с текстом "Нашлось n результатов" (где n - количество)
+    - assert: в правой части экрана отсутствует блок с текстом "n показов в месяц" (где n - количество),
+    - screenshot: примерный внешний вид [https://jing.yandex-team.ru/files/v-avdeev/aaaaaaaaggggggggggpppppppp__Yandeks_nichego_ne_naideno_2017-11-27_18-01-41.png]
+  Запрос с кавычками:
+    - do: получить выдачу по запросу '"Bdhdhdhdjsjdjxhdhsnskjdjdjehxjcjdbdhsjjdhfhdjdjjcjdjdjdjjdksjjdjdjdjdhexhhdhe"' (запрос нужно выполнять именно в кавычках)
+    - assert: под шапкой появилось сообщение "По вашему запросу ничего не нашлось"
+    - screenshot: примерный внешний вид [https://jing.yandex-team.ru/files/kseverina/iexplore_g7CCPsXpml.png]
+
+files:
+  - features/desktop/a-typo-and-to/a-typo-and-to-2f8d0ff.hermione.js
+
+priority: medium
+
+v-team: Suggest_Freshness
+
+tags:
+  - notfound
+  - touch
+  - wizard
+  - misspell
+  - reviewed
+
+tlds: none

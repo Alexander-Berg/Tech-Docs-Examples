@@ -1,0 +1,25 @@
+feature: Объектный ответ
+type: Геометрия карусели на разных разрешениях
+
+tlds: ru
+
+specs:
+  Светлая карусель:
+    - params:
+        ento: 0oEg5ydXc1Mjg1NTphc3NvYxgCQhvQvNCw0LTQvtC90L3QsCDQv9C10LLQuNGG0LDvx7-h
+    - do: получить выдачу по запросу 'Мадонна певица', добавив в url параметр &ento=0oEg5ydXc1Mjg1NTphc3NvYxgCQhvQvNCw0LTQvtC90L3QsCDQv9C10LLQuNGG0LDvx7-h
+    - assert: на выдаче присутствует список знаменитостей
+    - do: уменьшить разрешение экрана по ширине до 990px
+    - screenshot: внешний вид [carousel-light-990]
+  Темная карусель:
+    - do: получить выдачу по запросу 'фильмы 2018'
+    - assert: на выдаче присутствует список фильмов
+    - do: уменьшить разрешение экрана по ширине до 990px
+    - screenshot: внешний вид [carousel-dark-990]
+
+files:
+  - features/desktop/z-entity-search/carousel/layout/carousel-layout.hermione.js
+
+tags: [oo_lists]
+
+v-team: OO

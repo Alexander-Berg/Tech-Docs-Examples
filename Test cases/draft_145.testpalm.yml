@@ -1,0 +1,12 @@
+feature:  Запоминание WiFi сетей при подключении устройств - ссылка на хелп
+
+specs:
+    Запоминание WiFi сетей при подключении устройств - ссылка на хелп:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/2690
+        - release_Webview
+        - platform_common
+    - do: "Начать добавлять любое устройство, выбрать WiFi сеть"
+    - assert: "Отображается `знак вопроса` около поля `Запомнить сеть`"
+    - do: "Нажать на знак вопроса"
+    - assert: "Ссылка ведёт на https://yandex.ru/support/yandex-app-android/privacy/wifi-safety.html"

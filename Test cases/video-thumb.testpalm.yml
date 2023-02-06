@@ -1,0 +1,26 @@
+feature: Видео-тумб
+
+params:
+  foreverdata: '1183760026'
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок первого сниппета (название заголовка Тестовая cтраница для Test_video_thumb — турбо)
+    - assert: открывается турбо-страница в той же вкладке
+
+  Основные проверки:
+    - screenshot: Внешний вид [plain]
+    - tech: Страница не содержит клиентских ошибок
+
+  Переход по ссылке:
+    - do: Выбрать видео-тумб и нажать на него
+    - assert: Открывается отдельная вкладка с видео
+
+files:
+  - features/blocks/video-thumb/video-thumb.hermione.js
+
+v-team: Turbo
+
+tags: reviewed
+
+tlds: none

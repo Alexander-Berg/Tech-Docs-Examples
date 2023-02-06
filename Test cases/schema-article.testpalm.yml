@@ -1,0 +1,36 @@
+feature: schema-article
+
+tags: no_assessors
+
+specs:
+  Проверка атрибутов статьи:
+    - do: перейти на https://yandex.ru/turbo?stub=page/schema-article.json
+    - tech: У блока page__result должны быть атрибуты itemscope и itemtype="https://schema.org/Article"
+    - tech: В page__result должен быть вложен тег meta с itemprop="identifier"
+    - tech: В page__result должен быть вложен невидимый блок `turbo-breadcrumbs-schema` с атрибутами itemscope, itemtype="http://schema.org/BreadcrumbList"
+    - tech: Содержание блока `turbo-breadcrumbs-schema` соответствует документации https://yandex.ru/support/metrica/publishers/schema-org/schema-org.html#schema-org__rubric-desc
+    - tech: У блока title должен быть атрибут itemprop="headline"
+    - tech: У блока turbo-author должны быть атрибуты itemprop="author", itemscope и itemtype="https://schema.org/Person"
+    - tech: У блока turbo-author__name должен быть атрибут itemprop="name"
+    - tech: У блока date должны быть атрибуты itemprop="datePublished" и datetime="2019-03-07T08:27:00.000Z"
+    - tech: У блока article-body должен быть атрибут itemprop="articleBody"
+    - tech: У блока source должен быть атрибут itemprop="url"
+  Проверка проставления дефолтных атрибутов на вёрстке:
+    - do: перейти на https://yandex.ru/turbo?stub=page/schema-default.json
+    - tech: У блока page__result должны быть атрибуты itemscope и itemtype="https://schema.org/Article"
+    - tech: У блока title должен быть атрибут itemprop="headline"
+    - tech: У блока turbo-author должны быть атрибуты itemprop="author", itemscope и itemtype="https://schema.org/Person"
+    - tech: У блока turbo-author__name должен быть атрибут itemprop="name"
+    - tech: У блока date должны быть атрибуты itemprop="datePublished" и datetime="2019-03-07T08:27:00.000Z"
+    - tech: У блока source должен быть атрибут itemprop="url"
+
+files:
+- features/common/blocks/schema/schema-article.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: olga0321
+
+tlds: none

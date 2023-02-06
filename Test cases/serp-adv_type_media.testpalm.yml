@@ -1,0 +1,27 @@
+feature: Медиабаннер
+
+specs:
+  Внешний вид, ссылка и счётчик:
+    - params:
+        foreverdata: '2774856842'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: медиабаннер присутствует справа на странице
+    - screenshot: внешний вид медиабаннера [plain]
+    - do: проверить ссылку на картинке медиабаннера и нажать на нее
+    - assert: ссылка содержит an.yandex.ru
+    - tech: сработал счетчик path = '/tech/direct/ad/media'
+
+files:
+  - features/desktop/serp-adv-type-media/serp-adv-type-media.hermione.js
+
+tags:
+  - skip_e2e_check
+  - adv
+  - right_column_adv
+  - MCB
+
+v-team: Distribution
+
+tlds:
+  - ru
+  - by

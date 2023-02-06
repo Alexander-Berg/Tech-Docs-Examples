@@ -1,0 +1,23 @@
+feature: Стихолюб
+type: Коран
+
+specs:
+  Альбомная ориентация:
+    - do: получить выдачу Поиска по запросу 'فَقَدْ كَذَّبُوا بِالْحَقِّ لَمَّا'
+    - assert: на выдаче есть колдунщик Стихолюб
+    - do: повернуть устройство в альбомную ориентацию
+    - assert: колдунщик повернулся в альбомную ориентацию [koran-landscape]
+    - assertMetrics: '-'
+
+files:
+  - src/features/Lyrics/Lyrics.test/koran/lyrics_type_koran@touch-phone.hermione.js
+
+v-team: Facts
+
+tlds: com.tr
+
+langs: com.tr
+
+tags:
+  - reviewed
+  - react

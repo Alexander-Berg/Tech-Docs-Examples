@@ -1,0 +1,20 @@
+feature: sportRaceTeaser
+
+specs:
+  Внешний вид блока:
+    - tags:
+      - sportauto
+    - do: открыть /turbo?stub=sportraceteaser/default.json
+    - assert: виджет отображается
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/components/SportRaceTeaser/__tests__/SportRaceTeaser@desktop.hermione.js
+
+v-team: Sport
+
+qa-engineer: nightsonne
+
+manager: skhovaev
+
+tlds: none

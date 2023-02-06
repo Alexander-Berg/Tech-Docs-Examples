@@ -1,0 +1,19 @@
+feature: Органика
+type: Cпецсниппет видео
+
+specs:
+  Белый треугольник пропадает при показе превью:
+    - do: получить выдачу по запросу "любовь и голуби 1984"
+    - assert: в выдаче есть видео-сниппет с превью
+    - assert: у видео-сниппета отображается иконка play
+    - do: навести мышь на видео-сниппет
+    - assert: иконка play не видна
+    - do: увести мышь с видео-сниппета
+    - assert: иконка play видна
+
+files:
+  - features/desktop/videothumb/videothumb_beautiful_video_thumb.hermione.js
+
+v-team: Video
+
+tlds: none

@@ -1,0 +1,39 @@
+feature: LcSms
+
+tags: no_assessors
+
+specs:
+  Обычный блок смс:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcsms/default.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Блок смс с заголовком (выравнивание по левому краю):
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcsms/withTitleAlignLeft.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Блок смс с заголовком (выравнивание по центру):
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcsms/withTitleAlignCenter.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Блок смс с заголовком (выравнивание по правому краю):
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcsms/withTitleAlignRigth.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Отправка смс:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcsms/with-mock.json)
+    - assert: Секция cмс должна отображаться корректно
+    - do: Ввести 79261234567 в поле ввода телефона
+    - do: Ввести 123456 в поле ввода капчи
+    - do: Нажать на кнопку отправить
+    - screenshot: внешний вид не соответствует скриншоту из-за отсутствия механизма моков [plain]
+
+files:
+  - platform/components/LcSms/__tests__/LcSms.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: ratyulenev
+
+tlds: none

@@ -1,0 +1,38 @@
+feature: Sale
+
+params:
+  exp_flags:
+    - analytics-disabled=1
+
+browsers:
+  - ios-safari-12-touch
+  - ios-safari-11-touch
+  - ios-safari-10-touch
+  - ios-safari-9-touch
+
+specs:
+  Базовый вид:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=sale/default.json
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Редизайн:
+    - params:
+        exp_flags:
+          - ecommerce-design=1
+    - do: открыть ссылку https://yandex.ru/turbo?stub=sale/default.json
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/components/Sale/__tests__/sale@phone.hermione.js
+
+v-team: Turbo
+
+tags: 
+  - e-commerce
+  - no_assessors #раскатили новый дизайн на 100%
+
+manager: tanzwuta
+
+qa-engineer: ianislav
+
+tlds: none

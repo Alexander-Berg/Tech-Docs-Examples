@@ -1,0 +1,108 @@
+feature: Отчёты
+
+specs:
+  Отчёты (верхнее меню) . Роли. Различные фильтры и сортировки:
+    - do: запустить в Runner сценарий "Отчёты (верхнее меню) . Роли" (https://github.yandex-team.ru/pixel/idm-runner)
+    - do: отправить запрос "Отчёты. Роли. Все типы, все статусы, все системы" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: ответ на запрос "Отчёты. Роли. Все типы, все статусы, все системы" должен содержать поля вида [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-04%2015-25-39.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Отчёты. Роли. Только групповые, все статусы, все системы" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: ответ на запрос "Отчёты. Роли. Только групповые, все статусы, все системы" должен содержать поля [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-04%2015-27-07.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Отчёты. Роли. Только персональные, все статусы, все системы" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: ответ на запрос "Отчёты. Роли. Только персональные, все статусы, все системы" должен содержать поля [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-04%2015-28-23.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Отчёты. Роли. Все типы, все системы, но только Активные роли" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: в ответе на запрос "Отчёты. Роли. Все типы, все системы, но только Активные роли" все поля "human_state" должны иметь значения из списка - "Выдана", "Отзывается", "Импортирована", "Нужно перезапросить", "Ожидание", "Отложена", "Перезапрошена в связи с регулярным пересмотром", "Валидация отзыва" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-04%2015-30-11.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Отчёты. Роли. Все типы, все системы, но только Неактивные роли" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: в ответе на запрос "Отчёты. Роли. Все типы, все системы, но только Неактивные роли" все поля "human_state" должны иметь значения из списка - "Отозвана", "Отклонена", "Ошибка", "Просрочена", "Ошибка системы", "Ошибка IDM" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-04%2015-31-49.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Отчёты. Роли. Все типы, все системы, но только Запрошенные роли" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: в ответе на запрос "Отчёты. Роли. Все типы, все системы, но только Запрошенные роли" все поля "human_state" должны иметь значения из списка - "Запрошена", "Перезапрошена", "Перезапрошена в связи с регулярным пересмотром", "Подтверждена", "Импортирована", "Ожидание", "Передана в систему" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-04%2015-33-19.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Отчёты. Роли. Все типы, все системы, все статусы, но только SOX" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: в ответе на запрос "Отчёты. Роли. Все типы, все системы, все статусы, но только SOX" все поля "is_sox" в "system" должны иметь значение "true" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-04%2015-36-35.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Отчёты. Роли. Фильтрация по сотруднику" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: ответ на запрос "Отчёты. Роли. Фильтрация по сотруднику" должен содержать поля [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-04%2015-38-09.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Отчёты. Роли. Фильтрация по группе" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: ответ на запрос "Отчёты. Роли. Фильтрация по группе" должен содержать поля [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-04%2015-38-45.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Отчёты. Роли. Фильтрация по системе" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: ответ на запрос "Отчёты. Роли. Фильтрация по системе" должен содержать поля [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-04%2015-39-16.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Отчёты. Роли. Фильтрация по системе и роли в ней" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: в ответе на запрос "Отчёты. Роли. Фильтрация по системе и роли в ней" каждая запись про роль должена содержать поля [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-18%2011-10-34.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Отчёты. Роли. Фильтрация по состоянию роли" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: в ответе на запрос "Отчёты. Роли. Фильтрация по состоянию роли" все поля "state" должны иметь значение "failed" или "deprived" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-04%2015-40-35.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Отчёты. Роли. Нет данных в результате фильтрации" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: ответ на запрос "Отчёты. Роли. Нет данных в результате фильтрации" должен содержать поля [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-04%2015-41-01.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Отчёты. Роли. Фильтрация по id" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: в ответе на запрос "Отчёты. Роли. Фильтрация по id" должна быть одна запись с id=12840185 [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-04%2015-41-51.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Отчёты. Роли. Фильтрация по id родительской роли" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: в ответе на запрос "Отчёты. Роли. Фильтрация по id родительской роли" должна быть одна запись с id=12840185 [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-04%2015-41-51.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+
+priority: critical
+
+files:
+  - idm/tests/api/frontend/test_role.py
+
+tags:
+  - reviewed
+  - no_assessors
+  - postman_automation
+  - fitcher:idm-www:test/auto/reports-tab-roles/**
+  - fitcher:idm-www:test/e2e/reports-tab-roles/**
+  - fitcher:idm-www:blocks/desktop/filters/**
+  - fitcher:idm-www:blocks/desktop/table/**
+  - fitcher:idm_backend_palmsync:idm/api/exceptions.py
+  - fitcher:idm_backend_palmsync:idm/core/constants/role.py
+  - fitcher:idm_backend_palmsync:idm/core/constants/rolefield.py
+  - fitcher:idm_backend_palmsync:idm/core/models/role.py
+  - fitcher:idm_backend_palmsync:idm/core/models/rolenode.py
+  - fitcher:idm_backend_palmsync:idm/core/models/rolefield.py
+  - fitcher:idm_backend_palmsync:idm/core/models/rolealias.py
+  - fitcher:idm_backend_palmsync:idm/core/models/approverequest.py
+  - fitcher:idm_backend_palmsync:idm/permissions/utils.py
+  - fitcher:idm_backend_palmsync:idm/tests/utils.py
+  - fitcher:idm_backend_palmsync:idm/users/constants/group.py
+  - fitcher:idm_backend_palmsync:idm/users/models.py
+  - fitcher:idm_backend_palmsync:idm/users/constants/user.py
+  - fitcher:idm_backend_palmsync:idm/core/models/rolerequest.py

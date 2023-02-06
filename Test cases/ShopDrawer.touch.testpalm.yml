@@ -1,0 +1,19 @@
+feature: ProductPage
+
+specs:
+  Шторка магазина:
+    Шаринг:
+      - do: открыть https://yandex.ru/products/product/868731267/sku/101223279916?exp_flags=sku_offers_ugc_enabled=true;shop_info_page;PRODUCTS_enable_reviews_offers=1
+      - assert: |
+          открылась страница товара
+          на странице есть список офферов
+      - do: кликнуть на лейбл с рейтингом
+      - assert: открылась шторка магазина
+      - do: кликнуть на ссылку шаринга рядом с тайтлом
+      - assert: открылась модальное окно для шаринга или ссылка в новой вкладке
+      - tech: сработал счетчик path="$page.$main.card.shopList.drawer-shop.share"
+
+v-team: goods
+
+files:
+  - src/pages/ProductPage/tests/ShopDrawer/ShopDrawer.touch.hermione.ts

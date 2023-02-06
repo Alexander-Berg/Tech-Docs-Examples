@@ -1,0 +1,43 @@
+feature: Претендент
+type: Like/Dislike
+
+description: кнопки отображаются у только созданных претендентов, с которыми не велись работы
+
+specs:
+  beforeEach:
+    - do: открыть страницу претендента /applications/<id_претендента>/
+    - screenshot: присутствует блок 'Кандидат интересен?' [https://jing.yandex-team.ru/files/grikyan91/Pretendent_Sprint_Pyatyi__Femida_2019-08-15_17-04-21.png]
+  Like [manual]:
+    - automation: FEMIDA-4974
+    - do: клик на палец вверх
+    - screenshot: появился попап 'Кандидат интересен' [https://jing.yandex-team.ru/files/grikyan91/Pretendent_Sprint_Pyatyi__Femida_2019-08-15_17-06-00.png]
+    - do: заполнить поле 'Дополнительный комментарий'
+    - do: клик на кнопку 'Кандидат интересен'
+    - assert: |
+        попап закрылся
+        блок 'Кандидат интересен?' пропал
+        статус у претендента 'В работе'
+        в тайтле появился палец вверх
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/grikyan91/Pretendent_Sprint_Pyatyi__Femida_2019-08-15_17-08-20.png]
+  Dislike [manual]:
+    - automation: FEMIDA-4974
+    - do: клик на палец вниз
+    - screenshot: появился попап 'Кандидат не интересен команде вакансии' [https://jing.yandex-team.ru/files/grikyan91/Pretendent_Ivan_Petrov__Femida_2019-08-15_17-09-05.png]
+    - do: заполнить поле 'Дополнительный комментарий'
+    - do: клик на 'Отказать'
+    - assert: |
+        попап закрылся
+        блок 'Кандидат интересен?' пропал
+        статус претендента изменился на 'Закрыт'
+        в тайтле появился палец вниз
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/grikyan91/Pretendent_Ivan_Petrov__Femida_2019-08-15_17-12-03.png]
+
+tags:
+  - reviewed
+
+priority: normal
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

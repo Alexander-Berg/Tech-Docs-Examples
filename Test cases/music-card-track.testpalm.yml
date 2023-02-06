@@ -1,0 +1,17 @@
+feature: Объектный ответ
+type: Карточка музыкального трека
+
+specs:
+  Полная карточка:
+    - do: получить выдачу по запросу 'God Save The Queen - Sex Pistols'
+    - screenshot: внешний вид [music-card-track-full]
+  Постер без клипа:
+    - do: получить выдачу по запросу 'London Calling - The Clash'
+    - screenshot: внешний вид [music-card-track-poster]
+
+files:
+  - features/deskpad/z-entity-search/music-card-track/music-card-track.hermione.js
+
+tlds: ['ru']
+
+v-team: OO

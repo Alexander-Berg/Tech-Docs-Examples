@@ -1,0 +1,20 @@
+feature: Предобработка URL запроса
+
+specs:
+    Если URL не содержит экранированных символов, редирект не должен происходить:
+        -   do: Перейти на страницу с URL "/avia/?adult_seats=1&children_seats=0&fromId=c213&infant_seats=0&klass=economy&oneway=2&return_date=2021-09-29&toId=c239&when=2021-09-25"
+        -   assert: Браузер не должен изменить pathname и search-параметры
+    Если URL содержит экранированные символы, должен произойти редирект на правильный URL:
+        -   do: Перейти на страницу, в URL которой & заменен на &amp;, "/avia/?adult_seats=1&amp;children_seats=0"
+        -   assert: Браузер должен быть перенаправлен на страницу, где &amp; в search-параметрах заменен на &, pathname измениться не должен
+    Если URL закодирован правильно, не должен образоваться бесконечный редирект:
+        -   do: Перейти на страницу с URL "/trains/order/?forward=P1_020У_2006004_9602494_2021-10-01T00%3A20&fromId=c213&toId=c2&when=2021-10-01"
+        -   assert: Браузер не должен изменить pathname и search-параметры
+
+files:
+    - tests/common/common/decodeUrlMiddleware/redirect-to-decoded-url.hermione.ts
+
+Сервис: Портал
+Устройство:
+    - Десктоп
+    - Тач

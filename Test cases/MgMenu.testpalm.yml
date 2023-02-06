@@ -1,0 +1,20 @@
+feature: MgMenu
+
+specs:
+  Внешний вид:
+    - do: открыть страницу блока MgMenu https://yandex.ru/turbo?stub=mgmenu/default.json
+    - assert: в элементах списка с левой стороны есть иконки
+    - assert: последний элемент «удалить» является красным
+    - assert: после пунктов «Добавить в избранное» и «Заблокировать автора» есть полоска-разделитель
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+    - platform/components/MgMenu/MgMenu.tests/MgMenu.hermione.js
+
+v-team: District
+
+manager: gorelikiss
+
+qa-engineer: vulpes, kudyukova
+
+tlds: none

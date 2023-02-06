@@ -1,0 +1,46 @@
+feature: Объектный ответ
+type: Подкасты
+
+specs:
+  Карточка подкаста:
+    - label: 'entity-search/podcast/podcast-{{SET_NAME}}'
+    - params:
+        wizextra:
+          - 'entnext=yam46271118'
+    - do: получить выдачу по запросу "как жить" с параметром &wizextra=entnext%3Dyam46271118
+    - assert: |
+        на выдаче есть карточка Объектного ответа
+        в карточке есть постер подкаста
+        в карточке есть блок с выпусками
+    - screenshot: внешний вид [plain]
+    - do: нажать на нопку "плей" первого выпуска
+    - assert: начал играть аудиотрек
+    - tech: сработал баобаб счетчик path='/$page/$parallel/$result/object-badge/music-pop-tracks/music-playlist/music-track'
+    - do: нажать на кнопку 'ещё 17 выпусков'
+    - assert: дозагрузились выпуски
+    - tech: сработал baobab счётчик path='/$page/$parallel/$result/object-badge/music-pop-tracks/more'
+  Кнопка в Яндекс.Музыке в карточке подкаста:
+    - params:
+        wizextra:
+          - 'entnext=yam46271118'
+    - do: получить выдачу по запросу "как жить" с параметром &wizextra=entnext%3Dyam46271118
+    - assert: |
+        на выдаче есть карточка Объектного ответа
+        в карточке есть постер подкаста
+        в карточке есть кнопка "в Яндекс.Музыке"
+        в карточке есть блок с выпусками
+    - do: нажать на кнопку "в Яндекс.Музыке"
+    - assert: |
+        произошел переход на Яндекс Музыку на страницу подкаста
+        в урле есть параметр from=serp_autoplay
+    - tech: сработал baobab счётчик path='/$page/$parallel/$result/music-button'
+
+files:
+  - features/desktop/z-entity-search/podcast/podcast.hermione.js
+
+tags:
+  - no_assessors
+
+tlds: ['ru']
+
+v-team: OO

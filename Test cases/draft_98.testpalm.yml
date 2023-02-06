@@ -1,0 +1,16 @@
+feature:  Настройки - отобрать Станцию
+
+specs:
+    Настройки - отобрать Станцию:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/2454
+        - release_Webview
+        - release_Smarthome
+        - smarthome_regress
+        - surface_station
+        - platform_common
+        - iot_connection
+    - do: "Description При перепиликивании станции на другой аккаунт новый аккаунт `отбирает` станцию у первого аккаунта"
+    - do: "Preconditions Станция привязана к любому аккаунту (аккаунт №1)"
+    - do: "Привязать станцию к другому аккаунту (№2)"
+    - assert: "Станция успешно добавлена в аккаунт №2; В аккаунте №1 станция НЕ отображается в меню"

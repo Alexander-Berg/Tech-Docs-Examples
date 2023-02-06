@@ -1,0 +1,17 @@
+feature: FeedItemComment
+
+specs:
+  Внешний вид блока:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=feeditemcomment/default.json
+    - screenshot: внешний вид [plain]
+
+files:
+  - platform/components/FeedItemComment/FeedItemComment.tests/FeedItemComment.hermione.js
+
+v-team: Turbo
+
+manager: sergey-kuldin
+
+qa-engineer: spv
+
+tlds: none

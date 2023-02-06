@@ -1,0 +1,31 @@
+feature: Специальные события
+type: Доступность
+
+browsers: chrome-phone
+
+specs:
+  Доступность строки расписания:
+    - params:
+        foreverdata: '3625351074'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на странице присутствует спортивный колдунщик
+    - tech: у ссылки в строке расписания есть аттрибут 'aria-label'
+    - tech: у элемента cell с датой матча есть аттрибут 'aria-hidden'
+    - tech: у элемента cell с названиями играющих команд есть аттрибут 'aria-hidden'
+    - tech: у блока text-caontainer с временем матча есть аттрибут 'aria-hidden'
+   
+
+files:
+  - features/touch-phone/adapter-special-event/adapter-special-event_type_sport/adapter-special-event_type_sport.a11y.hermione.js
+
+tags:
+  - reviewed
+  - no_assessors #a11y
+  - skip_e2e_check #a11y
+  - news
+  - A11y_serp
+
+v-team: Sport
+
+tlds:
+  - ru

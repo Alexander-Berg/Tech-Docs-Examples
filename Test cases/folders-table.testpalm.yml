@@ -1,0 +1,64 @@
+feature: "Dispenser: Квоты"
+
+specs:
+  beforeEach:
+    - do: залогиниться под пользователем 'robot-abc-002'
+  aliases:
+    _testCases: &testCases
+      Сворачивание/разворачивание таблицы фолдеров:
+        фолдера:
+          - screenshot: скриншот фолдера [folder-table-folder-row-expanded]
+          - do: нажать на стрелку в ячейке фолдера
+          - assert: фолдер свернулся, в строке выведен список провайдеров фолдера
+          - screenshot: скриншот фолдера [folder-table-folder-row-collapsed]
+        провайдера:
+          - screenshot: скриншот [folder-table-folder-row-provider-expanded]
+          - do: нажать на стрелку в ячейке провайдера
+          - assert: провайдер свернулся, в строке выведен список ресурсов провайдера
+          - screenshot: скриншот [folder-table-folder-row-provider-collapsed]
+        всех фолдеров:
+          - do: нажать на кнопку сворачивания в ячейке фолдера в шапке таблицы
+          - assert: все фолдеры свернулись
+          - screenshot: скриншот [folder-table-folders-collapsed]
+          - do: нажать на кнопку разворачивания в ячейке фолдера в шапке таблицы
+          - assert: все фолдеры развернулись
+          - screenshot: скриншот [folder-table-folders-expanded]
+        всех провайдеров:
+          - do: нажать на кнопку сворачивания в ячейке провайдера в шапке таблицы
+          - assert: все провайдеры свернулись
+          - screenshot: скриншот [folder-table-providers-collapsed]
+          - do: нажать на кнопку разворачивания в ячейке провайдера в шапке таблицы
+          - assert: все провайдеры развернулись
+          - screenshot: скриншот [folder-table-providers-expanded]
+  ru:
+    params:
+      lang: ru
+    Таблица фолдеров:
+      beforeEach:
+        - do: открыть страницу '/services/shifts223/folders?lang=ru'
+      Внешний вид:
+        - screenshot: скриншот [folder-table-ru]
+      Тип ресурса - Стрелка:
+        - do: нажать на стрелку рядом с типом ресурса в таблице
+        - assert: появились новые строки с ресурсами
+        - screenshot: скриншот [folder-table-row-after-ru]
+      <<: *testCases
+  en:
+    Таблица фолдеров:
+      beforeEach:
+        - do: открыть страницу '/services/shifts223/folders?lang=en'
+      Внешний вид:
+        - screenshot: скриншот [folder-table-en]
+      Тип ресурса - Стрелка:
+        - do: нажать на стрелку рядом с типом ресурса в таблице
+        - assert: появились новые строки с ресурсами
+        - screenshot: скриншот [folder-table-row-after-en]
+      <<: *testCases
+
+files:
+  - test/features/desktop/dispenser/folders-table.hermione.js
+
+priority: blocker
+
+tags:
+  - no_assessors

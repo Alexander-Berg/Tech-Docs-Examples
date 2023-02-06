@@ -1,0 +1,39 @@
+feature: Видео
+
+experiment: Управление кол-вом рядов в многорядном колдунщике
+params:
+  exp_flags:
+    - video_wizard_multirow_config=Film_Film:2,Film_Series:3
+    - enable_fake_tv=1
+
+tlds: [ru, kz, by, ua, com, com.tr]
+
+specs:
+  Внешний вид сериального колдунщика:
+    - do: получить выдачу по запросу 'сверхъестественное'
+    - assert: в результатах поиска присутствует трёхрядный колдунщик Яндекс.Видео [series]
+
+  Внешний вид фильмового колдунщика:
+    - do: получить выдачу по запросу 'форест гамп'
+    - assert: в результатах поиска присутствует двухрядный колдунщик Яндекс.Видео [film]
+
+  Внешний вид обычного колдунщика:
+    - do: получить выдачу по запросу 'мадонна клипы'
+    - assert: в результатах поиска присутствует четырехрядный колдунщик Яндекс.Видео [default]
+
+files:
+  - features/desktop/video/video-multirow-config.hermione.js
+
+priority:
+  - medium
+
+manager:
+  - gluk
+
+v-team: Video
+
+tags:
+  - video
+  - wizard
+  - smart_tv
+  - reviewed

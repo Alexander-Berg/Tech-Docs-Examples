@@ -1,0 +1,25 @@
+feature: definition
+
+specs:
+  Мультисписок пар термин-описание:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=definition/multi.json
+    - screenshot: внешний вид соответствует скриншоту [multi]
+
+  Одиночная пара термин-описание:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=definition/default.json
+    - screenshot: внешний вид соответствует скриншоту [default]
+
+  Отступ от основного контента:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=definition/indent.json
+    - screenshot: внешний вид соответствует скриншоту [indent]
+
+files:
+  - platform/components/Definition/__tests__/Definition.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: olga0321, dakhetov
+
+tlds: none

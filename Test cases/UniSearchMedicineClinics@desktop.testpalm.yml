@@ -1,0 +1,23 @@
+feature: Универсальный колдунщик поиска врачей
+
+specs:
+  Блоки:
+    Список клиник:
+      Ссылки на перезапрос с 1Орг:
+        - params:
+            foreverdata: '2132929412'
+        - do: получить выдачу по запросу 'foreverdata'
+        - assert: на странице присутствует блок "Где принимает"
+        - do: нажать на название клиники в блоке "Где принимает"
+        - assert: открылась страница с поиском по названию клиники и первым элементом информация о ней
+
+files:
+  - src/features/UniSearch/UniSearch.features/UniSearchMedicine/UniSearchMedicine.features/Clinics/UniSearchMedicineClinics.test/UniSearchMedicineClinics@desktop.hermione.js
+
+v-team: UniSearch
+
+tlds: [ru, by, ua, kz, uz]
+
+tags:
+  - react
+  - skip_e2e_check

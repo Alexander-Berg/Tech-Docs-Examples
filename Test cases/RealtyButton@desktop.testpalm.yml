@@ -1,0 +1,34 @@
+feature: Колдунщик 1орг
+type: Кнопка телефона недвижимости
+
+specs-integration:
+  Проверка попапа:
+    - do: получить выдачу по запросу 'ЖК бунинские луга'
+    - assert: |
+        в правой колонке появился колдунщик одной организации,
+        в колдунщике есть ссылка и желтая кнопка с телефоном организации
+
+specs:
+  Проверка попапа:
+    - do: получить выдачу по запросу 'ЖК бунинские луга' _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: на выдаче есть карточка 1орг с информацией о недвижимости
+    - do: кликнуть в кнопку " +7 495  ... Показать"
+    - screenshot: примерный внешний вид кнопки [realty-phone-button]
+    - assert: должен показаться попап с телефонным номером ЖК
+    - tech: сработал пиксельный счетчик https://realty.yandex.ru/api/1.0/event/phone/click
+    - do: кликнуть в влюбое пустое место на странице
+    - assert: попап должен исчезнуть
+    - assertMetrics: '*'
+
+files:
+  - src/features/Companies/Companies.features/OrgActions/OrgActions.test/RealtyButton/RealtyButton@desktop.hermione.js
+  - src/features/Companies/Companies.features/OrgActions/OrgActions.test/RealtyButton/RealtyButton@desktop.hermione.e2e.js
+
+v-team: VanillaGeo
+
+tags:
+  - hasE2E
+
+counter: /$page/$parallel/$result[@wizard_name="companies" and @subtype="company"]/composite/tabs/about/contacts/realty/phone
+
+tlds: all

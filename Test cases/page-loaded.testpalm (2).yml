@@ -1,0 +1,26 @@
+feature: Счётчик загрузки страницы
+
+description: Динамический счетчик проверяем в Dev Tools в Network - фильтруем по зашифрованному path - 471.143.1007. Сооветствие высот проверется сравнением данных в этом счетчике из параметра -res-heights с фактической высотой элемента в выдаче. Например -res-heights=0:120 из данных счетчика означает что у нулевого элемента высота дожна быть 120. '![view](https://jing.yandex-team.ru/files/hannabar/2017-12-15_17-05-02.png)'
+
+specs:
+  Проверка динамического счётчика загрузки второй страницы:
+    - do: получить выдачу по запросу 'мадонна'
+    - do: нажать кнопку «Показать ещё»
+    - assert: проверить формат динамического счетчик /serp/page/loaded
+    - assert: проверить соответствие высот элементов выдачи и данных счетчика /serp/page/loaded
+
+files:
+  - features/touch-phone/page-loaded/page-loaded.hermione.js
+
+tags:
+  - no_assessors
+  - counters
+  - reviewed
+  - smoke_ext
+  - skip_e2e_check
+
+v-team: Architecture
+
+counter: /serp/page/loaded
+
+tlds: none

@@ -1,0 +1,41 @@
+feature: Колдунщик организаций
+
+specs:
+  Внешний вид:
+    - tags: 
+        - smoke
+        - pp_new_core
+    - label: companies-list-{{SET_NAME}}
+    - do: получить выдачу по запросу 'кафе'
+    - assert: на выдаче присутствует колдунщик организаций
+    - screenshot: примерный внешний вид колдунщика [plain]
+  Условия подключения:
+    - do: получить выдачу по запросу "кафе"
+    - assert: на выдаче есть список организаций
+    - do: нажать на ссылку "Условия подключения" в футере списка
+    - assert: открылась ссылка в новой вкладке
+    - tech: сработал счётчик path="$page/$main/$result/composite/sprav"
+  Ссылки на внешние сервисы в футере:
+    - params:
+        exp_flags: GEO_orgmn_externals_footer=1
+    - do: получить выдачу по запросу "кафе"
+    - assert: на выдаче есть список организаций
+    - screenshot: внешний вид футера списка организаций [footer]
+    - do: нажать на ссылку "Яндекс.Карты" в футере списка
+    - assert: переход на Яндекс.Карты
+    - tech: сработал счётчик path="/$page/$main/$result/composite/yandex-maps"
+  Проверка ссылок и счетчиков:
+    - do: получить выдачу по запросу "кафе"
+    - assert: на выдаче есть список организаций
+    - do: кликнуть по тайтлу колдунщика
+    - assert: в соседней вкладке открылась страница Яндекс.Карт с запросом 'шоколадница москва' и несколькими пинами
+    - tech: проверить счетчик в тайтле /parallel/result/snippet/companies/map/title
+
+files:
+  - features/companies/list/companies-list@touch-phone.hermione.js
+
+v-team: VanillaGeo
+
+counter: /$page/$main/$result[@wizard_name="companies" and @subtype="map"]/composite/title
+
+tlds: all

@@ -1,0 +1,32 @@
+feature: Дистрибуционный тизер
+type: Inset c длинным заголовоком
+
+params:
+  foreverdata: '3381675083'
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: появился дистрибуционный тизер на выдаче
+  Внешний вид inset-long horizontal:
+    - label: TeaserLong-{{SET_NAME}}
+    - screenshot: внешний вид [plain]
+    - do: повернуть устройство в ландшафтную (горизонтальную) ориентацию
+    - screenshot: пример внешнего вида в ландшафтной ориентации [horizontal]
+
+files:
+  - features/distr-teaser/distr-teaser_theme_inset-long@touch-phone.hermione.js
+
+v-team: Distribution
+
+tags:
+  - skip_e2e_check
+  - distribution
+
+tlds:
+  - ru
+  - by
+
+browsers:
+  notFor:
+    - searchapp-phone

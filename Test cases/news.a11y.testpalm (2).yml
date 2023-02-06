@@ -1,0 +1,58 @@
+feature: Колдунщик новостей
+type: Доступность
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на выдаче присутствует колдунщик новостей
+  Рубричный:
+    Одно видео:
+      - params:
+          foreverdata: '1288907832'
+      - assert: у ссылки на видеотумбе есть атрибут 'role' со значением 'link'
+      - assert: у метки свежести около видео есть атрибут 'arial-label', начинающийся со слова 'Опубликовано'
+      - assert: у элемента label__content метки свежести есть атрибут 'aria-hidden'
+    Карусель видео:
+      - params:
+          foreverdata: '1848289457'
+      - assert: у ссылки на первой видеотумбе есть атрибут 'arial-label', начинающийся со слова 'Видео'
+      - assert: у ссылки на первой видеотумбе есть атрибут 'role' со значением 'link'
+      - assert: у ссылки метки свежести около видео есть атрибут 'arial-label', начинающийся со слова 'Опубликовано'
+      - assert: у самой метки свежести есть атрибут 'aria-hidden'
+      - assert: у ссылки в заголовке видео есть атрибут 'arial-label', начинающийся со слова 'Видео'
+      - assert: внутри ссылки в заголовке видео у элемента 'showcase__item-subtitle' есть атрибут 'arial-hidden'
+  List-right:
+    Новостной сниппет:
+      - params:
+          foreverdata: '753909433'
+      - assert: у картинки первого новостного сниппета есть непустой атрибут 'aria-label'
+      - assert: у общей для гринурла и метки свежести ссылки есть непустой атрибут 'aria-label'
+      - assert: у элемента 'mini-snippet__desc' есть атрибут 'aria-hidden'
+  Сюжетный:
+    Основной сюжет:
+      - params:
+          foreverdata: '3524734113'
+      - assert: у картинки основного сюжета есть атрибут 'aria-label', начинающийся со слова 'Опубликовано'
+      - assert: у метки свежести основного сюжета есть атрибут 'arial-label', начинающийся со слова 'Опубликовано'
+      - assert: у элемента label__content метки свежести есть атрибут 'aria-hidden'
+      - assert: у метки свежести основного сюжета есть атрибут 'role' со значением 'text'
+      - assert: у объекта с количеством фото внизу основного сюжета есть атрибут 'aria-label', содержащий слово 'фото'
+
+browsers: chrome-phone
+
+files:
+  - features/touch-phone/news/news.a11y.hermione.js
+
+tags:
+  - reviewed
+  - no_assessors #a11y
+  - skip_e2e_check #a11y
+  - news
+  - A11y_serp
+
+v-team: Freshness
+
+counter: /$page/$main/$result[@wizard_name="news"]
+
+tlds:
+  - ru

@@ -1,0 +1,23 @@
+feature: Кнопка разморозки автолоада (MgAutoloadResumeButton)
+
+specs:
+  Подгружает новые порции карточек после нажатия кнопки Показать ещё [manual]:
+    - automation: NERPADUTY-40 #надо придумать, как протестировать, что отправился запрос на подгрузку новой партии
+    - tags:
+      - no_assessors
+    - browsers:
+      - chrome-phone
+      - iphone
+      - searchapp
+    - do: открыть страницу https://yandex.ru/sport?flags=yxnerpa_phone_more%3D2%3Byxnerpa_show-footer%3D1
+    - do: пролистать вниз до появления кнопки Показать ещё
+    - assert: новые карточки перестали подгружаться
+    - do: нажать на кнопку Показать ещё
+    - assert: кнопка Показать ещё исчезла
+    - assert: началась загрузка новой порции карточек
+
+v-team: Sport
+
+manager: glushneva
+
+tlds: none

@@ -1,0 +1,32 @@
+feature: LcGridBlockImage
+
+tags: no_assessors
+
+specs:
+  Внешний вид:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcgridblockimage/default.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Внешний вид с отступами:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcgridblockimage/with-paddings.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Внешний вид с кастомными размерами:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcgridblockimage/with-custom-sizes.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Внешний вид с кастомным позиционированием:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcgridblockimage/with-custom-align.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Открытие заданной ссылки по клику:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcgridblockimage/with-link-url.json)
+    - do: кликнуть по блоку изображения в сетке
+    - assert: должна открыться страница в новой вкладке
+
+files:
+  - platform/components/LcGridBlockImage/__tests__/LcGridBlockImage.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: arsmesh
+
+tlds: none

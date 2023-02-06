@@ -1,0 +1,30 @@
+feature: Страница топика (темы)
+
+description: страница топика (темы) и все эл-ты на ней по адресу /tutor/subject/tag/problems
+
+specs:
+    Проверка бокового меню:
+        - tags: smoke
+        - do: перейти на страницу топика tutor/subject/tag/problems/?ege_number_id=176&tag_id=19
+        - assert: открылась страница топика
+        - do: проскролить до последнего пункта бокового меню
+        - do: кликнуть по последнему пункту бокового меню
+        - assert: виден последний заголовок на странице
+        - do: кликнуть по первому пункту бокового меню
+        - assert: виден первый заголовок на странице
+        - screenshot: внешний вид бокового меню [plain]
+
+v-team: Younglings
+
+qa-engineer:
+    - helm
+
+platform:
+    - desktop
+
+tags:
+    - edu-front
+    - topic-page
+
+files:
+    - tests/hermione/suites/desktop/topic-page/topic-page.hermione.js

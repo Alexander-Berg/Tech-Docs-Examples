@@ -1,0 +1,102 @@
+feature: products
+
+params:
+  exp_flags:
+    - analytics-disabled=1
+
+browsers:
+  - ios-safari-12-touch
+  - ios-safari-11-touch
+  - ios-safari-10-touch
+  - ios-safari-9-touch
+
+specs-integration:
+  Товары Под заказ:
+    - tags: no_assessors
+    - automation: TURBOUI-3888
+    - do: открыть ссылку https://yandex.ru/turbo?text=farkop.ru/yandexturbocatalog/&query=thule+box
+    - assert: открылась страница с товарами
+    - assert: среди прочих имеются товары с меткой "Под заказ" (если нет на первом экране, нужно пролистать страницу вниз)
+    - do: добавить товар с меткой "Под заказ" в корзину и затем перейти в Корзину
+    - assert: в корзине отображается добавленный товар
+    - assert: в товаре есть метка "Под заказ"
+
+
+specs:
+  Внешний вид с пустым списком:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=products/empty.json
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Лейауты:
+    Дефолтные карточки:
+      - do: открыть ссылку https://yandex.ru/turbo?stub=products/default.json
+      - screenshot: внешний вид соответствует скриншоту [plain]
+
+    Дефолтные карточки - горизонтальная ориентация:
+      - do: открыть ссылку https://yandex.ru/turbo?stub=products/default.json
+      - do: сменить ориентацию на альбомную
+      - screenshot: внешний вид соответствует скриншоту [plain]
+
+    Тип list:
+      - do: открыть ссылку https://yandex.ru/turbo?stub=products/list.json
+      - screenshot: внешний вид соответствует скриншоту [plain]
+
+    Тип list - горизонтальная ориентация:
+      - do: открыть ссылку https://yandex.ru/turbo?stub=products/list.json
+      - do: сменить ориентацию на альбомную
+      - screenshot: внешний вид соответствует скриншоту [plain]
+
+    Тип big-list:
+      - do: открыть ссылку https://yandex.ru/turbo?stub=products/big-list.json
+      - screenshot: внешний вид соответствует скриншоту [plain]
+
+    Тип big-list - горизонтальная ориентация:
+      - do: открыть ссылку https://yandex.ru/turbo?stub=products/big-list.json
+      - do: сменить ориентацию на альбомную
+      - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Загрузка товаров:
+    Загрузка всех предыдущих страниц:
+      - do: открыть ссылку https://yandex.ru/turbo?text=logomebel.ru%2Fyandexturbocatalog%2F&page=3
+      - do: проскроллить вверх до конца страницы
+      - assert: |
+          во время загрузки видны заглушки, они пульсируют
+          заглушки заменились на карточки
+
+    Загрузка следующих страниц:
+      - do: открыть ссылку https://yandex.ru/turbo?text=logomebel.ru%2Fyandexturbocatalog%2F
+      - do: проскроллить вниз до конца страницы
+      - assert: спиннер пропал и загрузилась еще одна страница
+      - do: проскроллить вниз до конца страницы
+      - assert: загрузилась еще одна страница
+
+    Спиннер при загрузке следующей страницы:
+      - do: открыть ссылку https://yandex.ru/turbo?text=logomebel.ru%2Fyandexturbocatalog%2F
+      - do: проскроллить вниз до конца страницы
+      - screenshot: показался спиннер загрузки страницы [loading]
+
+    Загрузка нечетного количества товаров:
+      - do: открыть ссылку https://yandex.ru/turbo?stub=products%2Fodd-count-page-0.json
+      - do: дождаться загрузки страницы
+      - screenshot: выдача выглядит как на скриншоте [plain]
+
+    Без сохранения позиции:
+      - do: открыть ссылку https://yandex.ru/turbo?stub=products/autoload-without-saving-position.json
+      - do: проскроллить до конца страницы
+      - assert: должны подгрузиться дополнительные карточки товаров
+      - assert: урл страницы не поменялся
+
+files:
+  - platform/components/Products/__tests__/products@phone.hermione.js
+
+v-team: Turbo
+
+tags: 
+  - e-commerce
+  - no_assessors #раскатили новый дизайн на 100%
+
+manager: tanzwuta
+
+qa-engineer: spv, dakhetov
+
+tlds: none

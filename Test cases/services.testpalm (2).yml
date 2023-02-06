@@ -1,0 +1,29 @@
+feature: Все
+type: Колдунщик сервисов
+
+specs:
+  Проверка функциональности [manual]:
+    - automation: ISEARCH-6476
+    - do: открыть страницу поиска /search?text=<название_сервиса>
+    - assert: |
+        открылась страница на вкладке 'Все'
+        на странице отображается колдунщик сервиса
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/grikyan91/idm__Poisk_po_Intranetu_nashlos_212_2020-05-28_16-41-22.png]
+    - do: проверить ссылку в тайтле колдунщика
+    - assert: ссылка содержит https://abc.test.yandex-team.ru/services/<код_сервиса>
+    - tech: при клике на ссылку дернулся clck.yandex.ru/click/
+    - do: проверить ссылку в саб-ссылке
+    - tech: при клике на ссылку дернулся clck.yandex.ru/click/
+    - assert: |
+        ссылка переходит на сервис соответствующий названию саб-ссылки
+        на сервисах по ссылкам содержится информация о найденном сервисе
+
+tags:
+  - reviewed
+
+priority: critical
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

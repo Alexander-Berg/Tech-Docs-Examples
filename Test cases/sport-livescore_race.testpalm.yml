@@ -1,0 +1,39 @@
+feature: Спорт
+type: Недуэльное соревнование
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу "foreverdata"
+    - assert: на выдаче присутствует спортивный колдунщик
+  Только шапка:
+    - params:
+        foreverdata: '1507338602'
+    - screenshot: внешний вид [plain]
+  С кнопкой трансляции, табами и содержимым:
+    params:
+      foreverdata: '3905581443'
+    Внешний вид:
+      - screenshot: внешний вид [full]
+    Счетчик на кнопке:
+      - do: нажать на кнопку 'Смотреть трансляцию'
+      - assert: ссылка открылась в новой вкладке
+      - tech: сработал счетчик '/$page/$main/$result/broadcast'
+
+v-team: Sport
+
+tags:
+  - reviewed
+  - sport
+  - skip_e2e_check
+
+files:
+  - features/common/sport/livescore/sport-livescore_race.hermione.js
+
+counter: /$page/$main/$result[@wizard_name="sport/livescore"]
+
+tlds:
+  - ru
+  - by
+  - ua
+  - kz
+  - uz

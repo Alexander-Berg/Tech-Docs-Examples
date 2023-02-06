@@ -1,0 +1,31 @@
+feature: TalkSocialPanel
+
+specs:
+  Отображение блока:
+    - do: открыть ссылку yandex.ru/turbo?stub=talksocialpanel/page.json
+    - screenshot: внешний вид [panel]
+    - assert: видна панель с блоком лайков и кнопкой комментариев (на большом разрешении - панель слева от контета, на маленьком - прикреплена к низу экрана)
+
+  Выставление лайка:
+    - do: открыть ссылку yandex.ru/turbo?stub=talksocialpanel/page.json
+    - do: найти панель (на большом разрешении - слева от контета, на маленьком - прикреплена к низу экрана) и нажать кнопку лайка
+    - screenshot: внешний вид [liked]
+    - assert: видна панель, поставлен лайк
+
+  Выставление дизлайка:
+    - do: открыть ссылку yandex.ru/turbo?stub=talksocialpanel/page.json
+    - do: найти панель (на большом разрешении - слева от контета, на маленьком - прикреплена к низу экрана) и нажать кнопку дизлайка
+    - screenshot: внешний вид [disliked]
+    - assert: видна панель, поставлен дизлайк
+
+  Прокрутка к блоку комментариев:
+    - do: открыть ссылку yandex.ru/turbo?stub=talksocialpanel/page.json
+    - do: найти панель (на большом разрешении - слева от контета, на маленьком - прикреплена к низу экрана), нажать на кнопку с иконкой комментария
+    - assert: блок с комментариями находится во вьюпорте
+
+files:
+  - platform/components/TalkSocialPanel/__tests__/TalkSocialPanel.hermione.js
+
+v-team: Talk
+
+tlds: none

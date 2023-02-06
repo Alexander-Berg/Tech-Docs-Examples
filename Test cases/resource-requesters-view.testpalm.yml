@@ -1,0 +1,24 @@
+feature: Ресурсы
+type: Страница ресурсов сервиса
+
+specs:
+  beforeEach:
+    - tech: залогиниться под пользователем robot-abc-002
+
+  Просмотр списка тех, кто может запрашивать ресурс:
+    - automation: ABC-10184
+    - do: открыть таб "Ресурсы" сервиса "Автотест фронтенда для сервиса с уникальным названием24" (/services/frontend-test_service-with-parent24/resources/)
+    - do: кликнуть на кнопку "Запросить ресурс"
+    - do: в форме "Запрос ресурса" кликнуть в поле "Выберите тип"
+    - do: выбрать из появившегося саджеста вариант "YT — Аккаунт"
+    - screenshot: на жёлтом фоне в форме появилась надпись "Кто может запрашивать этот ресурс?" [https://jing.yandex-team.ru/files/pixel/resource-responcibilities.jpeg] 
+    - do: кликнуть на надпись "Кто может запрашивать этот ресурс?"
+    - screenshot: появился попап с ролями, которым доступен запрос ресурса [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-01-20%2018-00-33.png]
+
+files: []
+
+priority: critical
+
+tags:
+  - reviewed
+  - no_assessors

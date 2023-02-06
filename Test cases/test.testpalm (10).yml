@@ -1,0 +1,24 @@
+feature: Feature-one N
+type: Type-one Type
+
+specs:
+  Inner-specs Y:
+    The first it case:
+      - do: something 1
+    The second it case mod:
+      - do: something 2
+    Inner-specs-2:
+      It test case one:
+        - do: something 3
+      Another it test case:
+        - do: something 4
+      Test three:
+        - do: something 5
+      The last case:
+        - do: something 6
+    Experiment:
+      Exp-case:
+        - do: something 7
+
+files:
+  - test/fixtures/all-parts-assets-metrics-input/test.hermione.js

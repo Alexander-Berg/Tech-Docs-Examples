@@ -1,0 +1,31 @@
+feature: Внешний вид инпута
+
+import-steps:
+    - tests/hermione/suites/messenger/shared-steps/open-messenger.testpalm.steps.yml
+
+tlds: ru
+
+specs:
+
+    Панель ввода сообщений:
+        - browsers:
+            notFor:
+                - ie11
+        - attach: Авторизация и открытие чата yamb
+        - do: открыть чат c пользователем stas.mihailov666
+        - assert: |
+            панель ввода сообщений содержит кнопку "прикрепить файл" (в виде скрепки)
+            панель ввода сообщений содержит поле ввода с информационным сообщением "Напишите сообщение..."
+            панель ввода сообщений содержит кнопку "эмоджи" (в виде смайлика)
+            панель ввода сообщений содержит кнопку "отправить" (в виде стрелочки)
+
+files:
+    - tests/hermione/suites/messenger/sending-messages/view.common.hermione.ts
+
+v-team: Chat
+
+tags:
+    - chamb
+    - yamb
+    - y-team
+    - no_assessors

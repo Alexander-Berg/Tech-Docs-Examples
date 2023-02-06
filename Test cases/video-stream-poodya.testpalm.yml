@@ -1,0 +1,41 @@
+feature: Камера
+type: в ПУДЯ
+
+tags: 
+    - release_Webview
+    - webview_regress
+    - platform_ios
+    - platform_android
+
+specs: 
+  beforeEach: 
+   - do: залогиниться аккаунтом yndx.quasar.test.2 в ПУДЯ
+   - do: открыть камеру в списке устройств
+
+  Экран камеры [manual]:
+    - do: нажать на камеру
+    - screenshot: откроется пульт управления камерой [camera]
+    - assert: <img src=https://jing.yandex-team.ru/files/ollgeny/IMG_0042.2e75961.png alt=Скриншот width=250>
+
+  Запуск стрима [manual]:
+    - do:  нажать на кнопку плей 
+    - screenshot: крутится спиннер загрузки [camera-spinner]
+    - assert: <img src=https://jing.yandex-team.ru/files/ollgeny/IMG_0043.4d78779.png alt=Скриншот width=250>
+    - screenshot: запустится стрим [camera-stream]
+    - assert: <img src=https://jing.yandex-team.ru/files/ollgeny/IMG_0044.bb7e784.png alt=Скриншот width=250>
+    - do: нажать на кнопку паузы
+    - assert: стрим остановится
+
+  Фулскрин [manual]: 
+    - do: нажать на кнопку плей 
+    - do: нажать на кнопку fullscreen (справа внизу экрана проигрывателя)
+    - assert:  стрим развернется горизонтально на весь экран
+    - do: нажать на кнопку fullscreen
+    - assert:  стрим вернется в исходный размер и вертикальную ориентацию
+
+  Звук видео [manual]:
+    - do: нажать на кнопку плей
+    - do: нажать на кнопку динамика
+    - assert: звук включится
+    - do: нажать на кнопку динамика ещё раз
+    - assert: звук выключится

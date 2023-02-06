@@ -1,0 +1,31 @@
+feature: Редизайн key value
+description: |
+  Убираем болд у key.
+  Делаем две выборки: выделяем серым (#656b7e) key либо value.
+
+specs:
+  bemhtml with defects:
+    Серый ключ:
+      - params:
+          foreverdata: '3526492438'
+          exp_flags: beauty_key_value_redesign=key
+      - do: получить выдачу по запросу "foreverdata"
+      - assert: на странице присутствует выдача с instagram
+      - screenshot: внешний вид [no-value__value-in-item]
+    Серое значение:
+      - params:
+          foreverdata: '3526492438'
+          exp_flags: beauty_key_value_redesign=value
+      - do: получить выдачу по запросу "foreverdata"
+      - assert: на странице присутствует выдача с instagram
+      - screenshot: внешний вид [no-value__value-in-item]
+
+files:
+  - features/beauty_key_value_redesign/beauty_key_value_redesign@common.hermione.js
+
+tlds: all
+
+v-team: Beauty
+
+tags:
+  - skip_e2e_check

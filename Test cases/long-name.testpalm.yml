@@ -1,0 +1,64 @@
+feature: Длинное название устройства
+
+tags:
+    - https://testpalm.yandex-team.ru/alice/testcases/2909
+    - release_Webview
+    - platform_common
+    - webview_regress
+    - iot_suggests
+    - iot_timer
+    - iot_scenario
+
+files:
+  - tests/hermione/suites/touch/long-name/long-name.hermione.js
+
+import-steps:
+  - tests/hermione/suites/touch/long-name/long-name.testpalm.steps.yml
+
+specs:
+  beforeEach:
+    - attach: Добавить устройство с длинным названием
+
+  Список устройств:
+    - do: Открыть "Все" на главном экране
+    - screenshot: Имя устройства отображается в две строки [plain]
+
+  Экран голосовых команд:
+    - do: Открыть экран голосовых команд
+    - screenshot: Команды с именем устройства отображаются в несколько строк, название не уезжает за края блока [plain]
+    - do: Удалить комнату у устройства
+    - screenshot: Имя устройства отображается в две строки [without-room]
+
+  Карточка устройства:
+    - automation: QUASARUI-2840
+    - do: Открыть карточку устройства
+    - screenshot: Имя устройства отображается сокращённо с троеточием https://jing.yandex-team.ru/files/osennikovak/uhura_2020-11-16T23%3A43%3A20.529998.jpg [plain]
+    - do: Нажать на корзинку
+    - screenshot: Имя устройства отображается в две строки на плашке с уточнением действия пользователя [remove]
+
+  Создание сценария:
+    - automation: QUASARUI-2840
+    - do: Начать создавать сценарий
+    - do: Выбрать действие
+    - screenshot: Имя устройства отображается в две строки https://jing.yandex-team.ru/files/osennikovak/uhura_2020-11-16T23%3A43%3A38.834237.jpg [add]
+    - do: Выбрать устройство
+    - screenshot: Имя устройства отображается в две строки https://jing.yandex-team.ru/files/osennikovak/uhura_2020-11-16T23%3A43%3A42.398980.jpg [plain]
+
+  Список отложенных сценариев [manual]:
+    - attach: Создать сценарий
+    - do: Создать любой отложенный сценарий с устройством (можно нажать на саджест в списке голосовых команд)
+    - do: Нажать "Сценарии" на главном экране
+    - screenshot: Имя устройства отображается на сценарии сокращённо с троеточием https://jing.yandex-team.ru/files/osennikovak/uhura_2020-11-16T23%3A48%3A24.289789.jpg [plain]
+
+  Карточка отложенного сценария [manual]:
+    - attach: Создать сценарий
+    - do: Создать любой отложенный сценарий с устройством (можно нажать на саджест в списке голосовых команд)
+    - do: Открыть отложенный сценарий
+    - screenshot: Имя устройства отображается в две строки https://jing.yandex-team.ru/files/osennikovak/uhura_2020-11-16T23%3A48%3A27.078668.jpg [plain]
+
+  История запусков сценария [manual]:
+    - attach: Создать сценарий
+    - do: Создать любой отложенный сценарий с устройством (можно нажать на саджест в списке голосовых команд)
+    - do: Отменить отложенный сценарий (либо дождать завершения)
+    - do: Перейти к истории запусков сценария
+    - screenshot: Имя устройств(а) отображается в несколько строк [plain]

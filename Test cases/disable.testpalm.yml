@@ -1,0 +1,30 @@
+feature: Отзывы
+type: Отключение отзывов для Европы
+
+specs:
+  1орг:
+    - do: получить выдачу по запросу Ратушная аптека
+    - assert: |
+        на выдаче есть карточка организации,
+        в карточке организаций нет отзывов и нет таба с отзывами
+    - do: кликнуть в таб 'Главное'
+    - assert: |
+        открылся оверлей организации,
+        в карточке организаций нет отзывов
+
+files:
+  - features/touch-phone/companies/reviews/disable/disable.hermione.js
+
+v-team: VanillaGeo
+
+counter: /parallel/result/snippet/companies
+
+tags:
+  - skip_e2e_check
+
+tlds:
+  - ee
+  - lv
+  - lt
+  - fi
+  - pl

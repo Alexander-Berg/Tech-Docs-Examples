@@ -1,0 +1,27 @@
+feature: Колдунщик миниблендера
+
+specs:
+  Сниппет:
+    params:
+      foreverdata: '1974333207'
+    beforeEach:
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: на выдаче присутствует простой текстовый сниппет
+
+    Гринурл:
+      - do: нажать на гринурл
+      - assert: произошел переход по ссылке
+      - tech: сработал счетчик '/$page/$main/$result/path/urlnav'
+
+files:
+  - src/features/Fastres/Fastres.test/Fastres@desktop.hermione.js
+
+tags:
+  - skip_e2e_check
+  - reviewed
+
+counter: /$page/$main/$result[@wizard_name="fastres"]
+
+v-team: Freshness
+
+tlds: all

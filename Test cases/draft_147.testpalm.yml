@@ -1,0 +1,14 @@
+feature:  WiFi сети при подключении устройств (android)
+
+specs:
+    WiFi сети при подключении устройств (android):
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/2706
+        - release_Webview
+        - platform_ios
+        - platform_android
+    - do: "Description Кейс для того, чтобы не потерялось и проверилось на регрессе UI; При переносе в ямлы напишется покрасивее"
+    - do: "Начать добавлять любое устройство УД"
+    - assert: "Поле название сети нередактируемое"
+    - do: "Начать добавлять любую колонку"
+    - assert: "Поле название сети нередактируемое"

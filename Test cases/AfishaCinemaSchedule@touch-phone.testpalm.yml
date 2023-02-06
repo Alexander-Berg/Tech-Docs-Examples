@@ -1,0 +1,41 @@
+feature: 1орг. Витрина фильмов кинотеатра
+counter: /$page/$main/$result[@wizard_name="companies" and @subtype="company"]/"cinema/buy_tickets"
+
+specs-integration:
+  Общие проверки:
+    - do: получить выдачу по запросу 'ГУМ Кинозал' _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: |
+        появился колдунщик одной организации с блоком расписания фильмов,
+        в блоке с расписанием фильмов есть тайл,
+        в блоке с расписанием фильмов есть кнопка 'Купить билеты'
+
+specs:
+  Сеансы в карточке:
+    Общие проверки:
+      - tags: [title, showcase, overlay, thumb, button]
+      - do: получить выдачу по запросу 'кинотеатр синема парк екатеринбург' _ALTERNATIVE_SEARCH_QUERIES_
+      - assert: появился колдунщик одной организации с блоком расписания фильмов
+      - screenshot: внешний вид [plain]
+      - do: кликнуть в таб 'Главное'
+      - assert: открылась расширенная карточка в сайдблоке c витриной фильмов
+
+files:
+  - src/features/Companies/Companies.features/AfishaCinemaSchedule/AfishaCinemaSchedule.test/AfishaCinemaSchedule@touch-phone.hermione.js
+  - src/features/Companies/Companies.features/AfishaCinemaSchedule/AfishaCinemaSchedule.test/AfishaCinemaSchedule@touch-phone.hermione.e2e.js
+
+tlds: [ru, by, ua, kz, uz, com]
+
+v-team: VanillaGeo
+
+regions:
+  ru: 213
+  by: 157
+  kz: 163
+  ua: 143
+
+requests:
+  ru: 'кинотеатр октябрь'
+
+# TODO вернуть в задаче SERP-105428, из-за коронавируса показы упали в ноль
+tags: [reviewed, hasE2E, no_assessors]
+

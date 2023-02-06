@@ -1,0 +1,23 @@
+feature: Баобаб-счетчики
+
+specs:
+  В элементе title-link есть атрибут data-log-node:
+    - do: получить выдачу по запросу 'hello kitty'
+    - assert: на элементе title-link серп-айтема есть атрибут data-log-node
+  Поисковый инпут размечен баобаб-счетчиком:
+    - do: получить выдачу по запросу 'hello kitty'
+    - tech: в баобаб-дереве есть узел с path=/$page/$header/input/control
+
+files:
+  - features/i-log/i-log@deskpad.hermione.js
+
+tags:
+  - counters
+  - baobab
+  - reviewed
+  - skip_e2e_check
+  - no_assessors
+
+v-team: Architecture
+
+tlds: none

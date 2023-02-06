@@ -1,0 +1,14 @@
+feature: Страница со списком доступных приложений
+
+specs:
+  Внешний вид должен соответствовать шаблонному:
+    - do: зайти в раздел со списком приложений
+    - screenshot: внешний вид [downloads]
+files:
+  - tests/hermione/suites/downloads/view.js
+
+priority: minor
+
+tlds:
+  - ru
+  - com

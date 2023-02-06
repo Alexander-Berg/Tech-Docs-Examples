@@ -1,0 +1,21 @@
+feature: CartIcon
+
+specs:
+  Внешний вид:
+    - do: открыть https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog/main
+    - do: добавить в корзину два любых товара и перейти в корзину
+    - do: установить первому товару количество 20
+    - screenshot: иконка корзины с бейджиком в шапке должна иметь внешний вид [length-2]
+    - do: установить первому товару количество 333
+    - screenshot: иконка корзины с бейджиком в шапке должна иметь внешний вид [length-3]
+    - do: установить второму товару количество 999
+    - screenshot: иконка корзины с бейджиком в шапке должна иметь внешний вид [length-4]
+
+files:
+  - components/CartIcon/__tests__/CartIcon@phone.hermione.js
+
+tags: ecom-tap
+
+tlds: ru
+
+v-team: Turbo

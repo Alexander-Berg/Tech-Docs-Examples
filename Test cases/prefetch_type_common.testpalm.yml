@@ -1,0 +1,19 @@
+feature: Prefetch
+
+specs-integration:
+  Возвращает корректный /search/prefetch.txt:
+    - do: получить файл /search/prefetch.txt
+    - tech: ответ должен содержать одну или более строк текста, в каждой строке должен быть корректный URL к *.{css|js|txt} файлу
+
+files:
+  - features/common/prefetch/prefetch.hermione.e2e.js
+
+v-team: Velocity
+
+tags:
+  - prefetch
+  - reviewed
+  - no_assessors
+  - hasE2E
+
+tlds: none

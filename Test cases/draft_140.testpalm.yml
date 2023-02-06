@@ -1,0 +1,28 @@
+feature:  AP-mode для колонок
+
+specs:
+    AP-mode для колонок:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/2668
+        - release_Webview
+        - app_regress
+        - surface_my_alice
+        - platform_searchapp
+        - platform_ios
+        - platform_android
+        - webview_regress
+    - do: "Preconditions Перевести **станцию** в режим настройки, выключить микрофон"
+    - do: "Начать настраивать станцию звуковым сигналом, проиграть звук первый раз"
+    - assert: "Отображается кнопка `Устройство не распознало звук` https://jing.yandex-team.ru/files/osennikovak/uhura_2020-10-07T14%3A25%3A13.362206.jpg"
+    - do: "Нажать на неё и ещё раз повторить проигрывание звука"
+    - assert: "Появляется кнопка `Всё ещё не получается настроить?` https://jing.yandex-team.ru/files/osennikovak/uhura_2020-10-07T14%3A25%3A15.912311.jpg"
+    - do: "Нажать на неё"
+    - assert: "Появляются кнопки `Настроить без звука` и `Подождать ещё` https://jing.yandex-team.ru/files/osennikovak/uhura_2020-10-07T14%3A25%3A18.329488.jpg"
+    - do: "Нажать на `Настроить без звука` и подключить по WiFi"
+    - assert: "Колонка настроена"
+    - do: "Колонка не слушает; Начать настраивать станцию звуковым сигналом, проиграть звук первый раз, подождать"
+    - assert: "Через минуту тображается экран https://jing.yandex-team.ru/files/osennikovak/uhura_2020-12-04T17%3A59%3A16.691833.jpg"
+    - do: "Колонка не слушает; Нажать `Проиграть звук ещё раз`, проиграть звук ещё раз, подождать"
+    - assert: "Через минуту отображается экран https://jing.yandex-team.ru/files/osennikovak/uhura_2020-12-04T18%3A02%3A48.541415.jpg"
+    - do: "Подключить колонку по WiFi"
+    - assert: "Колонка настроена"

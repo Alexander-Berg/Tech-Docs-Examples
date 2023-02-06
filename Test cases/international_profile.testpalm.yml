@@ -1,0 +1,97 @@
+feature: Внешняя анкета
+type: Международная
+
+description: |
+    оффер со значением 'Международная' в поле 'Тип анкеты'
+    после отправки анкеты на странице оффера в разделе 'Профиль' заполнились поля значениями соответствующими введенным ранее
+    после отправки анкеты на странице оффера появилась ссылка в поле 'Оффер в наниматоре'
+    на странице оффера в наниматоре на стаффе предзаполнены ранее заполненные поля в анкете
+    в тикете THR описание заполнено значениями из анкеты
+    для вывода сотрудника на стафф необходимо найти нужный препрофайл в админке https://staff.test.yandex-team.ru/admin/preprofile/preprofile/
+    перейти в него и заполнить поля Uid и Guid уникальными значениями (формат можно подсмотреть у других сотрудников тут https://staff.test.yandex-team.ru/admin/django_intranet_stuff/staff/)
+    нажать на кнопку в препрофайле стаффа 'Утвердить и отправить'
+    после этого дождаться статуса 'Готов к выводу', тогда появится кнопка 'Вывести на стафф'
+    клик на кнопку 'Вывести на стафф', у препрофайла должен стать статус 'Выведен'
+    проверить пророс ли номер электронной подписи или нет можно пройдя по ссылке https://staff.test.yandex-team.ru/admin/django_intranet_stuff/staff/
+    найти по ссылке выведенного сотрудника и зайти на его страницу
+    если телефон пророс, то в разделе 'Staff phones' рядом с введенным ранее телефоном должна стоять галочка 'For digital sign'
+
+specs:
+  beforeEach:
+    - do: открыть страницу https://femida-ext.test.yandex-team.ru/hire/offers/<id_анкеты> (если правки на стенде, надо указывать доменную часть стенда)
+    - assert: |
+        открылась анкета нового сотрудника
+        по дефолту страница отображается на английском языке
+        в правом верхнем углу активно значение 'ENG'
+    - screenshot: пример внешнего вида [external_questionnaire_form]
+  Проверка обязательных полей:
+    - do: клик на кнопку 'Submit'
+    - screenshot: под всеми обязательными полями вывелись ошибки [external_questionnaire_form_errors]
+  Проверка ошибок логина:
+    - do: ввести в поле 'Username' менее 4х символов
+    - screenshot: под полем отобразилась ошибка [short_username_error]
+    - do: вести в поле 'Username' большие буквы, кириллицу, недопустмые символы
+    - screenshot: под полем отобразилась ошибка [invalid_symbols_username_error]
+  Проверка ошибок файловых полей [manual]:
+    - automation: FEMIDA-5662
+    - do: выбрать файл в поле 'Photo' больше 5 MB
+    - screenshot: под полем отобразилась ошибка [https://jing.yandex-team.ru/files/grikyan91/Yandex_Jobs_2020-06-03_20-31-49.png]
+    - do: выбрать в поле 'Citizenship' любое значение
+    - do: выбрать в поле 'Scans of your documents' файл более 5 MB и более 30и файлов
+    - assert: |
+        под полями с более 5 MB файлами отобразились ошибки
+        загрузилос только первые 30 файлов
+        кнопки 'Add files' пропали
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/grikyan91/Yandex_Jobs_2020-06-03_20-39-08.png]
+  Проверка ошибок валидации:
+    - do: заполните поле 'Date of birth' с разделителями помимо '-' или указав больше символов чем положено
+    - do: заполните поле 'Contact phone number' без '+' либо введите менее 10 символов после плюса
+    - do: заполните поле 'Personal email' без доменной части, либо используя кириллицу
+    - do: введите в поле 'BIC' менее 9 символов
+    - do: введите в поле 'Bank account' менее 20 символов
+    - do: введите в поле 'Card Number' менее 13 символов
+    - do: клик на кнопку 'Submit'
+    - screenshot: под всеми заполненными полями выдались соответствующие ошибки [external_questionnaire_form_errors]
+    - do: заполните все обязательные поля корректными значениями, кроме галки NDA
+    - do: клик на кнопку 'Отправить'
+    - screenshot: под полем 'NDA' отобразилась ошибка [external_questionnaire_form_errors2]
+  Отправка анкеты:
+    - do: заполнить поле 'Last name'
+    - do: заполнить поле 'First name'
+    - do: заполнить поле 'Preferred first and last name'
+    - do: заполнить поле 'Photo'
+    - do: заполнить поле 'Date of birth'
+    - do: выбрать значение в поле 'Sex'
+    - do: заполнить поле 'Username'
+    - do: заполнить поле 'Contact phone number'
+    - do: заполнить поле 'Personal email'
+    - do: выбрать значение в поле 'Operational system'
+    - do: выбрать значение в поле 'Hired'
+    - do: выбрать значение в поле 'Citizenship'
+    - assert: |
+        появилось поле 'Passport and Employment eligibility'
+        появилось поле 'Residence address'
+    - do: выбрать несколько файлов в поле 'Passport and Employment eligibility'
+    - do: заполнить поле 'Residence address'
+    - do: выбрать значение в поле 'Main language'
+    - do: заполнить поле 'Spoken languages'
+    - do: поставить галочку в поле согласия передачи персональных данных
+    - do: поставить галочку в поле 'Accept the nondisclosure agreement (NDA)'
+    - screenshot: открылся попап с описанием условий [nda_agreement]
+    - do: клик на 'Accept' в попапе
+    - screenshot: пример внешнего вида заполненной анкеты [external_questionnaire_form_filled]
+    - do: клик на 'Submit'
+    - screenshot: выдало сообщение с благодарностью [external_questionnaire_form_success]
+
+tags:
+  - reviewed
+
+priority: critical
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop
+
+files:
+  - tests/hermione/suites/desktop/external_profiles/international_profile/international_profile.hermione.js

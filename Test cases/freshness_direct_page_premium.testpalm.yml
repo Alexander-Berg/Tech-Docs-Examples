@@ -1,0 +1,23 @@
+feature: Страница всех объявлений
+experiment: Премиум
+
+specs:
+  Премиум-реклама есть на выдаче:
+    - params:
+        exp_flags: freshness_direct_page_premium=1
+        foreverdata: '1420593328'
+    - do: получить выдачу по запросу 'foreverdata'
+    - do: в адресной строке браузера добавить после 'search/' 'direct' (т.е. .../search/direct?...) и нажать Enter
+    - assert: получена непустая выдача
+    - screenshot: внешний вид первого элемента выдачи [premium-first]
+
+files:
+  - features/desktop/search-ads/freshness_direct_page_premium/freshness_direct_page_premium.hermione.js
+
+tags:
+  - skip_e2e_check
+
+tlds:
+  - ua
+
+v-team: Freshness

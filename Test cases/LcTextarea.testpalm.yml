@@ -1,0 +1,25 @@
+feature: LcTextarea
+
+tags: no_assessors
+
+specs:
+  Обычная текстареа:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lctextarea%2Fdefault.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Текстареа с контентом:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lctextarea%2Ffilled.json)
+    - screenshot: внешний вид соответствует скриншоту [filled]
+  Невалидная текстареа:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lctextarea%2Finvalid.json)
+    - screenshot: внешний вид соответствует скриншоту [invalid]
+
+files:
+  - platform/components/LcTextarea/__tests__/LcTextarea.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: olimiya, shinuta
+
+tlds: none

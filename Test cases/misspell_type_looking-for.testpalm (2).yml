@@ -1,0 +1,41 @@
+feature: Опечатка и Ко
+type: быть может вы искали
+
+specs:
+  Возврат к исходной выдаче:
+    - do: получить выдачу по запросу "шипито"
+    - assert: получена выдача по заданному запросу
+    - assert: перед выдачей присутствует сообщение "Быть может, вы искали «шапито»?"
+    - do: нажать на ссылку "шапито"
+    - assert: выдача обновилась
+    - assert: на выдаче нет исходного сообщения "Быть может, вы искали «шапито»?"
+    - do: нажать "Назад" на устройстве или в браузере
+    - assert: выдача обновилась
+    - assert: на выдаче снова присутствует исходное сообщение "Быть может, вы искали «шапито»?"
+    - assertMetrics: '*'
+
+files:
+  - features/touch-phone/misspell/misspell_type_looking-for.hermione.js
+
+v-team: Freshness
+
+tags:
+  - searchapp
+  - misprint
+  - reviewed
+  - skip_e2e_check #тест на фичу есть на common уровне
+
+priority: high
+
+counter: /$page/$main/misspell
+
+qa-engineer: likharad-m
+
+manager: nurka
+
+tlds:
+  - ru
+  - by
+  - ua
+  - kz
+  - uz

@@ -1,0 +1,21 @@
+feature: Отображение данных пользователя
+
+specs:
+  В /admin скрин должен соответствовать шаблонному:
+    - do: зайти в карточку пользователя в /portal/admin
+    - screenshot: внешний вид [plain]
+  В /staff скрин должен соответствовать шаблонному:
+    - do: зайти в карточку пользователя в /portal/staff
+    - screenshot: внешний вид [plain]
+
+priority: minor
+
+files:
+  - tests/hermione/suites/user/card.js
+
+tlds:
+ - ru
+ - com
+
+tags:
+  - reviewed

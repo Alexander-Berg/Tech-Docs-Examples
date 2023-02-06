@@ -1,0 +1,47 @@
+feature: Музыкальный стихолюб
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу 'они говорят им нельзя рисковать текст'  _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: на выдаче есть колдунщик Музыкальный Стихолюб
+
+  Проверка ссылок:
+    - screenshot: пример внешнего вида (содержимое может отличаться) [plain]
+    - do: тапнуть на первую ссылку в разделе 'Где почитать'
+    - assert: в новой вкладке открылся сайт-источник
+    - tech: проверить счетчик у ссылки на источник path = "/$page/$main/$result[@wizard_name="lyrics"]/key-value/url[@pos=0]"
+    - do: тапнуть на ссылку 'Читать полностью'
+    - assert: в новой вкладке открылся сайт-источник
+    - tech: сработал счётчик /$page/$main/$result[@wizard_name="lyrics"]/full-link
+    - do: тапнуть на тайтл в плеере
+    - assert: в новой вкладке открылся сервис music.yandex (или приложение Яндекс.Музыка, если установлено) с выделением нужного трека
+    - tech: проверить счетчик у тайтла плеера path = "/$page/$main/$result[@wizard_name="lyrics"]/title/""
+    - do: тапнуть на кнопку 'Больше песен на сайте'
+    - assert: в новой вкладке открылся сервис music.yandex (или приложение Яндекс.Музыка, если установлено) с выделением нужного трека
+    - tech: проверить счетчик у кнопки 'Больше песен на сайте' path = "/$page/$main/$result/music-playlist/more"
+    - assertMetrics: '-'
+
+  Проверка плеера:
+    - do: тапнуть в кнопку 'плей'
+    - assert: видна индикация проигрывания трека
+    - tech: проверить счетчик у кнопки 'плей' path = "/$page/$main/$result/music-playlist/music-track"
+    - tech: проверить доступность АПИ Я.Музыки (запросы music.yandex.ru/api отправляются и не возвращают ошибок)
+    - assertMetrics: '-'
+
+specs-integration:
+  Проверка наличия элементов:
+    - do: получить выдачу по запросу 'writing on the wall текст'  _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: на выдаче есть колдунщик Музыкальный Стихолюб
+    - counter: /$page/$main/$result[@wizard_name="lyrics" and @subtype="player_lyrics"]
+
+files:
+  - features/touch-phone/lyrics/lyrics.hermione.js
+  - features/touch-phone/lyrics/lyrics.hermione.e2e.js
+
+tlds: [ru, by, ua, kz, uz, com.tr, com]
+
+v-team: Facts
+
+tags: reviewed
+
+counter: /$page/$main/$result[@wizard_name="lyrics"]

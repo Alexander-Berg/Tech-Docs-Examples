@@ -1,0 +1,23 @@
+feature: newsHeader
+
+specs:
+  Видна шапка для спортивной вертикали:
+    - params:
+        foreverdata: '3711795236'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок первого сниппета (название заголовка Тестовая страница для компонента NewsHeader/sport — Турбо)
+    - screenshot: внешний вид шапки соответствует скриншоту [plain]
+
+  Видна шапка для турбо-сюжета:
+    - params:
+        foreverdata: '3647593978'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок первого сниппета (название заголовка Тестовая страница для компонента NewsHeader/turbo — Турбо)
+    - screenshot: внешний вид шапки соответствует скриншоту [plain]
+
+files:
+  - platform/components/NewsHeader/__tests__/newsHeader.hermione.js
+
+v-team: News
+
+manager: glushneva
+
+tlds: none

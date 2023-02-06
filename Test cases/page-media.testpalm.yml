@@ -1,0 +1,122 @@
+feature: Шапка
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу 'test'
+  Адаптация к ширине экрана без залогина:
+    1560x600:
+      - tags:
+          - smoke_extended
+      - tlds:
+          - ru
+          - by
+          - kz
+          - ua
+          - uz
+          - com
+          - com.tr
+      - do: установить размер окна 1560x600
+      - screenshot: внешний вид шапки (набор табиков может отличаться) [1560x600]
+    1280x600:
+      - tags:
+          - smoke_extended
+      - tlds:
+          - ru
+          - by
+          - kz
+          - ua
+          - uz
+          - com
+          - com.tr
+      - do: установить размер окна 1280x600
+      - screenshot: внешний вид шапки (набор табиков может отличаться) [1280x600]
+    800x600:
+      - tags:
+          - smoke_extended
+      - tlds:
+          - ru
+          - by
+          - kz
+          - ua
+          - uz
+          - com
+          - com.tr
+      - do: установить размер окна 800x600
+      - screenshot: внешний вид шапки (набор табиков может отличаться) [800x600]
+    600x480:
+      - tags:
+          - smoke_extended
+      - tlds:
+          - ru
+          - by
+          - kz
+          - ua
+          - uz
+          - com
+          - com.tr
+      - do: установить размер окна 600x480
+      - screenshot: внешний вид шапки (набор табиков может отличаться) [600x480]
+  Адаптация к ширине экрана с залогином:
+    1560x600:
+      - params:
+          yandex_login: stas.mihailov666
+      - tags:
+          - smoke_extended
+      - tlds:
+          - ru
+          - by
+          - kz
+          - ua
+          - uz
+          - com
+          - com.tr
+      - do: установить размер окна 1560x600
+      - screenshot: внешний вид шапки (набор табиков может отличаться) [1560x600]
+    1280x600:
+      - params:
+          yandex_login: stas.mihailov666
+      - tags:
+          - smoke_extended
+      - tlds:
+          - ru
+          - by
+          - kz
+          - ua
+          - uz
+          - com
+          - com.tr
+      - do: установить размер окна 1280x600
+      - screenshot: внешний вид шапки (набор табиков может отличаться) [1280x600]
+    800x600:
+      - params:
+          yandex_login: stas.mihailov666
+      - tags:
+          - smoke_extended
+      - tlds:
+          - ru
+          - by
+          - kz
+          - ua
+          - uz
+          - com
+          - com.tr
+      - do: установить размер окна 800x600
+      - screenshot: внешний вид шапки (набор табиков может отличаться) [800x600]
+    600x480:
+      - params:
+          yandex_login: stas.mihailov666
+      - tags:
+          - smoke_extended
+      - tlds:
+          - ru
+          - by
+          - kz
+          - ua
+          - uz
+          - com
+          - com.tr
+      - do: установить размер окна 600x480
+      - screenshot: внешний вид шапки (набор табиков может отличаться) [600x480]
+files:
+  - features/desktop/page-media.hermione.js
+tlds: all
+v-team: Beauty

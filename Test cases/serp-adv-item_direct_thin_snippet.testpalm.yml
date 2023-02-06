@@ -1,0 +1,23 @@
+feature: Спец.размещение
+type: Сниппеты дистрофики
+
+specs:
+  Основные проверки внешнего вида и счетчиков:
+    - params:
+        foreverdata: '1800455040'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: реклама присутствует на выдаче
+    - screenshot: пример внешнего вида рекламы на выдаче [thin_adv_snippet]
+    - assertMetrics: "*"
+
+files:
+  - features/desktop/serp-adv-item/serp-adv-item_direct_thin_snippet.hermione.js
+
+tags:
+  - skip_e2e_check
+  - adv
+  - trafaret
+
+v-team: Distribution
+
+tlds: all

@@ -1,0 +1,33 @@
+feature: Объектный ответ
+type: Карусель с городами
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу 'Германия'
+    - assert: на выдаче присутствует карусель ОО
+  Базовый вариант:
+    params:
+      es_context: 0oYg0yC3RyYXZlbF9jaXR5DBIiRg
+      ento: 0oCgdydXc0MTA0EpsBbHN0LnNsbUNqTUtCSFJsZUhRU0szTmZaMlZ2WDNCaGNtVnVkRHB5ZFhjME1UQTBJQ1ltSUhOZmIzUjVjR1U2UjJWdkwwTnBkSGxBYjI0S0hnb0ZjbVZzWlhZU0ZXWnZjbTExYkdFOVNUWXdNVEF3TURBd01EQldNd29YQ2d4dVlXMWxaRjlsYm5ScGRIa1NCM0oxZHpReE1EUT1rW3iR
+      exp_flags:
+        - travel_city_carousel_enable=1
+    Выключенный оверлей и подскролл до карточки:
+      - do: кликнуть по первому городу
+      - assert: загрузился следующий серп с выбранным городом в карусели и карточкой города под ней
+
+files:
+  - features/touch-phone/z-entity-search/disable_travel_overlay/disable_travel_overlay.hermione.js
+
+v-team: OO
+
+tags:
+  - reviewed
+  - skip_e2e_check
+
+tlds:
+  - ru
+  - ua
+  - by
+  - kz
+  - com
+  - com.tr

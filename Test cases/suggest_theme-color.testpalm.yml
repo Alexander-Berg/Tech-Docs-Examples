@@ -1,0 +1,80 @@
+feature: Саджест
+type: Цветовые темы
+
+specs:
+  Сервисная тема light, тема саджеста light:
+    - params:
+        exp_flags:
+          - dark_theme_desktop=light
+          - suggest_theme_color=light
+    - do: получить выдачу по запросу "вконтакте"
+    - assert: на странице присутствует поисковый инпут в шапке
+    - do: нажать на поисковый инпут в шапке
+    - assert: на странице появился попап саджеста
+    - screenshot: внешний вид [plain]
+  Сервисная тема light, тема саджеста dark:
+    - params:
+        exp_flags:
+          - dark_theme_desktop=light
+          - suggest_theme_color=dark
+    - do: получить выдачу по запросу "вконтакте"
+    - assert: на странице присутствует поисковый инпут в шапке
+    - do: нажать на поисковый инпут в шапке
+    - assert: на странице появился попап саджеста
+    - screenshot: внешний вид [plain]
+  Сервисная тема dark, тема саджеста light:
+    - params:
+        exp_flags:
+          - dark_theme_desktop=dark
+          - suggest_theme_color=light
+    - do: получить выдачу по запросу "вконтакте"
+    - assert: на странице присутствует поисковый инпут в шапке
+    - do: нажать на поисковый инпут в шапке
+    - assert: на странице появился попап саджеста
+    - screenshot: внешний вид [plain]
+  Сервисная тема dark, тема саджеста dark:
+    - params:
+        exp_flags:
+          - dark_theme_desktop=dark
+          - suggest_theme_color=dark
+    - do: получить выдачу по запросу "вконтакте"
+    - assert: на странице присутствует поисковый инпут в шапке
+    - do: нажать на поисковый инпут в шапке
+    - assert: на странице появился попап саджеста
+    - screenshot: внешний вид [plain]
+  Горячее переключение темы саджеста с флагом suggest_theme_color=light:
+    - params:
+        exp_flags:
+          - dark_theme_desktop=system
+          - suggest_theme_color=light
+    - do: получить выдачу по запросу "вконтакте"
+    - assert: на странице присутствует поисковый инпут в шапке
+    - do: нажать на поисковый инпут в шапке
+    - assert: на странице появился попап саджеста
+    - screenshot: внешний вид [default]
+    - screenshot: внешний вид [after switch]
+    - screenshot: внешний вид [switch to default]
+  Горячее переключение темы саджеста с флагом suggest_theme_color=dark:
+    - params:
+        exp_flags:
+          - dark_theme_desktop=system
+          - suggest_theme_color=dark
+    - do: получить выдачу по запросу "вконтакте"
+    - assert: на странице присутствует поисковый инпут в шапке
+    - do: нажать на поисковый инпут в шапке
+    - assert: на странице появился попап саджеста
+    - screenshot: внешний вид [default]
+    - screenshot: внешний вид [after switch]
+    - screenshot: внешний вид [switch to default]
+
+files:
+  - features/desktop/suggest/suggest_theme-color/suggest_theme-color.hermione.js
+
+tags:
+  - no_assessors
+  - skip_e2e_check
+  - suggest
+
+v-team: Suggest
+
+tlds: [ru, by, kz, ua]

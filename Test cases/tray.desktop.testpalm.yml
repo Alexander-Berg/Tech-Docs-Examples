@@ -1,0 +1,50 @@
+feature: Иконка в tray
+
+import-steps:
+    - tests/hermione/suites/desktopApp/shared-steps/setup.testpalm.steps.yml
+
+tlds: none
+
+specs:
+    beforeEach:
+        - attach: Скачивание архива с последним предрелизным приложением
+        - attach: Установка приложения
+        - assert: в tray есть иконка приложения
+
+    Иконка в tray есть и отзывчива[manual]:
+        - automation: MSSNGRFRONT-3314
+        - do: нажать ЛКМ(ПКМ на Windows) на иконку в tray
+        - assert: |
+              открылась менюшка
+              первый пункт меню: Hide application(Скрыть приложение)
+              второй пункт меню: Quit(Выйти)
+        - do: нажать ЛКМ на Hide application(Скрыть приложение)
+        - assert: |
+              окно приложения свернулось
+              в tray есть иконка приложения
+        - do: нажать ЛКМ(ПКМ на Windows) на иконку в tray
+        - assert: |
+              открылась менюшка
+              первый пункт меню: Show application(Показать приложение)
+              второй пункт меню: Quit(Выйти)
+        - do: нажать ЛКМ на Show application
+        - assert: |
+              окно приложения развернулось
+              в tray есть иконка приложения
+        - do: нажать ЛКМ(ПКМ на Windows) на иконку в tray
+        - assert: |
+              открылась менюшка
+              первый пункт меню: Hide application(Скрыть приложение)
+              второй пункт меню: Quit(Выйти)
+        - do: нажать ЛКМ на Quit(Выйти)
+        - assert: |
+              окно приложение закрылось
+              в tray иконка пропала
+
+files: []
+
+v-team: Chat
+
+tags:
+    - no_assessors
+    - desktop-app

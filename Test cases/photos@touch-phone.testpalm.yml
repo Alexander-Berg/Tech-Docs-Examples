@@ -1,0 +1,30 @@
+feature: Одна организация
+type: Фотографии
+
+specs-integration:
+  Таб Фото:
+    - counter: /$subresult/overlay-wrapper/content/tabs/controls/tabs/controls/photo
+    - do: получить выдачу по запросу 'кафе пушкин'
+    - assert: на странице появился колдунщик одной организации с табами
+    - do: кликнуть в таб 'Главное'
+    - assert: открылся сайдблок с карточкой организации
+    - do: кликнуть во вкладку 'Фото'
+    - assert: |
+        открылся таб 'Фото'
+        в табе есть фотографии
+
+tags:
+  - maps
+  - viewer
+  - showcase
+  - scroll
+  - no_assessors
+
+counter: /$page/$main/$result[@wizard_name="companies" and @subtype="company"]/composite/gallery/scroller/row/thumb
+
+files:
+  - features/companies/photos/photos@touch-phone.hermione.e2e.js
+
+v-team: VanillaGeo
+
+tlds: all

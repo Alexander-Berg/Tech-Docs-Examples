@@ -1,0 +1,22 @@
+feature:  Умный дом - расписания - тоггл
+
+specs:
+    Умный дом - расписания - тоггл:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/3044
+        - release_Webview
+        - platform_ios
+        - platform_android
+        - webview_regress
+        - iot_scenario
+        - iot_timetable
+        - evo_automated
+    - do: "Preconditions Находимся на списке устройств; ; "
+    - do: "Тапаем `+` -> Сценарий -> Добавить условие -> Время срабатывания; Включить тоггл `Повторять ежедневно`"
+    - assert: "Тоггл включен, все дни стали отображаться фиолетовым; ![](https://jing.yandex-team.ru/files/osennikovak/2021-01-13T18:15:43Z.26c66c3.png)"
+    - do: "Нажать на любой день"
+    - assert: "День стал отображаться серым, тоггл выключился"
+    - do: "Снова включить тоггл"
+    - assert: "Фиолетовые все дни"
+    - do: "Выключить тоггл"
+    - assert: "Все дни серые"

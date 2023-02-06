@@ -1,0 +1,23 @@
+feature: Дежурства
+
+specs:
+  beforeEach:
+    - do: Залогиниться под пользователем robot-internal-003
+
+  Календарь дежурств:
+    С пересечением праздничных дней и замены:
+      - do: открыть страницу настроек дежурств (/services/duty_test/duty/?date=07072020&interval=P1M)
+      - screenshot: загрузился календарь дежурств [duty-calendar-full]
+      - screenshot: внешний вид подтвержденной смены с пересечением праздничных дней и замены [complex-duty-shift]
+    Создающийся график:
+      - do: открыть страницу настроек дежурств (/services/duty_test/duty/?date=01062021&interval=P1M&role=5089)
+      - screenshot: стаб календаря дежурств [duty-calendar-creating]
+
+files:
+  - test/features/desktop/duty/duty-calendar.hermione.js
+
+priority: critical
+
+tags:
+  - reviewed
+  - no_assessors

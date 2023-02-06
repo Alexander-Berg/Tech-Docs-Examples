@@ -1,0 +1,65 @@
+feature: Колдунщик погоды кликабельный
+type: На конкретный день
+
+params:
+  foreverdata: '2177196224'
+
+specs:
+  Внешний вид:
+    beforeEach:
+      - params:
+          exp_flags: 'weather_clickable=1'
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: появился колдунщик погоды
+    Портретная ориентация:
+      - label: adapters/adapter-weather/by-day/plain-{{PLATFORM}}-{{BROWSER_TYPE}}
+      - screenshot: колдунщик погоды соответствует виду [plain]
+    Ландшафтная ориентация:
+      - label: adapters/adapter-weather/by-day/horizontal-{{PLATFORM}}-{{BROWSER_TYPE}}
+      - do: повернуть устройство в горизонтальную ориентацию
+      - screenshot: колдунщик погоды соответствует виду [horizontal]
+  Основная проверка:
+    beforeEach:
+      - params:
+          exp_flags: 'weather_clickable=1'
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: появился колдунщик погоды
+      - screenshot: колдунщик погоды соответствует виду [adapters/adapter-weather/by-day/plain-{{PLATFORM}}-{{BROWSER_TYPE}} >> plain]
+    Заголовок:
+      - do: кликнуть в тайтл
+      - tech: сработал счётчик path='/$page/$main/$result/title'
+      - assert: в новой вкладке открылась главная страница Яндекс.Погоды
+    Подробный прогноз:
+      - do: кликнуть в подробный прогноз
+      - tech: сработал счётчик path='/$page/$main/$result/detail'
+      - assert: в новой вкладке открылась главная страница Яндекс.Погоды
+    Количество прогнозов:
+      - do: проверить количество дней, для которых строится прогноз внизу
+      - assert: внизу должен быть виден прогноз на 7 дней
+      - assert: один день выделен в прогнозе на 7 дней
+    Первый день:
+      - do: кликнуть в прогноз для первого дня
+      - tech: сработал счётчик path='/$page/$main/$result/days'
+      - assert: в новой вкладке открылась главная страница Яндекс.Погоды
+    Второй день:
+      - do: кликнуть в прогноз для второго дня
+      - tech: сработал счётчик path='/$page/$main/$result/days'
+      - assert: в новой вкладке открылась главная страница Яндекс.Погоды
+    Кнопка:
+      - do: кликнуть по кнопке Подробный прогноз
+      - tech: сработал счётчик path='/$page/$main/$result/button'
+      - assert: в новой вкладке открылась главная страница Яндекс.Погоды
+
+files:
+  - features/touch-phone/adapter-weather/exp_clickable/adapter-weather_type_by-day.hermione.js
+
+v-team: Weather
+
+tlds:
+  - ru
+  - by
+  - ua
+  - kz
+  - com.tr
+
+counter: /$page/$main/$result[@wizard_name="weather"]

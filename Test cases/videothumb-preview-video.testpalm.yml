@@ -1,0 +1,37 @@
+feature: Видеосниппет
+
+tlds:
+  - ru
+  - ua
+  - by
+  - kz
+  - com
+  - com.tr
+
+specs:
+  aliases:
+    - &checkVideo
+      - do: дождаться загрузки видео
+      - assert: на месте картинки начало проигрываться видео
+      - assert: после окончания проигрывания видео картинка с длительностями вернулась в исходное состояние
+  beforeEach:
+    - do: получить выдачу по запросу "мешок яблок"
+    - assert: в выдаче присутствует видеосниппет (сниппеты с кадром слева)
+  Проверка нажатия на тумбу:
+    - label: videothumbPreviewVideo-{{PLATFORM}}-{{BROWSER_TYPE}}
+    - screenshot: кадр видеосниппета выглядит корректно [plain]
+    - do: нажать на секунду на картинку сниппета
+    - assert: поверх картинки появился загрузчик видео
+    - *checkVideo
+  Проверка нажатия на текст:
+    - screenshot: кадр видеосниппета выглядит корректно [videothumbPreviewVideo-{{PLATFORM}}-{{BROWSER_TYPE}} >> plain]
+    - do: нажать на секунду на текст сниппета
+    - assert: поверх картинки появился загрузчик видео
+    - *checkVideo
+
+files:
+  - features/touch-phone/videothumb/videothumb-preview-video.hermione.js
+
+v-team: Video
+
+priority: high

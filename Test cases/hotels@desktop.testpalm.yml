@@ -1,0 +1,262 @@
+feature: Hotels / Колдунщик одной организации
+type: Стандартный вид
+
+specs-integration:
+  beforeEach:
+    - do: получить выдачу по запросу "гостиница космос москва" _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: в правой колонке присутствует колдунщик отеля
+  Ссылки в блоке key-value:
+    - counter: /$page/$parallel/$result[@wizard_name="companies" and @subtype="travel_company"]/tabs/about/contacts/site
+    - tags:
+        - key-value
+    - do: кликнуть по ссылке с сайтом организации
+    - assert: осуществился переход на сайт организации
+  Кнопка "Найти номера" на главном табе:
+    - counter: /$page/$parallel/$result[@wizard_name="companies" and @subtype="travel_company"]/tabs/about/hotel_prices/hotels-form/submit
+    - tags:
+        - button
+        - ajax
+        - tabs
+    - do: кликнуть по кнопке 'Показать' в блоке с предложениями отелей
+    - assert: |
+        открылся попап организации на вкладке "Номера",
+        отображается спиннер, обозначающий поиск результатов,
+        после исчезновения спиннера отобразился результат поиска или сообщение,
+        присутствует форма поиска номеров,
+        присутствует блок "Похожие отели"
+  Попап с отзывами:
+    - counter: /$page/$parallel/$result[@wizard_name="companies" and @subtype="travel_company"]/tabs/controls/reviews
+    - tags:
+        - button
+        - ajax
+        - popup
+    - do: кликнуть в таб "N отзывов"
+    - assert: |
+        открылось модальное окно с отзывами,
+        в списке есть отзывы
+  Открытие попапа:
+    Клик в тумбу открывает попап на табе "фото":
+      - counter: /$page/$parallel/$result[@wizard_name="companies" and @subtype="travel_company"]/tabs/about/gallery/scroller/row/thumb
+      - do: кликнуть в тумбу
+      - assert: открылся попап организации на вкладке "фото", видны фото организации
+    Клик в карту открывает попап на табе "на карте":
+      - counter: /$page/$parallel/$result[@wizard_name="companies" and @subtype="travel_company"]/tabs/about/gallery/scroller/row/map/thumb
+      - do: кликнуть в карту
+      - assert: открылся попап организации на вкладке "На карте"
+    Клик в кнопку разворачивания карты открывает попап:
+      - counter: /$page/$parallel/$result[@wizard_name="companies" and @subtype="travel_company"]/tabs/about/gallery/scroller/row/map/thumb
+      - do: на главном табе кликнуть в кнопку разворачивания карты на миниатюре карты
+      - assert: открылся попап на табе "На карте"
+    Клик в адрес открывает попап на табе "на карте":
+      - counter: /$page/$parallel/$result[@wizard_name="companies" and @subtype="travel_company"]/tabs/about/contacts/address
+      - do: кликнуть в адрес организации
+      - assert: открылся попап организации на вкладке "На карте"
+    Клик в "Цены на номера" в тайтле формы открывает попап на табе "номера":
+      - counter: /$page/$parallel/$result[@wizard_name="companies" and @subtype="travel_company"]/tabs/about/hotel_prices/title
+      - do: кликнуть по заголовку "Цены на номера"
+      - assert: |
+          открылся попап организации на вкладке "Номера",
+          присутствует форма поиска номеров,
+          присутствует блок "Похожие отели"
+    Ссылка "Все предложения" открывает попап на табе "номера":
+      - counter: /$page/$parallel/$result[@wizard_name="companies" and @subtype="travel_company"]/tabs/rooms/hotels-form/list/all_offers
+      - tags:
+          - tabs
+          - ajax
+      - do: кликнуть по ссылке "Все предложения" в блоке с предложениями отелей
+      - assert: |
+          открылся попап организации на вкладке "Номера",
+          в табе "Номера" отображается спиннер, обозначающий поиск результатов,
+          после исчезновения спиннера отобразился результат поиска или сообщение,
+          присутствует форма поиска номеров,
+          присутствует блок "Похожие отели"
+    Кнопка "Еще" в галерее фото открывает попап:
+      - counter: /$page/$parallel/$result[@wizard_name="companies" and @subtype="travel_company"]/tabs/about/gallery/scroller/row/more
+      - do: проскроллить галерею фото до конца
+      - assert: появилась кнопка "Еще N фотографий"
+      - do: кликнуть в кнопку "Еще N фотографий"
+      - assert: открылся попап отеля на табе "Фото"
+
+specs:
+  aliases:
+    - &CheckMetrics
+      - assertMetrics:
+          - feature.web.wizards_common.wizard_companies_right.total.shows
+          - feature.web.wizards_common.wizard_companies_right.total.external_clicks
+          - feature.web.wizards_common.wizard_companies_right.total.dynamic_clicks
+          - web.tech_part_misc_click
+          - web.total_request_count
+          - daily.total_session_count
+  beforeEach:
+    - do: получить выдачу по запросу 'рэдиссон белорусская'
+    - assert: на странице присутствует колдунщик организации в правой колонке
+  Внешний вид колдунщика:
+    - tags:
+        - smoke
+    - label: geo-hotels-1org
+    - screenshot: примерный внешний вид карточки организации в правой колонке [plain]
+  Проверка карточки номера при ховере:
+    - tags:
+        - hover
+    - do: навести курсор на заголовок первой карточки номера (название сайта-партнера)
+    - assert: заголовок изменил цвет с синего на красный
+    - screenshot: Карточка номера при ховере [hover]
+  Проверка ссылок в блоке key-value:
+    - tags:
+        - key-value
+        - smoke
+    - do: кликнуть по ссылке с сайтом партнера
+    - assert: осуществился переход на сайт партнера
+    - tech: сработал счетчик path='/parallel/result/snippet/companies/travel_company/site', vars='pos=*,wizard=true,-adapters=companies,-oid=*'
+    - *CheckMetrics
+  Нажатие на кнопку 'Найти номера':
+    - tags:
+        - button
+        - ajax
+        - tabs
+    - do: кликнуть по кнопке 'Показать' в блоке с предложениями отелей
+    - assert: |
+        открылся попап на табе 'Номера',
+        в табе 'Номера' отображается спиннер, обозначающий поиск результатов,
+        после исчезновения спиннера отобразился результат поиска
+    - tech: сработал динамический счетчик path='/$page/$parallel/$result/tabs/about/hotel_prices/hotel_offers/submit'
+    - *CheckMetrics
+  Проверка формы:
+    - assert: на странице присутствует колдунщик организации в правой колонке
+    - tags:
+        - calendar
+        - dates
+        - smoke
+    - do: в блоке Цены на номера изменить первую дату на день позже от предустановленной
+    - tech: сработал динамический счетчик path='/$page/$parallel/$result/tabs/about/hotel_prices/hotel_offers/date-picker/from'
+    - tech: сработал динамический счетчик path='/$page/$parallel/$result/tabs/about/hotel_prices/hotel_offers/date-picker/calendar/date'
+    - do: изменить вторую дату на день позже от предустановленной
+    - tech: сработал динамический счетчик path='/$page/$parallel/$result/tabs/about/hotel_prices/hotel_offers/date-picker/to'
+    - tech: сработал динамический счетчик path='/$page/$parallel/$result/tabs/about/hotel_prices/hotel_offers/date-picker/calendar/date'
+    - do: увеличить кол-во гостей
+    - tech: сработал динамический счетчик path='/$page/$parallel/$result/tabs/about/hotel_prices/hotel_offers/guests/button'
+    - tech: сработал динамический счетчик path='/$page/$parallel/$result/tabs/about/hotel_prices/hotel_offers/guests/plus'
+    - do: уменьшить кол-во гостей
+    - tech: сработал динамический счетчик path='/$page/$parallel/$result/tabs/about/hotel_prices/hotel_offers/guests/minus'
+    - *CheckMetrics
+  Проверка проброса данных в таб Номера:
+    - tags:
+        - calendar
+        - dates
+        - button
+        - ajax
+        - tabs
+    - do: изменить первую дату на день позже от предустановленной
+    - assert: дата в поле изменилась
+    - do: изменить вторую дату на день позже от предустановленной
+    - assert: дата в поле изменилась
+    - do: увеличить кол-во гостей
+    - assert: кол-во гостей увеличилось
+    - do: кликнуть по кнопке 'Показать' в блоке с предложениями отелей
+    - assert: |
+        осуществился переход на таб 'Номера',
+        даты и кол-во гостей соответствуют тем, что были выбраны пользователем
+    - *CheckMetrics
+  Проверка счетчиков в табе Номера:
+    - tags:
+        - no_assessors
+    - do: кликнуть в таб "Номера"
+    - tech: сработал счетчик path='/parallel/result/snippet/companies/travel_company/tabs', vars='action=dynamic_click,wizard=true,-source=fake,-adapters=companies,pos=*,-oid=*,-item=1'
+    - assert: |
+        открылся таб с номерами,
+        на табе присутсвует форма выбор дат и количетва гостей,
+        появился список с партнерами
+    - do: кликнуть по выпадающему списку с количеством гостей
+    - tech: сработал счетчик path='/parallel/result/snippet/companies/travel_company/form/person/button/', vars='action=dynamic_click,wizard=true,-source=fake,-adapters=companies,pos=*,-oid=*'
+    - assert: под заголовком партнера появился список номеров
+    - do: кликнуть по первому номеру в появившемся списке
+    - tech: сработал счетчик path='/parallel/result/snippet/companies/travel_company/form/result/', vars='wizard=true,-source=fake,-adapters=companies,pos=*,-oid=*'
+    - *CheckMetrics
+  Проверка открытия попапа по клику в тумбу:
+    - do: кликнуть в тумбу
+    - assert: открылся попап организации на вкладке "фото" с картинкой в полный размер
+    - tech: сработал счетчик /parallel/result/snippet/companies/travel_company/gallery/rows/thumb
+    - tech: сработал счетчик /parallel/result/snippet/companies/travel_company/gallery/rows/popup/photo/viewer/open
+    - *CheckMetrics
+  Проверка открытия попапа по клику в карту:
+    - tags:
+        - map
+        - popup
+    - do: кликнуть в карту
+    - assert: открылся попап организации на вкладке "карта"
+    - tech: Сработал счётчик "/parallel/result/snippet/companies/travel_company/gallery/main/map"
+    - *CheckMetrics
+  Проверка открытия попапа по клику на адрес орг-ии:
+    - tags:
+        - map
+        - popup
+    - do: кликнуть в адрес организации
+    - assert: открылся попап организации на вкладке "карта"
+    - tech: Сработал счётчик "/parallel/result/snippet/companies/travel_company/address"
+    - *CheckMetrics
+  Проверка открытия попапа по клику в "Цены на номера":
+    - do: кликнуть по заголовку 'Цены на номера'
+    - screenshot: заголовок 'Цены на номера' [https://jing.yandex-team.ru/files/oldskytree/redisson_slavyanskaya_—_YAndeks__nashlos_2%C2%A0mln%C2%A0rezultatov_—_YAndeks.Brauzer_2020-03-16_13.01.46.png]
+    - assert: открылся попап организации на вкладке 'Номера'
+    - tech: Сработал динамический счётчик "/$page/$parallel/$result/tabs/about/hotel_prices/hotel_offers/title"
+    - screenshot: внешний вид [rooms-tab]
+    - *CheckMetrics
+  Проверка ссылки 'Все предложения':
+    - tags:
+        - tabs
+        - ajax
+        - spinner
+    - do: кликнуть по ссылке 'Все предложения' в блоке с предложениями отелей
+    - assert: |
+        открылся попап на табе 'Номера',
+        в табе 'Номера' отображается спиннер, обозначающий поиск результатов,
+        после исчезновения спиннера отобразился результат поиска
+    - tech: сработал динамический счетчик path='/$page/$parallel/$result/tabs/about/hotel_prices/hotel_offers/all_offers'
+    - *CheckMetrics
+  Ссылка в заголовке отеля:
+    - tags:
+        - popup
+    - do: кликнуть на заголовок отеля
+    - assert: открылся попап отеля на табе "Про отель"
+    - assert-metrics: '*'
+  Ссылка Яндекс.Путешествия в подвале колдунщика:
+    - do: кликнуть в ссылку "Яндекс.Путешествия" в подвале колдунщика
+    - assert: открылся промо сайт Яндекс.Путешествия на блоке "Как подключить Путешествия"
+  utm в ссылке офера:
+    - tags:
+        - tech
+        - no_assessors
+    - assert: ссылка офера содержит параметры utm_source=unisearch_ru_hotels&utm_campaign=common&utm_medium=one-company&utm_content=offer
+  Форма и вкладка Номера не выводится в отеле без предложений:
+    - tags:
+        - hotels-form
+        - tabs
+        - popup
+    # нужен отель без предложений с HideSearchForm = true в данных (см. https://st.yandex-team.ru/SERP-128364)
+    - do: получить выдачу по запросу 'Отель Эвель Алушта'
+    - assert: |
+        на странице присутствует колдунщик организации в правой колонке
+        в колдунщике присутствует таб Услуги
+        в колдунщике отсутствует таб Номера
+        в колдунщике отсутствует блок "Цены на номера"
+    - do: кликнуть в тайтл колдунщика
+    - assert: открылся попап отеля на табе "Про отель"
+    - assert: |
+        в попапе присутствует таб Услуги
+        в попапе отсутствует таб Номера
+        в попапе отсутствует блок "Цены на номера"
+
+files:
+  - features/companies/hotels/hotels@desktop.hermione.js
+  - features/companies/hotels/hotels@desktop.hermione.e2e.js
+
+counter: /parallel/result/snippet/companies/travel_company/form/submit
+
+v-team: KotTeam
+
+tags:
+  - reviewed
+  - hasE2E
+  - 1org
+
+tlds: none

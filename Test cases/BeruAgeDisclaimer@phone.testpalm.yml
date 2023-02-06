@@ -1,0 +1,72 @@
+feature: beru-age-disclaimer
+
+specs:
+  Тип modal:
+    Внешний вид блока:
+      - do: открыть страницу примера блока beruAgeDisclaimer (/turbo?stub=beruagedisclaimer/type-modal.json)
+      - assert: должны быть виден блок с проверкой возраста
+      - screenshot: внешний вид соответствует скриншоту [modal]
+
+    Проверка кнопки "Есть 18":
+      - do: открыть страницу примера блока beruAgeDisclaimer (/turbo?stub=beruagedisclaimer/type-modal.json)
+      - assert: должны быть виден блок с проверкой возраста
+      - do: нажать на кнопку "Есть 18"
+      - assert: Должен быть виден текст "Lorem Ipsum ...."
+      - assert: Кука "pokupkiAdult" должна быть выставлена
+      - screenshot: внешний вид соответствует скриншоту [modal-text]
+
+    Проверка кнопки "Нет":
+      - do: открыть страницу примера блока beruAgeDisclaimer (/turbo?stub=beruagedisclaimer/type-modal.json)
+      - assert: должны быть виден блок с проверкой возраста
+      - do: нажать на кнопку "Нет"
+      - assert: должен перейти на страницу "m.pokupki.market.yandex.ru"
+
+    Проверка закрытия окна через крестик в углу:
+      - do: открыть страницу примера блока beruAgeDisclaimer (/turbo?stub=beruagedisclaimer/type-modal.json)
+      - assert: должны быть виден блок с проверкой возраста
+      - do: нажать на крестик в углу блока
+      - assert: должен перейти на страницу "m.pokupki.market.yandex.ru"
+
+    Клик по кнопке "Нет" не должен приводить к открытию нового таба в iframe:
+      - params:
+          foreverdata: '3943976294'
+      - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок первого сниппета (начинается с "Тестовая страница для BeruAgeDisclaimer modal")
+      - assert: открывается турбо-страница и виден блок
+      - do: нажать на кнопку "Нет"
+      - assert: в основном табе должна открыться страница "m.pokupki.market.yandex.ru"
+
+  Тип inline:
+    Внешний вид блока:
+      - do: открыть страницу примера блока beruAgeDisclaimer (/turbo?stub=beruagedisclaimer/type-inline.json)
+      - assert: должны быть виден блок с проверкой возраста
+      - screenshot: внешний вид соответствует скриншоту [inline]
+
+    Клик по кнопке "Есть 18" должен выставлять куку и редиректить на запрашиваемую страницу:
+      - do: открыть страницу примера блока beruAgeDisclaimer (/turbo?stub=beruagedisclaimer/type-modal.json)
+      - assert: должны быть виден блок с проверкой возраста
+      - do: нажать на кнопку "Есть 18"
+      - assert: Кука "pokupkiAdult" должна быть выставлена
+      - assert: должен произойти редирект на эту же страницу
+
+    Клик по кнопке "Нет" должен открывать главную страницу сервиса:
+      - do: открыть страницу примера блока beruAgeDisclaimer (/turbo?stub=beruagedisclaimer/type-modal.json)
+      - assert: должны быть виден блок с проверкой возраста
+      - do: нажать на кнопку "Нет"
+      - assert: должен перейти на страницу "m.pokupki.market.yandex.ru"
+
+    Клик по кнопке "Нет" не должен приводить к открытию нового таба в iframe:
+      - params:
+          foreverdata: '3943976294'
+      - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок первого сниппета (начинается с "Тестовая страница для BeruAgeDisclaimer modal")
+      - assert: открывается турбо-страница и виден блок
+      - do: нажать на кнопку "Нет"
+      - assert: в основном табе должна открыться страница "m.pokupki.market.yandex.ru"
+
+files:
+  - platform/components/BeruAgeDisclaimer/__tests__/BeruAgeDisclaimer@phone.hermione.js
+
+v-team: Beru
+
+manager: seoshnik
+
+tlds: none

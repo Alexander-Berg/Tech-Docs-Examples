@@ -1,0 +1,29 @@
+feature: Колдунщик 1орг
+type: Фотографии в прайсах
+
+counter: /parallel/result/snippet/companies/company
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу 'шаронлайн.ру'
+    - assert: показалась карточка организации справа
+  Краткая врезка на главном табе:
+    - assert: в карточке есть блок с ценами
+    - screenshot: внешний вид цен в карточке [plain]
+    - do: кликнуть по заголовку 'Цены'
+    - assert: открылся попап организации с активным табом 'Цены'
+    - do: кликнуть по табу 'Главное'
+    - assert: активировался таб 'Главное'
+    - assert: на главном табе есть блок цен
+    - screenshot: внешний вид блока цен в попапе на главном табе [plain-modal]
+    - assertMetrics: '*'
+
+files:
+  - features/companies/prices/photos/photos@desktop.hermione.js
+
+v-team: VanillaGeo
+
+tags:
+  - skip_e2e_check
+
+tlds: all

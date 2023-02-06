@@ -1,0 +1,17 @@
+feature: Объектный ответ
+type: Сериальный навигатор
+counter: /$page/$parallel/$result[@wizard_name="entity_search"]/tabs/main/object-badge/series-navigator/showcase/item/thumb
+
+specs:
+   Не должно быть сериального навигатора, там где нельзя смотреть и продавать подписку:
+    - do: получить выдачу по запросу 'сериал офис'
+    - assert: |
+        на выдаче есть карточка сериала, в карточке есть тумба видео, с кнопкой 'Трейлер',
+        под тумбой видео нет видео-тумбы серий
+
+files:
+  - features/deskpad/z-entity-search/soap/no-soap.hermione.js
+
+v-team: Video
+
+tlds: by

@@ -1,0 +1,39 @@
+feature: LcBadge
+
+tags: no_assessors
+
+specs:
+    Бейджи Apple, Google, Microsoft на языке ru:
+        - do: открыть страницу (https://yandex.ru/turbo?stub=lcbadge/lang_ru.json)
+        - screenshot: внешний вид соответствует скриншоту [lang_ru]
+
+    Бейджи Apple, Google, Microsoft на языке be:
+        - do: открыть страницу (https://yandex.ru/turbo?stub=lcbadge/lang_be.json)
+        - screenshot: внешний вид соответствует скриншоту [lang_be]
+
+    Бейджи Apple, Google, Microsoft на языке en:
+        - do: открыть страницу (https://yandex.ru/turbo?stub=lcbadge/lang_en.json)
+        - screenshot: внешний вид соответствует скриншоту [lang_en]
+
+    Бейджи Apple, Google, Microsoft на языке kz:
+        - do: открыть страницу (https://yandex.ru/turbo?stub=lcbadge/lang_kz.json)
+        - screenshot: внешний вид соответствует скриншоту [lang_kz]
+
+    Бейджи Apple, Google, Microsoft на языке tr:
+        - do: открыть страницу (https://yandex.ru/turbo?stub=lcbadge/lang_tr.json)
+        - screenshot: внешний вид соответствует скриншоту [lang_tr]
+
+    Бейджи Apple, Google, Microsoft на языке uk:
+        - do: открыть страницу (https://yandex.ru/turbo?stub=lcbadge/lang_uk.json)
+        - screenshot: внешний вид соответствует скриншоту [lang_uk]
+
+files:
+    - platform/components/LcBadge/__tests__/LcBadge.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: ratyulenev
+
+tlds: none

@@ -1,0 +1,26 @@
+feature: LcTitle
+
+tags: no_assessors
+
+specs:
+  Внешний вид блока:
+    - tags: no_assessors
+    - do: открыть страницу примера блока lcTitle (https://yandex.ru/turbo?stub=lctitle/default.json)
+    - assert: отображается текст заголовка
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Внешний вид блока с дополнительными свойствами:
+      - do: открыть страницу примера блока lcTitle (https://yandex.ru/turbo?stub=lctitle/extended.json)
+      - assert: отображается текст заголовка
+      - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/components/LcTitle/__tests__/LcTitle.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: olimiya, shinuta
+
+tlds: none

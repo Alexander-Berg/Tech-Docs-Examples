@@ -1,0 +1,46 @@
+feature: Одна организация
+type: Фичи организации
+
+specs:
+  Общие проверки:
+    - params:
+        exp_flags: GEO_1org_about_old=1
+    - tags: smoke
+    - do: получить выдачу по запросу 'столовая парус якорная санкт-петербург'
+    - assert: появился колдунщик одной организации
+    - do: кликнуть в таб 'Главное'
+    - assert: |
+        открылся сайдблок 1орг
+        присутствует список фичей организации ('Летняя веранда', 'Доставка еды', ...)
+    - screenshot: внешний вид описания [plain]
+    - do: тапнуть в 'другие особенности'
+    - screenshot: внешний вид описания [expanded]
+  Длинные особенности обрезаются с многоточием:
+    - params:
+        exp_flags: GEO_1org_about_old=1
+    - do: получить выдачу по запросу 'почта россии кировградская 17'
+    - assert: появился колдунщик одной организации
+    - screenshot: внешний вид [long-features-cut-with-ellipsis-collapsed]
+    - assert: |
+        открылся сайдблок 1орг
+        присутствует список фичей организации ('Летняя веранда', 'Доставка еды', ...)
+    - screenshot: внешний вид развёрнутого описания [long-features-cut-with-ellipsis-expanded]
+  Длинные особенности обрезаются по разделителю:
+    - params:
+        exp_flags: GEO_1org_about_old=1
+    - do: получить выдачу по запросу 'зеленоград пронто'
+    - assert: появился колдунщик одной организации
+    - do: кликнуть в таб 'Главное'
+    - assert: |
+        открылся сайдблок 1орг
+        присутствует список фичей организации ('Летняя веранда', 'Доставка еды', ...)
+    - screenshot: внешний вид развёрнутого описания [long-features-cut-expanded]
+
+counter: /$page/$main/$result/composite/features/more
+
+files:
+  - src/features/Companies/Companies.features/OrgFeatures/OrgFeatures.test/OrgFeatures@touch-phone.hermione.js
+
+v-team: VanillaGeo
+
+tlds: all

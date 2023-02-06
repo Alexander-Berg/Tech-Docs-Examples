@@ -1,0 +1,26 @@
+feature: Колдунщик 1Орг
+type: Футер
+
+specs:
+  Ссылки:
+    - do: получить выдачу по запросу 'кафе пушкин' _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: на странице появляется колдунщик 1орг
+    - do: кликнуть на ссылку 'Вы владелец?'
+    - assert: |
+        открылся Личный Кабинет Справочника в новой вкладке по адресу
+        вида "https://yandex.ru/sprav/search?permalink=1018907821&from=unisearch_footer&utm_source=unisearch_touch"
+    - do: кликнуть на ссылку 'Условия подключения'
+    - assert: открылась ссылка в новой вкладке
+    - tech: сработал счётчик path="/$page/$main/$result/composite/object-footer/sprav"
+    - assertMetrics: '*'
+
+files:
+  - src/features/Companies/Companies.features/CompaniesFooter/CompaniesFooter.test/CompaniesFooter@touch-phone.hermione.js
+
+v-team: VanillaGeo
+
+tags: react
+
+tlds: all
+
+

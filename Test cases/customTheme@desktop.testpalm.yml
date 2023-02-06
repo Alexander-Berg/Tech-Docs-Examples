@@ -1,0 +1,61 @@
+feature: Кастомная темизация компонентов (dekstop)
+tags:
+  - no_assessors
+
+params:
+  exp_flags:
+    - page-custom-display-theme=1
+    - header2=1
+  patch: customTheme
+
+specs:
+  Внешний вид:
+    - do: открыть главную страницу https://yandex.ru/turbo?text=test_news
+    - assert: внешний вид соответствует [desktop-1]
+    - do: проскроллить вниз до горизонтального ряда кнопок
+    - assert: внешний вид соответствует [desktop-2]
+    - do: проскроллить вниз до таблицы
+    - assert: внешний вид соответствует [desktop-3]
+    - do: проскроллить вниз до слайдера картинок
+    - assert: внешний вид соответствует [desktop-4] 
+
+  Проверка размера шрифта:
+    стиль sans-serif:
+      Стандартный:
+        - do: открыть главную страницу https://yandex.ru/turbo?stub=page/page-desktop-custom-theme-1.json
+        - assert: внешний вид соответствует [desktop-sans-small]
+
+      Средний:
+        - do: открыть главную страницу https://yandex.ru/turbo?stub=page/page-desktop-custom-theme-2.json
+        - assert: внешний вид соответствует [desktop-sans-medium]
+
+      Крупный:
+        - do: открыть главную страницу https://yandex.ru/turbo?stub=page/page-desktop-custom-theme-3.json
+        - assert: внешний вид соответствует [desktop-sans-large]
+
+    стиль serif:
+      Стандартный:
+        - do: открыть главную страницу https://yandex.ru/turbo?stub=page/page-desktop-custom-theme-1.json
+        - assert: внешний вид соответствует [desktop-serif-small]
+
+      Средний:
+        - do: открыть главную страницу https://yandex.ru/turbo?stub=page/page-desktop-custom-theme-2.json
+        - assert: внешний вид соответствует [desktop-serif-medium]
+
+      Крупный:
+        - do: открыть главную страницу https://yandex.ru/turbo?stub=page/page-desktop-custom-theme-3.json
+        - assert: внешний вид соответствует [desktop-serif-large]
+
+files:
+  - features/common/customTheme@desktop.hermione.js
+
+browsers:
+  - chrome-desktop
+
+v-team: Turbo
+
+manager: mviktorov
+
+qa-engineer: narbutovich
+
+tlds: none

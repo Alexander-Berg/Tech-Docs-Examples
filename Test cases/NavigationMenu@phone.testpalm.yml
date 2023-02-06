@@ -1,0 +1,38 @@
+feature: Панель навигации
+
+specs:
+  Базовый вид блока:
+    - params:
+        foreverdata: '419750840'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок первого сниппета (название заголовка Тестовая страница для компонента NavigationMenu — Турбо)
+    - screenshot: внешний вид панели навигации соответствует скриншоту [plain]
+
+  С подрубрикатором:
+    - do: перейти по ссылке /turbo?stub=navigationmenu/subrubric.json
+    - screenshot: внешний вид панели навигации соответствует скриншоту [withSubMenu]
+
+  позволяет переходить по рубрикам, кроме Происшествий [manual]:
+    - automation: NERPADUTY-54
+    - tags: backend_news
+    - do: перейти на сервис яндекс новостей
+    - assert: отобразился рубрикатор
+    - assert: пользователь находится в рубрике Главное
+    - assert: внешний вид - https://jing.yandex-team.ru/files/e-l-agafon0va/2019-12-25.png
+    - do: перейти в любую другую рубрику
+    - assert: происходит переход в выбранную рубрику
+  позволяет перейти в рубрику Происшествия [manual]:
+    - automation: NERPADUTY-54
+    - tags: backend_news
+    - do: перейти на сервис яндекс новостей
+    - do: перейти в рубрику Происшествия
+    - assert: происходит переход в выбранную рубрику, отображаются сюжеты в ней
+
+files:
+  - platform/components/NavigationMenu/__tests__/NavigationMenu@phone.hermione.js
+tags:
+  - newsinturbo
+
+v-team: News
+manager: glushneva
+
+tlds: none

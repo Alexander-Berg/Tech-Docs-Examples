@@ -1,0 +1,26 @@
+feature: Новостной колдунщик
+experiment: Удаление гринурла
+
+specs:
+  Внешний вид:
+    Рубричный колдунщик:
+      - params:
+          foreverdata: '2011728182'
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: на странице есть новостной колдунщик
+      - screenshot: пример внешнего вида колдунщика [newsRubric]
+      - assertMetrics: '-'
+
+files:
+  - features/adapter-news/adapter-news@common.hermione.js
+
+tags:
+  - skip_e2e_check
+  - reviewed
+  - news
+
+v-team: Freshness
+
+counter: /$page/$main/$result/path/urlnav
+
+tlds: all

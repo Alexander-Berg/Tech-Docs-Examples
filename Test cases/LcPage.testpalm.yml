@@ -1,0 +1,19 @@
+feature: LcPage
+
+tags: no_assessors
+
+specs:
+  Содержимое LcPage корректно отображается:
+    - do: открыть страницу примера lcPage (yandex.ru/turbo?stub=lcpage/default.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/components/LcPage/__tests__/LcPage.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: olimiya, shinuta
+
+tlds: none

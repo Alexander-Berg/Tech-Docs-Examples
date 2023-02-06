@@ -1,0 +1,15 @@
+feature: widget-feedback
+
+specs:
+  widget feedback + плашка комментатора:
+    - do: открыть страницу 'https://yandex.ru/turbo?stub=widget-feedback%2Fsticky-with-comments.json'
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - features/common/blocks/widget-feedback/widget-feedback.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+tlds: none

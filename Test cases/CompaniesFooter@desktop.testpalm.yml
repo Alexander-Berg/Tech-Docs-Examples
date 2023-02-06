@@ -1,0 +1,32 @@
+feature: Колдунщик 1Орг
+type: Футер
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу "кафе пушкин" _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: на странице присутствует карточка одной организации
+  В попапе:
+    - do: кликнуть одному из фото в карточке 1орг
+    - assert: открылся попап с табом фото с выбранным фото
+    - do: кликнуть на таб Главное
+    - assert: открылся таб главное
+    - do: проскроллить попап до конца
+    - screenshot: внешний вид [popup]
+  Ссылки:
+    - do: получить выдачу по запросу 'кафе пушкин'
+    - assert: справа от выдачи появился блок с информацией об организации
+    - do: перейти по ссылке 'Вы владелец?' в подвале колдунщика
+    - assert: произошёл переход на страницу Яндекс.Справочника с запросом на подтверждение, что это компания пользователя
+    - do: кликнуть на ссылку 'Условия подключения'
+    - assert: открылась ссылка в новой вкладке
+    - tech: сработал счётчик path='$page/$parallel/$result/composite/object-footer/sprav'
+    - assertMetrics: '*'
+
+files:
+  - src/features/Companies/Companies.features/CompaniesFooter/CompaniesFooter.test/CompaniesFooter@desktop.hermione.js
+
+v-team: VanillaGeo
+
+tags: react
+
+tlds: all

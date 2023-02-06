@@ -1,0 +1,29 @@
+feature: Filters
+
+specs:
+  Кнопка фильтра:
+    - tags: no_assessors
+    - do: открыть страницу https://yandex.ru/turbo?text=technopark.ru/yandexturbocatalog/&page_type=filters
+    - assert: кнопка фильтра отображается на странице
+    - do: ввести 100 во второе поле ввода цены
+    - screenshot: внешний вид кнопки соответствует скриншоту [loading]
+    - do: нажать на кнопку фильтра
+    - assert: перехода на страницу каталога не произошло
+    - do: подождать загрузку кол-ва товаров
+    - screenshot: внешний вид кнопки соответствует скриншоту [ready]
+    - do: нажать на кнопку фильтра
+    - assert: произошел переход на страницу каталога с параметром filters=price%3A%2C100 в адресе
+
+files:
+  - platform/components/Filters/__tests__/Filters@phone.hermione.js
+
+tags:
+  - filters
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: spv, dakhetov
+
+tlds: none

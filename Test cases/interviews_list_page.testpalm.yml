@@ -1,0 +1,74 @@
+feature: Секция
+type: Страница списка секций
+
+specs:
+  Пустая страница [manual]:
+    - automation: FEMIDA-5241
+    - do: открыть страницу списка секций с отсутствием актуальных секций /interviews/
+    - screenshot: открылась страница секций [https://jing.yandex-team.ru/files/klimovich-a/browser_YxIGpCLVOw.png]
+  Проверка пагинации [manual]:
+    - automation: FEMIDA-5241
+    - do: открыть страницу списка секций с количеством секций больше 30 /interviews/
+    - screenshot: внизу страницы есть пагинация [https://jing.yandex-team.ru/files/klimovich-a/browser_GP7jlTAJcP.png]
+    - do: клик на любую страницу в пагинации
+    - screenshot: открылась выбранная страница [https://jing.yandex-team.ru/files/klimovich-a/browser_ltZW5ikGGI.png]
+  Базовые проверки [manual]:
+    - automation: FEMIDA-5241
+    - do: открыть страницу списка секций с наличием актуальных секций /interviews/
+    - screenshot: открылась страница секций [https://jing.yandex-team.ru/files/klimovich-a/browser_gpO97VEVh5.png]
+    - do: проверить ссылку в колонке 'Название'
+    - assert: ссылка содержит /interviews/<id_секции>/
+    - do: проверить ссылку в колонке 'Кандидат'
+    - assert: ссылка содержит /candidates/<id_кандидата>/interviews/
+    - do: проверить ссылку в колонке 'Статус' на дате секции
+    - assert: ссылка содержит https://calendar.testing.yandex-team.ru/event/?event_id=<id_встречи>/
+    - do: проверить ссылку в колонке 'Статус' на переговорке секции
+    - assert: ссылка содержит /map/conference_room/name_exchange/<название_переговорки>/
+    - do: проверить ссылку в колонке 'Вакансия'
+    - assert: ссылка содержит /vacancies/<id_вакансии>/
+    - do: проверить ссылку в колонке 'Рекрутер'
+    - assert: ссылка содержит https://staff.test.yandex-team.ru/<логин_сотрудника>/
+  Фильтр по секциям [manual]:
+    - automation: FEMIDA-5241
+    - do: открыть страницу списка секций /interviews/
+    - assert: |
+        на странице есть фильтр по секциям
+        фильтры по секциям не заданы
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/klimovich-a/browser_UY8hl4eTxT.png]
+    - do: в фильтре по типу секций выбрать какое-то значение
+    - assert: |
+        страница секций обновилась
+        url страницы содержит /interviews/?types=<тип_секции>/
+        появилась кнопка 'Сбросить'
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/klimovich-a/browser_lf7KgV1D4i.png]
+    - do: в фильтре по статусу секций выбрать какое-то значение
+    - assert: |
+        страница секций обновилась
+        url страницы содержит /interviews/?state=<статус_секции>/
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/klimovich-a/browser_YVYss6sBA4.png]
+    - do: в фильтре по резолюции секций выбрать какое-то значение
+    - assert: |
+        страница секций обновилась
+        url страницы содержит /interviews/?resolution=<резолюция_секции>/
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/klimovich-a/browser_h43Ogbl793.png]
+    - do: в фильтре по грейду секций выбрать какое-то значение
+    - assert: |
+        страница секций обновилась
+        url страницы содержит /interviews/?grades=<грейд_секции>/
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/klimovich-a/browser_T1W874lJMY.png]
+    - do: клик на 'Сбросить'
+    - assert: |
+        страница секций обновилась
+        фильтры по секциям очистились
+        url страницы содержит /interviews/
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/klimovich-a/browser_ykDyGYauaS.png]
+
+tags:
+  - reviewed
+
+priority: normal
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

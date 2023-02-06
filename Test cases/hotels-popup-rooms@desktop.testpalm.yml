@@ -1,0 +1,42 @@
+feature: Hotels / Колдунщик одной организации
+type: Стандартный вид / Отель в попапе
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу 'рэдиссон белорусская'
+    - assert: на выдаче присутствует колдунщик отеля в правой колонке
+    - do: кликнуть в ссылку 'Все предложения' в разделе 'Цены на номера'
+    - assert: открылся попап организации на вкладке 'Номера' с результатами поиска
+  Внешний вид:
+    - screenshot: внешний вид попапа [popup-tab-rooms]
+    - assertMetrics: '-'
+  Внешний вид на узком экране:
+    - tags:
+        - zoom
+        - 1org
+        - popup
+    - do: уменьшать ширину экрана с помощью мыши или тачпада до тех пор, пока попап не станет более узким
+    - screenshot: внешний вид узкого попапа [popup-tab-rooms-900]
+    - assertMetrics: '-'
+
+files:
+  - features/companies/hotels/hotels-popup/hotels-popup-rooms@desktop.hermione.js
+
+tlds:
+  - ru
+  - by
+  - kz
+  - ua
+
+regions:
+  ru: 213
+  by: 157
+  kz: 163
+  ua: 143
+
+counter: /parallel/result/snippet/companies/travel_company/form/submit
+
+tags:
+  - skip_e2e_check
+
+v-team: KotTeam

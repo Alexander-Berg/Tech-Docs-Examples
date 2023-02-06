@@ -1,0 +1,64 @@
+feature: Like
+
+specs:
+  Число лайков = 0:
+    Статус none:
+      - do: Открыть главную страницу поиска, удалить все параметры кроме yandex.ru и добавить в адресную строку к URL /turbo?stub=like/0.json
+      - screenshot: Внешний вид [default]
+      - assert: блок like со статусом none и нулевым числом лайков
+
+    Статус liked:
+      - tags: no_assessors
+      - do: Открыть главную страницу поиска, удалить все параметры кроме yandex.ru, добавить в адресную строку к URL /turbo?stub=like/0.json, и первому элементу с классом like__button добавить класс like__button_pressed
+      - screenshot: Внешний вид [default-liked]
+      - assert: блок like со статусом liked и нулевым числом лайков
+
+    Статус disliked:
+      - tags: no_assessors
+      - do: Открыть главную страницу поиска, удалить все параметры кроме yandex.ru, добавить в адресную строку к URL /turbo?stub=like/0.json, и второму элементу с классом like__button добавить класс like__button_pressed
+      - screenshot: Внешний вид [default-disliked]
+      - assert: блок like со статусом disliked и нулевым числом лайков
+
+  Число лайков = 1234:
+    Статус none:
+      - do: Открыть главную страницу поиска, удалить все параметры кроме yandex.ru и добавить в адресную строку к URL /turbo?stub=like/1234.json
+      - screenshot: Внешний вид [positive]
+      - assert: блок like со статусом none и число лайков = 1 234
+
+    Статус liked:
+      - tags: no_assessors
+      - do: Открыть главную страницу поиска, удалить все параметры кроме yandex.ru, добавить в адресную строку к URL /turbo?stub=like/1234.json, и первому элементу с классом like__button добавить класс like__button_pressed
+      - screenshot: Внешний вид [positive-liked]
+      - assert: блок like со статусом liked и число лайков = 1 234
+
+    Статус disliked:
+      - tags: no_assessors
+      - do: Открыть главную страницу поиска, удалить все параметры кроме yandex.ru, добавить в адресную строку к URL /turbo?stub=like/1234.json, и второму элементу с классом like__button добавить класс like__button_pressed
+      - screenshot: Внешний вид [positive-disliked]
+      - assert: блок like со статусом disliked и число лайков = 1 234
+
+  Число лайков = -1234:
+    Статус none:
+      - tags: no_assessors
+      - do: Открыть главную страницу поиска, удалить все параметры кроме yandex.ru, добавить в адресную строку к URL /turbo?stub=like/1234.json, у элемента с классом like__count удалить класс like__count_positive и добавить класс like__count_negative
+      - screenshot: Внешний вид [negative]
+      - assert: блок like со статусом none и число лайков = -1 234
+
+    Статус liked:
+      - tags: no_assessors
+      - do: Открыть главную страницу поиска, удалить все параметры кроме yandex.ru, добавить в адресную строку к URL /turbo?stub=like/1234.json, первому элементу с классом like__button добавить класс like__button_pressed, у элемента с классом like__count удалить класс like__count_positive и добавить класс like__count_negative
+      - screenshot: Внешний вид [negative-liked]
+      - assert: блок like со статусом liked и число лайков = -1 234
+
+    Статус disliked:
+      - tags: no_assessors
+      - do: Открыть главную страницу поиска, удалить все параметры кроме yandex.ru, добавить в адресную строку к URL /turbo?stub=like/1234.json, второму элементу с классом like__button добавить класс like__button_pressed, у элемента с классом like__count удалить класс like__count_positive и добавить класс like__count_negative
+      - screenshot: Внешний вид [negative-disliked]
+      - assert: блок like со статусом disliked и число лайков = -1 234
+
+files:
+  - platform/components/Like/__tests__/Like.hermione.js
+
+v-team: Talk
+
+tlds: none

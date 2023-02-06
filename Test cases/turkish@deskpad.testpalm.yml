@@ -1,0 +1,84 @@
+feature: Колдунщик топонимов
+type: Маршрутный блок в Турции
+
+specs-integration:
+  Наличие блока маршрута:
+    - do: получить выдачу по запросу 'İstanbul, Beyoğlu, Şahkulu Mh., Tımarcı Sk' на домене com.tr
+    - assert: на странице появился колдунщик топонимов
+    - assert: в колдунщике есть форма для задания маршрута
+
+params:
+  rearr: EntitySearch_off
+  # колдунщик топонимов отключен на стороне данных, этот флаг возвращает колдун
+  srcparams: 'UPPER:rearr=scheme_Local/ToponymWizard/Enabled=1'
+
+specs:
+  aliases:
+    - &CheckMetrics
+      - assertMetrics:
+          - feature.web.wizards_common.maps_wizard.total.shows
+          - feature.web.wizards_common.maps_wizard.total.external_clicks
+          - feature.web.wizards_common.maps_wizard.total.dynamic_clicks
+          - web.total_request_results_clicks
+          - web.total_request_results_ext_clicks
+          - web.total_request_results_dyn_clicks
+          - web.total_request_results_main_column_clicks
+          - web.total_request_results_main_column_ext_clicks
+          - web.total_request_results_main_column_dyn_clicks
+          - web.total_request_results_parallel_column_clicks
+          - web.total_request_results_parallel_column_ext_clicks
+          - web.total_request_results_parallel_column_dyn_clicks
+          - web.tech_part_misc_click
+          - web.total_request_count
+          - daily.total_session_count
+  beforeEach:
+    - do: получить выдачу по запросу 'İstanbul, Beyoğlu, Şahkulu Mh., Tımarcı Sk' на домене .com.tr
+  Проверить внешний вид, общие ссылки и счётчики колдунщика топонимов:
+    - tags:
+        - maps
+        - zoom
+        - location
+        - panorama
+        - title
+        - greenurl
+    - screenshot: на странице появился колдунщик топонимов, его внешний вид [plain]
+    - assert: присутствует карта с контролами (панорама, уменьшение карты, увеличение карты, геолокация), на карте стоит точка
+    - do: перейти по ссылке в тайтле
+    - assert: в новой вкладке открываются Яндекс.Карты с правильно поставленной точкой
+    - *CheckMetrics
+  Переход на карту:
+    - tags:
+        - maps
+        - panorama
+    - do: нажать кнопку 'Cadde panoraması'
+    - assert: |
+        в новой вкладке открываются Яндекс.Карты с панорамой, на которой показан дом по адресу из запроса,
+        на карте по адресу из запроса стоит точка,
+        интерфейс карты на Турецком языке,
+        домен открывшейся вкладки com.tr,
+    - do: вернуться на страницу выдачи результатов и нажать кнопку 'Büyük harita için'
+    - assert: |
+        новой вкладке открываются Яндекс.Карты, на карте по адресу из запроса стоит точка,
+        интерфейс карты на Турецком языке,
+        домен открывшейся вкладки com.tr,
+    - *CheckMetrics
+
+files:
+  - features/adapter-maps/turkish@deskpad.hermione.js
+  - features/adapter-maps/turkish@deskpad.hermione.e2e.js
+
+tlds:
+  - com.tr
+
+v-team: VanillaGeo
+
+regions:
+  com.tr: 11508
+
+requests:
+  tr: İstanbul, Beyoğlu, Şahkulu Mh., Tımarcı Sk
+
+counter: /$page/$main/$result[@wizard_name="maps" and @subtype="street"]
+
+tags:
+  - hasE2E

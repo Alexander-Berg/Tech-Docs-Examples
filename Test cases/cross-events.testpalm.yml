@@ -1,0 +1,26 @@
+feature: cross-events
+
+params:
+  foreverdata: '3733570674'
+
+specs:
+  beforeEach:
+      - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок первого сниппета (название заголовка Тестовая cтраница для CrossEvents — турбо)
+      - assert: открывается турбо-страница в той же вкладке (в поисковом приложении Яндекс турбо-страница открывается в новой вкладке)
+
+  Проверка открытия и закрытия модального окна по кликам по кнопкам:
+    - do: нажать на кнопку "Открой меня"
+    - assert: должно открыться модальное окно
+    - do: нажать на кнопку "Закрой меня"
+    - assert: должно закрыться модальное окно
+
+files:
+  - features/blocks/cross-events/cross-events.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: kleev, k0nratka
+
+tlds: none

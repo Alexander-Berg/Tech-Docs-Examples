@@ -1,0 +1,38 @@
+feature: Ширина центральной и правой колонки
+
+params:
+  expFlags: direct_column_width_lc=596:1560:716
+
+specs:
+  Изменение ширины:
+    Выдача с флагом direct_column_width_lc=596:1560:716:
+      - params:
+          exp_flags:
+            - direct_column_width_lc=596:1560:716
+          foreverdata: '210879154'
+      - do: получить выдачу по запросу 'фотографии актеров'
+      - do: с помощью devTools уменьшить ширину экрана до 1400
+      - screenshot: ширина левой колонки на выдаче соответствуют скриншоту [plain-before]
+      - do: с помощью devTools увеличить ширину экрана до 1850
+      - screenshot: ширина левой колонки на выдаче соответствуют скриншоту [plain-after]
+
+  Проверки изменений в колдунщиках:
+    Переводчик:
+      - params:
+          foreverdata: '3133626892'
+      - do: получить выдачу по запросу 'foreverdata'
+      - do: с помощью devTools увеличить ширину экрана до 1900
+      - assert: на выдаче есть переводчик
+      - screenshot: примерный внешний вид переводчика [translator-1900]
+      - do: с помощью devTools уменьшить ширину экрана до 1300
+      - screenshot: примерный внешний вид переводчика [translator-1300]
+
+files:
+  - features/desktop/direct_column_width/direct_column_width.hermione.js
+
+tags:
+  - skip_e2e_check
+
+v-team: Distribution
+
+tlds: all

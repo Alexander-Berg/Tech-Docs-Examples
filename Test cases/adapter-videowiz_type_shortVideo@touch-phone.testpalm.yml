@@ -1,0 +1,115 @@
+feature: Колдунщик видео
+type: Колдун коротких видео
+
+tlds:
+  - ru
+  - ua
+  - by
+  - kz
+
+specs:
+  Проверка на наличие:
+    - params:
+        foreverdata: '2092914302'
+    - do: получить выдачу по запросу "foreverdata"
+    - assert: появился видео колдунщик коротких видео
+    - screenshot: внешний вид [plain]
+
+  Показ просмотров:
+    - params:
+        foreverdata: '2092914302'
+        exp_flags: video_videowiz_shortvideo_views=1
+    - do: получить выдачу по запросу "foreverdata"
+    - assert: появился видео колдунщик коротких видео
+    - assert: на видео отображено количество просмотров
+    - screenshot: внешний вид [plain]
+
+  Проигрывание превью:
+    - do: получить выдачу по запросу "как поменять колесо на машине" (альтернативные запросы "курсы по наращиванию волос", "видео" или любой другой запрос с колдунщиком коротких видео)
+    - assert: появился видео колдунщик коротких видео (колдунщик с заголовком "Короткие видео")
+    - do: нажать и удерживать пальцем какую-нибудь карточку
+    - assert: |
+          при нажатии на карточку сработала анимация нажатия (карточка стала немного меньше)
+          в карточке начало проигрывание превью ролика (если превью не начало проигрываться, то попробовать другой ролик)
+          по краям проигрываемого превью нет тонких чёрных полос
+    - screenshot: ПРИМЕРНЫЙ внешний вид тумбы при проигрывании превью [videoshort_active_item]
+
+  Внешний вид тумбы m:
+    - params:
+        foreverdata: '2092914302'
+        exp_flags: videoshort_carousel_video_size=m
+    - do: получить выдачу по запросу "foreverdata"
+    - assert: появился видео колдунщик коротких видео
+    - screenshot: внешний вид [https://jing.yandex-team.ru/files/kulagin-iv/Screenshot_297.png]
+
+  Внешний вид тумбы s:
+    - params:
+        foreverdata: '2092914302'
+        exp_flags: videoshort_carousel_video_size=s
+    - do: получить выдачу по запросу "foreverdata"
+    - assert: появился видео колдунщик коротких видео
+    - screenshot: внешний вид [https://jing.yandex-team.ru/files/kulagin-iv/Screenshot_298.png]
+
+  Внешний вид тумбы m со скрытым тайтлом: #прод
+    - params:
+        foreverdata: '2092914302'
+        exp_flags:
+          - videoshort_carousel_video_size=m
+          - videoshort_carousel_clean-title=1
+    - do: получить выдачу по запросу "foreverdata"
+    - assert: появился видео колдунщик коротких видео
+    - screenshot: внешний вид [https://jing.yandex-team.ru/files/kulagin-iv/Screenshot_299.png]
+
+  Внешний вид тумбы с маленькой кнопкой плэй:
+    - params:
+        foreverdata: '2092914302'
+        exp_flags: video_shortvideo_smallplay=1
+    - do: получить выдачу по запросу "foreverdata"
+    - assert: появился видео колдунщик коротких видео
+    - screenshot: внешний вид [https://jing.yandex-team.ru/files/kulagin-iv/Screenshot_300.png]
+
+  Внешний вид тумбы s со скрытыми просмотрами/длительностью:
+    - params:
+        foreverdata: '2092914302'
+        exp_flags:
+          - videoshort_carousel_video_size=s
+          - videoshort_hide_extras=1
+    - do: получить выдачу по запросу "foreverdata"
+    - assert: появился видео колдунщик коротких видео
+    - screenshot: внешний вид [https://jing.yandex-team.ru/files/kulagin-iv/Screenshot_301.png]
+
+  Счётчики и ссылки:
+    tags: no_assessors
+    params:
+      foreverdata: '2092914302'    
+    beforeEach:
+      - do: получить выдачу по запросу 'foreverdata' (корги видео)
+      - assert: на выдаче есть колдунщик коротких видео
+
+    Показ колдунщика:
+      - tech: отправился счётчик /$page/$main/$result[@wizard_name="videoshort"]
+
+    Открытие просмотрщика:
+      - assert: |
+          урл на первой тумбе ведёт на просмотрщик Видео и имеет примерный вид https://yandex.ru/video/touch/preview/7315095420203792504?path=videoshort&wiz_type=carousel
+          присутствует параметр target: '_blank'
+      - do: кликнуть на первую тумбу колдунщика
+      - assert: открылся вертикальный просмотрщик видео
+      - tech: отправился счётчик /$page/$main/$result/showcase/item/thumb
+
+specs-integration:
+  Наличие на выдаче:
+    - counter: /$page/$main/$result[@wizard_name="videoshort"]
+    - do: получить выдачу по запросу "корги видео" (альтернативные запросы "видео", "как поменять колесо в машине", "валя карнавал", "переодевашки соня гельд")
+    - assert: |
+        на выдаче есть колдунщик коротких видео
+        у колдунщика есть тайтл и видеотумбы
+
+
+files:
+  - features/adapter-videowiz/adapter-videowiz_type_shortVideo@touch-phone.hermione.js
+  - features/adapter-videowiz/adapter-videowiz_type_shortVideo@touch-phone.hermione.e2e.js
+
+v-team: Video
+
+priority: normal

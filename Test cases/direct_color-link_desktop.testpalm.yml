@@ -1,0 +1,63 @@
+feature: Спец.размещение
+experiment: Переопределение цвета синей ссылки (--color-link)
+params:
+    exp_flags:
+      - direct_color-link_desktop=1
+
+specs:
+  Цвета ссылок:
+    - params:
+        foreverdata: '40499194'
+        srcskip: YABS_DISTR
+        exp_flags:
+          - direct_color-link_desktop=33FF8D
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: присутствует выдача
+    - screenshot: пример внешнего вида перекрашенной синей ссылки [link_theme_normal]
+    - screenshot: пример внешнего вида "Читать еще" [extended-text_link]
+    - screenshot: пример внешнего вида перекрашенных сайтлинков [sitelinks]
+    - assertMetrics: "*"
+
+  Покраска иконок в мете:
+    - params:
+        foreverdata: '2761449233'
+        srcskip: YABS_DISTR
+        exp_flags:
+          - direct_color-link_desktop=33FF8D
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: присутствует выдача
+    - screenshot: цвет иконки совпадает с цветом ссылки [meta-icon]
+    - assertMetrics: "*"
+
+  Колдунщик услуг:
+    - params:
+        foreverdata: '1027309458'
+        srcskip: YABS_DISTR
+        exp_flags:
+          - direct_color-link_desktop=33FF8D
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: цвет ссылок в выдаче отличается от синего цвета
+    - screenshot: пример внешнего вида не синих ссылок к-ка Яндекс.Услуги (остальные элементы и текст могут отличаться) [service-user]
+    - assertMetrics: "*"
+
+  Колдунщик билетов:
+    - params:
+        foreverdata: '175860026'
+        srcskip: YABS_DISTR
+        exp_flags:
+          - direct_color-link_desktop=33FF8D
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: присутствует выдача
+    - screenshot: пример внешнего вида к-ка Яндекс.Билеты [ticket-wizzard]
+    - assertMetrics: "*"
+
+files:
+  - features/desktop/adapter-adv/direct_color-link_desktop/direct_color-link_desktop.hermione.js
+
+tags:
+  - skip_e2e_check
+  - adv
+
+tlds: [ru]
+
+v-team: Distribution

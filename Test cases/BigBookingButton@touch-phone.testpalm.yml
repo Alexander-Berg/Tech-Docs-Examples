@@ -1,0 +1,61 @@
+feature: Hotels / Колдунщик одной организации
+type: Стандартный вид
+experiment: Редизайн таба номера
+
+params:
+  expFlags: hotels_rooms_awesome=1
+  srcparams:
+    - GEOV:experimental=middle_yandex_travel_CatRoomMaxOtherPct=25
+    - GEOV:experimental=middle_yandex_travel_AutoCatRoomForAll=1
+    - GEOV:experimental=middle_yandex_travel_EnableCatRoom=1
+    - GEOV:experimental=middle_yandex_travel_CatRoomShowOther=0
+
+counter: /$page/$main/$result/composite/booking-button-wrapper/big-booking-button
+
+specs:
+  Большая кнопка Выбрать номер:
+    beforeEach:
+      - do: получить выдачу по запросу "МетаМосква отель"
+      - assert: на странице присутствует колдунщик одного отеля
+      - assert: в колдунщике присутствует большая кнопка "Выбрать номер"
+    Внешний вид:
+      - assert: в кнопке указана цена
+      - screenshot: внешний вид кнопки [plain]
+      - do: нажать на кнопку
+      - assert: открылся оверлей отеля на вкладке Номера с формой выбора дат
+      - do: выставить диапахон дат длительностью 100 дней и более
+      - do: нажать на сабмит формы
+      - assert: появилось сообщение о ненайденных предложениях
+      - do: закрыть оверлей
+      - assert: в большой кнопке "Выбрать номер" отсутствует цена
+      - screenshot: внешний вид кнопки [without-price]
+    Открывает таб Номера:
+      - do: нажать на кнопку
+      - tech: сработал счётчик path="/$page/$main/$result/composite/booking-button-wrapper/big-booking-button"
+      - assert: открылся оверлей отеля на вкладке Номера
+    Цена обновляется при смене дат:
+      - assert: в кнопке указана цена
+      - do: запомнить цену
+      - do: нажать на заголовок колдунщика
+      - assert: открылся сайдблок на вкладке "про отель"
+      - assert: в сайдблоке присутсвует большая кнопка "Выбрать номер" с ценой
+      - assert: цена в кнопке соответствует цене на выдаче
+      - do: перейти во вкладку Номера
+      - do: изменить даты в форме выбора дат
+      - do: нажать на сабмит формы
+      - assert: цены обновились
+      - do: вернуться во вкладку Про отель
+      - assert: цена в большой кнопке "Выбрать номер" изменилась
+      - do: закрыть сайдблок
+      - assert: цена в большой кнопке "Выбрать номер" на выдаче также изменилась
+
+files:
+  - src/features/Companies/Companies.features/BigBookingButton/BigBookingButton.test/BigBookingButton@touch-phone.hermione.js
+
+v-team: KotTeam
+
+tags:
+  - react
+  - 1org
+
+tlds: all

@@ -1,0 +1,13 @@
+feature: Версия шаблонов
+
+specs:
+  Наличие:
+    - do: получить выдачу по запросу "еда"
+    - tech: проверить что в исходном коде страницы есть комментарий начиющийся со слов "built from"
+
+v-team: Architecture
+
+tlds: all
+
+files:
+  - features/b-page/template-version@desktop.hermione.js

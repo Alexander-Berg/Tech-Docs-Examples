@@ -1,0 +1,71 @@
+feature: Вакансии
+type: Закрытие
+
+description: после закрытия вакансий в тикет TJOB прилетает комментарий о том кто закрыт вакансию, резолюция и комментарий закрытия
+
+specs:
+    Закрытие вакансии в статусе На согласовании [manual]:
+        - automation: FEMIDA-4833
+        - do: открыть вакансию в статусе 'На согласовании' /vacancies/<id_вакансии>/
+        - screenshot: в шапке есть кнопка '...' [https://jing.yandex-team.ru/files/grikyan91/pupiyapk__Femida_2019-06-24_18-13-28.png]
+        - do: клик на кнопку '...'
+        - screenshot: открылся попап с кнопкой 'Закрыть' [https://jing.yandex-team.ru/files/grikyan91/ghrerdfx__Femida_2019-06-26_14-43-22.png]
+        - do: клик на 'Закрыть'
+        - screenshot: открылся попап для закрытия вакансии [https://jing.yandex-team.ru/files/grikyan91/ghrerdfx__Femida_2019-06-26_14-44-20.png]
+        - do: заполнить поле 'Комментарий'
+        - do: клик на кнопку 'Закрыть'
+        - assert: |
+            попап закрылся
+            статус вакансии стал 'Закрыта'
+            пропали кнопки '...' и 'Редактировать'
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/grikyan91/ghrerdfx__Femida_2019-06-26_14-47-02.png]
+    Закрытие вакансии в статусе В работе [manual]:
+        - automation: FEMIDA-4833
+        - do: открыть вакансию в статусе 'В работе' /vacancies/<id_вакансии>/
+        - screenshot: в шапке есть кнопка '...' [https://jing.yandex-team.ru/files/grikyan91/atsumumk__Femida_2019-06-24_18-44-04.png]
+        - do: клик на кнопку '...'
+        - screenshot: открылся попап с кнопкой 'Закрыть' [https://jing.yandex-team.ru/files/grikyan91/ktsptskp__Femida_2019-06-26_14-50-27.png]
+        - do: клик на 'Закрыть'
+        - assert: |
+            открылся попап для закрытия вакансии
+            резолюция по дефолту 'Аннулировано'
+            'Резолюция на открытые рассмотрения кандидатов' по дефолту 'Не прошел испытания'
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/grikyan91/ktsptskp__Femida_2019-06-26_14-51-01.png]
+        - do: заполнить поле 'Комментарий'
+        - do: выбрать значение в поле 'Резолюция на открытые рассмотрения кандидатов'
+        - do: клик на кнопку 'Закрыть'
+        - assert: |
+            попап закрылся
+            статус вакансии стал 'Закрыта'
+            пропали кнопки '...' и 'Редактировать'
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/grikyan91/ghrerdfx__Femida_2019-06-26_14-47-02.png]
+    Закрытие вакансии в статусе Приостановлена [manual]:
+        - automation: FEMIDA-4833
+        - do: открыть вакансию в статусе 'Приостановлена' /vacancies/<id_вакансии>/
+        - screenshot: в шапке есть кнопка '...' [https://jing.yandex-team.ru/files/grikyan91/terrmit_test__Femida_2019-06-24_19-02-07.png]
+        - do: клик на кнопку '...'
+        - screenshot: открылся попап с кнопкой 'Закрыть' [https://jing.yandex-team.ru/files/grikyan91/terrmit_test__Femida_2019-06-26_14-55-36.png]
+        - do: клик на 'Закрыть'
+        - assert: |
+            открылся попап для закрытия вакансии
+            резолюция по дефолту 'Аннулировано'
+            'Резолюция на открытые рассмотрения кандидатов' по дефолту 'Не прошел испытания'
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/grikyan91/terrmit_test__Femida_2019-06-26_14-56-31.png]
+        - do: заполнить поле 'Комментарий'
+        - do: выбрать значение в поле 'Резолюция на открытые рассмотрения кандидатов'
+        - do: клик на кнопку 'Закрыть'
+        - assert: |
+            попап закрылся
+            статус вакансии стал 'Закрыта'
+            пропали кнопки '...' и 'Редактировать'
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/grikyan91/ghrerdfx__Femida_2019-06-26_14-47-02.png]
+
+tags:
+  - reviewed
+
+priority: normal
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

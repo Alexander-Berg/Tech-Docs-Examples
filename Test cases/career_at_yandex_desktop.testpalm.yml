@@ -1,0 +1,58 @@
+feature: Работа в яндексе
+
+specs:
+  Проверка внешнего вида [manual]:
+    - automation: VACANCIES-780
+    - do: открыть страницу /jobs/
+    - assert: название страницы соответствует активному табу
+    - screenshot: пример внешнего вида страницы [https://jing.yandex-team.ru/files/alex-murashev/jobs_work_at_yandex.png]
+  Проверка ссылок [manual]:
+    - automation: VACANCIES-780
+    - do: открыть страницу /jobs/
+    - do: нажать на кнопки в приветствующем блоке (кроме кнопки 'Исследования')
+    - assert: url открывшейся страницы содержит /jobs/vacancies?professions=<профессия>...
+    - do: вернуться на основную страницу
+    - do: если присутствует кнопка 'Исследования' в приветствующем блоке - нажать на нее
+    - assert: url открывшейся страницы содержит /jobs/pages/usability/
+    - do: вернуться на основную страницу
+    - do: проверить ссылку текста 'Смотреть все вакансии'
+    - assert: ссылка содержит /jobs/vacancies/
+    - do: нажать на блок 'в штат, на постоянную работу'
+    - assert: url открывшейся страницы содержит /jobs/vacancies/
+    - do: вернуться на основную страницу
+    - do: нажать на блок 'стажеров'
+    - assert: url открывшейся страницы содержит yandex.ru/yaintern
+    - do: вернуться на основную страницу
+    - do: нажать на блок 'специалистов, на удаленную работу'
+    - assert: url открывшейся страницы содержит /jobs/vacancies/?cities=remote
+    - do: вернуться на основную страницу
+    - do: нажать на блок 'как попасть в яндекс'
+    - assert: url открывшейся страницы содержит /jobs/pages/how-to-get
+    - do: вернуться на основную страницу
+    - do: нажать на блок 'о компании'
+    - assert: url открывшейся страницы содержит /jobs/pages/about
+    - do: вернуться на основную страницу
+    - do: нажать на блок 'как все устроено'
+    - assert: url открывшейся страницы содержит /jobs/pages/atmosphere
+    - do: вернуться на основную страницу
+    - do: нажать на кнопку 'Вакансии' в блоке отклика на все вакансии
+    - assert: url открывшейся страницы содержит /jobs/vacancies/
+
+platform:
+  - desktop
+
+tlds:
+  - ru
+  - by
+  - ua
+
+priority: blocker
+
+browsers:
+  - yandex-browser-desktop
+  - chrome-browser-desktop
+  - firefox-desktop
+  - safari-desktop
+  - opera-desktop
+  - edge-desktop
+  - msie-desktop

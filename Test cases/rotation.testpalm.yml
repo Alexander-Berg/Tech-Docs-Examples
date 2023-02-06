@@ -1,0 +1,57 @@
+feature: Объявления о вакансиях
+type: Ротация
+
+specs:
+  beforeEach:
+      - do: открыть страницу /vacancies/publications/rotate/
+      - screenshot: открылась вкладка для ротации [default_view]
+  Проверка обязательных полей:
+      - do: клик на кнопку 'Ротироваться'
+      - screenshot: под обязательными полями появились ошибки [form_with_error]
+  Проверка ссылки процесс ротаций:
+    - do: проверить ссылку в 'Процесс ротаций'
+    - assert: ссылка ведет на //wiki.test.yandex-team.ru/HR/grupparekrutmenta/rotation/#praviladopuskakrotacii
+  Проверка ротации:
+  - do: выбрать значение в поле 'Причина ротации'
+  - do: клик на кнопку 'Добавить объявления'
+  - assert: открылась страница /vacancies/publications/
+  - do: клик в кнопку '+ к ротации' в нескольких объявлениях (больше 2-х)
+  - assert: |
+      кнопка изменилась на '- из ротации'
+      на табе 'Ротироваться' отображается кол-во выбранных объявлений
+  - screenshot: пример внешнего вида [selected_publications1]
+  - screenshot: пример внешнего вида [rotation_counter]
+  - do: клик на кнопку '- из ротации'
+  - assert: |
+      кнопка снова изменилась на '+ к ротации'
+      на табе 'Ротироваться' кол-во объявлений уменьшилось
+  - screenshot: пример внешнего вида [unselected_publication]
+  - do: вернуться на вкладку 'Ротироваться'
+  - assert: |
+      поле осталось выбранным
+      в поле 'Объявления' появились выбранные значения из списка объявлений
+  - do: клик на крестик в одном из объявлений
+  - assert: объявление удалилось из вариантов
+  - screenshot: пример внешнего вида [filled_publications]
+  - do: заполнить поле 'Комментарий для нанимающих менеджеров'
+  - do: установить галочку о том, что ознакомлен с правилась ротации
+  - do: установить галочку, чтобы реководитель не знал о ротации
+  - screenshot: пример заполненной формы [form_filled]
+  - do: клик на кнопку 'Ротироваться'
+  - assert: |
+      появилось сообщение про основные шаги по процессу
+      появилась ссылка на тикет MYROTATION
+  - screenshot: пример внешнего вида [after_form_submission]
+
+tags:
+  - reviewed
+
+files:
+  - tests/hermione/suites/desktop/vacancies/vacancies_publications/rotation/rotation.hermione.js
+
+priority: critical
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

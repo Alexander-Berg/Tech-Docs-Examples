@@ -1,0 +1,18 @@
+feature: Morda
+
+specs:
+    Внешний вид:
+    - do: открыть главную страницу Яндекса с параметром '/turbo?stub=page/morda.json'
+    - assert: страница загрузилась
+    - screenshot: внешний вид соответствует примеру [theme_morda]
+
+files:
+    - features/touch-phone/pages/morda/morda.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: kleev, k0nratka
+
+tlds: none

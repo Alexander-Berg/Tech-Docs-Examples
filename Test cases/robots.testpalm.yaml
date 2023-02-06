@@ -1,0 +1,30 @@
+feature: Портал
+type: Главная
+description: |-
+    Для просмотра файла нужно добавить к урлу главной страницы /robots.txt
+    Например:
+    https://travel.yandex.ru/robots.txt
+    https://travel-test.yandex.ru/robots.txt
+    https://travel.crowdtest.yandex.ru/robots.txt
+specs:
+    Файл robots:
+        - do: Открыть файл роботс для нужного стенда
+        - assert: >-
+              Содержание файла совпадает со скриншотом:
+
+              ![](https://jing.yandex-team.ru/files/kuklina/2022-07-25_13-39-16.png)
+
+files:
+    - tests/common/common/robots.hermione.ts
+manual: false
+Устройство:
+    - Десктоп
+Страница: Главная
+Сервис: Портал
+Тестирование асессорами: Да
+Окружение:
+    - Production
+    - Testing
+Tag:
+    - Smoke
+Автор: shenfeld

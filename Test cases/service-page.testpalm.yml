@@ -1,0 +1,34 @@
+feature: Страница сервиса
+
+description: |
+  Preconditions.
+  Для выполнения тестов нужно иметь аккаунт администратора организации c доменом.
+  Если у вас нет такого аккаунта следуйте инструкции по его созданию, иначе пропустите.
+
+import-steps:
+  - tests/hermione/shared-steps/registration.testpalm.steps.yml
+
+specs:
+  Положительные:
+    1. Карточка домена кликабельна на странице вебмастера:
+      - do: авторизоваться под администратором организации c доменом или зарегистрироваться
+      - attach: Регистрация организации с промо коннекта с подтверждением домена
+      - do: перейти по ссылке {{CONNECT_HOST}}/portal/services/webmaster
+      - do: нажать на карточку домена
+      - asert: произошел переход на страницу домена {{CONNECT_HOST}}/portal/services/webmaster/resources/test.ru
+
+files:
+  - tests/hermione/suites/services/service-page.js
+
+priority: blocker
+
+tlds:
+  - ru
+  - com
+
+tags:
+  - smoke_test_assessors
+  - regression
+  - smoke_test
+  - reviewed
+  - smoke_test_mini

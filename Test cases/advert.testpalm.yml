@@ -1,0 +1,110 @@
+feature: Advert
+
+specs:
+    beforeEach:
+      - do: при дальнейшей проверке указанных ожидаемых результатов обращайте внимание на любые некорректные на ваш взгляд поведения, основываясь на свой опыт использования web-приложений (например, сохранение позиции при переходах туда-обратно кнопками на устройстве, пустые экраны при переходах, кривая верстка, скачкИ элементов, плавность скролла, неработающая функциональность и т.п.)
+
+    Реклама должна не показываться на странице под флагом:
+      - params:
+          exp_flags: adv-disabled=1
+      - do: перейти по ссылке https://yandex.ru/turbo?text=test_news
+      - do: прокрутить до конца страницы
+      - assert: убедится что на странице нет рекламы
+    Реклама не должна показываться на странице при медленных соединениях под флагом:
+      - tags: no_assessors
+      - params:
+          exp_flags:
+            - ads-on-bad-connection=1
+          user_connection: slow_connection=1
+      - do: получить выдачу по запросу 'https://yandex.ru/turbo?text=test_news&exp_flags=ads-on-bad-connection=1&user_connection=slow_connection=1'
+      - assert: убедится что на странице нет рекламы
+    Проверка рекламы в слайдере:
+      - tags: no_assessors
+      - do: получить выдачу по запросу '/turbo?stub=slider/with-advert.json&hermione_advert=enable'
+      - assert: убедиться, что на странице есть слайдер и рекламный блок находится в первом слайде
+    Рендеринг Partner:
+      - tags: no_assessors
+      - do: получить выдачу по запросу '/turbo?text=test_news'
+      - assert: убедиться, что на странице есть рекламный блок
+    Рендеринг Adfox:
+      - tags: no_assessors
+      - do: получить выдачу по запросу '/turbo?stub=advert/failed-advert.json'
+      - tech: убедиться, что на блоке с рекламой нет модификатора js_inited
+      - do: проскроллить страницу до конца страницы
+      - tech: убедиться, что на блоке с рекламой есть модификатор js_inited
+    Видео реклама [manual]:
+      - automation: TURBO-705
+      - do: перейти по ссылке https://yandex.ru/turbo?text=bin:TURBOUI-4593
+      - do: проскроллить страницу до видео рекламы (реклама может загрузится с задеркой)
+      - assert: видео реклама есть
+      - do: дождаться воспроизведения следующего рекламного ролика
+      - assert: следующий рекламный ролик показан (ролик один и тот же, но проигрывается по кругу)
+    Реклама загружается за 5 экранов:
+      - do: открыть ссылку yandex.ru/turbo?stub=advert/offset-preload.json&exp_flags=adv-disabled=0
+      - tech: убедиться, что на блоке с рекламой нет модификатора js_inited
+      - do: проскроллить на одну страницу
+      - tech: убедиться, что на блоке с рекламой есть модификатор js_inited
+    RUM-счётчики про скорость рекламы (adfox):
+      - params:
+          exp_flags: adv-disabled=0
+      - tags: no_assessors
+      - do: открыть ссылку https://yandex.ru/turbo?stub=advert%2Frum-counters-1-adfox.json
+      - tech: проверить наличие счётчиков 690.2096.207 (/tech/perf/time)
+      - tech: |
+          Со следующими наборами переменных
+          143(page)='28.2719.584'(/ru/turbo/touch), 1701(id)='1724'(/load), 1(ad)='2930'(/adfox), 1366(paid)='257673', 2322(start_time)=/[0-9.]+/, 2877(delta)=/[0-9.]+/
+          143(page)='28.2719.584'(/ru/turbo/touch), 1701(id)='2046'(/render), 1(ad)='2930'(/adfox), 1366(paid)='257673', 2322(start_time)=/[0-9.]+/, 2877(delta)=/[0-9.]+/
+      - do: проскроллить до конца страницы
+      - assert: должна подгрузиться вторая страница с рекламой
+      - tech: проверить, что нет других счётчиков про скорость загрузки рекламы, кроме оправленных выше
+    RUM-счётчики про скорость рекламы (partner):
+      - params:
+          exp_flags: adv-disabled=0
+      - tags: no_assessors
+      - do: открыть ссылку https://yandex.ru/turbo?stub=advert%2Frum-counters-1-partner.json
+      - tech: проверить наличие счётчиков 690.2096.207 (/tech/perf/time)
+      - tech: |
+          Со следующими наборами переменных
+          143(page)='28.2719.584'(/ru/turbo/touch), 1701(id)='1724'(/load), 1(ad)='1219'(/partner), 1366(paid)='196263', 2322(start_time)=/[0-9.]+/, 2877(delta)=/[0-9.]+/
+          143(page)='28.2719.584'(/ru/turbo/touch), 1701(id)='3105'(/prerender), 1(ad)='1219'(/partner), 1366(paid)='196263', 2322(start_time)=/[0-9.]+/, 2877(delta)=/[0-9.]+/
+          143(page)='28.2719.584'(/ru/turbo/touch), 1701(id)='2046'(/render), 1(ad)='1219'(/partner), 1366(paid)='196263', 2322(start_time)=/[0-9.]+/, 2877(delta)=/[0-9.]+/
+      - do: проскроллить до конца страницы
+      - assert: должна подгрузиться вторая страница с рекламой
+      - tech: проверить, что нет других счётчиков про скорость загрузки рекламы, кроме оправленных выше
+    Должны пробрасываться параметры cacheId и adSessionId:
+      - params:
+          exp_flags:
+            - adv-disabled=0
+      - tags: no_assessors
+      - do: открыть ссылку https://yandex.ru/turbo?stub=advert/partner-cache-1.json&hermione_advert=stub
+      - tech: получить объект window.AdvertCalls
+      - assert: в массиве partner есть вызов для блока R-I-260855-1
+      - assert: у вызова R-I-260855-1 свойству cacheId соответствует значение "123", а свойству adSessionId значение "abc"
+      - assert: в массиве partner есть вызов для блока R-I-260855-2
+      - assert: у вызова R-I-260855-2 свойству cacheId соответствует значение "234", а свойству adSessionId значение "abc"
+      - do: проскроллить до конца страницы
+      - assert: должна подгрузиться вторая страница с рекламой
+      - tech: получить объект window.AdvertCalls
+      - assert: в массиве partner есть вызов для блока R-I-260855-3
+      - assert: у вызова R-I-260855-3 нет свойства cacheId и adSessionId
+      - assert: в массиве partner есть вызов для блока R-I-260855-4
+      - assert: у вызова R-I-260855-4 свойству cacheId соответствует значение "456", а свойству adSessionId значение "bcd"
+      - do: проскроллить до конца страницы
+      - assert: должна подгрузиться третья страница с рекламой
+      - tech: получить объект window.AdvertCalls
+      - assert: в массиве partner есть вызов для блока R-I-260855-5
+      - assert: у вызова R-I-260855-5 нет свойства cacheId и adSessionId
+      - assert: в массиве partner есть вызов для блока R-I-260855-6
+      - assert: у вызова R-I-260855-6 нет свойства cacheId и adSessionId
+
+files:
+  - features/blocks/advert/advert.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: kleev, k0nratka
+
+
+tlds: none

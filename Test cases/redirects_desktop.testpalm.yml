@@ -1,0 +1,30 @@
+feature: Редиректы
+
+specs:
+  Работоспособность [manual]:
+    - automation: VACANCIES-780
+    - do: перейти по url /jobs/about
+    - assert: url страницы соответствует /jobs/pages/about
+    - do: перейти по url /jobs/vacancies/123
+    - assert: url страницы соответствует /jobs/vacancies/менеджер-продукта-123
+    - do: перейти по url /jobs/vacancies/dev
+    - assert: url страницы содержит /jobs/vacancies?professions=<профессия>...
+
+platform:
+  - desktop
+
+tlds:
+  - ru
+  - by
+  - ua
+
+priority: normal
+
+browsers:
+  - yandex-browser-desktop
+  - chrome-browser-desktop
+  - firefox-desktop
+  - safari-desktop
+  - opera-desktop
+  - edge-desktop
+  - msie-desktop

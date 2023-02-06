@@ -1,0 +1,43 @@
+feature: Опечатка и Ко
+type: Восстановление раскладки клавиатуры
+
+specs:
+  Отменить восстановление раскладки:
+    - do: получить выдачу по запросу "ktnj"
+    - screenshot: Пример внешнего вида опечаточника [fix-layout]
+    - assert: на выдаче присутствует сообщение "Исправлена раскладка клавиатуры с «ktnj»" и кнопка "Отменить"
+    - do: нажать на кнопку "Отмена" в опечаточнике
+    - assert: выдача обновилась
+    - assert: отображается выдача по запросу "ktnj"
+    - tech: сработал счетчик '/$page/$main/misspell/type_misspell/keyboard_layout', vars 'pos=top'
+    - assertMetrics: '*'
+
+specs-integration:
+  Базовое поведение:
+    - counter: /$page/$main/misspell/type_misspell/keyboard_layout
+    - do: получить выдачу по запросу "ktnj"
+    - assert: на выдаче присутствует опечаточник с сообщением "Исправлена раскладка клавиатуры с «ktnj»"
+    - assert: справа от сообщения присутствует кнопка "Отменить"
+    - do: нажать кнопку "Отменить"
+    - assert: выдача обновлена
+    - assert: на выдаче отсутствует сообщение "Исправлена раскладка клавиатуры с «ktnj»"
+    - assert: в url'e страницы в адресной строке присутствует параметр &noreask=1
+    - tech: сработал счетчик '/$page/$main/misspell/type_misspell/keyboard_layout', vars 'pos=top'
+
+files:
+  - features/misspell/misspell_type_fix-layout@deskpad.hermione.js
+  - features/misspell/misspell_type_fix-layout@deskpad.hermione.e2e.js
+
+v-team: Freshness
+
+tags:
+  - reviewed
+
+counter: /$page/$main/misspell/type_misspell/keyboard_layout
+
+tlds:
+  - ru
+  - by
+  - ua
+  - kz
+  - uz

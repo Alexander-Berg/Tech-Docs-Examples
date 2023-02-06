@@ -1,0 +1,16 @@
+feature: marketShopInfo
+
+specs:
+  Внешний вид блока:
+    - do: открыть страницу примера блока MarketShopInfo (https://yandex.ru/turbo?stub=marketshopinfo/default.json)
+    - assert: должны быть виден блок рейтинга магазина
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+    - platform/components/MarketShopInfo/__tests__/MarketShopInfo.hermione.js
+
+v-team: Market
+
+manager: seoshnik
+
+tlds: none

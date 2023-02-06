@@ -1,0 +1,86 @@
+feature: Турбо-слайдер во всех турбо-сниппетах
+
+specs:
+  aliases:
+    - &checkSlider
+      - assertMetrics: '*'
+      - assert: |
+          открывается оверлей с турбо страницей, в оверлее в шапке есть слайдер
+          в сайд-блоке есть слайдер
+          в слайдер есть iframe и в нем показывается Турбо-страница
+      - do: пролистнуть вправо
+      - assert: слайд переключился на следующий
+      - tech: проверить, что сработал счетчик на переключение турбо страницы /web/item/slider/swipe
+      - do: в шапке нажать на кнопку с крестиком
+      - tech: проверить, что сработали счетчики на кнопку с крестиком и закрытия всех оверлеев /web/item/slider/close
+      - assert: сайд-блок закрывается
+      - assertMetrics: '*'
+  Внешний вид:
+    - do: получить выдачу по запросу 'википедия коньяка'
+    - assert: на выдаче есть один или несколько турбо-сниппетов
+    - screenshot: пример внешнего вида первого турбо-сниппета [plain-fist-snippet]
+    - assert: на выдаче есть один или несколько турбо-сниппетов
+    - screenshot: пример внешнего вида второго турбо-сниппета [plain-second-snippet]
+    - assertMetrics: '-'
+  Открытие турбо-слайдера по заголовку первого сниппета:
+    - browsers:
+        notFor:
+          - searchapp-phone-group
+          - chrome-phone
+          - android-browser-4.4-touch
+          - android-browser-5.1-touch
+          - android-opera-42-touch
+          - android-samsung-internet-5-touch
+          - ios-chrome-mobile-touch
+          - ios-safari-9-touch
+          - ios-safari-10-touch
+          - ios-safari-11-touch
+          - ios-safari-12-touch
+          - ios-safari-13-touch
+          - ios-safari-14-touch
+          - android-browser-6-touch
+          - android-uc-browser-touch
+          - android-uc-browser-11-touch
+          - android-mz-browser-touch
+          - android-miui-9-touch
+          - android-browser-7-touch
+    - do: получить выдачу по запросу 'википедия вала'
+    - assert: на выдаче есть один или несколько турбо-сниппетов
+    - do: кликнуть по заголовку первого турбо-сниппета после "Быстрого ответа"
+    - tech: проверить, что сработал счетчик на клик по заголовку /web/item/title
+    - *checkSlider
+    - assertMetrics: '*'
+  Проверка фокуса на нужный тайтл для сайдера в каждом сниппете:
+    - browsers:
+      - android-yandex-browser-17-touch #оверлей есть только в ябро
+      - ios-yandex-browser-17-touch
+    - params:
+        foreverdata: '3758659355'
+    - do: получить выдачу по запросу 'foreverdata'
+    - do: кликнуть на третий по счету турборезультат
+    - assert: в турбонавигации выделен третий по счету хост
+
+files:
+  - features/touch-phone/adapter-turbo-snippet/turbo-slider-organic.hermione.js
+
+browsers:
+  notFor:
+    - android-uc-browser-11-touch
+    - android-uc-browser-touch
+
+counter: /web/item
+
+v-team: Turbo
+
+tags:
+  # эксперимент
+  - skip_e2e_check
+
+tlds:
+  - ru
+  - by
+  - ua
+  - kz
+  - uz
+  - com.tr
+  - com

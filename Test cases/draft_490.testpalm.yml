@@ -1,0 +1,21 @@
+feature:  Сторисы - тандем
+
+specs:
+    Сторисы - тандем:
+    - tags:
+        - https://testpalm.yandex-team.ru/alice/testcases/4253
+        - release_Webview
+        - platform_common
+        - webview_regress
+    - do: "Preconditions Модуль НЕ добавлен на аккаунт"
+    - do: "Модуль отсутствует на аккаунте; Есть только колонка"
+    - assert: "В ленте сторис отсутствует сторя `Соберите тандем`"
+    - do: "Добавить модуль в УД"
+    - assert: "Появляется сторя `Соберите тандем`; ; <img src=`https://jing.yandex-team.ru/files/levkovskayama/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202022-02-04%20%D0%B2%2015.48.46.afe35d8.png` alt=`Скриншот` width=`300`/>; ; "
+    - do: "Нажать на сторю"
+    - assert: "Открывается сторя про тандем; ; <img src=`https://jing.yandex-team.ru/files/levkovskayama/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202022-02-04%20%D0%B2%2015.50.33.f745728.png` alt=`Скриншот` width=`300`/>"
+    - do: "Нажать `Создать тандем`; ; "
+    - assert: "Если колонка на аккаунте одна - открывается модалка для создания тандема; ; [Модалка](https://jing.yandex-team.ru/files/levkovskayama/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202022-02-04%20%D0%B2%2016.17.52.a55d806.png); "
+    - assert: "Если колонок на аккаунте > 1, то открывается барабан с выбором колонок; ; [Барабан](https://jing.yandex-team.ru/files/levkovskayama/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202022-02-04%20%D0%B2%2016.19.03.e342dc9.png)"
+    - do: "Добавить второй модуль (можно проверить на yndx.quasar.test.2); Перейти в сторю `Собрать тандем`"
+    - assert: "Кнопка `Создать тандем` отсутствует; ; <img src=`https://jing.yandex-team.ru/files/levkovskayama/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202022-02-04%20%D0%B2%2017.06.47.cbbf50d.png` alt=`Скриншот` width=`300`/>"

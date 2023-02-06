@@ -1,0 +1,50 @@
+feature: Anti-Adblock
+
+specs:
+  beforeEach:
+    - do: почистить куки в браузере
+    - do: включить Adblock
+    - do: перейти на страницу выдачи поиска по любому запросу
+    - do: при дальнейшей проверке указанных ожидаемых результатов обращайте внимание на любые некорректные на ваш взгляд поведения, основываясь на свой опыт использования web-приложений (например, сохранение позиции при переходах туда-обратно кнопками на устройстве, пустые экраны при переходах, кривая верстка, скачкИ элементов, плавность скролла, неработающая функциональность и т.п.)
+
+  Отображение рекламы [manual]:
+    - automation: TURBOUI-1322
+    - do: перейти на страницу https://yandex.ru/turbo?stub=page%2Fadvert-in-static-layout.json
+    - assert: реклама над шапкой отображается
+    - assert: реклама под меню отображается
+    - assert: реклама в тексте после второго абзаца отображается
+    - assert: реклама после текста отображается
+    - assert: реклама в правом столбце отображается
+
+  Работа бесконечной ленты [manual]:
+    - automation: TURBOUI-1322
+    - do: перейти на страницу https://yandex.ru/turbo?text=https%3A%2F%2Flifehacker.ru%2Fesli-ne-rastut-prodazhi%2F
+    - do: проскролить в самый конец
+    - assert: загрузилась следующая статья
+
+  Блок Share [manual]:
+    - automation: TURBOUI-1322
+    - do: перейти на страницу https://yandex.ru/turbo?text=https%3A%2F%2Fbezboleznej.ru%2Fambrobene-rastvor
+    - do: проскролить в самый конец
+    - assert: блок Share отображается
+
+  Картинка [manual]:
+    - automation: TURBOUI-1322
+    - do: перейти на страницу https://yandex.ru/turbo?text=https%3A%2F%2Fbezboleznej.ru%2Fambrobene-rastvor
+    - assert: картинка перед содержанием отображается
+
+  Блок Cover [manual]:
+    - automation: TURBOUI-1322
+    - do: перейти на страницу https://yandex.ru/turbo?stub=page%2Fdrive.json
+    - assert: выдача соответствует скриншоту [https://jing.yandex-team.ru/files/tenorok/Snimok_ekrana_2019-07-16_v_18.08.26.png]
+
+tags:
+  - skip_manual_check
+
+manager: tanzwuta
+
+files: []
+
+tlds: none
+
+v-team: Turbo

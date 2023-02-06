@@ -1,0 +1,50 @@
+feature: Саджест
+type: Смоук на домене eu
+
+specs:
+    beforeEach:
+      - do: выйти из яндекса, если вы авторизованы
+      - do: в настройках поиска установить язык интерфейса английский
+      - assert: язык интерфейса в настройках поиска английский
+      - screenshot: примерный внешний вид настройки [https://jing.yandex-team.ru/files/etestova/STF_2021-03-16_08-13-08.png]
+      - do: получить выдачу по запросу "cats"
+      - assert: получена выдача по указанному запросу
+      - do: кликнуть в инпут поисковой стрелки
+      - assert: саджест открыт
+    Данные в саджесте [manual]:
+      - automation: SERPTEST-549
+      - assert: саджест содержит данные только на английском языке
+      - screenshot: примерный внешний вид [https://jing.yandex-team.ru/files/etestova/STF_2021-01-28_14-50-08.png]
+    Внешний вид кнопки формы обратной связи [manual]:
+      - automation: SERPTEST-549
+      - assert: саджест содержит подвал с кнопкой "Report"
+      - screenshot: примерный внешний вид [https://jing.yandex-team.ru/files/etestova/STF_2021-01-28_14-50-10.png]
+    Внешний вид кнопки авторизации [manual]:
+      - automation: SERPTEST-549
+      - assert: саджест содержит подвал с кнопкой "Sign in and sync search history across your devices"
+      - screenshot: примерный внешний вид [https://jing.yandex-team.ru/files/etestova/STF_2021-01-28_14-50-09.png]
+    Обновление данных в саджесте [manual]:
+      - automation: SERPTEST-549
+      - do: очистить поисковую стрелку
+      - assert: поисковая стрелка очищена
+      - do: ввести запрос "bulldogs" в поисковую стрелку
+      - assert: данные в саджесте обновились
+      - assert: саджест содержит данные только на английском языке
+
+langs:
+  - en
+
+tlds:
+  - eu
+
+priority: high
+
+files: []
+
+v-team: Suggest
+
+tags:
+  - suggest
+  - not automated
+  - skip_e2e_check
+  - skip_manual_check

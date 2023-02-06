@@ -1,0 +1,36 @@
+feature: Ecom-tap
+type: подмена домена
+
+params:
+    exp_flags:
+        - analytics-disabled=1
+browsers:
+    - android-yandex-browser-17-touch
+    - ios-yandex-browser-17-touch
+    # - searchapp - после MOBSEARCHANDROID-27750
+
+specs:
+    beforeEach:
+      - do: получить выдачу по запросу 'site:kupicase.ru каталог' (альтернативные запросы - 'site:мебель-ротанг.рф каталог', 'site:super01.ru')
+      - assert: на выдаче присутствует сниппет(ы) с галереей карточек товаров [https://jing.yandex-team.ru/files/skurhanski/chrome_ziIi8LshqE.png]
+      - do: кликнуть по любой ссылке сниппета для перехода на страницу магазина
+      - assert: открылась страница магазина с активной кнопкой Каталог на нижней панели
+    Проверка подмены домена в оверлее:
+      - automation: SERPTEST-1719
+      - assert: в адресной строке браузера отображается домен искомого магазина (если адреская строка не отображается, надо поскроллить страницу вниз-вверх) [https://jing.yandex-team.ru/files/skurhanski/DGsCfMr2JX.png]
+      - do: покликать по всем разделам в нижней навигационой панели
+      - assert: при переходах в разделы в адресной строке бразера отображается домен магазина
+    Проверка подмены домена по прямой ссылке:
+      - automation: SERPTEST-1719
+      - do: обновить страницу
+      - assert: в адресной строке браузера отображается домен искомого магазина (если адреская строка не отображается, надо поскроллить страницу вниз-вверх) [https://jing.yandex-team.ru/files/skurhanski/DGsCfMr2JX.png]
+      - do: покликать по всем разделам в нижней навигационой панели
+      - assert: при переходах в разделы в адресной строке бразера отображается домен магазина
+files: []
+
+v-team: Turbo
+
+tlds: ru
+
+tags:
+  - ecom-tap

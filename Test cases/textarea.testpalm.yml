@@ -1,0 +1,25 @@
+feature: Textarea
+
+specs:
+  Проверка счетчика textarea на test-landing-1:
+    - params:
+        foreverdata: '3905670158'
+    - tags: no_assessors
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок первого сниппета (название заголовка Тестовая cтраница для Textarea — турбо)
+    - assert: проверить, что страница загрузилась
+    - tech: Проверка серверного счетчика (/turbo/textarea)
+    - do: кликнуть на кнопку 'Оставить заявку'
+    - assert: должен произойти переход на вторую страницу
+    - do: заполнить поле 'Вопрос/комментарий' message
+    - tech: Проверка клиентского счетчика (/turbo/textarea)
+
+files:
+  - features/blocks/textarea/textarea.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: olga0321, klimovaksyu
+
+tlds: none

@@ -1,0 +1,22 @@
+feature: Светофоры идеальности
+
+specs:
+  beforeEach:
+    - do: залогиниться под пользователем robot-abc-002
+
+  Внешний вид модалки идеальности:
+    - do: открыть главную страницу с открытым попапом идеальности сервиса "zanartestservice000" (/?perfection_details=3272)
+    - screenshot: внешний вид модалки идеальности [plain]
+
+  Внешний вид модалки идеальности на странице с компонентами Диспенсера:
+    - do: открыть страницу железа сервиса "zanartestservice000" с открытым попапом идеальности (/services/zanartestservice000/hardware/?perfection_details=3272)
+    - screenshot: внешний вид модалки идеальности на странице с потенциальными конфликтами стилей [plain_dispenser]
+
+files:
+  - test/features/desktop/perfection/perfection-modal.hermione.js
+
+priority: blocker
+
+tags:
+  - reviewed
+  - no_assessors

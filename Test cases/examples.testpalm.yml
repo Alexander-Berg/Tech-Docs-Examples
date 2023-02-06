@@ -1,0 +1,30 @@
+feature: Примеры блоков
+
+specs:
+  Загрузка страницы json:
+    - tags: no_assessors
+    - do: открыть главную страницу Яндекса с параметром '/turbo?stub=page/test_news_local.json'
+    - assert: загрузилась страница
+
+  Загрузка страницы xml:
+    - tags: no_assessors
+    - do: открыть главную страницу Яндекса с параметром '/turbo?stub=page/default.xml'
+    - assert: загрузилась страница
+
+specs-integration:
+  Загрузка страницы json:
+    - do: TODO TURBOUI-1525
+  Загрузка страницы xml:
+    - do: TODO TURBOUI-1525
+
+files:
+  - features/common/examples.hermione.js
+  - features/common/examples.hermione.e2e.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: olga0321, klimovaksyu
+
+tlds: none

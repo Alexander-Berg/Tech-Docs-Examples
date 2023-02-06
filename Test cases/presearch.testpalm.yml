@@ -1,0 +1,31 @@
+feature: Presearch
+
+params:
+  mode: 'presearch'
+
+specs:
+  Presearch содержит разметку шапки с логотипом:
+    - automation: TURBOUI-3009
+    - do: открыть страницу 'https://yandex.ru/turbo?text=https%3A%2F%2Fren.tv%2Fnews%2Fv-mire%2F662499-kreml-ne-kommentiruet-reshenie-o-vyplate-rossiei-50mlrd-po-delu-iukosa&mode=presearch'
+    - tech: на странице отображается шапка [https://jing.yandex-team.ru/files/spv/uhura_2020-02-18T15%3A41%3A30.630761.jpg]
+
+  Presearch содержит необходимые теги:
+    - automation: TURBOUI-3009
+    - do: открыть страницу 'https://yandex.ru/turbo?text=https%3A%2F%2Fren.tv%2Fnews%2Fv-mire%2F662499-kreml-ne-kommentiruet-reshenie-o-vyplate-rossiei-50mlrd-po-delu-iukosa&mode=presearch'
+    - tech: |
+        тег head содержит:
+        тег style id="presearch-dummy"
+        тег script в котором есть аттрибут data-message с JSON содержащим поля type: "show"  и action: "preshow"
+        тег link rel="precconnect"
+        тег script содержит только nonce
+        тег style data-name="default"
+        в данных (network doc) приходит заголовок content-security-policy: https://ren.tv
+
+
+tags: no_assessors
+
+v-team: Turbo
+
+qa-engineer: spv
+
+tlds: [ru, by, ua, kz, uz, com.tr, com]

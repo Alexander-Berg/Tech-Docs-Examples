@@ -1,0 +1,40 @@
+feature: MgButton
+
+tags: no_assessors
+
+specs:
+  Тема Secondary:
+    - do: открыть страницу блока MgButton (yandex.ru/turbo?stub=mgbutton/theme-secondary.json)
+    - assert: кнопки видны на странице и не «мылятся»
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Тема Primary:
+    - do: открыть страницу блока MgButton (yandex.ru/turbo?stub=mgbutton/theme-primary.json)
+    - assert: кнопки видны на странице и не «мылятся»
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Тема Clear:
+    - do: открыть страницу блока MgButton (yandex.ru/turbo?stub=mgbutton/theme-clear.json)
+    - assert: кнопки видны на странице и не «мылятся»
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Тема Secondary Dark:
+    - do: открыть страницу блока MgButton (yandex.ru/turbo?stub=mgbutton/theme-secondary-dark.json)
+    - assert: кнопки видны на странице и не «мылятся»
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Тема Primary Dark:
+    - do: открыть страницу блока MgButton (yandex.ru/turbo?stub=mgbutton/theme-primary-dark.json)
+    - assert: кнопки видны на странице и не «мылятся»
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Тема Clear Dark:
+    - do: открыть страницу блока MgButton (yandex.ru/turbo?stub=mgbutton/theme-clear-dark.json)
+    - assert: кнопки видны на странице и не «мылятся»
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+    - platform/components/MgButton/MgButton.tests/MgButton.hermione.js
+
+v-team: District
+
+manager: gorelikiss
+
+qa-engineer: vulpes, kudyukova
+
+tlds: none

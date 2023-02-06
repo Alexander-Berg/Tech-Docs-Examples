@@ -1,0 +1,71 @@
+feature: Залогин в Поисковом Приложении
+type: Авторизация
+
+params:
+  foreverdata: '3903610383'
+
+specs:
+  Контролы и счётчики:
+    beforeEach:
+      - do: почистить куки и кэш приложения, получить выдачу по запросу 'test'
+      - assert: попап появился на выдаче
+
+    Внешний вид:
+      - screenshot: пример внешнего вида [app]
+
+    Счётчик на показ:
+      - tech: сработал счётчик на показ  /$page/$main/zalogin_app event=tech type=show
+
+    Кнопка Регистрация:
+      - do: кликнуть в кнопку Регистрация
+      - tech: сработал счётчик на показ  /$page/$main/zalogin_app/register
+      - assert: попап скрылся мгновенно
+      - assert: произошло перенаправление на страницу авторизации
+
+    Кнопка Войти:
+      - do: кликнуть в кнопку Войти
+      - tech: сработал счётчик на показ  /$page/$main/zalogin_app/auth
+      - assert: попап скрылся мгновенно
+      - assert: произошло перенаправление на страницу авторизации
+
+    По клику на крестик попап скрывается:
+      - do: кликнуть в иконку крестика
+      - tech: сработал счётчик на показ  /$page/$main/zalogin_app/close
+      - assert: попап скрылся
+
+  Внешний вид и cookieL:
+    По клику на кнопку "Не сейчас" попап с cookieL скрывается:
+      - params:
+          foreverdata: '2840565090'
+      - do: незалогиненным пользователем получить выдачу по запросу 'foreverdata'
+      - assert: попап появился на выдаче
+      - do: кликнуть в кнопку "Не сейчас"
+      - tech: сработал счётчик на показ  /$page/$main/zalogin_app/close
+      - assert: попап скрылся
+
+    С cookieL:
+      - params:
+          foreverdata: '2840565090'
+      - do: незалогиненным пользователем получить выдачу по запросу 'foreverdata'
+      - assert: попап появился на выдаче
+      - screenshot: пример внешнего вида [login_cookiel]
+
+files:
+  - features/searchapp/zalogin-app/zalogin-app.hermione.js
+
+tlds:
+  - ru
+
+tags:
+  - reviewed
+  - skip_e2e_check
+  - zalogin
+  - cookie
+  - popup
+  - pp_new_core
+
+browsers:
+  notFor:
+    - ios-touch-group
+
+v-team: Distribution

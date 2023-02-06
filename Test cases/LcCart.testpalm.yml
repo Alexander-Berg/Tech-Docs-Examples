@@ -1,0 +1,45 @@
+feature: LcCart
+
+tags: no_assessors
+
+specs:
+  Внешний вид:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=lccart/default.json
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Внешний вид с разными соотношениями сторон изображений товара:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=lccart/image-ratios.json
+    - screenshot: внешний вид соответствует скриншоту [ratios]
+
+  При клике на кнопку открывается lcCheckout:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=lccart/with-checkout.json
+    - do: нажать на кнопку купить
+    - screenshot: внешний вид соответствует скриншоту [checkout]
+
+  Ошибка отправки заказа:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=lccart/with-checkout.json
+    - do: нажать на кнопку купить
+    - do: нажать кнопку "Подтвердить и оплатить"
+    - screenshot: внешний вид соответствует скриншоту [orderFail]
+
+  Успех оплаты:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=lccart/with-checkout.json
+    - do: нажать на кнопку купить
+    - assert: появилась форма заказа
+    - do: ввести в поле ФИО значение 'online'
+    - do: нажать кнопку "Подтвердить и оплатить"
+    - assert: открылся статус-скрин Подтверждение заказа со спинером
+    - assert: открылся статус-скрин с Фреймом олаты
+    - assert: открылся статус-скрин успешной оплаты
+    - screenshot: внешний вид соответствует скриншоту [paymentSuccess]
+
+files:
+  - platform/components/LcCart/__tests__/LcCart.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: olimiya, shinuta
+
+tlds: none

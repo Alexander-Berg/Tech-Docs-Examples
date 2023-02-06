@@ -1,0 +1,40 @@
+feature: Колдунщик видео
+type: XL
+experiment: Фрагмент
+
+params:
+  exp_flags:
+    - video_wizard_fragment_xl=1
+  foreverdata: '4019177245'
+
+tlds: ['ru']
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу "foreverdata"
+    - do: прокрутить до большой тумбы, так чтобы она поместилась полностью в область видимости
+    - assert: в большой тумбе появился таймлайн и попап с информацией о том, что найден фрагмент видео
+
+  Внешний вид:
+    - screenshot: внешний вид [plain]
+
+  Проверка ссылок и счетчиков на тумбе:
+    - do: нажать на большую тумбу
+    - assert: |
+        произошел переход на Яндекс.Видео
+        в урле присутствует параметры &t=229&source=fragment
+    - tech: сработал счетчик '/$page/$main/$result/showcase/item/big-video' (attrs='fragment=1')
+
+  Проверка счетчика на попапе:
+    - do: нажать попап с сообщением о найденном фргаменте под большой тумблй
+    - assert: |
+        произошел переход на Яндекс.Видео
+        в урле присутствует параметры &t=229&source=fragment
+    - tech: сработал счетчик '/$page/$main/$result/showcase/item/big-video/fragment/popup'
+
+files:
+  - features/touch-phone/adapter-videowiz/exp/adapter-videowiz_xl-fragment.hermione.js
+
+v-team: Video
+
+priority: high

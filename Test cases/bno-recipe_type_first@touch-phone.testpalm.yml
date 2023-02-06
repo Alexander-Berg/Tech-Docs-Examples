@@ -1,0 +1,72 @@
+feature: Списочные рецепты
+type: Первый тип
+
+description: |
+  Только в AndroidBrowser 4.4 вместо турбо-слайдера открывается отдельная турбо-страница;
+  в шапке нет точек навигации и имени ресурса;
+  вместо крестика - кнопка "Назад"
+
+specs:
+  beforeEach:
+    - do: получить выдачу Поиска по запросу 'творожная запеканка'
+    - assert: на выдаче есть списочный сниппет рецептов с галереей
+  Внешний вид:
+    - screenshot: в выдаче есть списочный сниппет рецептов с галереей (примерный вид) [plain]
+    - assertMetrics: '*'
+  Отправка счётчика на свайп шоукейса:
+    - do: свайпнуть галерею влево
+    - assert: галерея проскролилась влево
+    - tech: проверить счетчик на свайп влево
+    - do: свайпнуть галерею вправо
+    - assert: галерея проскролилась вправо
+    - tech: проверить счетчик на свайп вправо
+    - assertMetrics: '*'
+  Внешний вид при смене ориентации:
+    - do: повернуть устройство в ландшафтную ориентацию
+    - assert: сниппет повернулся в горизонтальную ориентацию [landscape]
+    - assertMetrics: '*'
+  Длинный тайтл в элементе шоукейса:
+    - params:
+        foreverdata: '1001091490'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: |
+        в выдаче есть списочный сниппет рецептов
+        тайтл первого элемента шоукейса не выходит за границы картинки и заканчивается многоточием
+    - screenshot: внешний вид с длинным тайтлом [longtitle]
+    - assertMetrics: '*'
+  Спецсимволы в данных:
+    - params:
+        foreverdata: '2201036436'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: |
+        страница загрузилась без ошибок
+         в выдаче присутствует списочный сниппет рецептов
+    - screenshot: внешний вид со спецсимволами [baddata]
+    - assertMetrics: '*'
+
+specs-integration:
+  Проверка показа галереи с турбо:
+    - tags: pp_new_core
+    - counter: /$page/$main/$result[@features has "bno_recipe_first"]/showcase/item/thumb
+    - do: получить выдачу Поиска по запросу 'творожная запеканка'
+    - assert: на выдаче есть БНО рецептов
+
+files:
+  - features/bno-recipe/bno-recipe_type_first@touch-phone.hermione.js
+  - features/bno-recipe/bno-recipe_with-turbo@touch-phone.hermione.e2e.js
+
+v-team: Beauty
+
+tags:
+  - reviewed
+
+tlds:
+  - ru
+  - by
+  - ua
+  - kz
+  - uz
+  - com.tr
+  - com
+
+counter: /snippet/bno_recipe_first

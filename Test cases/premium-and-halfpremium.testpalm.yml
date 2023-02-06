@@ -1,0 +1,25 @@
+feature: Спец.размещение
+type: Нижний и верхний блоки спец.размещения
+
+specs:
+  Внешний вид:
+    - do: получить выдачу по запросу 'кредит наличными'
+    - assert: верхний блок рекламы присутствует на выдаче
+    - screenshot: пример внешнего вида [premium]
+    - assert: нижний блок рекламы присутствует на выдаче
+    - screenshot: пример внешнего вида [halfpremium]
+    - assertMetrics: "*"
+
+files:
+  - features/desktop/serp-adv-item/premium-and-halfpremium/premium-and-halfpremium.hermione.js
+
+
+v-team: Distribution
+
+tags:
+  - smoke
+  - reviewed
+  - skip_e2e_check
+  - adv
+
+tlds: fr

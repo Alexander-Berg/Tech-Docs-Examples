@@ -1,0 +1,22 @@
+feature: "Dispenser: Сводка по ресурсам"
+
+specs:
+  beforeEach:
+    - do: Залогиниться под пользователем robot-abc-002
+
+  Просмотр сводки по ресурсам:
+    1. на русском языке:
+      - do: открыть страницу сводки по ресурсам (/hardware/summary)
+      - screenshot: каталог сервисов [summary-ru]
+
+    2. на английской языке:
+      - do: открыть страницу сводки по ресурсам на английском языке (/hardware/summary?lang=en)
+      - screenshot: каталог сервисов [summary-en]
+
+files:
+  - test/features/desktop/dispenser/summary.hermione.js
+
+priority: blocker
+
+tags:
+  - no_assessors

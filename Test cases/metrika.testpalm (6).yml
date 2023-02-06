@@ -1,0 +1,118 @@
+feature: metrika
+
+tags: no_assessors
+
+specs:
+  Инициализация счетчиков:
+    Кастомный параметр:
+      - do: перейти на https://yandex.ru/turbo?stub=metrika/custom-param.json&exp_flags=analytics-disabled=0&_ym_debug=1
+      - tech: Метрика заинитилась с пользовательским параметром "custom-param = param-value"
+
+    Utm-метка:
+      - do: перейти на https://yandex.ru/turbo?stub=metrika/default.json&exp_flags=analytics-disabled=0&_ym_debug=1
+      - tech: Метрика заинитилась со значением "http://tass.ru/kultura/4136710?utm_source=test" в параметре "url"
+
+    Extras:
+      - do: перейти на https://yandex.ru/turbo?stub=metrika/goals-extras.json&exp_flags=analytics-disabled=0&_ym_debug=1
+      - tech: Метрика заинитилсь для блока extra
+
+  Инициализация счетчиков со строками в параметрах:
+    Параметр-строка парсится, если в ней json, и не парсится, если это просто строка:
+      - do: перейти на https://yandex.ru/turbo?stub=metrika/cyrillic-param.json&exp_flags=analytics-disabled=0
+      - tech: Для счетчика 46417414 метрика заинитилась с параметром-объектом, распаршенным из строки
+      - tech: Для счетчика 46417415 метрика заинитилась с параметром-строкой "some params string"
+      - tech: Для счетчика 46417416 метрика заинитилась с параметром по умолчанию (expectedInitData)
+
+  Хиты:
+    Несколько счетчиков:
+      - do: перейти на https://yandex.ru/turbo?stub=metrika/goals.json&exp_flags=analytics-disabled=0&_ym_debug=1
+      - tech: Для счетчика 46417413 произошел хит
+      - tech: Для счетчика 45135375 произошел хит
+
+    Карточка товара:
+      - do: перейти на https://yandex.ru/turbo?stub=metrika/ecommerce.json&exp_flags=analytics-disabled=0&_ym_debug=1
+      - tech: Для счетчика 45135373 произошел хит
+      - tech: В параметрах __ym хита указано "product_card = true"
+
+    Метрика в extras не отправляет хиты:
+      - do: перейти на https://yandex.ru/turbo?stub=metrika/goals-extras.json&exp_flags=analytics-disabled=0&_ym_debug=1
+      - tech: Со страницы отправился только один хит счетчика 46417413
+
+  Цели:
+    Старый api:
+      - do: перейти на https://yandex.ru/turbo?stub=metrika/goals.json&exp_flags=analytics-disabled=0&_ym_debug=1
+      - do: кликнуть по кнопке 'goal'
+      - tech: Отправляется цель метрики 'button-goal' на счетчики 46417413, 45135375
+
+    Новый api:
+      - do: перейти на https://yandex.ru/turbo?stub=metrika/goals.json&exp_flags=analytics-disabled=0&_ym_debug=1
+      - do: кликнуть по кнопке 'goals'
+      - tech: Отправляется цель метрики 'button-goals' на счетчик 46417413
+
+    Старый и новый api:
+      - do: перейти на https://yandex.ru/turbo?stub=metrika/goals.json&exp_flags=analytics-disabled=0&_ym_debug=1
+      - do: кликнуть по кнопке 'goal & goals'
+      - tech: Отправляется цель метрики 'button-goals' на счетчик 46417413
+
+    id счетчика по умолчанию:
+      - do: перейти на https://yandex.ru/turbo?stub=metrika/goals.json&exp_flags=analytics-disabled=0&_ym_debug=1
+      - do: кликнуть по кнопке 'default goal & goals'
+      - tech: Отправляется цель метрики 'button-goals' на счетчик 46417413
+      - tech: Отправляется цель метрики 'button-goals-default' на счетчики 46417413, 45135375
+
+    Блок link:
+      - do: перейти на https://yandex.ru/turbo?stub=metrika/goals.json&exp_flags=analytics-disabled=0&_ym_debug=1
+      - do: кликнуть по сссылке 'Категория'
+      - tech: Отправляется цель метрики 'link' на счетчик 46417413
+
+    Блок source:
+      - do: перейти на https://yandex.ru/turbo?stub=metrika/goals.json&exp_flags=analytics-disabled=0&_ym_debug=1
+      - do: кликнуть по кнопке 'Читать на tass.ru'
+      - tech: Отправляется цель метрики 'source' на счетчики 46417413, 45135375
+
+    Блок tabs:
+      - do: перейти на https://yandex.ru/turbo?stub=metrika/goals.json&exp_flags=analytics-disabled=0&_ym_debug=1
+      - do: кликнуть по табу 'А это на Яндекс'
+      - tech: Отправляется цель метрики 'tabs' на счетчик 46417413
+
+    Блок image:
+      - do: перейти на https://yandex.ru/turbo?stub=metrika/goals.json&exp_flags=analytics-disabled=0&_ym_debug=1
+      - do: проскролить до текста "Это ссылка -> "
+      - do: кликнуть по картинке-ссылке
+      - tech: Отправляется цель метрики 'image' на счетчик 46417415
+
+    Блок widget-feedback:
+      - do: перейти на https://yandex.ru/turbo?stub=page/test_news_local.json&exp_flags=analytics-disabled=0&_ym_debug=1
+      - do: проскролить до заголовка "Чаты"
+      - do: кликнуть по иконке 'Vk'
+      - tech: Отправляется цель аналитики 'widget-feedback'
+
+    Блок связанных:
+      - do: перейти на https://yandex.ru/turbo?stub=metrika/goals.json&exp_flags=analytics-disabled=0&_ym_debug=1
+      - do: кликнуть по ссылке "Тестовая статья"
+      - tech: Отправляется цель метрики 'related' на счетчик 46417413
+      - do: кликнуть по картинке
+      - tech: Отправляется цель метрики 'related' на счетчики 46417413
+
+  Webvisor:
+    Параметры webvisor и clickmap:
+      - do: перейти на https://yandex.ru/turbo?stub=metrika/landing.json&exp_flags=analytics-disabled=0
+      - do: дождаться загрузки метрики
+      - tech: Для счетчика 46417413 метрика заинитилась с параметром по умолчанию (expectedInitData)
+
+  Пробрасывание заголовка X-Yandex-ExpBoxes-Crypted:
+    Должен пробрасывать значение заголовка в параметры Метрики:
+      - tags: no_assessors
+      - do: перейти на https://yandex.ru/turbo?text=test_news&exp_flags=analytics-disabled=0
+      - tech: Значение параметра experiments блока Метрика совпадает со значением заголовка X-Yandex-ExpBoxes-Crypted
+
+files:
+- features/common/blocks/metrika/metrika.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: olga0321
+
+tlds: none

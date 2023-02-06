@@ -1,0 +1,40 @@
+feature: Опечатка и Ко
+type: Ничего не найдено
+
+specs:
+  Базовое поведение:
+    - do: получить выдачу по запросу 'Qweqweqwedhdhdhdjsjdjxhdhsnskjdjdjehxjcjdbdhsjjdhfhdjdjjcjdjdjdjjdksjjdjdjdjdhexhhdhe'
+    - assert: вместо выдачи присутствует фраза "По вашему запросу ничего не нашлось"
+    - screenshot: Внешний вид [nothing]
+    - assertMetrics: '*'
+
+specs-integration:
+  Базовое поведение:
+    - do: получить выдачу по запросу 'Qweqweqwedhdhdhdjsjdjxhdhsnskjdjdjehxjcjdbdhsjjdhfhdjdjjcjdjdjdjjdksjjdjdjdjdhexhhdhe'
+    - assert: вместо выдачи присутствует фраза "По вашему запросу ничего не нашлось"
+
+files:
+  - features/common/misspell/misspell_type_nothing.hermione.js
+  - features/common/misspell/misspell_type_nothing.hermione.e2e.js
+
+v-team: Freshness
+
+tags:
+  - yaani
+  - searchresults
+  - granny
+  - notfound
+  - spok_id
+  - touch
+  - wizard
+  - misprint
+  - mgranny
+  - smart
+  - reviewed
+
+tlds:
+  - ru
+  - by
+  - ua
+  - kz
+  - uz

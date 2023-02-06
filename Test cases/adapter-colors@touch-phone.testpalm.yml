@@ -1,0 +1,19 @@
+feature: Колдунщик выбора цвета
+type: Доступность на тачах
+
+specs:
+  Колдунщик недоступен скринридеру:
+    - do: получить выдачу по запросу цвет
+    - tech: колдунщик скрыт от скринридера
+
+files:
+  - features/adapter-colors/adapter-colors@touch-phone.hermione.js
+
+v-team: Suggest
+
+tlds: ru
+
+tags:
+  - a11y_serp
+  - no_assessors
+  - adapter-colors

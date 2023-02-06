@@ -1,0 +1,24 @@
+feature: ProductPage
+experiment: Темная тема
+
+params:
+  exp_flags:
+    - exp_flags=dark_theme_desktop=dark
+
+specs:
+  Шапка:
+    beforeEach:
+      - do: открыть https://yandex.ru/products/product/1414986413/sku/101446177753.
+      - assert: |
+          открылась карточка товара.
+          в карточке присутствует блок навигации.
+          под карточкой вверху страницы отображается поисковое поле
+    Внешний вид:
+      Лого:
+        - assert: слева от поискового поля отображается лого "Яндекс"
+        - screenshot: лого "Яндекс" [logo]
+
+v-team: goods
+
+files:
+    - src/pages/ProductPage/tests/exp/ProductPage_withThemeDark.desktop.hermione.ts

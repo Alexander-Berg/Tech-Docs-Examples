@@ -1,0 +1,16 @@
+feature: beru-footer
+
+specs:
+  Внешний вид блока:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=berufooter/default.json)
+    - assert: должны быть виден подвал
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+    - platform/components/BeruFooter/__tests__/beru-footer.hermione.js
+
+v-team: Beru
+
+manager: seoshnik
+
+tlds: none

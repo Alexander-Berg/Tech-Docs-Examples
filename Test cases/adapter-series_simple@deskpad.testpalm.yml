@@ -1,0 +1,16 @@
+feature: Сериальный сниппет
+
+specs:
+  Внешний вид:
+    - params:
+        foreverdata: '1306558682'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: появился сериальный сниппет
+    - screenshot: внешний вид [plain]
+
+files:
+  - features/adapter-series/adapter-series_simple@deskpad.hermione.js
+
+v-team: Video
+
+tlds: all

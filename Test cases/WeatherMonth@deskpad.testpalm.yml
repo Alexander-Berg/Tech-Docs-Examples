@@ -1,0 +1,49 @@
+feature: Колдунщик погоды по месяцам
+
+specs:
+  Погода в екатеринбурге в мае:
+    - tags: smoke_extended
+    - params:
+        foreverdata: '2556522887'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: появился колдунщик погоды по месяцам
+    - screenshot: колдунщик погоды соответствует виду [weather-month-ekb-may]
+
+  Погода в афинах в мае:
+    - tags: smoke_extended
+    - params:
+        foreverdata: '4061624924'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: появился колдунщик погоды по месяцам
+    - screenshot: колдунщик погоды соответствует виду [weather-month-athens-may]
+
+  Скролл в карусели:
+    Вправо:
+      - params:
+          foreverdata: '2556522887'
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: появился колдунщик погоды по месяцам
+      - do: кликнуть на стрелку "вправо" в колдунщике
+      - assert: колдунщик проскроллился вправо на 260 пикселей (примерно на 2.5 элемента из списка)
+      - screenshot: колдунщик после скролла вправо выглядит корректно [plain]
+    Влево:
+      - params:
+          foreverdata: '2556522887'
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: появился колдунщик погоды по месяцам
+      - do: проскроллить колдунщик вправо на несколько элементов
+      - do: кликнуть на стрелку "влево" в колдунщике
+      - assert: колдунщик проскроллился влево на 260 пикселей (примерно на 2.5 элемента из списка)
+      - screenshot: колдунщик после скролла влево выглядит корректно [plain]
+
+files:
+  - src/features/WeatherMonth/WeatherMonth.test/WeatherMonth@deskpad.hermione.js
+
+v-team: Weather
+
+manager:
+  - podnebesnaya
+
+tlds: [ru, by, ua, kz, com.tr]
+
+counter: /$page/$main/$result[@wizard_name="weather_month"]

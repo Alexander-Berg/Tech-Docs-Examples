@@ -1,0 +1,113 @@
+feature: Добавление и удаление домена
+
+description: |
+  Preconditions.
+  Кейс выполняется на подготовленной организации:
+    - админ(glav@yandex.ru =-123qwe)
+  Просьба вернуть организацию в изначальное состояние после выполнения кейса.
+
+aliases:
+  - &add
+    - do: перейти на страницу доменов {{CONNECT_HOST}}/portal/services/webmaster
+    - do: нажать на "+ Добавить домен"
+    - assert: появился попап "Новый домен"
+
+specs:
+  beforeEach:
+    - do: авторизоваться под учеткой админа(glav@yandex.ru) из description
+  Положительные:
+    1. Основной домен удалить нельзя:
+      - do: перейти в карточку домена по ссылке {{CONNECT_HOST}}/portal/services/webmaster/resources/glav.auto.connect-test.tk
+      - assert: |
+          открыта карточка домена
+          экшена "Удалить домен" нет
+      - screenshot: скриншот карточки домена без экшена [not-action-domain]
+    2. Подтвержденный домен:
+      - *add
+      - do: |
+          ввести в поле домен "glav1.auto.connect-test.tk"
+          нажать на "Добавить"
+      - assert: появилось сообщение "Домен добавлен"
+      - do: нажать на Крестик
+      - assert: попап и сообщение закрылись
+      - assert: |
+          произошел переход на страницу {{CONNECT_HOST}}/portal/services/webmaster/resources/glav1.auto.connect-test.tk
+          отображается статус "Домен подтверждён"
+          экшен "Удалить домен" есть
+      - do: ничего не делать, подождать 5 минут и обновить страницу, домен автоматически подтвердится
+      - screenshot: скриншот карточки домена с экшеном [action-domain]
+      - do: нажать на экшен "Удалить домен"
+      - assert: появился попап "Вы уверены, что хотите удалить домен glav1.auto.connect-test.tk?"
+      - screenshot: скриншот попапа "Вы уверены, что хотите удалить домен [delete-domain]
+      - do: нажать на крестик
+      - assert: попап закрылся
+      - do: нажать на экшен "Удалить домен"
+      - assert: появился попап "Вы уверены, что хотите удалить домен glav1.auto.connect-test.tk?"
+      - do: нажать на "Отменить"
+      - assert: попап закрылся
+      - do: нажать на экшен "Удалить домен"
+      - assert: появился попап "Вы уверены, что хотите удалить домен glav1.auto.connect-test.tk?"
+      - do: нажать на "Удалить"
+      - assert: |
+          попап закрылся
+          появилась нотификация "Домен удален"
+          произошел переход на страницу {{CONNECT_HOST}}/portal/services/webmaster
+          на вкладке "Домены" не отображается плитка с доменом "glav1.auto.connect-test.tk"
+    3. Неподтвержденный домен:
+      - *add
+      - do: |
+          ввести в поле домен, "glav1.connect-test.tk"
+          нажать на "Добавить"
+      - assert: появилось сообщение "Домен добавлен"
+      - do: нажать на Крестик
+      - assert: |
+          попап и сообщение закрылись
+          произошел переход на страницу {{CONNECT_HOST}}/portal/services/webmaster/resources/glav1.connect-test.tk
+      - do: нажать "К списку доменов"
+      - assert: на вкладке "Домены" отображается плитка с добавленный доменом "glav1.connect-test.tk"
+      - screenshot: скриншот плитки доменов с новым доменом [updated-domain-list]
+      - do: открыть карточку домена {{CONNECT_HOST}}/portal/services/webmaster/resources/glav1.connect-test.tk
+      - do: нажать на экшен "Удалить домен"
+      - assert: появился попап "Вы уверены, что хотите удалить домен glav1.connect-test.tk?"
+      - do: нажать на "Удалить"
+      - assert: |
+          попап закрылся
+          появилась нотификация "Домен удален"
+          произошел переход на страницу {{CONNECT_HOST}}/portal/services/webmaster
+          на вкладке "Домены" не отображается плитка с доменом "glav1.connect-test.tk"
+  Отрицательные:
+    1. Добавление пустого домена:
+      - *add
+      - do: не заполняем поле нового домена
+      - assert: кнопка "Добавить" - неактивна
+      - screenshot: скриншот попапа с неактивной кнопкой [disabled]
+    2. Отмена добавления домена:
+      - *add
+      - do: нажать кнопку "Отменить"
+      - assert: попап закрылся
+      - screenshot: отображается страница с доменами [domain-list]
+    3. Добавление некорректного домена:
+      - *add
+      - do: |
+          ввести в поле некорректный домен "testru"
+          нажать кнопку "Добавить"
+      - assert: |
+          появилось сообщение "Некорректное имя домена"
+          попап остался открытым
+      - screenshot: скриншот попапа с сообщением [invalid-domain-error]
+
+files:
+  - tests/hermione/suites/domain/add-and-delete.js
+
+priority: blocker
+
+tlds:
+  - ru
+  - com
+
+tags:
+  - smoke_test_assessors
+  - regression
+  - smoke_test
+  - reviewed
+  - smoke_test_mini

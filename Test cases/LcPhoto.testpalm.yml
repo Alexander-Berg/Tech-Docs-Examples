@@ -1,0 +1,19 @@
+feature: LcPhoto
+
+tags: no_assessors
+
+specs:
+  Внешний вид блока:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcphoto/default.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/components/LcPhoto/__tests__/LcPhoto.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: olimiya, kossakovskaya, shinuta
+
+tlds: none

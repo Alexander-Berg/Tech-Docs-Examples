@@ -1,0 +1,26 @@
+feature: Menu
+
+params:
+  foreverdata: '1826589425'
+
+specs:
+  Должен отправиться postMessage на открытие и закрытие меню:
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок первого сниппета (название заголовка Тестовая cтраница для Test-gismeteo — турбо)
+    - assert: открывается турбо-страница в той же вкладке (в поисковом приложении Яндекс турбо-страница открывается в новой вкладке)
+    - do: открыть главную страницу поиска, удалить все параметры кроме yandex.ru и добавить в адресную строку к URL '/turbo?text=block-header-menu'
+    - do: открыть меню, нажав на значок "гамбургера" в правом верхнем углу
+    - tech: должен отправится postMessage menu с параметром  state - open
+    - do: закрыть меню, нажав на темную область справа от него
+    - tech: должен отправится postMessage menu с параметром  state - close
+files:
+  - features/touch-phone/post-message/menu/menu.hermione.js
+
+v-team: Turbo
+
+tags: no_assessors
+
+manager: tanzwuta
+
+qa-engineer: kleev, k0nratka
+
+tlds: none

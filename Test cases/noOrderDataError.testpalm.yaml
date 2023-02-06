@@ -1,0 +1,49 @@
+feature: Поезда
+type: Подтверждение
+
+specs:
+    ТК ЖД Ошибка получения данных о заказе:
+        - do: |
+              Перейти на вкладку ЖД
+              Перейти на поиск Москва - Санкт-Петербург через месяц
+              Для любого поезда кликнуть по кнопке Выбрать место
+              На странице выбора мест выбрать любое место в любом вагоне
+              Нажать Указать пассажиров
+              Дернуть ручку тестового контекста: https://api.travel-balancer-test.yandex.net/api/test_context/v1/train_token?insurancePricingOutcome=IPO_SUCCESS&insuranceCheckoutOutcome=ICO_SUCCESS&insuranceCheckoutConfirmOutcome=ICCO_SUCCESS&refundPricingOutcome=RPO_SUCCESS&refundCheckoutOutcome=RCO_SUCCESS&createReservationOutcome=RCRO_SUCCESS&confirmReservationOutcome=RCOO_SUCCESS&officeReturnDelayInMinutes=0&officeAcquireDelayInMinutes=0&alwaysTimeoutAfterConfirmingInSeconds=10
+              В ответе запомнить токен из поля test_context_token
+              Добавить к урлу параметр trainTestContextToken со значением полученного токена
+              Перейти по полученной ссылке
+              Заполнить поля любыми валидными данными
+              Нажать Проверить заказ и купить
+              Нажать Ввести карту и оплатить (если будет шаг оплаты, ввести данные тестовой карты и оплатить)
+              Выждать 10 секунд
+              Кликнуть по кнопке перехода в личный кабинет "Подробнее о заказе"
+        - assert: |
+              Произошел переход на страницу заказа
+              Страница не открывается
+              Отображается ошибка "Произошла ошибка
+              Не удалось загрузить данные о заказе. Попробуйте позднее. Если проблема повторяется, свяжитесь со службой поддержки по номеру 8 800 511-71-04 или через форму обратной связи."
+              с кнопками "Вернуться на главную" и "Перезагрузить страницу"
+        - do: Нажать "Перезагрузить страницу"
+        - assert: |
+              Страница обновилась
+              Отображается ошибка
+        - do: Нажать "Вернуться на главную"
+        - assert: Произошел переход на главную портала
+
+files:
+    - tests/common/trains/order/confirmation/noOrderDataError.hermione.ts
+
+tags:
+    - TK
+    - orkestrator
+
+Сервис: ЖД
+Страница: Подтверждение
+Функциональность: Подтверждение
+Устройство:
+    - Десктоп
+    - Тач
+Окружение:
+    - Testing
+Тестирование асессорами: Нет

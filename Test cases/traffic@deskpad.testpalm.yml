@@ -1,0 +1,74 @@
+feature: Колдунщик топонимов
+type: Улица с пробками
+
+params:
+  rearr: EntitySearch_off
+
+specs:
+  aliases:
+    - &CheckMetrics
+      - assertMetrics:
+          - feature.web.wizards_common.maps_wizard.total.shows
+          - feature.web.wizards_common.maps_wizard.total.external_clicks
+          - feature.web.wizards_common.maps_wizard.total.dynamic_clicks
+          - web.total_request_results_clicks
+          - web.total_request_results_ext_clicks
+          - web.total_request_results_dyn_clicks
+          - web.total_request_results_main_column_clicks
+          - web.total_request_results_main_column_ext_clicks
+          - web.total_request_results_main_column_dyn_clicks
+          - web.total_request_results_parallel_column_clicks
+          - web.total_request_results_parallel_column_ext_clicks
+          - web.total_request_results_parallel_column_dyn_clicks
+          - web.tech_part_misc_click
+          - web.total_request_count
+          - daily.total_session_count
+  beforeEach:
+    - do: получить выдачу по запросу 'улица Планерная пробки'
+  Проверить внешний вид, общие ссылки и счётчики колдунщика топонимов:
+    - tags:
+        - title
+        - greenurl
+        - maps
+    - assert: в результатах поиска появляется колдунщик топонимов, его внешний вид [plain]
+    - do: перейти по ссылке в тайтле
+    - assert: ссылка в тайтле колдунщика ведёт на Яндекс.Карты, отобразился слой пробок, отобразился пин на улице из запроса,
+    - *CheckMetrics
+  Проверка карты:
+    - tags:
+        - zoom
+        - location
+        - maps
+    - do: в настройках браузера разрешить доступ к геоданным
+    - do: нажать на '+' на карте
+    - assert: карта приближается
+    - do: нажать на '-' на карте
+    - assert: карта отдаляется
+    - do: нажать кнопку 'Геолокация'
+    - assert: на карте появляется метка с геолокацией пользователя
+    - do: нажать на 'На большую карту' на карте
+    - assert: открывается новая вкладка, в которой отображается карта с искомой улицей и пином.
+    - *CheckMetrics
+
+files:
+  - features/adapter-maps/traffic@deskpad.hermione.js
+
+tlds: all
+
+v-team: VanillaGeo
+
+regions:
+  ru: 213
+  by: 157
+  kz: 163
+  ua: 143
+
+requests:
+  ru: улица Планерная пробки
+  by: Планерная вуліца коркі
+  ua: пробки вулиця Планерна
+
+counter: /$page/$main/$result[@wizard_name="maps" and @subtype="street"]
+
+tags:
+  - reviewed

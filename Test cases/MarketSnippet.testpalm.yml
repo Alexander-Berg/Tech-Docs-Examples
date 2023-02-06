@@ -1,0 +1,16 @@
+feature: marketSnippet
+
+specs:
+  Внешний вид блока:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=marketsnippet/default.json)
+    - assert: должны быть видны разные вариации сниппета
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/components/MarketSnippet/__tests__/MarketSnippet.hermione.js
+
+v-team: Market
+
+manager: seoshnik
+
+tlds: none

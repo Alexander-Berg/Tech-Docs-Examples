@@ -1,0 +1,49 @@
+feature: Социальный сниппет
+
+import-labels:
+  - features/common/social-snippet/social-snippet.testpalm.yml
+
+specs:
+  Обычный сниппет:
+    params:
+      text: test
+      foreverdata: '1687867012'
+    beforeEach:
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: социальный сниппет присутствует на выдаче
+      - screenshot: внешний вид [social-snippet_default-{{PLATFORM}}-{{BROWSER_TYPE}} >> plain]
+    Гринурл:
+      - do: нажать на левую ссылку гринурла
+      - do: нажать на правую ссылку гринурла
+      - tech: в обоих случаях сработал счетчик '/$page/$main/$result[@features has "social_snippet" and @subtype="vkontakte"]/path/greenurl'
+      - assert: в обоих случаях соответствующая страница vk открылась в новой вкладке
+      - assertMetrics: '*'
+
+files:
+  - features/social-snippet/social-snippet@deskpad.hermione.js
+
+tags:
+  - socialnetworks
+  - use_constr
+  - foreverdata
+  - reviewed
+  - popular
+  # e2e тест написан на common уровне features/common/social-snippet/social-snippet.hermione.e2e.js
+  - skip_e2e_check
+
+tlds:
+  - ru
+  - by
+  - kz
+  - ua
+  - com.tr
+  - uz
+
+v-team: Beauty
+
+description: |
+  Наличие полей в тексте сниппета (про кол-во подписчиков, друзей, число публикаций и так далее), а так же кнопки "Читать еще" зависит от данных и может варьироваться.
+  При переходе на сайт Вконтакте для IE11 может отображаться заглушка про устаревший браузер.
+  Это нормально и НЕ считается ошибкой.
+
+counter: /$page/$main/$result[@features has "social_snippet"]

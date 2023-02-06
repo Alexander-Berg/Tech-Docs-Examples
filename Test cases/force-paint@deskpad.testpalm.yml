@@ -1,0 +1,19 @@
+feature: Форсирование отрисовки выдачи
+
+specs:
+  Скрипт форсирования отрисовки после первого элемента выдачи:
+    - do: получить выдачу по запросу 'test'
+    - tech: проверить наличие скрипта форсирования отрисовки после первого элемента выдачи (.serp-item)
+
+files:
+  - features/force-paint/force-paint@deskpad.hermione.js
+
+v-team: Velocity
+
+counter: /web/item
+
+tags:
+  - skip_e2e_check
+  - no_assessors
+
+tlds: none

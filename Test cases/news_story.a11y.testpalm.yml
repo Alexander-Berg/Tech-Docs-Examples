@@ -1,0 +1,29 @@
+feature: Колдунщик новостей story
+type: Доступность
+
+browsers: chrome-desktop
+
+specs:
+  Картиночная тумба:
+    - params:
+        foreverdata: '2134493002'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на выдаче присутствует колдунщик новостей с картиночной тумбой
+    - tech: маркер органики имеет aria-label, содержащий 'Опубликовано'
+    - tech: тумба имеет aria-label, содержащий 'Видео'
+
+files:
+  - features/desktop/news/news_story.a11y.hermione.js
+
+tags:
+  - reviewed
+  - no_assessors #a11y
+  - skip_e2e_check #a11y
+  - news
+
+v-team: Freshness
+
+counter: /$page/$main/$result[@wizard_name="news"]
+
+tlds:
+  - ru

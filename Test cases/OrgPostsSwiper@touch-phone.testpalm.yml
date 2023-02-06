@@ -1,0 +1,51 @@
+feature: Одна организация
+type: Свайпер новостей
+
+specs:
+  Основные проверки:
+    - params:
+        exp_flags: GEO_1org_posts_swiper=1
+    - do: получить выдачу по запросу "ателье лига джентльменов алтайский край"
+    - assert: на странице присутствует элемент карточка организации
+    - do: нажать на таб "Новости"
+    - tech: сработал счётчик path="/$page/$main/$result/composite/tabs/controls/posts"
+    - assert: на странице появился свайпер с новостями
+    - screenshot: внешний вид [plain]
+    - do: нажать на "Читать еще" в четвертой карточке 
+    - tech: сработал счётчик path="/$page/$main/$result/composite/orgs-posts-swiper/swiper-modal/swiper/posts-swiper-page/more"
+    - assert: на странице появилось полное описание
+    - do: нажать на ссылку в описании новостей
+    - assert: произошёл переход на сайт
+    - tech: сработал счётчик path="/$page/$main/$result/composite/orgs-posts-swiper/swiper-modal/swiper/posts-swiper-page/link"
+  Открытие из врезки в главном табе:
+    beforeEach:
+      - params:
+          exp_flags: GEO_1org_posts_swiper=1
+      - do: получить выдачу по запросу "Диди, Москва"
+      - assert: на странице присутствует карточка организации с врезкой новостей
+    Тайтл:
+      - do: нажать на тайтл врезки новостей
+      - tech: сработал счётчик path="/$page/$main/$result/composite/posts-preview/title"
+      - assert: на странице появился свайпер новостей
+    Элемент списка:
+      - do: нажать на первый элемент в списке новостей
+      - tech: сработал счётчик path="/$page/$main/$result/composite/posts-preview/item"
+      - assert: на странице появился свайпер новостей
+    В сайдблоке:
+      - do: нажать на таб "Главное"
+      - assert: на странице появился сайдблок организации с врезкой новостей
+      - do: нажать на тайтл врезки новостей
+      - tech: сработал счётчик path="/$subresult/overlay-wrapper/content/tabs/controls/tabs/about/side-block-bcard/composite/posts-preview/title"
+      - assert: на странице появился свайпер новостей
+
+files:
+  - src/features/Companies/Companies.features/OrgPostsSwiper/OrgPostsSwiper.test/OrgPostsSwiper@touch-phone.hermione.js
+
+v-team: VanillaGeo
+
+tags:
+  - skip_e2e_check
+  - no_assessors
+  - react
+
+tlds: all

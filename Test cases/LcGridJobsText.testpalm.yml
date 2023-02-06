@@ -1,0 +1,18 @@
+feature: LcGridJobsText
+
+tags: no_assessors
+
+specs:
+  Внешний вид:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcgridjobstext/default.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+files:
+  - platform/components/LcGridJobsText/__tests__/LcGridJobsText.hermione.js
+
+v-team: Backoffice
+
+manager: kiparis
+
+qa-engineer: grikyan
+
+tlds: none

@@ -1,0 +1,23 @@
+feature: LcSlider
+
+tags: no_assessors
+
+specs:
+  Отображение следующего изображения по клику:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcslider/default.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+    - do: навести мышкой на изображение
+    - assert: появилась кнопка
+    - do: нажать на кнопку
+    - assert: картинка переключилась на следующую
+
+files:
+  - platform/components/LcSlider/__tests__/LcSlider@desktop.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: olimiya, kossakovskaya,shinuta
+
+tlds: none

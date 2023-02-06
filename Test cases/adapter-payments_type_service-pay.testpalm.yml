@@ -1,0 +1,29 @@
+feature: Оплата интернета
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу 'оплата интернета'
+    - assert: плявился колдунщик оплаты интернета
+    - screenshot: пример внешнего вида [plain]
+  Проверка ссылок:
+    - tags:
+        - smoke_extended
+    - assert: заголовок ведет на сервис оплаты интернета
+    - tech: проверить счетчик на заголовке
+    - tech: проверить счетчики на кнопке "Оплатить"
+    - assert: рядом с кнопкой Оплатить выводятся логотипы платежных систем
+
+files:
+  - features/touch-phone/adapter-payments/adapter-payments_type_service-pay/adapter-payments_type_service-pay.hermione.js
+
+v-team: Turbo
+
+counter: /$page/$main/$result[@wizard_name="payments" and @subtype="service_pay/general"]/title
+
+tags:
+  - reviewed
+  # отключили интегрцию с деньгами https://st.yandex-team.ru/SERP-108909
+  - no_assessors
+
+tlds:
+  - ru

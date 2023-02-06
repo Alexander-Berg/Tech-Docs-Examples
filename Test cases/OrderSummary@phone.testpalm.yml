@@ -1,0 +1,22 @@
+feature: OrderSummary
+
+specs:
+  storybook:
+    Внешний вид:
+      - tags: no_assessors
+      - screenshot: минимальный внешний вид [plain]
+      - screenshot: со скидкой магазина [with-shop-discount]
+      - screenshot: со скидкой по промокоду [with-promo-discount]
+      - screenshot: со скидкой магазина и по промокоду [with-shop-and-promo-discount]
+      - screenshot: со скидкой магазина и по промокоду в коротком виде [with-shop-and-promo-discount-short]
+      - screenshot: с доставкой [with-delivery]
+      - screenshot: с бесплатной доставкой [with-free-delivery]
+
+files:
+  - components/OrderSummary/__tests__/OrderSummary@phone.hermione.js
+
+tags: ecom-tap
+
+tlds: ru
+
+v-team: Turbo

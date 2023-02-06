@@ -1,0 +1,40 @@
+feature: Опечатка и Ко
+type: Антизеркальный
+
+specs:
+  Опечаточник сверху:
+    - params:
+        foreverdata: '2909464697'
+    - do: Открыть выдачу по запросу 'foreverdata'
+    - assert: Перед выдачей присутствует сообщение 'Некоторые ссылки отсутствуют в результатах поиска в силу требований законодательства РФ.'
+    - assert: После сообщения присутствует ссылка 'Подробнее'
+    - screenshot: Внешний вид [antimirror-top]
+    - do: Нажать на кнопку 'Подробнее'
+    - assert: В новой вкладке открылся сервис 'Яндекс Справка'
+    - tech: Сработал счетчик '/wiz/anti_mirror/detail', vars 'pos=top,source=wizard'
+  Опечаточник снизу:
+    - params:
+        foreverdata: '1169882913'
+    - do: Получить выдачу по запросу 'foreverdata'
+    - assert: Получена выдача по указанному запросу
+    - assert: В нижней части страницы выдачи присутствует сообщение 'Некоторые ссылки отсутствуют в результатах поиска в силу требований законодательства РФ.' и ссылка 'Подробнее'
+    - screenshot: Внешний вид фичи [antimirror-bottom]
+    - do: Нажать на кнопку 'Подробнее'
+    - assert: В новой вкладке открылся сервис 'Яндекс Справка'
+    - tech: Сработал счетчик '/wiz/anti_mirror/detail', vars 'pos=lower,source=wizard'
+
+files:
+  - features/desktop/misspell/misspell_type_antimirror.hermione.js
+
+priority: medium
+
+v-team: Suggest_Freshness
+
+tags:
+  - meta
+  - wizard
+  - misspell
+  - reviewed
+
+tlds: [ru, by, ua, kz]
+

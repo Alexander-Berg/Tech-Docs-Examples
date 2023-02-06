@@ -1,0 +1,16 @@
+feature:  Умный дом - тандем с ТВ
+
+specs:
+    Умный дом - тандем с ТВ:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/4366
+        - release_Webview
+        - platform_searchapp
+        - platform_common
+        - testid_459841
+        - webview_regress
+    - do: "Preconditions На аккаунте есть ТВ и хотя бы одна колонка"
+    - do: "Открыть настройки ТВ; "
+    - assert: "Есть пункт создания тандема; ![](https://jing.yandex-team.ru/files/osennikovak/2022-04-08T14:38:02Z.bf63536.png)"
+    - do: "Нажать создание тандема; Выбрать любую колонку, сохранить"
+    - assert: "Создался тандем; Команды в колонку выполняются на ТВ (в т.ч. отображается шторка на тв)"

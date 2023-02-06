@@ -1,0 +1,22 @@
+feature: LcEventsSmallInfo
+
+tags: no_assessors
+
+specs:
+ Дефолтная секция инфо (мини):
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lceventssmallinfo/default.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+ Cекция инфо (мини) с открытой регистрацией:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lceventssmallinfo/registration-opened.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/components/LcEventsSmallInfo/__tests__/LcEventsSmallInfo.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: ratyulenev
+
+tlds: none

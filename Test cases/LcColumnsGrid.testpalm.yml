@@ -1,0 +1,39 @@
+feature: LcColumnsGrid
+
+tags: no_assessors
+
+specs:
+  Внешний вид блока. Одна колонка:
+    - do: открыть страницу https://yandex.ru/turbo?stub=lccolumnsgrid/withOneColumn.json
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Внешний вид блока. Две колонки:
+    - do: открыть страницу https://yandex.ru/turbo?stub=lccolumnsgrid/withTwoColumns.json
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Внешний вид блока. Три колонки:
+    - do: открыть страницу https://yandex.ru/turbo?stub=lccolumnsgrid/wthThreeColumns.json
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Внешний вид блока. Четыре колонки:
+    - do: открыть страницу https://yandex.ru/turbo?stub=lccolumnsgrid/withFourColumns.json
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Внешний вид блока. Один товар:
+    - do: открыть страницу https://yandex.ru/turbo?stub=lccolumnsgrid/withOneGood.json
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Внешний вид блока. Одна висящая карточка:
+    - do: открыть страницу https://yandex.ru/turbo?stub=lccolumnsgrid/withOneHangCard.json
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/components/LcColumnsGrid/__tests__/LcColumnsGrid.hermione.js
+
+v-team: Lc
+
+tlds: none
+
+manager: nuyakshin
+
+qa-engineer: olimiya, shinuta

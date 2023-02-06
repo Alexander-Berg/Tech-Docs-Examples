@@ -1,0 +1,15 @@
+feature: BeruRatingReviews
+
+specs:
+  Внешний вид блока:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=beruratingreviews/default.json
+    - screenshot: внешний вид [plain]
+
+files:
+  - platform/components/BeruRatingReviews/BeruRatingReviews.tests/BeruRatingReviews@phone.hermione.js
+
+v-team: Beru
+
+manager: seoshnik
+
+tlds: none

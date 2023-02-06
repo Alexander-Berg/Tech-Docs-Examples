@@ -1,0 +1,35 @@
+feature: Афиша
+type: Событие выставка
+
+specs:
+  Внешний вид и нажатие на кнопку:
+    - do: получить выдачу Поиска по запросу 'кремлевский дворец афиша' _ALTERNATIVE_SEARCH_QUERIES_
+    - screenshot: на выдаче есть колдунщик Афиши с кнопкой 'Расписание и билеты' [afisha-event-art]
+    - do: кликнуть в кнопку 'Расписание и билеты'
+    - assert: в новой вкладке открылась Яндекс.Афиша на расписании искомой выставки
+    - tech: проверить счетчик ссылки в кнопке 'Расписание и билеты' /$page$/$main/$result[@wizard_name="afisha" and @subtype="event"]/actions/button
+    - assertMetrics: '*'
+
+files:
+  - features/afisha/afisha-event-art/afisha-event-art@deskpad.hermione.js
+
+v-team: VanillaGeo
+
+tags:
+  - title
+  - greenurl
+  - thumb
+  - button
+  - key-value
+  - skip_e2e_check
+  - no_assessors
+
+counter: /$page$/$main/$result[@wizard_name="afisha" and @subtype="event"]/actions/button
+
+tlds:
+  - ru
+  - by
+  - ua
+  - kz
+  - uz
+  - com

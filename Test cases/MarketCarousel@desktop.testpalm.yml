@@ -1,0 +1,195 @@
+feature: Товарная галерея
+
+specs-integration:
+  Проверка наличия:
+    - tags: smoke
+    - do: получить выдачу по запросу 'купить принтер' _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: первым результатом поисковой выдачи является товарная галерея
+    - counter: /$page/$top/$result/marketCarousel
+
+specs:
+  По типу карточки:
+    Офферы Директа:
+      Карусель должна отображаться, если пришло больше 2-х офферов Директа без маркетных офферов:
+        - params:
+            foreverdata: '2055513564'
+        - do: получить выдачу по запросу 'foreverdata'
+        - assert: |
+            в результатах поисковой выдачи присутствует рекламная галерея (только директовые оферы),
+            обращаем внимание не на сами картинки, а на их наличие, картинки могут быть любые
+        - screenshot: внешний вид [direct-offers]
+
+      Карусель не должна отображаться, когда пришло 2 директовых оффера без маркетных офферов:
+        - params:
+            foreverdata: '156200853'
+        - do: получить выдачу по запросу 'foreverdata'
+        - assert: в результатах поисковой выдачи отсутствует рекламная галерея
+
+      Декодирование спец символов в названии директового оффера:
+        - params:
+            foreverdata: '3617967145'
+        - do: получить выдачу по запросу 'foreverdata'
+        - assert: |
+            в результатах поисковой выдачи присутствует рекламная галерея (только директовые оферы)
+            в названии оффера используются « и », а не их коды (&laquo;) и (&raquo;)
+        - screenshot: внешний вид 1-ого оффера [direct-offer-decoded]
+        - assert: в результатах поисковой выдачи отсутствует рекламная галерея
+
+      Поддерржка старой цены:
+        - params:
+            foreverdata: '3449572634'
+        - do: получить выдачу по запросу 'foreverdata'
+        - assert: |
+            в результатах поисковой выдачи присутствует рекламная галерея
+            в первом оффере присутствует старая перечеркнутая цена
+        - screenshot: внешний вид 1-ого оффера [direct-offer-old-price]
+
+    Офферы Маркета:
+      Карусель должна отображаться для офферов маркета:
+        - tags: no_assessors
+        - params:
+            foreverdata: '499880711'
+        - do: получить выдачу по запросу 'foreverdata'
+        - assert: в результатах поисковой выдачи присутствует рекламная галерея (оферная)
+        - screenshot: внешний вид [market-offers]
+      Внешний вид с дисклеймерами:
+        - tags: no_assessors
+        - params:
+            foreverdata: '3282771238'
+        - do: получить выдачу по запросу 'foreverdata'
+        - assert: в результатах поисковой выдачи присутствует рекламная галерея
+        - assert: у карточек Маркета (карточки с тележкой Маркета) в рекламной галерее есть дисклеймеры
+        - screenshot: внешний вид [market-offers-with-disclaimers]
+
+    Модельная:
+      Карусель должна отображаться для моделей Маркета:
+        - tags: no_assessors
+        - params:
+            foreverdata: '2562962663'
+        - do: получить выдачу по запросу 'foreverdata'
+        - assert: в результатах поисковой выдачи присутствует рекламная галерея (модельная)
+        - screenshot: внешний вид [market-models]
+
+    Неявная:
+      Карусель не должна отображаться, когда пришло меньше 3-х офферов директа без маркетных офферов:
+        - tags: no_assessors
+        - params:
+            foreverdata: '1261002851'
+        - do: получить выдачу по запросу 'foreverdata'
+        - assert: в результатах поисковой выдачи отсутствует рекламная галерея
+
+      Карусель должна отображаться, когда пришло 3 оффера директа без маркетных офферов:
+        - tags: no_assessors
+        - params:
+            foreverdata: '3561208592'
+        - do: получить выдачу по запросу 'foreverdata'
+        - assert: в результатах поисковой выдачи присутствует рекламная галерея (неявная). В галереи только 4 оффера директа
+        - screenshot: внешний вид [direct-implicit-models]
+
+      Карусель должна отображаться для неявных моделей Маркета:
+        - tags: no_assessors
+        - params:
+            foreverdata: '1073933814'
+        - do: получить выдачу по запросу 'foreverdata'
+        - assert: в результатах поисковой выдачи присутствует рекламная галерея (неявная)
+        - screenshot: внешний вид [market-implicit-models]
+
+      Если есть товары маркета, то должно быть максимум два товара Директа:
+        - tags: no_assessors
+        - params:
+            foreverdata: '3316108464'
+        - do: получить выдачу по запросу 'foreverdata'
+        - assert: в результатах поисковой выдачи присутствует рекламная галерея (неявная). В которой есть товары маркета и только два товара директа
+        - screenshot: внешний вид [market-implicit-models-max-direct-offers]
+
+      Проверка счетчиков:
+        - tags: no_assessors
+        - params:
+            foreverdata: '3316108464'
+        - do: получить выдачу по запросу 'foreverdata'
+        - do: кликнуть на картинку карточки
+        - tech: сработал счетчик '/$page/$top/$result/marketCarousel/scroller/productCard/thumb'
+        - assert: переход на yabs.yandex.ru
+        - do: кликнуть на область под картинкой карточки (кликабельный оверлей поверх всех остальных ссылок)
+        - tech: сработал счетчик '/$page/$top/$result/marketCarousel/scroller/productCard/linkOverlay'
+        - do: кликнуть на заголовок карточки
+        - tech: сработал счетчик '/$page/$top/$result/marketCarousel/scroller/productCard/title'
+        - assert: переход на yabs.yandex.ru
+        - do: кликнуть на гринурл карточки
+        - tech: сработал счетчик '/$page/$top/$result/marketCarousel/scroller/productCard/greenUrl'
+        - assert: переход на yabs.yandex.ru
+
+    Офер Директа + Оферы Маркета:
+      Карусель должна отображать оферы Директа и офферы Маркета:
+        - params:
+            foreverdata: '4167271971'
+        - do: получить выдачу по запросу 'foreverdata'
+        - assert: в результатах поисковой выдачи присутствует рекламная галерея с товарами маркета и директа
+        - screenshot: внешний вид [market-direct-offers]
+
+      Проверка внешнего вида офферов без картинок:
+        - params:
+            foreverdata: '4157967411'
+        - do: получить выдачу по запросу 'foreverdata'
+        - assert: в результатах поисковой выдачи присутствует рекламная галерея с товарами маркета и директа. Среди товаров есть товары без картинок
+        - screenshot: внешний вид [market-direct-offers-without-images]
+
+  Реакция при наведении курсора мыши:
+    Базовые проверки:
+      - tags: smoke_extended
+      - params:
+          foreverdata: '2410713847'
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: в результатах поисковой выдачи присутствует колдунщик Маркета (отсутствие картинок приемлимо)
+      - screenshot: внешний вид [MarketCarousel-before-hover]
+      - assert: при наведении курсора на карточку внешний вид изменяется в соответствии со скриншотом
+      - assert: тайтл карточки раскрылся до 4 строк
+      - screenshot: внешний вид первой карточки после наведения [MarketCarousel-first-after-hover]
+      - screenshot: внешний вид второй карточки после наведения [MarketCarousel-second-after-hover]
+
+  Проверка атрибутов логирования:
+    - tags: no_assessors
+    - params:
+        foreverdata: '3617967145'
+    - do: получить выдачу по запросу 'foreverdata'
+    - tech: |
+        сработал счетчик '/$page/$top/$result/marketCarousel/scroller/productCard' для 1-ого элемента карусели
+        в аттрибутах счетчика указан "type"="adv"
+
+  С дисклеймером:
+    Дисклеймер в тултипе в гринурле:
+      - tags: smoke
+      - params:
+          foreverdata: '1130659148'
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: на выдаче есть товарная галерея с карточкой товара, возле гринурла которого есть иконка информации
+      - screenshot: карточка товара со значком информации в гринурле[greenurl-disclaimer]
+      - do: навести мышку на значок информации
+      - assert: появился тултип с дисклеймером
+      - screenshot: галерея товаров с раскрытым тултипом [greenurl-disclaimer-tooltip]
+      - do: проскроллить страницу
+      - assert: тултип пропал
+    Работает на технологиях Яндекса:
+      - tags: smoke
+      - params:
+          foreverdata: '3585820438'
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: на выдаче есть товарная галерея с карточкой товара, возле гринурла которого есть иконка информации
+      - screenshot: карточка товара со значком информации в гринурле[gallery-item-business-unit]
+      - do: навести мышку на значок информации
+      - assert: появился тултип с дисклеймером
+      - screenshot: галерея товаров с раскрытым тултипом [gallery-greenurl-business-unit-tooltip]
+      - do: проскроллить страницу
+      - assert: тултип пропал
+
+files:
+  - src/features/Market/Market.features/MarketCarousel/MarketCarousel.test/MarketCarousel@desktop.hermione.js
+  - src/features/Market/Market.features/MarketCarousel/MarketCarousel.test/MarketCarousel@desktop.hermione.e2e.js
+
+v-team: ECOM
+
+tlds: all
+
+tags:
+  - ecom
+  - tgallery

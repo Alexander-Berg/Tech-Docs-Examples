@@ -1,0 +1,9 @@
+feature: yandex / Живость
+
+specs:
+  Проверка живости поиска:
+    - do: Открыть страницу с результатами поиска
+    - assert: Отображаются результаты поиска
+
+files:
+  - features/desktop/health/health.hermione.e2e.js

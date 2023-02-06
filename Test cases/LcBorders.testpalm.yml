@@ -1,0 +1,22 @@
+feature: LcBorders
+
+tags: no_assessors
+
+specs:
+    Границы показываются корректно:
+        - do: открыть страницу (https://yandex.ru/turbo?stub=lcborders/default.json)
+        - screenshot: внешний вид соответствует скриншоту [plain]
+    Границы показываются корректно для секции с фоном:
+        - do: открыть страницу (https://yandex.ru/turbo?stub=lcborders/with-background.json)
+        - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+    - platform/components/LcBorders/__tests__/LcBorders.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: ratyulenev
+
+tlds: none

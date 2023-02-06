@@ -1,0 +1,41 @@
+feature: Сетка
+
+specs:
+  beforeEach:
+    - do: открыть страницу 'https://www.mydevice.io/'
+    - do: получить разрешение viewport в альбомной и портретной ориентации
+    - assert: как минимум в одном из положений экрана, разрешение viewport строго больше 640 px. Выбрать ориентацию экрана, где ширина больше 640px (скорее всего альбомную).
+
+  Базовые проверки:
+    центрирование выдачи:
+      - params:
+          foreverdata: '3030239296'
+      - tags: [smoke_extended]
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: шапка располагается по центру
+      - assert: выдача располагается по центру
+      - assertMetrics: '-'
+  Карусель с боковыми ограничителями:
+    левый ограничитель:
+      - params:
+          foreverdata: '1037130956'
+      - tags: [smoke_extended]
+      - do: получить выдачу по запросу 'foreverdata'
+      - do: просвайпить карусель прогноза по времени справа налево до конца
+      - assert: слева отображается ограничитель карусели, выступающий на 2 px вверх и вниз
+      - assertMetrics: '-'
+
+files:
+  - features/touch-phone/grid/grid.hermione.js
+
+v-team: Beauty
+
+tags:
+  - reviewed
+  - no_assessors
+
+tlds: all
+
+browsers:
+  notFor:
+    - searchapp-phone

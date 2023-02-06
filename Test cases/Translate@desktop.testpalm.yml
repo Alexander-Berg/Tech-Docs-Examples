@@ -1,0 +1,16 @@
+feature: Спецсниппет фотоперевода
+
+specs:
+  Проверка формы загрузки картинки:
+    - tags: [no_assessors]
+    - do: получить выдачу по запросу 'фотоперевод'
+    - assert: появился сниппет фотоперевода
+    - do: кликнуть в синюю ссылку выбора файла
+    - tech: проверить метрики
+ 
+files:
+  - src/features/Translate/_ocr/Translate.test/Translate@desktop.hermione.js
+ 
+v-team: Translations_misspell
+ 
+tlds: all

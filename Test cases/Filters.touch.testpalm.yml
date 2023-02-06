@@ -1,0 +1,88 @@
+feature: SearchPage
+
+specs:
+  Категорийные фильтры:
+    Внешний вид:
+      - params:
+        exp_flags:
+          - all_filters=1
+      - do: открыть https://yandex.ru/products/search?text=телефон&promo=nomooa&exp_flags=all_filters=1
+      - assert: |
+          открылась страница с товарами
+          на странице есть фильтры
+      - screenshot: внешний вид [plain]
+    Раскрытие фильтров:
+      - params:
+        exp_flags:
+          - all_filters=1
+      - do: открыть https://yandex.ru/products/search?text=телефон&promo=nomooa&exp_flags=all_filters=1
+      - assert: |
+          открылась страница с товарами
+          на странице есть фильтры
+      - do: кликнуть на кнопку "Фильтры"
+      - assert: открылось модальное окно с фильтрами
+      - tech: сработал счетчик path="$page.$main.filtersButton"
+      - screenshot: внешний вид [plain]
+      - do: кликнуть на фильтр по цене
+      - assert: фильтр раскрылся
+      - screenshot: внешний вид [number-filter]
+      - do: кликнуть на кнопку назад в модальном окне
+      - assert: фильтр по цене скрылся
+      - do: кликнуть на фильтр по бренду
+      - assert: раскрылся фильтр по бренду
+      - screenshot: внешний вид [enum-filter]
+      - do: кликнуть на кнопку закрыть в модальном окне
+      - assert: модальное окно с фильтрами закрылось
+    Обновляют выдачу после выбора значения:
+       - params:
+        exp_flags:
+          - all_filters=1
+      - do: открыть https://yandex.ru/products/search?text=телефон&promo=nomooa&exp_flags=all_filters=1
+      - assert: |
+          открылась страница с товарами
+          на странице есть фильтры
+      - do: кликнуть на кнопку "Фильтры"
+      - assert: открылось модальное окно с фильтрами
+      - do: кликнуть на фильтр по бренду
+      - assert: раскрылся фильтр по бренду
+      - do: выбрать первое значение в списке и нажать "Готово"
+      - assert: появилась кнопка "Применить"
+      - do: кликнуть на кнопку "Применить"
+      - assert: выдача перезагрузилась
+      - tech: сработал счетчик path="$page.$main.filtersSubmitButton"
+    Обновляют выдачу после сброса выбранного значения:
+      - params:
+        exp_flags:
+          - all_filters=1
+      - do: открыть https://yandex.ru/products/search?text=телефон&promo=nomooa&exp_flags=all_filters=1
+      - assert: |
+          открылась страница с товарами
+          на странице есть выбранные фильтры
+      - do: кликнуть на кнопку "Фильтры"
+      - assert: открылось модальное окно с фильтрами
+      - do: кликнуть на кнопку "Сбросить"
+      - assert: выдача перезагрузилась
+      - tech: сработал счетчик path="$page.$main.button"
+
+    Поисковое поле:
+      - params:
+        exp_flags:
+          - all_filters=1
+      - do: открыть /products/search?text=джинсы
+      - assert: |
+          открылась страница с товарами
+          на странице есть фильтры
+      - do: кликнуть на кнопку "Фильтры"
+      - assert: открылось модальное окно с фильтрами
+      - do: кликнуть на фильтр по размеру
+      - screenshot: внешний вид поля поиска [empty]
+      - do: ввести "xs" в поле поиска
+      - screenshot: внешний вид поля поиска [with-text]
+      - assert: кол-во пунктов в фильтре изменилось
+      - do: кликнуть на крестик в поле поиска
+      - assert: кол-во пунктов вернулось к изначальному кол-ву
+
+v-team: goods
+
+files:
+    - src/pages/SearchPage/tests/Filters/Filters.touch.hermione.ts

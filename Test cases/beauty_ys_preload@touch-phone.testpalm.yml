@@ -1,0 +1,21 @@
+feature: Общая верстка страницы
+experiment: Yandex Sans preload
+
+specs:
+  Увеличение отступа между буквами:
+    - params:
+        exp_flags: beauty_ys_preload=0.4:0.9
+    - do: получить выдачу по запросу "Сасово"
+    - assert: |
+        на странице присутствует органический сниппет
+        расстоящие между буквами сильно увеличено
+    - screenshot: внешний вид [plain]
+
+files:
+  - features/beauty_ys_preload/beauty_ys_preload@touch-phone.hermione.js
+
+v-team: Beauty
+
+tags: pp_new_core
+
+tlds: all

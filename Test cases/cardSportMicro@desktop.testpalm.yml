@@ -1,0 +1,16 @@
+feature: card
+
+specs:
+  Внешний вид микро-карточки Спорта:
+    - do: открыть страницу "https://yandex.ru/turbo?stub=card/sport-micro.json"
+    - screenshot: внешний вид карточки с изображением соответствует скриншоту [picture-card]
+    - screenshot: внешний вид карточки без изображения соответствует скриншоту [plain]
+
+files:
+  - platform/components/Card/__tests__/cardSportMicro@desktop.hermione.js
+
+v-team: News
+
+manager: skhovaev
+
+tlds: none

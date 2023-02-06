@@ -1,0 +1,20 @@
+feature: Флаг для внедрения css
+
+specs:
+  перекрашивает background логотипа "Яндекс" в жёлтый:
+    - tags:
+      - no_assessors
+    - params:
+        flags:
+          - yxneo_css-injection=.serp-header__logo%20%7B%20background%3A%20yellow%20%7D
+    - do: открыть страницу по ссылке 'https://yandex.ru/news?flags=yxneo_css-injection=.serp-header__logo%20%7B%20background%3A%20yellow%20%7D'
+    - assert: внешний вид соответствует скриншоту [plain]
+
+files:
+  - features/news/cssInjection/cssInjection.desktop.hermione.js
+
+manager: mrwhite
+
+qa-engineer: volkhonov
+
+tlds: none

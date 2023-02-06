@@ -1,0 +1,76 @@
+feature: Оргмн
+type: Карусель
+
+specs:
+  Внешний вид:
+    - params:
+        foreverdata: '3998985270'
+    - do: получить выдачу по запросу "foreverdata"
+    - assert: на странице присутствует карусель организаций
+    - screenshot: внешний вид [list]
+    - do: навести курсор на первую карточку из списка
+    - screenshot: внешний вид карточки с наведенным курсором [card-hover]
+  Клик в тумбу:
+    - do: получить выдачу по запросу "кафе в москве на тверской 26"
+    - assert: на странице присутствует карусель организаций
+    - do: нажать на середину первой тумбу первой не рекламной карточки (карточка без лейбла "реклама")
+    - tech: сработал счётчик /$page/$top/$result/companies-map-list/carousel/showcase/item/topic [@externalId@entity = "organization" and @externalId@id]
+    - assert: выдача перезагрузилась
+  Клик в отзывы:
+    - do: получить выдачу по запросу "кафе в москве на тверской 26"
+    - assert: на странице присутствует карусель организаций
+    - do: нажать на синюю ссылку "N отзывов" первой не рекламной карточки (карточка без лейбла "реклама")
+    - tech: сработал счётчик /$page/$top/$result/companies-map-list/carousel/showcase/item/reviews [@externalId@entity = "organization" and @externalId@id]
+    - assert: выдача перезагрузилась
+  Телефон:
+    - params:
+        foreverdata: '3998985270'
+    - do: получить выдачу по запросу "foreverdata"
+    - assert: на странице присутствует карусель организаций
+    - assert: на странице есть карточки со скрытыми телефонами вида "+7 (495) 123-XX-XX"
+    - do: навести курсор на сиюнюю ссылку телефона
+    - screenshot: внешний вид телефона с наведенным курсором [phone-hover]
+    - do: нажать на синюю ссылку телефона
+    - tech: сработал счётчик /$page/$top/$result/companies-map-list/carousel/showcase/item/phone[@action = "phone" and @externalId@entity = "organization" and @externalId@id and @behaviour@type = "dynamic"]
+    - tech: отправился счетчик цели звонка mc.yandex.ru/watch/43544103422 с параметром call
+    - assert: телефон показался целиком
+    - screenshot: внешний вид раскрытого телефона [phone-full]
+  Кнопка Advert:
+    - params:
+        foreverdata: '3998985270'
+    - do: получить выдачу по запросу "foreverdata"
+    - assert: на странице присутствует карусель организаций
+    - assert: на странице есть карточка с кнопкой
+    - do: нажать на кнопку
+    - assert: открылась ссылка в новой вкладке
+    - tech: сработал счётчик /$page/$top/$result/companies-map-list/carousel/showcase/item/advert[@action = "cta" and @externalId@entity = "organization" and @externalId@id and !@behaviour]
+  Внешний вид тултипа:
+    - do: получить выдачу по запросу "гибдд екатеринбург адреса"
+    - assert: на странице присутствует карусель организаций
+    - do: навести указатель на название организации в списке
+    - assert: появился тултип с полным названием организации
+    - screenshot: внешний вид [tooltip]
+    - assertMetrics: '*'
+  Условия подключения:
+    - do: получить выдачу по запросу "наращивание ресниц каменск"
+    - assert: на выдаче в правой колонке есть список организаций
+    - do: нажать на ссылку "Условия подключения" в футере списка
+    - assert: открылась ссылка в новой вкладке
+    - tech: сработал счётчик path="/$page/$parallel/$result/composite/object-footer/sprav"
+  Мишлен:
+    - params:
+        foreverdata: '2769162378'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на странице присутствует карусель организаций
+    - assert: над каруселью есть заголовок
+    - screenshot: пример внешнего вида заголовка и карточек [michelin]
+
+files:
+  - features/companies/orgmn-carousel/orgmn-carousel@desktop.hermione.js
+
+tags:
+  - skip_e2e_check
+
+tlds: all
+
+v-team: VanillaGeo

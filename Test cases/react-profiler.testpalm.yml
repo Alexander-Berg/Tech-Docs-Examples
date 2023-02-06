@@ -1,0 +1,19 @@
+feature: React profiler
+
+specs:
+  Базовые проверки:
+    - params:
+        exp_flags: use_react_profiling=2
+    - do: получить выдачу по запросу "котики"
+    - assert: в консоли DevTools содержится сообщение - "React profile stats"
+
+files:
+  - features/common/react-profiler/react-profiler.hermione.js
+
+v-team: Velocity
+
+tags: no_assessors
+
+priority: low
+
+tlds: ru

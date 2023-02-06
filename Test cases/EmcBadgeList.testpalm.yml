@@ -1,0 +1,51 @@
+feature: EmcBadgeList
+
+tags: no_assessors
+
+specs:
+  Обычные бейджи:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emcbadgelist/default.json)
+    - screenshot: внешний вид соответствует скриншоту [emcbadgelist]
+
+  Бейджи с выравниванием по центру:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emcbadgelist/center.json)
+    - screenshot: внешний вид соответствует скриншоту [emcbadgelist]
+
+  Бейджи с выравниванием по правому краю:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emcbadgelist/right.json)
+    - screenshot: внешний вид соответствует скриншоту [emcbadgelist]
+
+  Список из 5 бейджей:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emcbadgelist/five-items.json)
+    - screenshot: внешний вид соответствует скриншоту [emcbadgelist]
+
+  Бейджи без заголовка:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emcbadgelist/wout-title.json)
+    - screenshot: внешний вид соответствует скриншоту [emcbadgelist]
+
+  Бейджи без заголовка и подписей:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emcbadgelist/wout-title-and-descriptions.json)
+    - screenshot: внешний вид соответствует скриншоту [emcbadgelist]
+
+  Бейджи c emc-rich-text:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emcbadgelist/emc-rich-text.json)
+    - screenshot: внешний вид соответствует скриншоту [emcbadgelist]
+
+  Обычные бейджи (в колонке):
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emcbadgelist/default-columns.json)
+    - screenshot: внешний вид соответствует скриншоту [emcbadgelist]
+
+  Бейджи с выравниванием по центру (в колонке):
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emcbadgelist/center-columns.json)
+    - screenshot: внешний вид соответствует скриншоту [emcbadgelist]
+
+files:
+  - platform/components/EmcBadgeList/__tests__/EmcBadgeList.hermione.js
+
+v-team: Lc
+
+manager: polyakovadi
+
+qa-engineer: pankov97
+
+tlds: none

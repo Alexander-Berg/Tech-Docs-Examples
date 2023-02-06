@@ -1,0 +1,16 @@
+feature: Сниппет
+
+specs:
+  Основные проверки:
+    - do: открыть страницу yandex.ru/turbo?stub=snippet%2Fdefault.json
+    - screenshot: блоки отображатся корректно [page]
+    - tech: Страница не содержит клиентских ошибок
+
+files:
+  - features/blocks/snippet/snippet.hermione.js
+
+v-team: Turbo
+
+tags: reviewed
+
+tlds: none

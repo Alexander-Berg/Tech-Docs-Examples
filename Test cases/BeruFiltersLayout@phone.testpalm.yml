@@ -1,0 +1,21 @@
+feature: beruFiltersLayout
+
+specs:
+  Внешний вид блока со всеми опциями:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=berufilterslayout/all-options.json
+    - assert: должен быть виден основной лэйаут страницы фильтров
+    - screenshot: внешний вид [all-options]
+  Внешний вид блока c кнопкой в состоянии загрузки:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=berufilterslayout/load-state.json
+    - assert: должен быть виден основной лэйаут страницы фильтров в котором кнопка отображается со спинером
+    - screenshot: внешний вид [load-state]
+
+
+files:
+  - platform/components/BeruFiltersLayout/BeruFiltersLayout.tests/BeruFiltersLayout@phone.hermione.js
+
+v-team: Beru
+
+manager: seoshnik
+
+tlds: none

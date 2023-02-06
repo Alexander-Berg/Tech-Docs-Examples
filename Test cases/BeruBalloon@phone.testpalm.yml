@@ -1,0 +1,16 @@
+feature: beruBalloon
+
+specs:
+  Внешний вид блока:
+    - do: открыть страницу примера блока beruBalloon (/turbo?stub=beruballoon/default.json)
+    - assert: должен быть виден "шарик" с циферкой
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/components/BeruBalloon/__tests__/BeruBalloon@phone.hermione.js
+
+v-team: Beru
+
+manager: seoshnik
+
+tlds: none

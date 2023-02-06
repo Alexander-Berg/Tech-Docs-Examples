@@ -1,0 +1,62 @@
+feature: Внутренний оффер
+type: Удаление внутреннего оффера
+
+specs:
+    Удаление внутреннего оффера со статусом 'Готов к согласованию' [manual]:
+        - automation: FEMIDA-5190
+        - do: открыть страницу оффера offers/<id_оффера>/ со статусом 'Готов к согласованию' и типом вывода 'Ротация'
+        - assert: |
+            открылась страница оффера кандидата
+            есть кнопка 'Удалить'
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/klimovich-a/browser_KsMet5xmDF.png]
+        - do: клик 'Удалить'
+        - screenshot: открылся попап подтверждения удаления [https://jing.yandex-team.ru/files/klimovich-a/browser_7e2ZoqQqZc.png]
+        - do: заполнить поле 'Причина удаления' 
+        - do: клик 'Удалить'
+        - assert: |
+            попап подтверждения закрылся
+            статус оффера изменился на 'Удалён'
+            исчезла кнопка 'Удалить'
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/klimovich-a/browser_E8ocT8Ihvp.png]
+    Удаление внутреннего оффера со статусом 'Согласование' [manual]:
+        - automation: FEMIDA-5190
+        - do: открыть страницу оффера offers/<id_оффера>/ со статусом 'Согласование' и типом вывода 'Ротация'
+        - assert: |
+            открылась страница оффера кандидата
+            есть кнопка 'Удалить'
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/klimovich-a/browser_GW7rK8cHnN.png]
+        - do: клик 'Удалить'
+        - screenshot: открылся попап подтверждения удаления [https://jing.yandex-team.ru/files/klimovich-a/browser_OOUgBnGyAl.png]
+        - do: заполнить поле 'Причина удаления' 
+        - do: клик 'Удалить'
+        - assert: |
+            попап подтверждения закрылся
+            статус оффера изменился на 'Удалён'
+            исчезла кнопка 'Удалить'
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/klimovich-a/browser_RyJpZ7AGBs.png]
+    Удаление внутреннего оффера со статусом 'Согласование ротации отдающей стороной' [manual]:
+        - automation: FEMIDA-5190
+        - do: открыть страницу оффера offers/<id_оффера>/ со статусом 'Согласование ротации отдающей стороной'
+        - assert: |
+            открылась страница оффера кандидата
+            есть кнопка 'Удалить'
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/klimovich-a/browser_8yO8ABpelN.png]
+        - do: клик 'Удалить'
+        - screenshot: открылся попап подтверждения удаления [https://jing.yandex-team.ru/files/klimovich-a/browser_7e2ZoqQqZc.png]
+        - do: заполнить поле 'Причина удаления' 
+        - do: клик 'Удалить'
+        - assert: |
+            попап подтверждения закрылся
+            статус оффера изменился на 'Удалён'
+            исчезла кнопка 'Удалить'
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/klimovich-a/browser_h8vjbJAJXE.png]
+
+tags:
+  - reviewed
+
+priority: critical
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

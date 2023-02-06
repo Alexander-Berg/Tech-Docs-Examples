@@ -1,0 +1,23 @@
+feature: Дерево сервисов
+
+specs:
+  beforeEach:
+    - tech: залогиниться под пользователем robot-internal-002
+
+  Положительные:
+    1. Переход на страницу конкретного сервиса:
+     - automation: ABC-10051
+     - do: открыть главную страницу ABC (/)
+     - screenshot: в списке сервисов есть сервис с названием "GOV UA" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-05-13%2020-08-23.png]
+     - do: кликнуть на название сервиса "GOV UA"
+     - assert: |
+            произошёл переход на страницу сервиса "GOV UA" (/services/gov_ua/)
+            на странице сервиса выбран таб "О сервисе"    
+     - screenshot: примерный вид страницы сервиса "GOV UA" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-05-13%2020-11-06.png]
+
+files: []
+
+priority: blocker
+
+tags:
+ - reviewed

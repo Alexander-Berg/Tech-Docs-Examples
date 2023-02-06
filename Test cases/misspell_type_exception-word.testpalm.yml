@@ -1,0 +1,51 @@
+feature: Опечатка и Ко
+type: Исключены результаты в одной фразе
+
+specs:
+  Базовое поведение:
+    - do: получить выдачу по запросу "москва ~ париж"
+    - assert: под поисковой стрелкой присутствует сообщение "Исключены результаты со словом «париж» в одной фразе" и кнопка "Отменить"
+    - screenshot: внешний вид [exception-word]
+    - do: кликнуть в кнопку "Отменить"
+    - assert: выдача обновилась
+    - assert: получена выдача по запросу "москва париж"
+    - tech: сработал счетчик '/wiz/minuswords/all', vars 'source=wizard,pos=top'
+    - assertMetrics: '*'
+
+specs-integration:
+  Базовое поведение:
+    - do: получить выдачу по запросу "москва ~ париж"
+    - assert: на выдаче присутствует опечаточник с сообщением "Исключены результаты со словом «париж» в одной фразе"
+    - assert: справа от сообщения присутствует кнопка "Отменить"
+    - do: нажать кнопку "Отменить"
+    - assert: выдача обновлена
+    - assert: на выдаче отсутствует сообщение "Исключены результаты со словом «париж» в одной фразе"
+    - tech: сработал счетчик '/wiz/minuswords/all', vars 'source=wizard,pos=top'
+
+files:
+  - features/common/misspell/misspell_type_exception-word.hermione.js
+  - features/common/misspell/misspell_type_exception-word.hermione.e2e.js
+
+v-team: Freshness
+
+tags:
+  - button
+  - die
+  - yaani
+  - granny
+  - meta
+  - wizard
+  - misprint
+  - mgranny
+  - reviewed
+
+priority: high
+
+counter: /wiz/minuswords
+
+tlds:
+  - ru
+  - by
+  - ua
+  - kz
+  - uz

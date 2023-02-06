@@ -1,0 +1,29 @@
+feature: Видеосниппет
+
+tags: [smoke]
+priority: normal
+
+tlds:
+  - ru
+  - ua
+  - by
+  - kz
+  - com
+  - com.tr
+
+specs:
+  Запуск видео-превью с большой иконкой на постере:
+    - do: получить выдачу по запросу 'как варить рис видео'
+    - assert: в выдаче есть сниппеты с видео-постером слева
+    - screenshot: постер видеосниппета выглядит корректно [plain]
+    - do: навести курсор на постер
+    - assert: |
+        запустилось видео в постере
+        при проигрывании ролика на постере нет метки длительности
+        постер видеосниппета в конце проигрывания видео выглядит корректно 
+    - screenshot:  вид постера после окончания [end]
+
+files:
+  - features/desktop/adapter-snip-videothumb/adapter-snip-videothumb_preview_video.hermione.js
+
+v-team: Video

@@ -1,0 +1,24 @@
+feature: Стихолюб
+type: Коран
+
+specs:
+  Проверка ссылок:
+    - do: получить выдачу Поиска по запросу 'فَقَدْ كَذَّبُوا بِالْحَقِّ لَمَّا'
+    - screenshot: на выдаче есть колдунщик Стихолюб, пример внешнего вида по умолчанию [plain]
+    - do: кликнуть/тапнуть на первую ссылку в разделе 'Nerede okunabilir'
+    - assert: в новой вкладке открывается сайт-источник
+    - tech: проверить счетчик на ссылке источника /$page/$main/$result/key-value/url[@pos=0]
+    - assertMetrics: '-'
+
+files:
+  - src/features/Lyrics/Lyrics.test/koran/lyrics_type_koran@common.hermione.js
+
+v-team: Facts
+
+tlds: com.tr
+
+counter: /$page/$main/$result[@wizard_name="poetry_lover"]
+
+tags:
+  - reviewed
+  - react

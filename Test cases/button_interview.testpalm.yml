@@ -1,0 +1,25 @@
+feature: Кандидат.Испытания
+type: Кнопка серий секций
+
+specs:
+  Проверка кнопки создания:
+    - do: открыть страницу кандидата /candidates/<id_кандидата>/interviews/ , который не закрыт и на нем нет оффера
+    - screenshot: на вкладке 'Испытания' присутствует кнопка 'Создать серию секций' [consideration_list_header]
+    - do: клик на кнопку 'Создать серию секций'
+    - assert: произошел переход на страницу /candidates/<id_кандидата>/interviews/create
+  Проверка отсутствия кнопки:
+    - do: открыть страницу кандидата /candidates/<id_кандидата>/interviews/ , который закрыт или на нем есть оффер
+    - screenshot: на вкладке 'Испытания' отсутствует кнопка 'Создать серию секций' [consideration_list_header]
+
+tags:
+  - reviewed
+
+files:
+  - tests/hermione/suites/desktop/candidates/interviews/interview_rounds/button_interview/button_interview.hermione.js
+
+priority: minor
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

@@ -1,0 +1,19 @@
+feature:  Онбординг на станции-мини -- управление жестами
+
+specs:
+    Онбординг на станции-мини -- управление жестами:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/2663
+        - release_Webview
+        - platform_common
+    - do: "Preconditions На аккаунте есть станция мини"
+    - do: "Открыть настройки станции мини -> Управление жестами -> пролистать онбординги"
+    - assert: "Онбординги: ; https://yadi.sk/i/L7EYIVXAXlNEfw; https://yadi.sk/i/036DcUjBUsSV-Q; https://yadi.sk/i/xzAutKvmkaZEbA; Последним отображается тоггл ; https://yadi.sk/i/ZtB-xQcEQxpivA"
+    - do: "Выключить его и сохранить; Зайти снова на Управление жестами"
+    - assert: "Отображается выключенный тоггл https://yadi.sk/i/qmJ07I5cuKLGBQ"
+    - do: "Включить тоггл"
+    - assert: "Появляется предложение просмотреть онбординги https://yadi.sk/i/ProGbLveKYRkWg"
+    - do: "Нажать `Позже`, повторить шаг 1 и 2"
+    - assert: ""
+    - do: "Включить тоггл, нажать `Да`"
+    - assert: "Появляются онбординги, 3 экрана из п.1"

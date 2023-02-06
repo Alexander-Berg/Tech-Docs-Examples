@@ -1,0 +1,20 @@
+feature: Детальный список результатов матчей
+
+specs:
+  Базовый вид:
+    - tags:
+      - sportauto
+    - do: открыть мок /turbo?stub=sportresultdetaillist/default.json
+    - assert: блок виден
+    - screenshot: внешний вид соответствует скриншоту [default]
+
+files:
+  - platform/components/SportResultDetailList/__tests__/SportResultDetailList.hermione.js
+
+v-team: Sport
+
+qa-engineer: nightsonne
+
+manager: skhovaev
+
+tlds: none

@@ -1,0 +1,100 @@
+feature: SocialBar
+
+specs:
+    Проверка видимости контейнера:
+        - params:
+            exp_flags:
+                - commentator-button=conditional
+                - sticky-sociality=1
+        - do: авторизоваться на yandex.ru
+        - do: перейти по адресу https://yandex.ru/turbo?stub=socialpanel/article.json
+        - assert: кнопки слева страницы отсутствуют
+        - do: немного проскроллить вниз
+        - assert: появились кнопки слева
+        - assert: плашка "Написать комментарий" отобразилась одновременно с кнопками
+        - screenshot: внешний вид соответствует скриншоту [plain]
+        - do: скроллить вниз до конца страницы
+        - assert: кнопки слева пропали
+    Логика кнопки комментариев:
+        - params:
+            exp_flags:
+                - commentator-button=conditional
+                - sticky-sociality=1
+        - do: авторизоваться на yandex.ru
+        - do: перейти по адресу https://yandex.ru/turbo?stub=socialpanel/article.json
+        - assert: кнопки слева страницы отсутствуют
+        - do: немного проскроллить вниз
+        - assert: появилась круглая кнопка с иконкой комментариев, отобажается количество комментариев
+        - do: кликнуть по кнопке комментариев
+        - assert: страница проскроллилась вниз до блока с комментариями
+        - assert: фокус на поле ввода комментариев
+    На страницах с брендированием нет кнопок социальности:
+        - params:
+            exp_flags:
+                - sticky-sociality=1
+                - branding=1
+        - do: перейти по адресу https://yandex.ru/turbo?stub=socialpanel/article.json
+        - assert: кнопки слева страницы отсутствуют
+        - do: проскроллить немного вниз
+        - assert: кнопки не появляются
+    Серые уши layout-all-w1400:
+        - params:
+            exp_flags:
+                - sticky-sociality=1
+        - do: перейти по адресу https://yandex.ru//turbo?stub=socialbar/layout-all.json
+        - do: изменить ширину окна браузера до 1400 пикселей
+        - screenshot: страница соответствует скриншоту [plain]
+    Серые уши layout-all-w1700:
+        - params:
+            exp_flags:
+                - sticky-sociality=1
+        - do: перейти по адресу https://yandex.ru//turbo?stub=socialbar/layout-all.json
+        - do: изменить ширину окна браузера до 1700 пикселей
+        - screenshot: страница соответствует скриншоту [plain]
+    Серые уши layout-left-w1200:
+        - params:
+            exp_flags:
+                - sticky-sociality=1
+        - do: перейти по адресу https://yandex.ru//turbo?stub=socialbar/layout-left.json
+        - do: изменить ширину окна браузера до 1200 пикселей
+        - screenshot: страница соответствует скриншоту [plain]
+    Серые уши layout-left-w1400:
+        - params:
+            exp_flags:
+                - sticky-sociality=1
+        - do: перейти по адресу https://yandex.ru//turbo?stub=socialbar/layout-left.json
+        - do: изменить ширину окна браузера до 1400 пикселей
+        - screenshot: страница соответствует скриншоту [plain]
+    Серые уши layout-right-w1300:
+        - params:
+            exp_flags:
+                - sticky-sociality=1
+        - do: перейти по адресу https://yandex.ru//turbo?stub=socialbar/layout-right.json
+        - do: изменить ширину окна браузера до 1300 пикселей
+        - screenshot: страница соответствует скриншоту [plain]
+    Серые уши layout-right-w1400:
+        - params:
+            exp_flags:
+                - sticky-sociality=1
+        - do: перейти по адресу https://yandex.ru//turbo?stub=socialbar/layout-right.json
+        - do: изменить ширину окна браузера до 1400 пикселей
+        - screenshot: страница соответствует скриншоту [plain]
+    Проверка лайков:
+        - params:
+            exp_flags:
+                - sticky-sociality=1
+                - commentator-button=forever
+        - do: перейти по адресу https://yandex.ru/turbo?stub=socialpanel/article.json
+        - do: проскроллить вниз до появления кнопок слева страницы
+        - screenshot: страница соответствует скриншоту [with-likes]
+
+files:
+    - platform/components/SocialBar/__tests__/SocialBar@desktop.hermione.js
+
+v-team: Turbo
+
+manager: sergey-kuldin
+
+qa-engineer: olga0321, dakhetov
+
+tlds: none

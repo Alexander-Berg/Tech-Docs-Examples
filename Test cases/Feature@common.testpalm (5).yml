@@ -1,0 +1,18 @@
+feature: Feature-name
+
+params:
+  rearr: '1'
+
+specs:
+  First describe:
+    Should check first:
+      - do: something
+  Second describe:
+    beforeEach:
+      - do: production - before each
+    Should check second:
+      - do: production - some action
+
+tlds: all
+
+v-team: '2'

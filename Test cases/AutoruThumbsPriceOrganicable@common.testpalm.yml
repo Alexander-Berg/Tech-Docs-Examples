@@ -1,0 +1,46 @@
+feature: Колдунщик Авто.ру
+type: С витриной
+experiment: Органикализация
+
+specs:
+  Внешний вид:
+    - params:
+        foreverdata: '2780918842'
+    - do: получить выдачу по запросу foreverdata
+    - assert: на странице выдачи результатов появился колдунщик Авто.ру с галереей
+    - screenshot: внешний вид [plain]
+
+  Внешний вид с большим количеством карточек:
+    - params:
+        foreverdata: '2675294810'
+    - do: получить выдачу по запросу foreverdata
+    - assert: на странице выдачи результатов появился колдунщик Авто.ру с галереей
+    - screenshot: внешний вид [big-list]
+
+  Внешний вид с WEB_NAV (recommendation_label):
+    - params:
+        foreverdata: '1483370846'
+    - do: получить выдачу по запросу foreverdata
+    - assert: на странице выдачи результатов появился колдунщик Авто.ру с галереей и синей галочкой
+    - screenshot: внешний вид [with_recommendation_label]
+
+  Разметка Baobab:
+    - params:
+        foreverdata: '2675294810'
+    - tags: no_assessors
+    - do: получить выдачу по запросу "foreverdata"
+    - tech: сработал счётчик path=/$page/$main/$result/costplus[@type="auto"]
+    - tech: сработал счётчик path=/$page/$main/$result/costplus[@type="auto"]/data[@type="gallery"]
+    - tech: сработал счётчик path=/$page/$main/$result/costplus[@type="auto"]/data[@type="gallery"]/item
+    - tech: сработал счётчик path=/$page/$main/$result/costplus[@type="auto"]/data[@type="gallery"]/more_link
+
+files:
+  - src/features/AutoruThumbsPrice/AutoruThumbsPrice.test/AutoruThumbsPriceOrganicable@common.hermione.js
+
+v-team: UniSearch
+
+tags:
+  - skip_e2e_check
+
+tlds:
+  - ru

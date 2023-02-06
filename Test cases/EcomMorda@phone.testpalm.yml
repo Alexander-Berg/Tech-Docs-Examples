@@ -1,0 +1,36 @@
+feature: EcomMorda
+
+params:
+  exp_flags:
+    - analytics-disabled=1
+
+browsers:
+  - ios-safari-12-touch
+  - ios-safari-11-touch
+  - ios-safari-10-touch
+  - ios-safari-9-touch
+
+specs:
+  Внешний вид:
+    - tags: no_assessors
+    - do: открыть https://yandex.ru/turbo?stub=ecommorda/default.json
+    - screenshot: отступы соответствуют скриншоту [plain]
+  Без скидок:
+    - tags: no_assessors
+    - do: открыть https://yandex.ru/turbo?stub=ecommorda/without-sales.json
+    - screenshot: отступы соответствуют скриншоту [plain]
+
+files:
+  - platform/components/EcomMorda/__tests__/EcomMorda@phone.hermione.js
+
+tags:
+  - e-commerce
+  - no_assessors #раскатили новый дизайн на 100%
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: ianislav
+
+tlds: none

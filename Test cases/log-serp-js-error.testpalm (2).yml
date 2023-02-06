@@ -1,0 +1,25 @@
+feature: Логирование клиентских ошибок
+
+specs:
+  Проверка счетчиков:
+    - do: получить выдачу по запросу 'test'
+    - tech: вызвать функцию window.logSerpJsError c пустым урлом и проверить счетчик
+    - tech: вызвать функцию window.logSerpJsError c урлом ошибки extension_bindings и проверить счетчик
+    - tech: вызвать функцию window.logSerpJsError c урлом ошибки miscellaneous_binding и проверить счетчик
+    - tech: вызвать функцию window.logSerpJsError c протоколом урла 'chrome:' и проверить счетчик
+    - tech: вызвать функцию window.logSerpJsError c протоколом урла 'file:' и проверить счетчик
+    - tech: вызвать функцию window.logSerpJsError c урлом 'https://yandex.ru' и проверить счетчик
+    - tech: вызвать функцию window.logSerpJsError c урлом 'https://yandex.ru', catchType - 'test' и проверить счетчик
+    - tech: вызвать функцию window.onerror c урлом 'https://yandex.ru' и проверить счетчик
+
+files:
+  - features/common/log-serp-js-error/log-serp-js-error.hermione.js
+
+v-team: Techno
+
+tags:
+  - no_assessors
+  - counters
+  - reviewed
+
+tlds: none

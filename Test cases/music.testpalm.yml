@@ -1,0 +1,72 @@
+feature: Объектный ответ
+type: Музыка
+
+import-labels:
+  - features/deskpad/z-entity-search/music/music_pop_tracks.testpalm.yml
+
+specs:
+  Карточка альбома:
+    - label: 'entity-search/music/album-{{SET_NAME}}'
+    - params:
+        ento:
+          - '0oCgl5YW0wNjE5OTUYAvnWon8'
+    - do: получить выдачу по запросу "Мяу кисс ми" с параметром &ento=0oCgl5YW0wNjE5OTUYAvnWon8
+    - assert: |
+        на выдаче есть карточка Объектного ответа
+        в карточке есть постер альбома
+        в карточке есть блок с треками
+    - screenshot: внешний вид [plain]
+    - do: нажать на нопку "плей" первого трека
+    - assert: начал играть аудиотрек
+    - tech: сработал баобаб счетчик path='/$page/$parallel/$result/object-badge/music-pop-tracks/music-playlist/music-track'
+    - do: нажать на кнопку 'ещё 6 треков'
+    - assert: дозагрузились музыкальные треки
+    - tech: сработал baobab счётчик path='/$page/$parallel/$result/object-badge/music-pop-tracks/more'
+  Кнопка в Яндекс.Музыке в карточке альбома:
+    - params:
+        ento:
+          - '0oCgl5YW0wNjE5OTUYAvnWon8'
+    - do: получить выдачу по запросу "Мяу кисс ми" с параметром &ento=0oCgl5YW0wNjE5OTUYAvnWon8
+    - assert: |
+        на выдаче есть карточка Объектного ответа
+        в карточке есть постер альбома
+        в карточке есть кнопка "в Яндекс.Музыке"
+        в карточке есть блок с треками
+    - do: нажать на кнопку "в Яндекс.Музыке"
+    - assert: |
+        произошел переход на Яндекс Музыку на страницу альбома
+        в урле есть параметр from=serp_autoplay
+
+    - tech: сработал baobab счётчик path='/$page/$parallel/$result/music-button'
+
+  Логирование плеера музыки при ошибке:
+    - tags:
+      - no_assessors
+    - do: получить выдачу по запросу 'мадонна'
+    - assert: на выдаче есть карточка ОО с музыкальными треками
+    - tech: при ошибке проиграть трек сработал счетчик c type='music-fail', data='[@message=название ошибки]' и path='/$page/$parallel/$result/object-badge/music-pop-tracks/music-playlist'
+
+  Популярные треки:
+    Кнопка еще треки:
+      - do: получить выдачу по запросу 'muse'
+      - assert: |
+          появился колдунщик ОО
+          в колдунщике присутствует список популярных треков
+          в колдунщике присутствует кнопка 'еще 6 треков'
+      - screenshot: пример внешнего вида [music-pop-tracks-{{SET_NAME}} >> plain]
+      - do: нажать на кнопку тайтл 'ещё 6 треков'
+      - assert: раскрылся список и дозагрузилось еще 6 треков
+      - tech: сработал баобаб-счетчик '/$page/$parallel/$result/tabs/main/object-badge/music-pop-tracks/more'
+
+  Аудиотрек в карточке:
+    - do: получить выдачу по запросу 'Stereo Machine Gun Kelly' с параметром ento=0oCgtlbnczNzI5NTg4NBIRZW53NTM0ODQ1OTk6YXNzb2MYAlKTzos
+    - assert: на выдаче есть карточка ОО с музыкальными треками
+    - screenshot: примерный внешний вид аудиотрека [plain]
+
+
+files:
+  - features/desktop/z-entity-search/music/music.hermione.js
+
+tlds: ['ru']
+
+v-team: OO

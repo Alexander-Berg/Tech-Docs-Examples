@@ -1,0 +1,137 @@
+feature: Факт
+
+specs:
+  entity-fact:
+    - countert: /wiz/entity-fact/entity-fact
+    - do: получить выдачу по запросу 'сколько лет жириновскому'
+    - assert: над выдачей поиска есть врезка с фактом, на сером фоне
+    - screenshot: внешний вид факта [adapters/adapter-entity-fact/default-144-{{PLATFORM}} >> plain]
+    - assert: по тапу на первую часть с фактом 'Владимир Жириновский' происходит переход на выдачу поиска по запросу 'Жириновский'
+    - tech: проверить счетчик в вопросе
+
+  suggest-fact:
+    - counter: /wiz/suggest_fact
+    - tags: [smoke, smoke_extended]
+    - do: получить выдачу по запросу 'Призывной возраст в России'
+    - assert: над выдачей поиска есть врезка с фактом, содержащая ссылки на источник информации, зеленую и синюю ссылки
+    - tech: внешний вид c коротким текстом [construct/fact/fact-xxl-206-{{PLATFORM}} >> plain]
+    - tech: внешний вид c длинным текстом [construct/fact/fact-xl-207-{{PLATFORM}} >> plain]
+    - screenshot: появился колдунщик с примерным внешним видом как на скриншоте [construct/fact/fact-s-208-{{PLATFORM}} >> plain]
+    - assert: ссылки на источник ведут на нужную страницу
+    - tech: проверить счетчик в источнике данных
+    - do: получить выдачу по запросу 'иррационализм' (альтернативные запросы 'плюрализм', 'сангвиник это', 'интроверт')
+    - tech: внешний вид при наличии данных для тумбы [adapters/adapter-suggest-fact/no-thumb-text-gt-54-185-{{PLATFORM}} >> plain]
+    - tech: внешний вид с текстом до 6 символов [adapters/adapter-suggest-fact/with-gallery-text-1-6-186-{{PLATFORM}} >> plain]
+    - tech: внешний вид с текстом от 33 до 54 символов [adapters/adapter-suggest-fact/with-gallery-text-33-54-187-{{PLATFORM}} >> plain]
+    - screenshot: примерный внешний вид с текстом более 54 символов, текст вмещается в пределы экрана [adapters/adapter-suggest-fact/with-gallery-text-gt-54-188-{{PLATFORM}} >> plain]
+    - assert: над выдачей поиска есть врезка, содержащая текстовое описание и ссылки на источник, зеленую и синюю ссылки
+    - assert: ссылки на источник ведут на нужную страницу
+    - tech: проверить счетчик в источнике данных
+    - tech: внешний вид при наличии заголовка [construct/fact/with-title-210-{{PLATFORM}} >> plain]
+    - do: получить выдачу по запросу 'что такое ситком'
+    - screenshot: внешний вид  [construct/fact/without-title-209-{{PLATFORM}} >> plain]
+    - assert: над выдачей поиска есть врезка, содержащая текстовое описание, и ссылки на источник, зеленую и синюю ссылки
+    - assert: ссылки на источник ведут на нужную страницу
+    - tech: проверить счетчик в источнике данных
+    - do: получить выдачу по запросу 'Трамп родился', либо по похожему запросу
+    - screenshot: внешний вид c очень коротким текстом [adapters/adapter-suggest-fact/gray-title-xxl-194-{{PLATFORM}} >> plain]
+    - assert: |
+        над выдачей поиска есть врезка с фактом
+        по тапу на первую часть с фактом 'Владимир Владимирович Путин' происходит переход в той же вкладке на выдачу поиска по запросу 'Путин Владимир'
+    - tech: проверить счетчик в вопросе
+    - do: получить выдачу по запросу 'длина Невы'
+    - screenshot: внешний вид c коротким текстом [adapters/adapter-suggest-fact/gray-title-xl-193-{{PLATFORM}} >> plain]
+    - assert: над выдачей поиска есть врезка, содержащая короткий текстовый факт
+    - do: получить выдачу по запросу 'площадь россии', либо по похожему запросу
+    - screenshot: внешний вид cо средним текстом [adapters/adapter-suggest-fact/gray-title-l-192-{{PLATFORM}} >> plain]
+    - assert: над выдачей поиска есть врезка с фактом, текст не вылезает за пределы экрана и корректно отображает символы
+    - do: получить выдачу по запросу 'цены на платину' и переключиться на один из доменов - by, ua или kz (в том случае, если изначально был другой), можно поменять домен руками в адресной строке
+    - screenshot: внешний вид c котировками [adapters/adapter-suggest-fact/quotes-189-{{PLATFORM}} >> plain]
+    - assert: |
+        над выдачей поиска есть врезка, содержащая цену в долларах и тенденцию и ссылки на источник, зеленую и синюю ссылки
+        ссылки на источник ведут на нужную страницу
+
+  suggest-fact с турбо:
+    - counter: /wiz/suggest_fact
+    - do: получить выдачу по запросу 'Призывной возраст в России'
+    - assert: над выдачей поиска есть врезка с фактом, содержащая ссылки на источник информации, зеленую и синюю ссылки
+    - tech: внешний вид c коротким текстом [construct/fact/fact-xxl-206-{{PLATFORM}} >> plain]
+    - tech: внешний вид c длинным текстом [construct/fact/fact-xl-207-{{PLATFORM}} >> plain]
+    - screenshot: появился колдунщик с примерным внешним видом как на скриншоте [construct/fact/fact-s-208-{{PLATFORM}} >> plain]
+    - assert: ссылки на источник ведут на нужную страницу
+    - tech: проверить счетчик в источнике данных
+
+  С телефоном:
+    - counter: /wiz/suggest_fact
+    - do: получить выдачу по запросу 'телефон росбанка'
+    - assert: над выдачей поиска есть врезка с фактом, содержащая телефонный номер и кнопку с изображением телефонной трубки
+    - screenshot: внешний вид с длинным номером [construct/fact/phone-s-213-{{PLATFORM}} >> plain]
+    - tech: внешний вид с обычным номером [construct/fact/phone-m-212-{{PLATFORM}} >> plain]
+    - tech: внешний вид с коротким номером [construct/fact/phone-l-211-{{PLATFORM}} >> plain]
+    - assert: по тапу на кнопку с телефонной трубкой происходит звонок
+    - tech: проверить счетчик в кнопке телефона
+
+  Калории:
+    - counter: /wiz/calories_fact
+    - do: получить выдачу по запросу 'апельсин калория' или 'сколько калорий в банане'
+    - assert: над выдачей поиска есть врезка с фактом про калории, содержащая ссылку на источник данных
+    - screenshot: внешний вид с полными данными [adapters/adapter-calories-fact/full-127-{{PLATFORM}} >> plain]
+    - tech: внешний вид, нет некоторых данных [adapters/adapter-calories-fact/holes-in-data-129-{{PLATFORM}} >> plain]
+    - tech: внешний вид с данными только для 150г [adapters/adapter-calories-fact/single-item-128-{{PLATFORM}} >> plain]
+    - tech: внешний вид, нет данных по весу [adapters/adapter-calories-fact/no-sizes-130-{{PLATFORM}} >> plain]
+    - tech: внешний вид только с калориями [adapters/adapter-calories-fact/no-nutrients-131-{{PLATFORM}} >> plain]
+    - tech: внешний вид, только калории и только для 100г [adapters/adapter-calories-fact/only-calories-for-100g-132-{{PLATFORM}} >> plain]
+    - assert: проверить ссылку в хлебной крошке - надпись 'Апельсин', должен произойти перезапрос в той же вкладке
+    - tech: проверить счетчик в хлебной крошке
+    - assert: ссылка на источник данных ведёт на нужную страницу
+    - tech: проверить счетчик в источнике данных
+
+  Психологическая помощь:
+    - counter: /wiz/fact/psycho
+    - tags: no_assessors
+    - do: получить выдачу на вечных данных или ввести запрос 'психологическая помощь'
+    - assert: факт есть на выдаче c телефонной трубкой и телефоном доверия
+    - screenshot: внешний вид [adapters/adapter-suggest-fact/psycho-190-{{PLATFORM}} >> plain]
+    - tech: проверить счетчик в тайтле
+    - tech: проверить счетчик в гринурле
+    - assert: проверить, что по клику в телефоне или кнопку с телефонной трубкой происходит звонок
+    - tech: проверить, что ссылка в телефоне содержит 'tel:'
+
+  Психологическая помощь - проверка серверных счетчиков:
+    - counter: /wiz/fact/psycho
+    - tags: no_assessors
+    - do: получить выдачу на вечных данных или ввести запрос 'психологическая помощь'
+    - assert: факт есть на выдаче c телефонной трубкой и телефоном доверия
+    - screenshot: внешний вид [adapters/adapter-suggest-fact/psycho-190-{{PLATFORM}} >> plain]
+    - tech: проверить счетчик показа тайтла
+    - tech: проверить счетчик показа гринурла
+    - tech: проверить счетчик показа ссылки с телефоном
+    - tech: проверить счетчик в ссылке с телефоном
+
+  Расстояние между объектами:
+    - counter: /wiz/distance_fact
+    - do: получить выдачу по запросу 'расстояние от москвы до питера'
+    - assert: над выдачей поиска есть врезка с соответствующим фактом
+    - screenshot: внешний вид [adapters/adapter-distance-fact/default-143-{{PLATFORM}} >> plain]
+    - assert: первая строка содержит текст 'Москва - Санкт-Петербург'
+    - assert: вторая строка содержит текст '634 км (по прямой)'
+    - tech: внешний вид в очень старых телефонах с коротким номером без svg [construct/fact/phone-s-213-{{PLATFORM}} >> nosvg]
+    - tech: внешний вид в очень старых телефонах с обычным номером без svg [construct/fact/phone-m-212-{{PLATFORM}} >> nosvg]
+    - tech: внешний вид в очень старых телефонах с длинным номером без svg [construct/fact/phone-l-211-{{PLATFORM}} >> nosvg]
+
+files:
+# - features/touch-phone/construct/fact.autogenerated.hermione.js
+# - features/touch-phone/adapters/adapter-entity-fact.autogenerated.hermione.js
+# - features/touch-phone/adapters/adapter-calories-fact.autogenerated.hermione.js
+# - features/touch-phone/adapters/adapter-suggest-fact.autogenerated.hermione.js
+# - features/touch-phone/adapters/adapter-distance-fact.autogenerated.hermione.js
+  - hermione/test-suites/touch-phone/fact.hermione.js
+
+v-team: Facts
+
+tags:
+  - wizard
+  - facts
+  - reviewed
+
+tlds: none

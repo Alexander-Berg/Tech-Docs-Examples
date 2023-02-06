@@ -1,0 +1,30 @@
+feature: Ecom-tap
+
+specs:
+  Отсутствие информации о заказе в форме:
+    Внешний вид:
+      - params:
+          exp_flags:
+            - turbo-app-cart-form-summary-disabled=1
+            - turboforms_endpoint=https://test-turbo-forms.common.yandex.ru/
+      - do: перейти по ссылке https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocart/
+      - do: удалить все товары из корзины, если они там есть
+      - do: перейти на страницу каталога
+      - do: найти и добавить в корзину товар с названием "irure duis laborum esse mollit" и стоимостью 3999 рублей
+      - do: найти и добавить в корзину товар с названием "reprehenderit sit labore nulla nisi anim voluptate duis" и стоимостью 2699 рублей
+      - do: перейти через нижнюю панель в корзину
+      - assert: в корзине должен оказаться добавленный товар
+      - do: нажать "Оформить заказ"
+      - assert: открылась форма оформления заказа
+      - do: проскроллить форму вниз
+      - assert: внизу над кнпкой отправки нет описания заказа
+      - screenshot: суммы могу отличаться [plain]
+
+files:
+  - components/EcomCartForm/__tests__/EcomCartFromWithoutSummary@phone.hermione.js
+
+tags: ecom-tap
+
+tlds: ru
+
+v-team: Turbo

@@ -1,0 +1,39 @@
+feature: Адресный сниппет
+type: Одна точка
+
+specs:
+  Основная функциональность:
+    - do: получить выдачу по запросу 'lancome'
+    - assert: на странице появилась фича адресный сниппет
+    - screenshot: внешний вид [snippet]
+    - assert: в адресном сниппете есть ссылка с адресом организации
+    - do: кликнуть на ссылку с адресом
+    - assert: в новой вкладке открылся сервис Яндекс.Карты (в старых браузерах отображается сообщение о необходимости обновления браузера - это ок)
+    - tech: сработал счетчик /snippet/address/showmap
+    - tech: в ссылке есть source параметр
+    - tech: в ссылке есть ol параметр
+    - tech: в ссылке есть oid организации
+
+files:
+  - features/desktop/address/address.hermione.js
+
+manager:
+  - podnebesnaya
+
+v-team: VanillaGeo
+
+tags:
+  - address
+  - maps
+  - meta
+  - sitelinks
+  - moreinfo
+  - smoke_extended
+  - smart_tv
+  - reviewed
+  - no_assessors
+
+priority:
+  - high
+
+tlds: none

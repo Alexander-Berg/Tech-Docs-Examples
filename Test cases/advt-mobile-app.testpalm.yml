@@ -1,0 +1,58 @@
+feature: Спец.размещение
+type: Реклама мобильных приложений
+
+specs:
+  Проверка внешнего вида:
+    - tags: [pp_new_core]
+    - params:
+        foreverdata: '2673544840'
+    - do: получить выдачу по запросу 'foreverdata'
+    - screenshot: внешний вид (пример для устройств Iphone, для устройств Android вид рекламного сниппета мобильных приложений будет отличаться от примера - не баг, главное убедится, что не сломана верстка) [advertising-appearance]
+    - assert: на выдаче присутствует реклама мобильного приложения
+    - do: проверить ссылку в заголовке рекламы
+    - assert: ссылка ведёт на пустую страницу-заглушку
+    - tech: href ссылки содержит yabs.yandex.ru/count/
+    - do: проверить ссылку в картинке
+    - assert: ссылка ведёт на пустую страницу-заглушку
+    - tech: href ссылки содержит yabs.yandex.ru/count/
+    - do: проверить ссылку в кнопке
+    - assert: ссылка ведёт на пустую страницу-заглушку
+    - tech: href ссылки содержит yabs.yandex.ru/count/
+    - do: повернуть устройство в ландшафтную ориентацию
+    - assert: пример внешнего вида (пример для устройств Android, для устройств Iphone вид рекламного сниппета мобильных приложений будет отличаться от примера - не баг, главное убедится, что не сломана верстка) [https://jing.yandex-team.ru/files/grikyan91/serp-adv-itemmobile-app-land_plain.png]
+    - assertMetrics: "*"
+  Проверка внешнего вида c предупреждением в тексте:
+    - tags: [disclaimer]
+    - params:
+        foreverdata: '3943150659'
+    - do: получить выдачу по запросу 'foreverdata'
+    - screenshot: внешний вид [advertising-appearance-warning-in-text]
+  Проверка внешнего вида c предупреждением:
+    - tags: [disclaimer]
+    - params:
+        foreverdata: '3943150659'
+    - do: получить выдачу по запросу 'foreverdata'
+    - screenshot: внешний вид [advertising-appearance-warning]
+  Проверка внешнего вида в landscape:
+    - params:
+        foreverdata: '2673544840'
+    - do: получить выдачу по запросу 'foreverdata'
+    - screenshot: внешний вид landscape [advertising-appearance-landscape]
+    - assert: на выдаче присутствует реклама мобильного приложения
+
+files:
+  - features/touch-phone/serp-adv-item/advt-mobile-app/advt-mobile-app.hermione.js
+
+tags:
+  - reviewed
+  - adv
+
+v-team: RMP
+
+priority: high
+
+tlds: [ru, by, ua, kz]
+
+browsers:
+  notFor:
+    - searchapp-phone

@@ -1,0 +1,42 @@
+feature: Секция
+type: Задачи
+
+specs:
+  Оценка и фидбек по задаче [manual]:
+    - automation: FEMIDA-4887
+    - do: открыть секцию с добавленными задачами ранее без оценки /interviews/<id_секции>/
+    - assert: |
+        открыта вкладка 'Задачи в секции'
+        на вкладке есть задачи
+        в задаче есть блок с оценками 'Как справился кандидат?'
+        в задаче есть блок комментария
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/grikyan91/AA_sektsiya__Dmitrii_Sulohin__Femida_2019-07-10_14-36-44.png]
+    - do: выбрать значение в блоке 'Как справился кандидат?'
+    - do: клик в поле 'Комментировать'
+    - assert: поле комментария развернулось
+    - do: ввести какой-либо комментарий
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/grikyan91/AA_sektsiya__Dmitrii_Sulohin__Femida_2019-07-10_14-40-39.png]
+    - do: клик 'Сохранить'
+    - assert: |
+        текстовое поле пропало
+        появилась кнопка 'Редактировать'
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/grikyan91/AA_sektsiya__Dmitrii_Sulohin__Femida_2019-07-10_14-43-21.png]
+  Завершение секции при не оцененной задаче [manual]:
+    - automation: FEMIDA-4887
+    - do: открыть секцию с добавленными задачами ранее без оценки в статусе 'Оценена' /interviews/<id_секции>/
+    - do: заполнить комментарий 'Впечатление о кандидате'
+    - do: клик на 'Завершить секцию'
+    - assert: |
+        выдало ошибку о том, что нужно поставить оценку задаче
+        произошла подкрутка к не оцененной задаче
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/grikyan91/esgrzrg__Sprint_Pyatyi__Femida_2019-07-10_14-47-35.png]
+
+tags:
+  - reviewed
+
+priority: critical
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

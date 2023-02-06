@@ -1,0 +1,13 @@
+feature:  Сторисы про многошаговые сценарии
+
+specs:
+    Сторисы про многошаговые сценарии:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/4326
+        - release_Webview
+        - platform_common
+        - webview_regress
+    - do: "Открыть список устройств; Среди сторисов найти `Что нового в сценариях`; Открыть сторисы и пролистать до конца; ![](https://jing.yandex-team.ru/files/osennikovak/2022-03-19T10:01:37Z.c9b0e8a.png)"
+    - assert: "Отображаются сторисы; ![](https://jing.yandex-team.ru/files/osennikovak/2022-03-19T10:02:14Z.b1676bd.png)"
+    - do: "Тапнуть на `Создать сценарий`"
+    - assert: "Открывается страница создания нового сценария"

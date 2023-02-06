@@ -1,0 +1,147 @@
+feature: Политика групповых ролей
+
+specs:
+  Система с политикой system_aware_of_memberships_without_logins. Запрос и выдача персональных и групповых ролей:
+    - automation: IDM-10937
+    - do: (PREPARE) проверить, что в системе не выдана персональная роль "Роль 2" для робота robot-internal-2 (/system/system_aware_of_memberships_without_logins/roles/options#f-status=active,f-role=system_aware_of_memberships_without_logins/role_2,sort-by=-updated,f-is-expanded=true,f-user=user:robot-internal-2)
+    - do: (PREPARE) проверить, что в системе не выдана групповая роль "Роль 2" для группы "fordelintra" (/system/system_aware_of_memberships_without_logins/roles/options#f-status=active,f-role=system_aware_of_memberships_without_logins/role_2,sort-by=-updated,f-is-expanded=true,f-user=group:94002)
+    - do: запустить в Runner сценарий "Система system_aware_of_memberships_without_logins" (https://github.yandex-team.ru/pixel/idm-runner)
+    - do: отправить запрос "Запрос персональной роли" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "201"
+    - screenshot: ответ на запрос "Запрос персональной роли" должен содержать id запрошенной роли вида [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-12%2018-32-53.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "В системе есть выданные роли" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: ответ на запрос "В системе есть выданные роли" должен иметь не пустое тело [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-12%2019-10-35-1.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Отзыв персональной роли для тестовых данных" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "204" без тела
+    - do: отправить запрос "Запрос групповой роли" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "201"
+    - screenshot: ответ на запрос "Запрос групповой роли" должен содержать id запрошенной роли вида [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-12%2018-39-16.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Проверяем, что групповая роль не раскрывается в персональные" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: ответ на запрос "Проверяем, что групповая роль не раскрывается в персональные" должен содержать поле "objects" со значением [] [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-12%2019-08-30.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Отзыв групповой роли для тестовых данных" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "204" без тела
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+
+  Система, которая не поддерживает групповые роли. Запрос персональной роли и невозможность запросить групповую роль:
+    - automation: IDM-10937
+    - do: (PREPARE) проверить, что в системе не выдана персональная роль "Роль 2" роботу robot-internal-2 (/system/regress_system_no_groups/roles/options#f-status=active,f-role=regress_system_no_groups/role_2,sort-by=-updated,f-is-expanded=true,f-user=user:robot-internal-2)
+    - do: запустить в Runner сценарий "Система, которая не поддерживает групповые роли" (https://github.yandex-team.ru/pixel/idm-runner)
+    - do: отправить запрос "Запрос персональной роли" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "201"
+    - screenshot: ответ на запрос "Запрос персональной роли" должен содержать поля [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-12%2019-15-52.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "В системе есть выданные роли" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: ответ на запрос "В системе есть выданные роли" должен быть не пустым [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-12%2019-19-04.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Отзыв персональной роли для тестовых данных" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "204" и без тела
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Групповые роли запросить нельзя" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "409"
+    - screenshot: ответ на запрос "Групповые роли запросить нельзя" должен содержать поля [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-12%2019-17-27.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+
+  Система с политикой unaware. Запрос и отзыв груповой роли:
+    - automation: IDM-10937
+    - do: (PREPARE) проверить, что в системе не выдана роль "group-2" на группу fordelintra (/system/testsystem/roles#f-status=active,f-role=testsystem/group-2,sort-by=-updated,f-is-expanded=true,f-user=group:94002)
+    - do: запустить в Runner сценарий "Система unaware" (https://github.yandex-team.ru/pixel/idm-runner)
+    - do: отправить запрос "Запрос групповой роли с автоподтверждением" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "201"
+    - screenshot: ответ на запрос "Запрос групповой роли с автоподтверждением" должен содержать поля [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-12%2019-20-50.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Проверяем, что групповая роль раскрывается в персональные" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: ответ на запрос "Проверяем, что групповая роль раскрывается в персональные" должен быть не пустым [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-12%2019-21-36.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Отзыв групповой роли для тестовых данных" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "204" и без тела
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+
+  Система с политикой system_aware_of_memberships_with_logins. Запрос и отзыв персональной и групповой ролей:
+    - automation: IDM-10937
+    - do: (PREPARE) проверить, что в системе не выдана роль "Роль 2" группе "fordelintra" и роботу "robot-internal-2" (/system/system_aware_of_memberships_without_logins/roles/options#f-status=active,f-role=system_aware_of_memberships_without_logins/role_2,sort-by=-updated,f-is-expanded=true,f-user=group:94002)
+    - do: запустить в Runner сценарий "Система system_aware_of_memberships_with_logins" (https://github.yandex-team.ru/pixel/idm-runner)
+    - do: отправить запрос "Запрос персональной роли" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "201"
+    - screenshot: ответ на запрос "Запрос персональной роли" должен содержать поля [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-12%2019-26-42.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "В системе есть выданные роли" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: ответ на запрос "В системе есть выданные роли" должен быть не пустой [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-12%2019-40-14.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Отзыв персональной роли для тестовых данных" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "204" без тела
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Запрос групповой роли" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "201"
+    - screenshot: ответ на запрос "Запрос групповой роли" должен содержать поля [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-12%2019-32-17.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Проверяем, что групповая роль не раскрывается в персональные" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: ответ на запрос "Проверяем, что групповая роль не раскрывается в персональные" должен содержать поле "objects" со значением [] [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-12%2019-38-27.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Отзыв групповой роли для тестовых данных" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "204" и без тела
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+
+  Система с политикой system_aware. Запрос и отзыв групповой и персональной ролей:
+    - automation: IDM-10937
+    - do: (PREPARE) проверить, что в системе не выдана роль "role_2" пользователю "robot-internal-2" и группе "fordelinra" (/system/system_aware/roles/options#f-status=active,f-role=system_aware/role_2,sort-by=-updated,f-is-expanded=true,f-user=user:robot-internal-2,f-user=group:94002) 
+    - do: запустить в Runner сценарий "Система system_aware" (https://github.yandex-team.ru/pixel/idm-runner)
+    - do: отправить запрос "Запрос персональной роли" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "201"
+    - screenshot: ответ на запрос "Запрос персональной роли" должен содержать поля [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-12%2019-45-22.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Отзыв персональной роли для тестовых данных" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "204" и без тела
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Запрос групповой роли" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "201"
+    - screenshot: ответ на запрос "Запрос групповой роли" должен содержать поля [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-12%2019-47-45.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Проверяем, что групповая роль не раскрывается в персональные" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: ответ на запрос "Проверяем, что групповая роль не раскрывается в персональные" должен содержать поле "objects" со значением [] [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-12%2019-38-27.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Отзыв групповой роли для тестовых данных" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "204" и без тела
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+
+priority: blocker
+
+files: []
+
+tags:
+  - reviewed
+  - no_assessors
+  - postman_automation

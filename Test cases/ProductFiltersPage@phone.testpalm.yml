@@ -1,0 +1,60 @@
+feature: ProductFiltersPage
+
+params:
+  exp_flags:
+    - analytics-disabled=1
+
+browsers:
+  - ios-safari-12-touch
+  - ios-safari-11-touch
+  - ios-safari-10-touch
+  - ios-safari-9-touch
+
+specs:
+  Проверка работы фильтрации по цене:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=productfilterspage/empty-to-price.json
+    - do: проставить фильтр для цены в диапазоне от 200 до 10000
+    - screenshot: внешний вид соответствует скриншоту [entered]
+    - do: нажать на кнопку "Показать товары"
+    - assert: открылась страница с урлом `stub=productspage/stub-filter-price.json`
+
+  Проверка работы фильтрации с одним чекбоксом:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=productfilterspage/empty-to-single.json
+    - do: выбрать фильтр "Apple"
+    - screenshot: внешний вид соответствует скриншоту [clicked]
+    - do: нажать на кнопку "Показать товары"
+    - assert: открылась страница с урлом `stub=productspage/stub-filter-single.json`
+
+  Проверка работы фильтрации с несколькими чекбоксами:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=productfilterspage/empty-to-multiple.json
+    - assert: открылась страница с фильтрами
+    - do: |
+        выбрать 1 фильтр
+        выбрать 2 фильтр
+        нажать на кнопку "Показать товары"
+    - assert: открылась страница с урлом `stub=productspage/stub-filter-multiple.json`
+
+  Проверка работы фильтрации с переходом в полный список чекбоксов:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=productfilterspage/empty-to-full-list.json
+    - assert: открылась страница с фильтрами
+    - do: нажать на кнопку "Показать все"
+    - screenshot: внешний вид [group-page]
+    - assert: открылся попап с полным списком фильтров
+    - do: выбрать фильтры "Nokia" и "Meizu" и нажать "Применить"
+    - assert: закрылся попап с полным списком чекбоксов
+    - screenshot: внешний вид соответствует скриншоту [applied]
+    - do: нажать на кнопку "Показать товары"
+    - assert: открылась страница с урлом `stub=productspage/stub-filter-full-list.json`
+
+tags:
+  - e-commerce
+  - no_assessors #раскатили новый дизайн на 100%
+
+files:
+  - platform/components/ProductFiltersPage/__tests__/ProductFiltersPage@phone.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+tlds: none

@@ -1,0 +1,22 @@
+feature: SportAdvert
+tlds: ru
+
+specs:
+  реклама должна быть видима:
+    - tags:
+      - sportauto
+    - params:
+        exp_flags:
+          - adv-disabled=0
+          - force-react-advert=1
+    - do: открыть страницу 'https://yandex.ru/turbo?stub=sportadvert/default.json'
+    - assert: показывается реклама в белой плашке
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/components/SportAdvert/__tests__/SportAdvert.hermione.js
+
+v-team: News
+qa-engineer: volkhonov
+
+manager: glushneva

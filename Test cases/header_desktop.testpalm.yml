@@ -1,0 +1,43 @@
+feature: Шапка
+
+specs:
+  Проверка внешнего вида [manual]:
+    - automation: VACANCIES-780
+    - do: открыть страницу /jobs
+    - screenshot: вверху страницы отображается шапка [https://jing.yandex-team.ru/files/alex-murashev/header_desktop.png]
+  Проверка ссылок [manual]:
+    - automation: VACANCIES-780
+    - do: открыть страницу /jobs
+    - do: проверить ссылку таба 'О компании'
+    - assert: таб содержит ссылку /company
+    - do: проверить ссылку таба 'Карьера'
+    - assert: таб содержит ссылку /jobs
+    - do: проверить ссылку таба 'Технологии'
+    - assert: таб содержит ссылку /dev
+    - do: проверить ссылку таба 'Мероприятия'
+    - assert: таб содержит ссылку events.yandex.ru
+    - do: проверить ссылку таба 'Новости'
+    - assert: таб содержит ссылку /blog/company
+    - do: проверить ссылку таба 'Образование'
+    - assert: таб содержит ссылку academy.yandex.ru
+    - do: проверить ссылку логотипа
+    - assert: логотип содержит ссылку yandex.ru
+
+platform:
+  - desktop
+
+tlds:
+  - ru
+  - by
+  - ua
+
+priority: blocker
+
+browsers:
+  - yandex-browser-desktop
+  - chrome-browser-desktop
+  - firefox-desktop
+  - safari-desktop
+  - opera-desktop
+  - edge-desktop
+  - msie-desktop

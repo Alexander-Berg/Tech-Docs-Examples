@@ -1,0 +1,34 @@
+feature: MgUserpic
+
+specs:
+  Наличие аватарки:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=mguserpic/default.json)
+    - assert: отображается аватарка
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Отсутствие аватарки:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=mguserpic/stub.json)
+    - assert: отображается заглушка аватарка
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Размеры аватарок:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=mguserpic/sizes.json)
+    - assert: отображаются все размеры аватарок
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Формы аватарок:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=mguserpic/shapes.json)
+    - assert: отображаются все формы аватарок (круглая и квадратная)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Аватарки удаленных пользователей:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=mguserpic/banned.json)
+    - assert: отображаются две аватарки удаленных пользователей (круглая и квадратная)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+    - platform/components/MgUserpic/MgUserpic.tests/MgUserpic.hermione.js
+
+v-team: District
+
+manager: gorelikiss
+
+qa-engineer: vulpes, kudyukova
+
+tlds: none

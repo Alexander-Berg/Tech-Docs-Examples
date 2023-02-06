@@ -1,0 +1,38 @@
+feature: Поезда
+type: Подтверждение
+
+specs:
+    Не удалось получить цены страховки:
+        - do: |
+            Перейти на вкладку ЖД
+            Перейти на поиск Москва - Санкт-Петербург через месяц
+            Для любого поезда кликнуть по кнопке Выбрать место
+            На странице выбора мест выбрать любое место в любом вагоне
+            Нажать Указать пассажиров
+        - assert: Произошел переход на страницу ввода данных
+        - do: |
+            Дернуть ручку тестового контекста: https://api.travel-balancer-test.yandex.net/api/test_context/v1/train_token?insurancePricingOutcome=IPO_FAILURE&insuranceCheckoutOutcome=ICO_SUCCESS&insuranceCheckoutConfirmOutcome=ICCO_SUCCESS&refundPricingOutcome=RPO_SUCCESS&refundCheckoutOutcome=RCO_SUCCESS&createReservationOutcome=RCRO_SUCCESS&confirmReservationOutcome=RCOO_SUCCESS&officeReturnDelayInSeconds=0&officeAcquireDelayInSeconds=0&alwaysTimeoutAfterConfirmingInSeconds=0
+            В ответе запомнить токен из поля test_context_token
+            Добавить к урлу параметр trainTestContextToken со значением полученного токена
+            Перейти по полученной ссылке
+            Заполнить все поля валидными данными
+            Нажать Проверить заказ и купить
+        - assert: |
+            Произошел переход на страницу подтверждения
+            На странице нет блока для добавления страховки
+
+files:
+    - tests/common/trains/order/confirmation/insurancePrices.hermione.ts
+
+tags:
+    - TK
+    - orkestrator
+
+# meta
+Сервис: ЖД
+Устройство:
+    - Десктоп
+    - Тач
+Окружение:
+    - Testing
+Тестирование асессорами: Нет

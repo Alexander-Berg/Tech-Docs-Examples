@@ -1,0 +1,49 @@
+feature: Ошибки
+
+specs:
+  Проверка 404 ошибки [manual]:
+    - automation: VACANCIES-780
+    - do: открыть страницу /jobs/<набор символов, не формирующих адрес страницы>
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/alex-murashev/page_not_found_full_touch.png]
+  Проверка ошибки загрузки на странице вакансий [manual]:
+    - automation: VACANCIES-780
+    - do: открыть страницу /jobs/vacancies
+    - do: дождаться прогрузки страницы
+    - do: отключить интернет
+    - do: проскроллить до конца страницы
+    - screenshot: пример внешнего вида ошибки относительно футера [https://jing.yandex-team.ru/files/alex-murashev/load_err_footer_touch.png]
+  Проверка ошибки загрузки на странице города [manual]:
+    - automation: VACANCIES-780
+    - do: открыть страницу /jobs/locations/moscow
+    - do: дождаться прогрузки страницы
+    - do: отключить интернет
+    - do: проскроллить до конца страницы     
+    - screenshot: пример внешнего вида ошибки относительно футера [https://jing.yandex-team.ru/files/alex-murashev/load_err_loc_footer_touch.png]
+  Проверка ошибки поиска на странице городов [manual]:
+    - automation: VACANCIES-780
+    - do: открыть страницу /jobs/locations
+    - do: ввести в поле поиска набор любых символов, не соответствующий городу
+    - screenshot: пример внешнего вида ошибки относительно поисковой строки [https://jing.yandex-team.ru/files/alex-murashev/nothing_found_err_full_touch.png]
+  Проверка ошибки поиска на странице вакансий [manual]:
+    - automation: VACANCIES-780
+    - do: открыть страницу /jobs/vacancies/?text=<поисковой запрос, по которому не находятся вакансии>
+    - screenshot: пример внешнего вида ошибки, относительно строки поиска [https://jing.yandex-team.ru/files/alex-murashev/nothing_found_err_text_touch.png]
+  Проверка ошибки поиска на странице конкретного города [manual]:
+    - automation: VACANCIES-780
+    - do: открыть страницу /jobs/locations/moscow/?text=<поисковой запрос, по которому не находятся вакансии>
+    - screenshot: пример внешнего вида ошибки относительно поисково строки и блока фильтров [https://jing.yandex-team.ru/files/alex-murashev/nothing_found_err_search_locations_touch.png]
+
+platform:
+  - touch
+
+tlds:
+  - ru
+  - by
+  - ua
+
+priority: normal
+
+browsers:
+  - android-yandex-browser-touch
+  - android-browser-touch
+  - ios-safari-touch

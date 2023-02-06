@@ -1,0 +1,26 @@
+feature: LcLink
+
+tags: no_assessors
+
+specs:
+  Обычная ссылка:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lclink%2Fdefault.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Ссылка с контентом:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lclink%2Fwith-children.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Проверка target ссылки:
+      - do: открыть страницу (https://yandex.ru/turbo?stub=lclink%2Fdefault.json)
+      - do: кликнуть по ссылке
+      - assert: должна открыться страница в новой вкладке
+
+files:
+  - platform/components/LcLink/__tests__/LcLink.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: ratyulenev
+
+tlds: none

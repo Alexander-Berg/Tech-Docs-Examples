@@ -1,0 +1,20 @@
+feature: Правая колонка
+
+params:
+  srcskip: YABS_DISTR
+
+specs:
+  Отступы между serp-list:
+    - do: получить выдачу по запросу "twitter"
+    - assert: между колдунщиками в правой колонке есть отступ
+    - assert: у последнего .serp-list в правой колонке есть отступ снизу
+
+files:
+  - features/content/serp-list-gaps@desktop.hermione.js
+
+v-team: Beauty
+
+tlds: all
+
+tags:
+  - no_assessors

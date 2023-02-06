@@ -1,0 +1,46 @@
+feature: Секция
+type: Задачи
+
+specs:
+  beforeEach:
+    - do: открыть секцию в статусе 'Назначена' без добавленных задач ранее /interviews/<id_секции>/
+    - assert: |
+        открыта вкладка 'Задачи в секции'
+        есть кнопка 'Задать из любимых'
+        есть ссылка 'Задать задачу'
+    - screenshot: пример внешнего вида [assigned_interview]
+  Добавление задачи из любимых:
+    - do: клик на кнопку 'Задать из любимых'
+    - assert: |
+        открылась вкладка 'Каталог задач'
+        применился фильтр в поиске 'Только любимые'
+        фильтр скрыт
+        на задачах присутствует красный флажок
+    - screenshot: пример внешнего вида [add_from_favourite]
+    - do: клик на кнопку 'Задать'
+    - screenshot: кнопка изменила название на 'Не задавать' [after_add_click]
+    - do: перейти на вкладку 'Задачи в секции'
+    - screenshot: задача отобразилась в списке [assignments_in_list]
+  Добавление обычной задачи:
+    - do: клик на ссылку 'Задать задачу'
+    - assert: |
+        открылась вкладка 'Каталог задач'
+        открыт фильтр для поиска задач
+    - screenshot: пример внешнего вида [add_problem]
+    - do: клик на кнопку 'Задать'
+    - screenshot: кнопка изменила название на 'Не задавать' [after_add_click]
+    - do: перейти на вкладку 'Задачи в секции'
+    - screenshot: задача отобразилась в списке [assignments_in_list]
+
+tags:
+  - reviewed
+
+files:
+  - tests/hermione/suites/desktop/interviews/add_tasks/add_tasks.hermione.js
+
+priority: critical
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

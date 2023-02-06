@@ -1,0 +1,47 @@
+feature: LcBodyImage
+
+tags: no_assessors
+
+specs:
+  Простая обложка:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcbodyimage/default.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Обложка с картинкой по верхней границе:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcbodyimage/with-image-top.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Обложка с картинкой по середине:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcbodyimage/with-image-center.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Обложка с картинкой по нижней границе:
+      - do: открыть страницу (https://yandex.ru/turbo?stub=lcbodyimage/with-image-bottom.json)
+      - screenshot: внешний вид соответствует скриншоту [plain]
+  Обложка с видео:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcbodyimage/with-video.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Кастомная обложка:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcbodyimage/custom.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Обложка с overflow без нижнего отступа:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcbodyimage/overflow-no-padding-bottom.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Обложка с overflow и нижним отступом:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcbodyimage/overflow-padding-bottom.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Обложка с картинкой без картинки и правым расположением:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcbodyimage/reversed-layout-without-media.json)
+    - screenshot: внешний вид соответствует скриншоту [without-media]
+  Обложка на весь экран:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcbodyimage/viewport.json)
+    - screenshot: внешний вид соответствует скриншоту [viewport]
+
+
+files:
+  - platform/components/LcBodyImage/__tests__/LcBodyImage.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: ratyulenev
+
+tlds: none

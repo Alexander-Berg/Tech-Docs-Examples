@@ -1,0 +1,31 @@
+feature: Эксперименты с использованием другого шрифта
+
+specs:
+  Шрифт Georgia:
+    - params:
+        exp_flags:
+          - font-type=georgia
+    - do: открыть ссылку https://yandex.ru/turbo?stub=page/little.json
+    - screenshot: внешний вид страницы соответствует [plain]
+
+  Шрифт Yandex Sans:
+    - params:
+        exp_flags:
+          - font-type=ys
+    - do: открыть ссылку https://yandex.ru/turbo?stub=page/little.json
+    - tech: дождаться появления куки 'font_loaded'
+    - do: обновить страницу
+    - screenshot: внешний вид страницы соответствует [plain]
+
+files:
+  - features/touch-phone/font-experiments/font-type.hermione.js
+
+v-team: Turbo
+
+tags: no_assessors
+
+manager: sergey-kuldin
+
+qa-engineer: narbutovich
+
+tlds: none

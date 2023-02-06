@@ -1,0 +1,45 @@
+feature: Одна организация
+type: Вы владелец
+
+specs:
+  На Серпе:
+    params:
+      foreverdata: '2672958589'
+    beforeEach:
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: на выдаче есть карточка одной организации
+      - assert: в карточке организации есть блок 'Вы владелец этой организации?'
+      - screenshot: внешний вид [companies-possible-owner-{{SET_NAME}} >> plain]
+    Внешний вид:
+      - label: companies-possible-owner-{{SET_NAME}}
+      - screenshot: внешний вид [plain]
+    Ландшафтная ориентация:
+      - do: повернуть устройство в горизонтальную ориентацию
+      - assert: страница адаптировалась под увеличенную ширину экрана
+      - screenshot: внешний вид блока после перехода в лэндскейп [landscape]
+    Кнопка подтверждения:
+      - do: кликнуть по кнопке 'Подтвердить права'
+      - assert: открылась ссылка в новой вкладке
+      - tech: отправился PUT запрос с телом {"Value":true} в ручку /my/orgs/{id}/possibly-owned-by-user
+      - tech: в ответ на PUT запрос получили ответ 200
+    Кнопка опровержения:
+      - do: кликнуть по кнопке 'Нет, я не владелец'
+      - assert: блок скрылся
+      - tech: отправился PUT запрос с телом {"Value":false} в ручку /my/orgs/{id}/possibly-owned-by-user
+      - tech: в ответ на PUT запрос получили ответ 200
+    Кнопка закрытия:
+      - do: кликнуть по кнопке 'Закрыть' (крестик в правом верхнем углу блока)
+      - assert: блок скрылся
+      - tech: отправился PUT запрос с телом {"Value":false} в ручку /my/orgs/{id}/possibly-owned-by-user
+      - tech: в ответ на PUT запрос получили ответ 200
+
+tlds: all
+
+v-team: VanillaGeo
+
+files:
+  - src/features/Companies/Companies.features/OrgPossibleOwner/OrgPossibleOwner.test/OrgPossibleOwner@touch-phone.hermione.js
+
+tags:
+  - skip_e2e_check
+  - react

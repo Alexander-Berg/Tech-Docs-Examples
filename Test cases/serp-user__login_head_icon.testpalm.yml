@@ -1,0 +1,20 @@
+feature: Кнопка залогина
+type: С иконкой
+
+specs:
+  Внешний вид ссылки с иконкой человека:
+    - do: открыть выдачу по запросу 'test'
+    - assert: появилась ссылка 'Войти' с иконкой человека
+    - screenshot: внешний вид ссылки 'Войти' с иконкой человека [plain]
+
+tags:
+  - skip_e2e_check
+  - serp_header
+  - zalogin
+
+v-team: Distribution
+
+files:
+  - features/desktop/serp-user/serp-user__login_head_icon.hermione.js
+
+tlds: [ru, by, ua, kz, uz]

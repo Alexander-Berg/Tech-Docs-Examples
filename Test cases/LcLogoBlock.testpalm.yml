@@ -1,0 +1,37 @@
+feature: LcLogoBlock
+
+tags: no_assessors
+
+specs:
+  Логотип и иконка:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lclogoblock/logo-and-icon.json)
+    - screenshot: внешний вид соответствует скриншоту [logo-and-icon]
+  Только логотип:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lclogoblock/logo.json)
+    - screenshot: внешний вид соответствует скриншоту [logo]
+  Светлый логотип:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lclogoblock/logo-dark-theme.json)
+    - screenshot: внешний вид соответствует скриншоту [logo]
+  Светлый логотип - первая буква красная:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lclogoblock/logo-first-letter-red.json)
+    - screenshot: внешний вид соответствует скриншоту [logo]
+  Логотип + иконка (компактная версия):
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lclogoblock/logo-icon-compact-version.json)
+    - screenshot: внешний вид соответствует скриншоту [logo]
+  Новая версия логотипа:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lclogoblock/new-logo-icon.json)
+    - screenshot: внешний вид соответствует скриншоту [logo]
+  Только иконка:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lclogoblock/icon.json)
+    - screenshot: внешний вид соответствует скриншоту [icon]
+
+files:
+  - platform/components/LcLogoBlock/__tests__/LcLogoBlock.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: ratyulenev, kossakovskaya
+
+tlds: none

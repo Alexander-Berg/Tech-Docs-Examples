@@ -1,0 +1,48 @@
+feature: LcFooter
+
+tags: no_assessors
+
+specs:
+  Внешний вид блока short:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcfooter/short.json)
+    - do: выставить ширину окна 375px
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Внешний вид блока default:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcfooter/default.json)
+    - do: выставить ширину окна 375px
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Внешний вид блока full:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcfooter/full.json)
+    - do: выставить ширину окна 375px
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Внешний вид блока full-big-menu:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcfooter/full-big-menu.json)
+    - do: выставить ширину окна 375px
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Внешний вид блока full-light:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcfooter/full-light.json)
+    - do: выставить ширину окна 375px
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Внешний вид блока full-light-flat-menu:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcfooter/full-light-flat-menu.json)
+    - do: выставить ширину окна 375px
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Внешний вид блока full-small-menu:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcfooter/full-small-menu.json)
+    - do: выставить ширину окна 375px
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Внешний вид блока minimal-light:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcfooter/minimal-light.json)
+    - do: выставить ширину окна 375px
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/components/LcFooter/__tests__/LcFooter.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: olimiya, shinuta
+
+tlds: none

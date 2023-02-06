@@ -1,0 +1,37 @@
+feature: Окно приложения отзывчиво
+
+import-steps:
+    - tests/hermione/suites/desktopApp/shared-steps/setup.testpalm.steps.yml
+
+tlds: none
+
+specs:
+    beforeEach:
+        - attach: Скачивание архива с последним предрелизным приложением
+        - attach: Установка приложения
+
+    Окно приложения поддерживает нативное поведение[manual]:
+        - automation: MSSNGRFRONT-3314
+        - assert: В шапке приложения написано "Messenger"
+        - assert: иконка приложения в taskbar выглядит как на скриншоте
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/apanichkina/Screen%20Shot%202019-06-14%20at%208.03.39%20PM.png]
+        - do: на краю окна приложения выполнить действие "ресайз"
+        - assert: |
+              окно приложения изменяет размер
+              верстка внутри окна адаптируется корректно
+        - do: в шапке приложения нажать иконку "Minimize"(Свернуть)
+        - assert: окно приложения свернулось
+        - do: нажать ЛКМ на иконку приложения в taskbar
+        - assert: |
+              окно приложения развернулось
+              содержимое окна отображается корректно (как до сворачивания)
+        - do: в шапке приложения нажать иконку "Close"(Закрыть)
+        - assert: приложение закрылось
+
+files: []
+
+v-team: Chat
+
+tags:
+    - no_assessors
+    - desktop-app

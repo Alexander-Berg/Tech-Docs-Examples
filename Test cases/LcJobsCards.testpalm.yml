@@ -1,0 +1,38 @@
+feature: LcJobsCards
+
+tags: no_assessors
+
+specs:
+  default_cols_2:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcjobscards/default_cols_2.json)
+    - screenshot: внешний вид соответствует скриншоту [default_cols_2]
+
+  default_cols_3:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcjobscards/default_cols_3.json)
+    - screenshot: внешний вид соответствует скриншоту [default_cols_3]
+
+  default_cols_4:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcjobscards/default_cols_4.json)
+    - screenshot: внешний вид соответствует скриншоту [default_cols_4]
+
+  with_images_cols_2:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcjobscards/withImages_cols_2.json)
+    - screenshot: внешний вид соответствует скриншоту [with_images_cols_2]
+
+  with_images_cols_3:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcjobscards/withImages_cols_3.json)
+    - screenshot: внешний вид соответствует скриншоту [with_images_cols_3]
+
+  with_images_cols_4:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcjobscards/withImages_cols_4.json)
+    - screenshot: внешний вид соответствует скриншоту [with_images_cols_4]
+files:
+  - platform/components/LcJobsCards/__tests__/LcJobsCards.hermione.js
+
+v-team: Backoffice
+
+manager: kiparis
+
+qa-engineer: grikyan
+
+tlds: none

@@ -1,0 +1,21 @@
+feature: Картинка
+
+specs:
+  Бесконечная лента:
+    Первая картинка во второй статье в pd20:
+      - do: открыть ссылку https://yandex.ru/turbo?text=https://www.drive.ru/brands/bmw/models/2011/6_series_coupe
+      - do: проскроллить до второй статьи
+      - assert: первая картинка отображается
+      - tech: в url первой картинки есть pd20
+
+files:
+  - platform/components/Image/__tests__/image@phone.hermione.js
+  - platform/components/Image/__tests__/image@desktop.hermione.js
+
+v-team: Turbo
+
+manager: sanity
+
+qa-engineer: dakhetov
+
+tlds: none

@@ -1,0 +1,20 @@
+feature: Одна организация
+type: Горнолыжный курорт
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: в колдунщике организации есть статус работы курорта
+  Статус работы – внешний вид:
+    - params:
+        foreverdata: '3233895734'
+    - screenshot: внешний вид [org_ski_status]
+
+files:
+  - src/features/Companies/Companies.features/OrgSkiStatus/OrgSkiStatus.test/OrgSkiStatus@touch-phone.hermione.js
+
+tags:
+  - skip_e2e_check
+
+v-team: Freshness
+tlds: ru

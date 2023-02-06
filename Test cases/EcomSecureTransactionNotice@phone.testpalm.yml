@@ -1,0 +1,47 @@
+feature: EcomSecureTransactionNotice
+
+params:
+  exp_flags:
+    - analytics-disabled=1
+
+browsers:
+  - ios-safari-12-touch
+  - ios-safari-11-touch
+  - ios-safari-10-touch
+  - ios-safari-9-touch
+
+specs:
+  Внешний вид блока:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=ecomsecuretransactionnotice/default.json
+    - screenshot: внешний вид [plain]
+    - do: кликнуть по бейджу
+    - assert: в той же вкладке открылась страница `Безопасные покупки`
+    - do: нажать `Назад` ввержу страницы
+    - assert: вернулись на страницу с бейджом
+    - do: кликнуть по бейджу
+    - assert: в той же вкладке открылась страница `Безопасные покупки`
+    - do: кликнуть на кнопку `Понятно`
+    - assert: вернулись на страницу с бейджом
+
+  Цель метрики:
+    - tags: no_assessors
+    - params:
+        exp_flags:
+          - analytics-disabled=0
+    - do: открыть ссылку https://yandex.ru/turbo?stub=ecomsecuretransactionnotice/default.json&_ym_debug=1
+    - assert: на странице есть бейдж безопасности
+    - do: кликнуть на бейдж
+    - assert: в консоли отобразилось, что отработала цель метрики 'secure-badge-click'
+
+files:
+  - platform/components/EcomSecureTransactionNotice/EcomSecureTransactionNotice.tests/EcomSecureTransactionNotice@phone.hermione.js
+
+tags: 
+  - e-commerce
+  - no_assessors #раскатили новый дизайн на 100%
+
+v-team: Turbo
+
+manager: tanzwuta
+
+tlds: none

@@ -1,0 +1,65 @@
+feature: Одна организация
+type: Врезка с ценами
+
+specs-integration:
+  beforeEach:
+    - do: получить выдачу по запросу 'кафе пушкин' _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: на странице присутствует колдунщик организации
+  Наличие элементов:
+    - assert: |
+        в карточке организации есть врезка прайсов,
+        во врезке прайсов есть тайтл,
+        во врезке прайсов есть список цен,
+  Открытие попапа организации:
+    - do: кликнуть на тайтл врезки цен
+    - assert: открылся попап с карточкой организации и табом прайсов
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу "кафе пушкин"
+    - assert: |
+        на странице присутствует колдунщик организации
+        в колдунщшике организации есть блок "Меню"
+  Внешний вид:
+    - screenshot: внешний вид [plain]
+  На выдаче:
+    Клик в заголовок открывает попап:
+      - do: нажать на заголовок блока "Меню"
+      - tech: сработал счётчик path="/$page/$parallel/$result/composite/tabs/about/prices/title"
+      - assert: открылся таб "Меню" в попапе
+    Клик в ссылку "Смотреть меню полностью" открывает попап:
+      - do: нажать на ссылку "Смотреть меню полностью"
+      - tech: сработал счётчик path="/$page/$parallel/$result/composite/tabs/about/prices/more"
+      - assert: открылся таб "Меню" в попапе
+  В попапе:
+    Клик в заголовок открывает таб "Меню":
+      - do: нажать на первую похожую организацию
+      - assert: открылся попап и загрузилась вкладка "Главное"
+      - do: нажать на заголовок блока "Меню"
+      - tech: сработал счётчик path="/$page/$parallel/$result/modal-popup/modal-content-loader/content/company/tabs/about/prices/title"
+      - assert: открылся таб "Меню" в попапе
+    Клик в ссылку "Смотреть меню полностью" открывает таб "Меню":
+      - do: нажать на первую похожую организацию
+      - assert: открылся попап и загрузилась вкладка "Главное"
+      - do: нажать на ссылку "Смотреть меню полностью"
+      - tech: сработал счётчик path="/$page/$parallel/$result/modal-popup/modal-content-loader/content/company/tabs/about/prices/more"
+      - assert: открылся таб "Меню" в попапе
+  Валюта:
+    - do: получить выдачу по запросу "здравия брест"
+    - assert: показалась карточка организации справа
+    - screenshot: внешний вид цены с беларусскими рублями [org-prices-belarus]
+
+files:
+  - src/features/Companies/Companies.features/OrgPrices/OrgPrices.test/OrgPrices@desktop.hermione.e2e.js
+  - src/features/Companies/Companies.features/OrgPrices/OrgPrices.test/OrgPrices@desktop.hermione.js
+
+v-team: VanillaGeo
+
+tags:
+  - react
+  - hasE2E
+  - geo
+  - geo_one_org
+  - geo_one_org_prices
+
+tlds: all

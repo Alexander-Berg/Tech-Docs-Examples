@@ -1,0 +1,35 @@
+feature: Swipe
+
+specs:
+  Должен отправится postMessage на swipe:
+    - tags: no_assessors
+    - do: открыть главную страницу поиска, удалить все параметры кроме yandex.ru и добавить в адресную строку к URL '/turbo?text=test_article&check_swipe=1&in-iframe'
+    - do: сделать swipe в бок по странице
+    - tech: должен отправится postMessage swipe с параметром  state - horizontal
+
+  Должен отправится postMessage на scroll:
+    - tags: no_assessors
+    - do: открыть главную страницу поиска, удалить все параметры кроме yandex.ru и добавить в адресную строку к URL '/turbo?text=test_article&check_swipe=1&in-iframe'
+    - do: проскролить страницу
+    - tech: должен отправится postMessage swipe с параметром  state - vertical
+
+  Должен отправится postMessage на swipe на битой странице:
+    - params:
+        foreverdata: '2843688649'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в первую карточку [https://jing.yandex-team.ru/files/werreour/20181204201151.png]
+    - assert: открылась турбо-страница
+    - do: провести пальцем справа-налево
+    - assert: первая страница ушла вправо, видно турбо-страницу с ошибкой [https://jing.yandex-team.ru/files/werreour/20181204201550.png]
+    - do: провести пальцем слева-направо
+    - assert: страница с ошибкой ушла вправо, видно турбо-страницу без ошибки
+
+files:
+  - features/touch-phone/post-message/swipe/swipe.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: kleev, k0nratka
+
+tlds: none

@@ -1,0 +1,14 @@
+feature:  Умный дом - Households - Открывать список устройств при смене дома
+
+specs:
+    Умный дом - Households - Открывать список устройств при смене дома:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/3418
+        - release_Webview
+        - platform_common
+        - iot_households
+    - do: "Preconditions На аккаунте несколько домов"
+    - do: "Перейти в таб **Сценарии**; Выбрать другой дом ; ; <img src=`https://jing.yandex-team.ru/files/levkovskayama/Снимок%20экрана%202021-08-16%20в%2022.27.19.png` alt=`Скриншот` width=`300`/>"
+    - assert: "Открывается список устройств выбранного дома; ; "
+    - do: "Перейти в таб **Настройки**; Выбрать другой дом; ; <img src=`https://jing.yandex-team.ru/files/levkovskayama/Снимок%20экрана%202021-08-16%20в%2022.27.30.png` alt=`Скриншот` width=`300`/>"
+    - assert: "Открывается список устройств выбранного дома"

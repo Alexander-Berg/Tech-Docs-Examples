@@ -1,0 +1,13 @@
+feature:  Умный дом - пульт - модель/производитель устройств привязанных к пульту
+
+specs:
+    Умный дом - пульт - модель/производитель устройств привязанных к пульту:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/2658
+        - release_Webview
+        - release_Smarthome
+        - platform_common
+        - iot_remote
+    - do: "Preconditions На аккаунте привязан пульт, а через него любое другое устройство"
+    - do: "Перейти в настройки устройства, привязанного к пульту (шестерёнка)"
+    - assert: "Отображается модель: YNDX-0006; Производитель: Yandex Services AG"

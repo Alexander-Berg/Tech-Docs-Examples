@@ -1,0 +1,21 @@
+feature: LcGallery
+
+tags: no_assessors
+
+specs:
+  Отображение следующего изображения по свайпу:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcgallery/default.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+    - do: сделать свайп влево
+    - assert: отобразилась следующее изображение
+
+files:
+  - platform/components/LcGallery/__tests__/LcGallery@phone.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: olimiya, kossakovskaya, shinuta
+
+tlds: none

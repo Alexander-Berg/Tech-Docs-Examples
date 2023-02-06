@@ -1,0 +1,28 @@
+feature: Просмотр изображений открывается в пределах виджета
+
+import-steps:
+    - tests/hermione/suites/widget/shared-steps/open-widget.testpalm.steps.yml
+    - tests/hermione/suites/shared-steps/open-picture-at-lightbox.testpalm.steps.yml
+
+tlds: all
+
+specs:
+
+    Просмотрщик имеет верный внешний вид для сервисов Яндекса[manual]:
+        - automation: MSSNGRFRONT-2918
+        - attach: Открытие виджета для сервисов Яндекса
+        - do: нажать на кнопку виджета
+        - do: открыть любой чат
+        - attach: Открытие картинки в просмотрщике
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/apanichkina/Screen%20Shot%202019-05-11%20at%207.57.31%20PM.png]
+
+
+
+files: []
+
+v-team: Chat
+
+tags:
+    - y-team
+    - no_assessors
+    - widget

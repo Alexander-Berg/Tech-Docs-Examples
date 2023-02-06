@@ -1,0 +1,14 @@
+feature: Zigbee
+
+tags:
+    - release_Webview
+    - webview_regress
+    - platform_common
+
+specs:
+  Модалка удаления Zigbee устройства:
+    - automation: QUASARUI-3085
+    - do: на аккаунте есть утсройство, подключенное по зигби
+    - do: зайти в настройки устройства и нажать на удаление устройства
+    - screenshot: отображается предупреждение про удаление девайса [zigbee-confirm]
+    - assert: <img src=https://jing.yandex-team.ru/files/osennikovak/2022-06-22T14:52:53Z.ea49545.png alt=Скриншот width=250>

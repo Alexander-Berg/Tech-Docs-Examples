@@ -1,0 +1,29 @@
+feature: CSRF (Web)
+
+tlds: ru
+
+specs:
+     CSRF токен перезапрашивается при ошибке bad_csrf_token (изначально неправильный токен) [manual]:
+        - automation: IMPOSSIBLE
+        - do: подменить ответ ручки /csrf-token/ на {"token":"bad token"} (только 1 раз)
+        - do: запустить веб приложение
+        - assert: приложение запускается
+        - assert: первый запрос (request1) к /api/ провалился с ошибкой 403 bad_csrf_token
+        - assert: далее должен быть запрос /csrf-token/, он должен вернуть правильный токен
+        - assert: дальше должен быть перезапрос request1
+
+     CSRF токен перезапрашивается при ошибке bad_csrf_token (текущий токен протух) [manual]:
+        - automation: IMPOSSIBLE
+        - do: подменить ответ ручки /api/ на статус 403 {"status":"error","data":{"text":"bad_csrf_token","code":"bad_csrf_token"}} (только 1 раз)
+        - do: запустить веб приложение
+        - assert: приложение запускается
+        - assert: первый запрос (request1) к /api/ провалился с ошибкой 403 bad_csrf_token
+        - assert: далее должен быть запрос /csrf-token/, он должен вернуть правильный токен
+        - assert: дальше должен быть перезапрос request1
+
+files: []
+
+v-team: Chat
+
+tags:
+    - no_assessors

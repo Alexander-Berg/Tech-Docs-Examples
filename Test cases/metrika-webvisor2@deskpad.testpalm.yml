@@ -1,0 +1,25 @@
+feature: Счетчик
+type: Метрика
+experiment: Включение webvisor2
+
+params:
+  exp_flags:
+    - webvisor2=1
+
+specs:
+  Инициализация счетчика 49243150 для домена ru:
+    - do: получить выдачу по запросу 'test'
+    - tech: идентификатор Метрики должен присутствовать в вёрстке
+    - tech: счетчик должен быть проинициализирован (можно проверить с помощью команды yaCounter49243150 в консоли, где 49243150 - идентификатор Метрики)
+    - assertMetrics: '*'
+
+files:
+  - features/metrika/metrika-webvisor2@deskpad.hermione.js
+
+v-team: OO
+
+tags:
+  - metrika
+  - no_assessors
+
+tlds: none

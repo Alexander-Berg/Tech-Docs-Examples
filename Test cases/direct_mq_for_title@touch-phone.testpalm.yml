@@ -1,0 +1,32 @@
+feature: Органика
+experiment: Типографика с водоразделом на тачах
+
+specs:
+  Внешний вид, уменьшенный размер шрифта (320):
+    - params:
+        foreverdata: '1579473100'
+        exp_flags:
+          - direct_mq_for_title=12-14:321:25-28
+    - do: на устройстве с разрешением экрана 320x240 (или меньше) получить выдачу по запросу 'foreverdata'
+    - assert: размер шрифта заголовка в сниппете меньше, чем обычно
+    - screenshot: пример внешнего вида сниппета [organic-iphone-min]
+  Внешний вид, увеличенный размер шрифта (320):
+    - params:
+        foreverdata: '1579473100'
+        exp_flags:
+          - direct_mq_for_title=12-14:320:25-28
+    - do: на устройстве с разрешением экрана 320x240 (или меньше) получить выдачу по запросу 'foreverdata'
+    - assert: размер шрифта заголовка в сниппете больше, чем обычно
+    - screenshot: пример внешнего вида сниппета [organic-iphone-max]
+
+files:
+  - features/direct_mq_for_title/direct_mq_for_title@touch-phone.hermione.js
+
+v-team: Distribution
+
+tags:
+  - skip_e2e_check
+  - adv
+
+tlds:
+  - ru

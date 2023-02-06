@@ -1,0 +1,16 @@
+feature:  Умный дом - удаление алиасов
+
+specs:
+    Умный дом - удаление алиасов:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/3210
+        - release_Webview
+        - release_Smarthome
+        - smarthome_regress
+        - platform_common
+    - do: "Description У устройств умного дома может быть 5 разных имён"
+    - do: "Preconditions На аккаунте добавлена лампочка"
+    - do: "Добавить несколько имен лампочке"
+    - assert: "![](https://jing.yandex-team.ru/files/osennikovak/2021-04-08T11:56:43Z.7ff1a70.png)"
+    - do: "Нажать на любое из имен; Нажать на корзинку"
+    - assert: "Имя удалено"

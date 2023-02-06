@@ -1,0 +1,33 @@
+feature: Колдунщик 1орг
+type: Предпоказанный таб
+
+params:
+  yandex_login: pds.user.no.license
+
+specs:
+  Таб фото:
+    - params:
+        intent: photo
+    - do: получить выдачу по запросу 'Кафе Пушкин'
+    - assert: |
+        в правой колонке появилась карточка объекта,
+        в карточке отображено содержимое таба фото
+  Таб постов:
+    - params:
+        intent: posts
+    - do: получить выдачу по запросу 'Лига джентльменов Алтайский край ателье'
+    - assert: |
+        в правой колонке появилась карточка объекта,
+        в карточке отображено содержимое таба постов
+
+files:
+  - features/companies/1org/intent/1org-intent@desktop.hermione.js
+
+tags:
+  - skip_e2e_check
+  # у асессоров нет доступа к флагу intent
+  - no_assessors
+
+v-team: VanillaGeo
+
+tlds: all

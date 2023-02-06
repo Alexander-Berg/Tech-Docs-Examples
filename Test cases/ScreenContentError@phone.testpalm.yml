@@ -1,0 +1,16 @@
+feature: ScreenContentError
+
+specs:
+  storybook:
+    Внешний вид экрана ошибки:
+      - tags: no_assessors
+      - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - components/ScreenContentError/__tests__/ScreenContentError@phone.hermione.js
+
+tags: ecom-tap
+
+tlds: ru
+
+v-team: Turbo

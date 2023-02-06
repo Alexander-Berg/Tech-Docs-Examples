@@ -1,0 +1,30 @@
+feature: Футер
+type: Сортиовка [B2B]
+
+specs:
+  По дате/релевантности [manual]:
+    - automation: ISEARCH-6447
+    - do: открыть страницу поиска /search?text=<поисковый_запрос>
+    - assert: |
+        внизу страницы есть сортировки
+        по дефолту активна сортировка 'по релевантности'
+        все элементы отсортированы по релевантности документа
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/grikyan91/test__Poisk_po_Intranetu_nashlos_35696_2020-05-07_12-05-42.png]
+    - do: нажать на сортировку 'по дате'
+    - assert: |
+        выдача обновилась
+        ссылка 'по релевантности' стала не активна
+        ссылка 'по дате' стала активна
+        результаты выдачи отсортированы по дате
+    - do: перезадать поисковый запрос
+    - screenshot: сортировка осталась 'по дате' [https://jing.yandex-team.ru/files/grikyan91/primer__Poisk_po_Intranetu_nashlos_6544_2020-05-07_12-13-31.png]
+
+tags:
+  - reviewed
+
+priority: normal
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

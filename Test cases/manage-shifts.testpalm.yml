@@ -1,0 +1,44 @@
+feature: Дежурства
+
+specs:
+  beforeEach: 
+    - tech: залогиниться под пользователем robot-abc-001
+
+  Положительные:
+    1. Назначить чужую смену на себя:
+      - automation: ABC-10840
+      - do: открыть график дежурств "Автотест для назначений смен на себя" в сервисе "autotest-shifts-managing" (/services/autotest-shifts-managing/duty/?role=4981)
+      - do: навести курсор на смену, назначенную на пользователя "abc-robot services-viewer"
+      - screenshot: появился попап с информацией о смене, в попапе под именем дежурного "abc-robot services-viewer" есть ссылка "Назначить на меня" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-05-28%2018-48-12.png]
+      - do: кликнуть на ссылку "Назначить на меня"
+      - screenshot: смена перенеслась на дежурного "Базовая Роль", стала подтверждённой (закрашена зелёным) [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-05-28%2019-08-32.png]
+
+    2. Можно подтверждать свои смены без роли управляющего дежурствами:
+      - automation: ABC-10840
+      - do: открыть график дежурств "Автотест для подтверждения своих смен" в сервисе "autotest-shifts-managing" (/services/autotest-shifts-managing/duty/?role=4982)
+      - do: навести курсор на неподтверждённую смену (закрашена серым), назначенную на пользователя "Базовая роль"
+      - screenshot: появился попап с информацией о смене, в попапе есть кнопка "Подтвердить" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-05-28%2018-56-19.png]
+      - do: кликнуть на кнопку "Подтвердить"
+      - screenshot: смена подтвердилась (стала зелёной), в попапе кнопка "Подтвердить" сменилась на надпись "Подтверждено" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-05-28%2018-57-46.png]
+      
+    3. Нельзя подтверждать чужие смены без роли управляющего дежурствами:
+      - automation: ABC-10840
+      - do: открыть график дежурств "Автотест для подтверждения своих смен" в сервисе "autotest-shifts-managing" (/services/autotest-shifts-managing/duty/?role=4982)
+      - do: навести курсор на подтверждённую смену (закрашена серым), назначенную на пользователя "abc-robot full-access"
+      - screenshot: появился попап с информацией о смене, в попапе нет кнопки "Подтвердить", есть только надпись "Ждёт подтверждения" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-05-28%2019-00-22.png]
+
+    4. Назначить смену неназначенного дежурного на себя:
+      - automation: ABC-10840
+      - do: открыть график дежурств "Автотест для назначения смены неназначенного дежурного на себя" в сервисе "autotest-shifts-managing" (/services/autotest-shifts-managing/duty?role=5610)
+      - do: навести курсор на любую смену, где дежурный не назначен
+      - screenshot: появился попап с информацией о смене, в попапе есть ссылка "Назначить на меня" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-10-08%2019-10-15.png]
+      - do: кликнуть на ссылку "Назначить на меня"
+      - assert: смена перенеслась с неназначенного дежурного на abc-robot full-access и подтвердилась
+
+files: []
+
+priority: critical
+
+tags:
+  - reviewed
+  - no_assessors

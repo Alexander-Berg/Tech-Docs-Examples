@@ -1,0 +1,20 @@
+feature: LcBadgeComponent
+
+tags: no_assessors
+
+specs:
+  Внешний вид блока:
+    - do: открыть страницу примера блока lcBadgeComponent (yandex.ru/turbo?stub=lcbadgecomponent/default.json)
+    - assert: бейджи видны на странице
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/components/LcBadgeComponent/__tests__/LcBadgeComponent.hermione.js
+
+v-team: Lc
+
+manager: hanky
+
+qa-engineer: kudyukova, kegorav
+
+tlds: none

@@ -1,0 +1,21 @@
+feature: Товары
+
+specs:
+    Просмотр товаров в lightbox:
+        - automation: TURBOUI-3600
+        - do: перейти по ссылке https://yandex.ru/turbo?text=lpc%2F37147bc13e0a428d5c15a249a96b216490e01231bb17ffcb1095ba73eb94ea95&promo=nomooa
+        - do: в секции “Товары” кликнуть по изображению
+        - assert: открылся lightbox с изображением
+        - do: пролистать изображения товаров - вправо и влево
+        - assert: изображения сменяют друг друга
+        - do: закрыть lightbox кнопкой "Назад"
+        - assert: lightbox закрылся
+
+files: []
+
+tags:
+    - landing_smoke
+
+tlds: [ru, by, ua, kz, uz, com.tr, com]
+
+v-team: Lc

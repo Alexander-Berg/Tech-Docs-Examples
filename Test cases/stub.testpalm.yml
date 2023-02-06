@@ -1,0 +1,8 @@
+feature: Фейковый тест
+
+specs:
+    Необходим для прохождения проверок:
+        - assert: 1 = 1
+
+files:
+    - tests/hermione/suites/common/stub.hermione.ts

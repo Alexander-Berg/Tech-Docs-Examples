@@ -1,0 +1,12 @@
+feature:  Умный дом - Навыки Алисы
+
+specs:
+    Умный дом - Навыки Алисы:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/3294
+        - release_Webview
+    - do: "Preconditions У пользователя есть любая колонка на аккаунте"
+    - do: "Открыть в ПП: Устройства - Настройки"
+    - assert: "Выглядит так: ; ; <img src=`https://jing.yandex-team.ru/files/rbol/IMG_F1965824A4CF-1.jpeg` alt=`Скриншот` width=`300`/>"
+    - do: "Перейти в `Каталог навыков Алисы`"
+    - assert: "Открывается https://dialogs.yandex.ru/store"

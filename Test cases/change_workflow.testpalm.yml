@@ -1,0 +1,38 @@
+feature: Запросы на изменение воркфлоу
+
+specs:
+  Запросы на изменение воркфлоу:
+    - do: запустить в Runner сценарий "Запросы на изменение воркфлоу" (https://github.yandex-team.ru/pixel/idm-runner)
+    - do: отправить запрос "Суперпользователь видит все запросы на изменение воркфлоу" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: запрос "Суперпользователь видит все запросы на изменение воркфлоу" должен содержать поля [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-12%2020-01-14.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+
+priority: normal
+
+files:
+  - idm/tests/api/frontend/test_system.py
+
+tags:
+  - reviewed
+  - no_assessors
+  - postman_automation
+  - fitcher:idm-www:blocks/desktop/workflow/__editor/**
+  - fitcher:idm-www:test/auto/workflow/**
+  - fitcher:idm_backend_palmsync:idm/tests/api/frontend/test_system.py
+  - fitcher:idm_backend_palmsync:idm/core/constants/groupmembership.py
+  - fitcher:idm_backend_palmsync:idm/core/constants/role.py
+  - fitcher:idm_backend_palmsync:idm/core/constants/rolefield.py
+  - fitcher:idm_backend_palmsync:idm/core/constants/system.py
+  - fitcher:idm_backend_palmsync:idm/core/models/favorite_system.py
+  - fitcher:idm_backend_palmsync:idm/core/models/rolenode.py
+  - fitcher:idm_backend_palmsync:idm/core/models/action.py
+  - fitcher:idm_backend_palmsync:idm/core/models/system.py
+  - fitcher:idm_backend_palmsync:idm/core/models/systemrolepush.py
+  - fitcher:idm_backend_palmsync:idm/core/models/role.py
+  - fitcher:idm_backend_palmsync:idm/services/models.py
+  - fitcher:idm_backend_palmsync:idm/tests/utils.py
+  - fitcher:idm_backend_palmsync:idm/users/constants/group.py
+  - fitcher:idm_backend_palmsync:idm/users/models.py
+

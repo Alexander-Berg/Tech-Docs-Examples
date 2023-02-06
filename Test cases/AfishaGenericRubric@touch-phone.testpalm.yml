@@ -1,0 +1,34 @@
+feature: Афиша
+type: Рубричный
+
+import-labels:
+  - src/features/Companies/Companies.features/AfishaGenericRubric/AfishaGenericRubric.test/AfishaGenericRubric@common.testpalm.yml
+
+params:
+  foreverdata: '1165583593'
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: появился рубричный колдунщик афиши
+    - screenshot: внешний вид [afisha-generic-rubric-{{SET_NAME}} >> afisha]
+
+  Скролл списка:
+    - do: проскролить список вправо до конца
+    - tech: сработал счетчик  /$page/$main/$result[@wizard_name="afisha-generic-rubric"]/scroller
+    - assert: видна ссылка 'Весь список'
+    - screenshot: внешний вид ссылки в конце списка [more]
+    - do: кликнуть по ссылке 'Весь список'
+    - assert: ссылка открылась в новой вкладке
+    - tech: сработал счетчик /$page/$main/$result[@wizard_name="afisha-generic-rubric"]/scroller/more
+
+v-team: VanillaGeo
+
+files:
+  - src/features/Companies/Companies.features/AfishaGenericRubric/AfishaGenericRubric.test/AfishaGenericRubric@touch-phone.hermione.js
+
+tlds: all
+
+counter: /$page/$main/$result[@wizard_name="afisha-generic-rubric"]
+
+priority: high

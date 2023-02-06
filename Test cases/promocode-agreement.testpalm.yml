@@ -1,0 +1,33 @@
+feature: Промокод на странице ввода платежных реквизитов
+
+import-steps:
+  - tests/hermione/suites/payment/promocode.testpalm.steps.yml
+
+specs:
+  beforeEach:
+    - do: авторизоваться под администратором и перейти по ссылке "{{CONNECT_HOST}}/portal/balance/contract"
+  Положительные:
+    1. Действующий промокод:
+      - attach: Действующий промокод
+
+  Отрицательные:
+    1. Несуществующий промокод:
+      - attach: Несуществующий промокод
+
+    2. Промокод не введен:
+      - attach: Промокод не введен
+
+files:
+  - tests/hermione/suites/payment/promocode-agreement.js
+
+priority: critical
+
+tlds:
+ - ru
+ - com
+
+tags:
+  - smoke_test_assessors
+  - regression
+  - smoke_test
+  - reviewed

@@ -1,0 +1,27 @@
+feature: LcGrid
+
+tags: no_assessors
+
+specs:
+  Секция LcGrid:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcgrid/default.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Секция LcGrid в режиме not-edit-mode:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcgrid/not-edit-mode.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Кастомный размер gaps:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcgrid/custom-gaps.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Кастомный паттерн:
+      - do: открыть страницу (https://yandex.ru/turbo?stub=lcgrid/custom-pattern.json)
+      - screenshot: внешний вид соответствует скриншоту [plain]
+files:
+  - platform/components/LcGrid/__tests__/LcGrid.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: arsmesh
+
+tlds: none

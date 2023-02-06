@@ -1,0 +1,28 @@
+feature: VideoPlayer
+
+experiment: Видео-плеер на Реакте
+
+specs:
+  Основные проверки:
+    - params:
+        exp_flags: video-player-react=1
+    - do: открыть страницу yandex.ru/turbo?stub=video/default.json
+    - assets: на странице загрузился видео-плеер
+    - screenshot: внешний вид [plain]
+  
+  С описанием:
+    - params:
+        exp_flags: video-player-react=1
+    - do: открыть страницу yandex.ru/turbo?stub=video/with-caption.json
+    - assets: на странице загрузился видео-плеер
+    - assets: на странице появилось описание видео
+    - screenshot: внешний вид [plain-with-caption]
+
+files:
+  - platform/components/Video/Video.tests/Video.hermione.js
+
+v-team: Turbo
+
+manager: mviktorov
+
+tlds: none

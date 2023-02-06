@@ -1,0 +1,102 @@
+feature: Запрос роли
+
+specs:
+  beforeEach:
+    - do: проверить, что роль (/system/crt-test#role=13032410,f-role-id=13032410) должна находиться в статусе "Выдана"
+    - do: проверить, что пользователь robot-internal-001 уволен (http://staff.yandex-team.ru/robot-internal-001)
+    - do: проверить, что в персональном воркфлоу Тестовой системы указан правильный код для роли "group-90" (/system/testsystem/workflow)
+    - screenshot: правильный воркфлоу для "group-90" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-02%2017-25-11.png]
+    - do: проверить, что в групповом воркфлоу Тестовой системы указан правильный код для роли "group-90" (/system/testsystem/workflow)
+    - screenshot: правильный воркфлоу для "group-90" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-02%2017-27-23.png]
+    - do: проверить, что в персональном воркфлоу Тестовой системы указан правильный код для роли "group-93" (/system/testsystem/workflow)
+    - screenshot: правильный воркфлоу для "group-93" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-02%2017-27-46.png]
+    - do: проверить, что в групповом воркфлоу Тестовой системы указан правильный код для роли "group-93" (/system/testsystem/workflow)
+    - screenshot: правильный воркфлоу для "group-93" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-02%2017-28-09.png]
+    - do: проверить, что в персональном воркфлоу Тестовой системы указан правильный код для роли "group-91" (/system/testsystem/workflow)
+    - screenshot: правильный воркфлоу для "group-91" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-02%2017-30-29.png]
+    - do: проверить, что в групповом воркфлоу Тестовой системы указан правильный код для роли "group-91" (/system/testsystem/workflow)
+    - screenshot: правильный воркфлоу для "group-91" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-02%2017-28-52.png]
+    - do: запустить в Runner сценарий "Запрос роли невозможен" (https://github.yandex-team.ru/pixel/idm-runner)
+
+  Запрос уже выданной роли невозможен :
+    - do: отправить запрос "Запрос уже выданной роли через api" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "409"
+    - screenshot: ответ на запрос "Запрос уже выданной роли через api" должен содержать поля [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-02%2014-56-07.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+
+  Запрос роли для уволенного сотрудника невозможен:
+    - do: отправить запрос "Нельзя запросить роль для уволенного сотрудника" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "403"
+    - screenshot: ответ на запрос "Нельзя запросить роль для уволенного сотрудника" должен содержать поля [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-02%2014-59-37.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+
+  Запросить роль, которую может подтвердить только уволенный сотрудник, невозможно:
+    - do: отправить запрос "Невозможно запросить персональную роль, если подтвердить может только сотрудник, который уволен" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "409"
+    - screenshot: ответ на запрос "Невозможно запросить персональную роль, если подтвердить может только сотрудник, который уволен" должен содержать поля [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-02%2015-09-00.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Невозможно запросить групповую роль, если подтвердить может только сотрудник, который уволен" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "409"
+    - screenshot: ответ на запрос "Невозможно запросить групповую роль, если подтвердить может только сотрудник, который уволен" должен содержать поля [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-02%2015-09-36.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+
+  Невозможно запросить роль, если в подтверждающих несуществующий логин:
+    - do: отправить запрос "Невозможно запросить персональную роль, если в подтверждающих несуществующий логин" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "409"
+    - screenshot: ответ на запрос "Невозможно запросить персональную роль, если в подтверждающих несуществующий логин" должен содержать поля [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-02%2015-12-00.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Невозможно запросить групповую роль, если в подтверждающих несуществующий логин" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "409"
+    - screenshot: ответ на запрос "Невозможно запросить групповую роль, если в подтверждающих несуществующий логин" должен содержать поля [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-02%2015-12-00.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+
+  Невозможно запросить роль, если один из сотрудников, обязательных для подтверждения уволен:
+    - do: отправить запрос "Невозможно запросить персональную роль, если один из сотрудников, обязательных для подтверждения уволен" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "409"
+    - screenshot: ответ на запрос "Невозможно запросить персональную роль, если один из сотрудников, обязательных для подтверждения уволен" должен содержать поля [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-02%2015-15-02.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Невозможно запросить групповую роль, если один из сотрудников, обязательных для подтверждения уволен" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "409"
+    - screenshot: ответ на запрос "Невозможно запросить групповую роль, если один из сотрудников, обязательных для подтверждения уволен" должен содержать поля [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-02%2015-15-51.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+
+priority: blocker
+
+files:
+  - idm/tests/commands/test_idm_check_workflow.py
+  - idm/tests/api/frontend/test_role.py
+
+tags:
+  - reviewed
+  - no_assessors
+  - postman_automation
+  - fitcher:idm-www:blocks/desktop/role-request-form/**
+  - fitcher:idm-www:blocks/desktop/idm-form-island/**
+  - fitcher:idm-www:blocks/desktop/modal/**
+  - fitcher:idm-www:test/auto/01-roles/01-request/**
+  - fitcher:idm_backend_palmsync:idm/core/workflow/plain/**
+  - fitcher:idm_backend_palmsync:idm/core/exceptions.py
+  - fitcher:idm_backend_palmsync:idm/tests/utils.py
+  - fitcher:idm_backend_palmsync:idm/core/constants/role.py
+  - fitcher:idm_backend_palmsync:idm/core/templates/emails/service/workflow_fired_users.txt
+  - fitcher:idm_backend_palmsync:idm/core/templates/emails/service/workflow_not_found_users.txt
+  - fitcher:idm_backend_palmsync:idm/tests/commands/test_idm_check_workflow.py
+  - fitcher:idm_backend_palmsync:idm/tests/api/frontend/test_role.py
+  - fitcher:idm/core/models/role.py
+  - fitcher:idm/core/models/rolefield.py
+  - fitcher:idm/core/models/rolenode.py
+  - fitcher:idm/users/models.py
+  - fitcher:idm/api/exceptions.py
+  - fitcher:idm/core/constants/rolefield.py
+  - fitcher:idm/core/models/rolealias.py
+  - fitcher:idm/core/models/approverequest.py
+  - fitcher:idm/permissions/utils.py
+  - fitcher:idm/users/constants/group.py

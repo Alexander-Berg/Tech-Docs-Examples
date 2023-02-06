@@ -1,0 +1,22 @@
+feature: Команда сервиса
+
+specs:
+  beforeEach:
+    - do: Залогиниться под пользователем robot-internal-003
+
+  Просмотр команды сервиса:
+    - do: открыть страницу сервиса robotinternal003service (/services/robotinternal003service/)
+    - screenshot: появилась команда сервиса [team-view]
+
+  Просмотр команды сервиса на английской версии:
+    - do: открыть страницу сервиса robotinternal003service на английском языке /services/robotinternal003service/?lang=en)
+    - screenshot: появилась команда сервиса на английском языке [en-team-view]
+
+files:
+  - test/features/desktop/service/view-team.hermione.js
+
+priority: critical
+
+tags:
+  - reviewed
+  - no_assessors

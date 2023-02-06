@@ -1,0 +1,35 @@
+feature: EmcColumns
+
+tags: no_assessors
+
+specs:
+  Три колонки с равной шириной:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emccolumns/3-columns.json)
+    - screenshot: внешний вид соответствует скриншоту [emccolumns]
+
+  Две колонки с равной шириной и запретом переноса на мобильных устройствах:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emccolumns/2-columns-prevent-stacking-on-mobile.json)
+    - screenshot: внешний вид соответствует скриншоту [emccolumns]
+
+  Две колонки с фиксированной шириной в пикселях:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emccolumns/2-columns-with-width-px.json)
+    - screenshot: внешний вид соответствует скриншоту [emccolumns]
+
+  Три колонки с фиксированной шириной в процентах:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emccolumns/3-columns-with-width-percent.json)
+    - screenshot: внешний вид соответствует скриншоту [emccolumns]
+
+  Три колонки с несколькими секциями в каждой:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emccolumns/3-columns-many-sections.json)
+    - screenshot: внешний вид соответствует скриншоту [emccolumns]
+
+files:
+  - platform/components/EmcColumns/__tests__/EmcColumns.hermione.js
+
+v-team: Lc
+
+manager: polyakovadi
+
+qa-engineer: pankov97
+
+tlds: none

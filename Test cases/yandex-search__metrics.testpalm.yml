@@ -1,0 +1,73 @@
+feature: Шапка
+type: Метрики
+
+description: Проверка основных АБТ-метрик шапки (https://wiki.yandex-team.ru/jandekspoisk/kachestvopoiska/abt/factors/)
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу 'котики'
+
+  Перезапрос с тем же запросом:
+    - do: нажать на Поиск, чтобы сделать перезапрос
+    - tech: web.total_request_count = 2
+    - tech: web.total_click_count = 0
+    - tech: web.tech_part_misc_click = 0
+    - tech: web.abandonment = 100
+    - tech: web.total_all_click = 0
+    - assertMetrics:
+      - web.total_request_count
+      - web.total_click_count
+      - web.tech_part_misc_click
+      - web.abandonment
+      - web.total_all_click
+  Один запрос и уточнение из поисковой строки:
+    - do: ввести в поисковую строку запрос 'котики няшные'
+    - do: нажать на Поиск
+    - tech: web.total_request_count = 2
+    - tech: web.total_click_count = 0
+    - tech: web.tech_part_misc_click = 0
+    - tech: web.abandonment = 100
+    - tech: web.total_all_click = 0
+    - assertMetrics:
+      - web.total_request_count
+      - web.total_click_count
+      - web.tech_part_misc_click
+      - web.abandonment
+      - web.total_all_click
+  Клик в крестик:
+    - do: нажать на крестик очистки поисковой стрелки
+    - tech: web.total_request_count = 1
+    - tech: web.total_click_count = 0
+    - tech: web.tech_part_misc_click = 1
+    - tech: web.abandonment = 100
+    - tech: web.total_all_click = 1
+    - assertMetrics:
+      - web.total_request_count
+      - web.total_click_count
+      - web.tech_part_misc_click
+      - web.abandonment
+      - web.total_all_click
+  Клик в расширенный поиск:
+    - do: нажать на иконку расширенного поиска
+    - tech: web.total_request_count = 2
+    - tech: web.total_click_count = 0
+    - tech: web.tech_part_misc_click = 1
+    - tech: web.abandonment = 100
+    - tech: web.total_all_click = 1
+    - assertMetrics:
+      - web.total_request_count
+      - web.total_click_count
+      - web.tech_part_misc_click
+      - web.abandonment
+      - web.total_all_click
+
+files:
+  - features/desktop/yandex-search/yandex-search__metrics.hermione.js
+
+v-team: Beauty
+
+tags:
+  - no_assessors
+  - reviewed
+
+tlds: ru

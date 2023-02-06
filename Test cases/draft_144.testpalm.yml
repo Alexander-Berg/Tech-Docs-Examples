@@ -1,0 +1,16 @@
+feature:  Запрещено добавлять колонки на старых версиях ПП
+
+specs:
+    Запрещено добавлять колонки на старых версиях ПП:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/2689
+        - release_Webview
+        - platform_ios
+        - platform_android
+    - do: "Preconditions android  ПП <10, установить https://yadi.sk/d/vnX03qNMnlFegQ; ; ios ПП <24, установить https://beta.m.soft.yandex.ru/description?app=yandex&platform_shortcut=iphoneos&branch=release-2300"
+    - do: "Открыть в ПП Устройства - Управление устройствами - `+` - Устройство - Умные колонки - нажать на любую"
+    - assert: "Появляется сообщение: https://jing.yandex-team.ru/files/osennikovak/Ustroistva_2020-07-09_18-04-42.png"
+    - do: "Нажать на `Позже`"
+    - assert: "Сообщение закрывается"
+    - do: "Нажать снова на колонку и на `Обновить`"
+    - assert: "Открывается Плеймаркет/Апстор с приложением Яндекса"

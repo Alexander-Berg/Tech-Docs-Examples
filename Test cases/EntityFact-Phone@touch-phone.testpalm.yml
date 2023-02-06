@@ -1,0 +1,27 @@
+feature: Факт
+type: Объектный
+counter: /$page/$main/$result[@wizard_name="entity-fact"]/phone-button
+
+specs:
+  Кнопка позвонить:
+    - do: получить выдачу Поиска по запросу 'музей техники телефон' _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: на первой позиции выдачи есть Фактовый ответ с кнопкой телефона
+    - screenshot: внешний вид соответствует скриншоту [plain]
+    - do: тапнуть по кнопке с телефоном
+    - tech: проверить счетчик в кнопке с телефоном
+    - assert: произошел переход в приложение 'телефон' с номером из Фактового ответа
+
+specs-integration:
+  Кнопка позвонить:
+    - do: получить выдачу Поиска по запросу 'телефон университета витте' _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: на первой позиции выдачи есть Фактовый ответ с кнопкой телефона
+    - do: тапнуть по кнопке с телефоном
+    - assert: произошел переход в приложение 'телефон' с номером из Фактового ответа
+
+files:
+  - src/features/EntityFact/EntityFact.test/phone/EntityFact-Phone@touch-phone.hermione.js
+  - src/features/EntityFact/EntityFact.test/phone/EntityFact-Phone@touch-phone.hermione.e2e.js
+
+v-team: Facts
+
+tlds: [ru, by, ua, kz, uz, com.tr, com]

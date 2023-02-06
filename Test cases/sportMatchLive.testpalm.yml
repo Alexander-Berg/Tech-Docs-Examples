@@ -1,0 +1,31 @@
+feature: sportMatchLive
+
+specs:
+  Базовый вид блока:
+    - tags:
+      - sportauto
+    - params:
+        foreverdata: '2761187366'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок первого сниппета (название заголовка Тестовая страница для компонента SportMatchLive-default — Турбо)
+    - assert: мой блок должен быть видим
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Статус - "Трансляция":
+    - tags:
+      - sportauto
+    - params:
+        foreverdata: '3858526706'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок первого сниппета (название заголовка Тестовая страница для компонента SportMatchLive-live — Турбо)
+    - assert: мой блок должен быть видим
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+
+
+files:
+  - platform/components/SportMatchLive/__tests__/sportMatchLive.hermione.js
+
+v-team: News
+
+manager: glushneva
+
+tlds: none

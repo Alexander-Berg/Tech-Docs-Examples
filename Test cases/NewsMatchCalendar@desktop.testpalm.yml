@@ -1,0 +1,21 @@
+feature: Календарь на десктопе
+
+specs:
+  Базовый вид блока:
+    - tags:
+      - sportauto
+    - do: открыть /turbo?stub=newsmatchcalendar/default.json
+    - assert: календарь виден
+    - screenshot: внешний вид на 1366px соответствует скриншоту [plain-1366]
+    - screenshot: внешний вид на 1000px соответствует скриншоту [plain-1000]
+
+files:
+  - platform/components/NewsMatchCalendar/__tests__/NewsMatchCalendar@desktop.hermione.js
+
+v-team: Sport
+
+qa-engineer: nightsonne
+
+manager: skhovaev
+
+tlds: none

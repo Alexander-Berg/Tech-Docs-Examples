@@ -1,0 +1,38 @@
+feature: Специальные события
+type: Список стран
+
+specs:
+  Список стран в двух колонках:
+    - params:
+        foreverdata: '553824991'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: колдунщик присутствует со списком стран в две колонки
+    - screenshot: скриншот [countries-list-2-cols]
+  Список стран в трех колонках:
+    - params:
+        foreverdata: '1167158466'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: колдунщик присутствует со списком стран в три колонки
+    - screenshot: скриншот [countries-list-3-cols]
+  Список стран в четырех колонках:
+    - params:
+        foreverdata: '2245974753'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: колдунщик присутствует со списком стран в 4 колонки
+    - screenshot: скриншот [countries-list-4-cols]
+  Список стран в пяти колонках:
+    - params:
+        foreverdata: '3627318918'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: колдунщик присутствует со списком стран в 5 колонок
+    - screenshot: скриншот [countries-list-5-cols]
+
+files:
+  - features/adapter-special-event/adapter-special-event_countries/adapter-special-event__countries@deskpad.hermione.js
+
+v-team: Freshness
+
+tlds:
+  - ru
+
+manager: nkmakarov

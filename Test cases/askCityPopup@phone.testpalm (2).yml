@@ -1,0 +1,46 @@
+feature: Ecom-tap
+
+params:
+  exp_flags:
+    - turbo-app-any-ua=1
+    - turboforms_endpoint=https://test-turbo-forms.common.yandex.ru/
+    - turbo-app-ask-user-city=1
+
+specs:
+  Уточнение города пользователя:
+    Если в LS нет информации о городе - показываем попап:
+      - do: открыть ссылку в инкогнито https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog
+      - assert: показался попап с вопросом `Ваш город Москва?` (название города может отличаться)
+      - tech: отправилась цель метрики `region-popup-shown`
+      - tech: выполнить `localStorage.getItem('turbo-app-ecom--spideradio.github.io')` и убедиться, что там есть информация о регионе
+      - screenshot: внешний вид (название города может отличаться) [plain]
+      - do: кликнуть на `Да`
+      - assert: попап закрылся
+      - tech: в метрику отправилась цель `region-popup-ok-clicked`
+
+    Попап не покажется, если в LS есть данные о регионе:
+      - do: перейти по ссылке https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog
+      - do: если появился попап `Ваш город Москва?` (название города может отличаться) - закройте его
+      - do: перезагрузить страницу
+      - assert: после перезагрузки попап не появился
+
+    Неправильно определили регион:
+      - do: открыть ссылку в инкогнито https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog
+      - assert: показался попап с вопросом `Ваш город Москва?` (название города может отличаться)
+      - do: нажать `Нет`
+      - assert: попап закрылся
+      - tech: в метрику отправилась цель `region-popup-another-city-clicked`
+
+    Закрытие попапа по фону:
+      - do: открыть ссылку в инкогнито https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog
+      - assert: показался попап с вопросом `Ваш город Москва?` (название города может отличаться)
+      - do: нажать по серому фону попапа
+      - assert: попап закрылся
+      - tech: в метрику отправилась цель `region-popup-dismissed`
+
+files:
+  - __tests__/askCityPopup@phone.hermione.js
+
+tlds: ru
+
+v-team: Turbo

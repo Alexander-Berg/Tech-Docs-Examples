@@ -1,0 +1,28 @@
+feature: beruReasons
+
+specs:
+    Базовый вид блока:
+        - do: открыть ссылку https://yandex.ru/turbo?stub=berureasons/default.json
+        - assert: отображается блок с причинами для покупки
+        - screenshot: внешний вид соответствует скриншоту [plain]
+    Вид блока с одной причиной:
+        - do: открыть ссылку https://yandex.ru/turbo?stub=berureasons/one.json
+        - assert: отображается блок с одной причиной
+        - screenshot: внешний вид соответствует скриншоту [one]
+    Вид блока с несколькими характеристиками. Отображается как одна причина.:
+        - do: открыть ссылку https://yandex.ru/turbo?stub=berureasons/consumer-factors.json
+        - assert: отображается блок с причиной с характеристиками
+        - screenshot: внешний вид соответствует скриншоту [consumer-factors]
+    Вид блока с причинами "смотрели" и "купили":
+        - do: открыть ссылку https://yandex.ru/turbo?stub=berureasons/viewed-and-bought.json
+        - assert: отображается блок только с причиной "купили", "смотрели" не отображается
+        - screenshot: внешний вид соответствует скриншоту [viewed-and-bought]
+
+files:
+    - platform/components/BeruReasons/BeruReasons.tests/BeruReasons@phone.hermione.js
+
+tlds: none
+
+v-team: Beru
+
+manager: seoshnik

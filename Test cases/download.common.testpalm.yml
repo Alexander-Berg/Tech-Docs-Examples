@@ -1,0 +1,37 @@
+feature: Картинку в режиме просмотра можно скачать
+
+import-steps:
+    - tests/hermione/suites/messenger/shared-steps/open-messenger.testpalm.steps.yml
+    - tests/hermione/suites/shared-steps/open-picture-at-lightbox.testpalm.steps.yml
+
+tlds: all
+
+specs:
+    before:
+        - attach: Открытие чата
+        - attach: Открытие картинки в просмотрщике
+
+    # TODO: make it work after (https://st.yandex-team.ru/MSSNGRFRONT-7924)
+    По нажатию на кнопку скачивания картинка скачалась[manual]:
+        - automation: MSSNGRFRONT-2918
+        #- browsers: chrome-phone
+        - do: нажать на кнопку скачивания в футере просмотрщика
+        - assert: картинка скачалась
+
+    Скачивание картинки (ios)[manual]:
+        - automation: MSSNGRFRONT-2918
+        - browsers: ios-safari-11-touch
+        - do: нажать на кнопку скачивания в футере просмотрщика
+        - assert: картинка открылась в новой вкладке
+        - do: выполнить долгое нажатие на экран
+        - do: в появшемся меню выбрать "скачать"
+        - assert: картинка скачалась
+
+files: []
+
+v-team: Chat
+
+tags:
+    - chamb
+    - yamb
+    - y-team

@@ -1,0 +1,42 @@
+feature: Колдунщик Яндекс.Диска
+
+specs:
+  Без cookieL:
+    - params:
+        foreverdata: '1630943199'
+    - do: неавторизованным пользователем получить выдачу по запросу 'foreverdata'
+    - assert: кнопки залогина присутствуют под спец.сниппетом Яндекс.Диска
+    - screenshot: пример внешнего вида [zalogin-disk]
+
+  С cookieL:
+    - params:
+        foreverdata: '1371400064'
+    - do: неавторизованным пользователем получить выдачу по запросу 'foreverdata'
+    - assert: серая кнопка Войти в почту и логин присутствуют под спец.сниппетом Яндекс.Диска
+    - screenshot: пример внешнего вида [zalogin-disk-cookiel]
+
+  Кнопка Войти:
+    - params:
+        foreverdata: '1630943199'
+    - do: проверить кнопку "Войти"
+    - assert: ссылка ведет на сайт https://passport.yandex.ru/auth
+    - tech: ссылка содержит счетчик origin = 'serp_disk_snippet'
+
+  Кнопка Регистрация:
+    - params:
+        foreverdata: '1630943199'
+    - do: проверить кнопку "Регистрация"
+    - assert: ссылка ведет на сайт https://passport.yandex.ru/registration
+    - tech: ссылка содержит счетчик origin = 'serp_disk_snippet'
+
+files:
+  - features/touch-phone/ya-disk-login/ya-disk-login.hermione.js
+
+v-team: Distribution
+
+tags:
+  - skip_e2e_check
+  - distribution
+  - zalogin
+
+tlds: [ru]

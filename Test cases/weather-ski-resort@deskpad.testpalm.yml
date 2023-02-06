@@ -1,0 +1,39 @@
+feature: Колдунщик погоды горнолыжный десктоп
+
+specs:
+  3 точки:
+    - params:
+        foreverdata: '815656846'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: появился колдунщик погоды с указанием погоды в трёх точках в горах и прогнозом по дням
+    - screenshot: колдунщик погоды соответствует виду [weather-ski-3points-desktop]
+  2 точки:
+    - params:
+        foreverdata: '1879637294'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: появился колдунщик погоды с указанием погоды в двух точках в горах и прогнозом по дням
+    - screenshot: колдунщик погоды соответствует виду [weather-ski-2points-desktop]
+  1 точка:
+    - params:
+        foreverdata: '2023507723'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: появился колдунщик погоды на сегодня с фактической температурой и прогнозом по дням. Горнолыжной информации нет.
+    - screenshot: колдунщик погоды соответствует виду [weather-ski-1point-desktop]
+  курорт без точек:
+    - params:
+        foreverdata: '3629787077'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: появился колдунщик погоды на сегодня с фактической температурой и прогнозом по дням
+    - screenshot: колдунщик погоды соответствует виду [weather-ski-empty-desktop]
+
+files:
+  - features/adapter-weather/ski/weather-ski-resort@deskpad.hermione.js
+
+v-team: Weather
+
+manager:
+  - podnebesnaya
+
+tlds: [ru, by, ua, kz, com.tr]
+
+counter: /$page/$main/$result[@wizard_name="weather"]

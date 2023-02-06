@@ -1,0 +1,80 @@
+feature: Специальные события
+type: Команда
+
+specs:
+  Внешний вид - последний матч:
+    - params:
+        foreverdata: '1935957535'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: колдунщик спортивной команды присутствует на выдаче
+    - screenshot: внешний вид карточки последнего матча [last-match]
+    - assertMetrics: '-'
+  Внешний вид - таблица с названием чемпионата:
+    - params:
+        foreverdata: '1541305413'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: колдунщик спортивной команды присутствует на выдаче
+    - screenshot: внешний вид таблицы расписания [shedule]
+    - assertMetrics: '-'
+  Внешний вид - описание в заголовке:
+    - params:
+        foreverdata: '1935957535'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: колдунщик спортивной команды присутствует на выдаче
+    - screenshot: внешний вид заголовка колжунщика [header]
+    - assertMetrics: '-'
+  Выпадающее меню:
+    - params:
+        foreverdata: '2882779902'
+        srcskip: YABS_DISTR
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: колдунщик спортивной команды присутствует на выдаче
+    - screenshot: внешний вид (синий тултил может отсутствовать) [before]
+    - do: нажать на кнопку "Евро 2020", рядом с заголовком "Турнирная таблица"
+    - assert: рядом с кнопкой появился попап
+    - do: нажать "Квалификация ЧМ-2022. Европе" в попапе
+    - assert: появилась таблица выбранного Чемпионата
+    - screenshot: внешний вид (синий тултил может отсутствовать) [after]
+  Настраиваемый внешний вид иконок команд в шапке и лайвскоре:
+    - params:
+        foreverdata: '533504051'
+    - do: получить выдачу по запросу 'foreverdata'
+    - screenshot: внешний вид [with-customized-icons]
+    - assert: иконки команд в шапке и таблице 'Последний матч' не обрезаны
+    - assertMetrics: '-'
+  Синхронизация иконок подписки:
+    - browsers:
+        notFor:
+          - ios-pad-group
+    - params:
+        foreverdata: '1274567737'
+        user_time: '202009041153'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: колдунщик спортивной команды присутствует на выдаче
+    - screenshot: внешний вид колдунщика [sync-test-before]
+    - do: кликнуть на иконку колокольчика в разделе "ближайший матч"
+    - assert: выделилось 2 иконки с колокольчиком - нажатая, а также иконка напротив этого же матча в разделе "расписание матчей"
+    - screenshot: внешний вид колдунщика после подписки [sync-test-after]
+    - assertMetrics: '-'
+
+specs-integration:
+  Основные проверки:
+    - do: получить выдачу по запросу "футбольный клуб Рубин"
+    - assert: на выдаче присутствует колдунщик специальных событий
+    - assert: в заголовке присутствует иконка команды и название команды
+    - assert: под заголовком присутствует как минимум одна таблица с данными
+
+files:
+  - features/adapter-special-event/adapter-special-event_type_team/adapter-special-event_type_team@deskpad.hermione.js
+  - features/adapter-special-event/adapter-special-event_type_team/adapter-special-event_type_team@deskpad.hermione.e2e.js
+
+v-team: Sport
+
+counter: /$page/$top/$result[@wizard_name="special/event" and @subtype="sport/team"]/title
+
+tlds:
+  - ru
+
+tags:
+  - other
+  - reviewed

@@ -1,0 +1,76 @@
+feature: Товарная галерея
+
+specs:
+  Доступность:
+    - tags:
+      - no_assessors
+      - a11y_serp
+    - params:
+        foreverdata: '2055513564'
+        exp_flags: 'a11y_validate=1'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: в выдаче есть товарная галлерея
+    - do: |
+        выполнить скрипт в console браузера:
+        await axe.run('.ECommerceCarousel')
+    - tech: в консоль вывелся объект, у которого свойство `violations` - пустой массив []
+
+  С лейблом скидки:
+    Базовые проверки:
+      - tags: smoke
+      - params:
+          foreverdata: '1677229915'
+      - do: получить выдачу по запросу "foreverdata"
+      - assert: |
+          присутствует товарная галерея с хотя бы одной карточкой товара,
+          поверх изображения которой находится лейбл скидки
+      - screenshot: внешний вид [tg_with_discount_label]
+    С дисклеймером:
+      - tags: smoke
+      - params:
+          foreverdata: '2651060933'
+      - do: получить выдачу по запросу "foreverdata"
+      - assert: |
+          присутствует товарная галерея,
+          на одной карточке товара отображается дисклеймер под гринурлом товара (текст серого цвета) и поверх изображения находится лейбл скидки
+      - screenshot: внешний вид [tg_with_discount_label_with_disclaimer_intersection]
+  CGI параметры для маркета:
+    browsers:
+        - chrome-desktop
+        - chrome-phone
+    Маркетная ссылка:
+      - params:
+          foreverdata: '934258065'
+      - do: получить выдачу по запросу "foreverdata"
+      - assert: на странице присутствует Товарная галерея
+      - do: |
+          кликнуть на ссылку заголовка первой карточки, которая ведет на market.yandex.ru
+          вернуться на вкладку с поисковой выдачей и Товарной галерей
+      - assert: |
+          в url кликнутой ссылки присутствует src_pof
+          в url кликнутой ссылки присутствует wprid
+          в url кликнутой ссылки присутствует icookie
+    Не маркетная ссылка:
+      - params:
+          foreverdata: '934258065'
+      - do: получить выдачу по запросу "foreverdata"
+      - assert: на странице присутствует Товарная галерея
+      - do: |
+          кликнуть на ссылку заголовка второй карточки, которая ведет на market.yandex.ru
+          вернуться на вкладку с поисковой выдачей и Товарной галерей
+      - assert: |
+          в url кликнутой ссылки отсутствует src_pof
+          в url кликнутой ссылки отсутствует wprid
+          в url кликнутой ссылки отсутствует icookie
+
+files:
+  - src/features/Market/Market.features/MarketCarousel/MarketCarousel.test/MarketCarousel@common.hermione.js
+
+v-team: ECOM
+
+tlds: all
+
+tags:
+  - ecom
+  - tgallery
+  - skip_e2e_check

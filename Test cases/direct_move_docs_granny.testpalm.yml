@@ -1,0 +1,38 @@
+feature: Спец.размещение
+experiment: Подмешивание рекламных сниппетов в органику
+params:
+  foreverdata: '1193310802'
+
+specs:
+  Логирование без перестановки:
+    - params:
+        exp_flags: direct_move_docs_granny=0
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: все рекламные сниппеты находятся в начале выдачи
+    - screenshot: вид выдачи [plain]
+    - tech: сработал счетчик path='/direct/ad/premium/replace', vars='-place_after_pos=*'
+    - counter: /direct/ad/premium/replace
+  Подмешивание рекламы в органику:
+    - params:
+        exp_flags: direct_move_docs_granny=1
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: третий рекламный сниппет находится сверху
+    - assert: первый рекламный сниппет находится после четвёртого по счёту органического
+    - assert: второй рекламный сниппет находится после второго по счёту органического
+    - screenshot: вид выдачи [plain]
+    - tech: сработал счетчик path='/direct/ad/premium/replace', vars='-place_after_pos=*'
+    - counter: /direct/ad/premium/replace
+
+files:
+  - features/common/serp-item/direct_move_docs_granny/direct_move_docs_granny.hermione.js
+
+browsers:
+  notFor:
+    - ie8
+
+tags:
+  - popular
+
+v-team: Distribution
+
+tlds: none

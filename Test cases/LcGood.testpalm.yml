@@ -1,0 +1,33 @@
+feature: LcGood
+
+tags: no_assessors
+
+specs:
+  Карточка товара:
+    - do: открыть страницу https://yandex.ru/turbo?stub=lcgood/card.json
+    - do: кликнуть по паранже над товаром
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Карточка товара с свойствами:
+    - do: открыть страницу https://yandex.ru/turbo?stub=lcgood/cardWithAttributes.json
+    - do: кликнуть по паранже над товаром
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Выбор свойств в карточке товара:
+    - do: открыть страницу https://yandex.ru/turbo?stub=lcgood/cardWithAttributes.json
+    - do: кликнуть по паранже над товаром
+    - do: выбрать размер
+    - do: выбрать цвет
+    - do: выбрать кастомный атрибут
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/components/LcGood/__tests__/LcGood.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin, polyakovadi
+
+qa-engineer: pankov97, vovichek62
+
+tlds: none

@@ -1,0 +1,8 @@
+feature: Устройство - настройки
+
+files:
+  - tests/hermione/suites/touch/legacy/device-settings/device-settings.hermione.js
+
+specs:
+  'Длинное название устройства':
+    - automation: TODO

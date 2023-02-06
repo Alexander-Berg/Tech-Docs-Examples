@@ -1,0 +1,34 @@
+feature: Спортивные видео
+
+specs:
+  Карусель:
+    - tags:
+      - sportauto
+    - do: открыть https://yandex.ru/turbo?stub=sportvideolist/carousel.json
+    - assert: блок виден
+    - screenshot: внешний вид соответствует скриншоту [carousel]
+
+  Одно видео:
+    - tags:
+      - sportauto
+    - do: открыть https://yandex.ru/turbo?stub=sportvideolist/single.json
+    - assert: блок виден
+    - screenshot: внешний вид соответствует скриншоту [single]
+
+  Одно видео с коротким названием:
+    - tags:
+      - sportauto
+    - do: открыть https://yandex.ru/turbo?stub=sportvideolist/single-short-title.json
+    - assert: блок виден
+    - screenshot: внешний вид соответствует скриншоту [single-short-title]
+
+files:
+  - platform/components/SportVideoList/__tests__/SportVideoList.hermione.js
+
+v-team: Sport
+
+qa-engineer: nightsonne
+
+manager: skhovaev
+
+tlds: none

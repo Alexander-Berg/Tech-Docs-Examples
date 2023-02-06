@@ -1,0 +1,27 @@
+feature: Карта коронавируса
+
+specs:
+  Основные проверки:
+    - do: получить выдачу по запросу 'коронавирус карта россии'
+    - assert: |
+        на выдаче есть сниппет с картой коронавируса
+        c тайтлом, гринурлом и превью карты
+    - screenshot: внешний вид сниппета [covid-map]
+    - do: кликнуть на тайтл сниппета
+    - assert: в новой вкладке открылась страница Яндекс.Карт с картой коронавируса
+    - tech: сработал счётчик path='/$page/$main/$result/title'
+    - do: кликнуть на превью карты
+    - assert: в новой вкладке открылась страница Яндекс.Карт с картой коронавируса
+    - tech: сработал счётчик path='/$page/$main/$result/map/map'
+
+files:
+  - src/features/CovidMap/CovidMap.test/CovidMap@touch-phone.hermione.js
+
+counter: /$page/$main/$result[@wizard_name="special/event" and @subtype="virus_map"]
+
+v-team: VanillaGeo
+
+tags:
+  - no_assessors
+
+tlds: all

@@ -1,0 +1,23 @@
+feature: Логирование событий при загрузке серпа
+
+specs:
+  Метод logTimingEvent:
+    - do: открыть выдачу по запросу "vk"
+    - tech: метод logTimingEvent должен обработать ожидаемые временные метки
+
+files:
+  - features/searchapp/log-timing/log-timing.hermione.js
+
+tags:
+  - searchapp
+  - api
+  - reviewed
+  - no_assessors
+  - skip_e2e_check
+
+browsers:
+  - searchapp-phone
+
+v-team: Velocity
+
+tlds: none

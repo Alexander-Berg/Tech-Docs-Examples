@@ -1,0 +1,17 @@
+feature: Маркет. Офферный колдунщик
+type: Вытесненный справа
+
+specs:
+  Проверка viewType в поле data-subtype:
+    - params:
+        foreverdata: '1778479012'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: в результатах поисковой выдачи присутствует офферный колдунщик с каруселью маркетплейса
+    - counter: /$page/$main/$result[@wizard_name="market_constr" and @subtype="market_offers_wizard_center_incut"]
+
+files:
+  - src/features/Market/Market.features/MarketOffersWizard/MarketOffersWizard.test/_rightInCenter/MarketOffersWizard@desktop.hermione.js
+
+v-team: Goods
+
+tlds: [ru, by, ua, kz, com.tr]

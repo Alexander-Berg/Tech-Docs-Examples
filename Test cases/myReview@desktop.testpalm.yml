@@ -1,0 +1,125 @@
+feature: Отзывы на Серпе
+type: Оставление отзыва в просмотрщике отзывов организации
+
+specs:
+  beforeEach:
+    - do: залогиниться в Яндексе
+    - do: получить выдачу по запросу "кафе пушкин"
+    - assert: на странице присутствует карточка организации
+    - do: нажать на таб отзвов
+    - assert: на странице появился попап с отзывами и формой оставлени яотзыва
+  Внешний вид:
+    - screenshot: внешний вид [plain]
+  Оставить отзыв:
+    - do: кликнуть по любой из серых звёзд рейтинга
+    - assert: |
+        звёзды до выбранной включительно окрасились
+        появилось поле для ввода текста отзыва [https://jing.yandex-team.ru/files/melnikovatm/desktop-ugc-review-rating-empty-textarea.png]
+        кнопка 'Оставить отзыв' активна при наличии оценки
+    - screenshot: внешний вид [selected-rating]
+    - do: ввести текст отзыва
+    - assert: |
+        текст введён
+        кнопка 'Оставить отзыв' осталась активной [https://jing.yandex-team.ru/files/antzhe/desktop-ugc-review-rating-textarea.png]
+    - screenshot: внешний вид [written-review]
+    - do: кликнуть по кнопке 'Оставить отзыв'
+    - assert: |
+        поле для ввода текста исчезло
+        отображается введённый текст, выставленный рейтинг и загруженная фотография
+        появилось сообщение о том, что отзыв направлен на проверку [https://jing.yandex-team.ru/files/antzhe/desktop-ugc-review-thanks.png]
+    - screenshot: внешний вид [sent-review]
+    - do: кликнуть по кнопке 'В личный кабинет'
+    - assert: в новой вкладке открылся личный кабинет пользователя
+    - tech: сработал счётчик path="/$page/$parallel/$result/composite/reviews-viewer/tabs-panes-modal/reviews-page/my-review/reviewThanksMessage/button"
+  Отмена отправки:
+    - do: кликнуть по любой из серых звёзд рейтинга
+    - assert: |
+        звёзды до выбранной включительно окрасились
+        появилось поле для ввода текста отзыва [https://jing.yandex-team.ru/files/melnikovatm/desktop-ugc-review-rating-empty-textarea.png]
+        кнопка 'Оставить отзыв' активна при наличии оценки
+    - do: ввести текст отзыва
+    - assert: |
+        текст введён
+        кнопка 'Оставить отзыв' осталась активной [https://jing.yandex-team.ru/files/antzhe/desktop-ugc-review-rating-textarea.png]
+    - do: кликнуть по кнопке 'Отменить'
+    - assert: |
+        поле для ввода текста исчезло
+        появилась жёлтая кнопка 'Оставить отзыв' и выставленный ранее рейтинг [https://jing.yandex-team.ru/files/antzhe/desktop-ugc-review-rating-inset.png]
+    - screenshot: внешний вид [cancel-review]
+    - do: кликнуть по ранее выбранной звезде
+    - assert: |
+        все звёзды стали серыми
+        кнопка 'Оставить отзыв' исчезла [https://jing.yandex-team.ru/files/antzhe/desktop-ugc-review-empty-inset.png]
+    - screenshot: внешний вид [cancel-rating]
+  Отправка и редактирование отзыва:
+    - do: кликнуть по любой из серых звёзд рейтинга
+    - assert: |
+        звёзды до выбранной включительно окрасились
+        появилось поле для ввода текста отзыва [https://jing.yandex-team.ru/files/melnikovatm/desktop-ugc-review-rating-empty-textarea.png]
+        кнопка 'Оставить отзыв' активна при наличии оценки
+    - do: ввести текст отзыва
+    - assert: |
+        текст введён
+        кнопка 'Оставить отзыв' осталась активной [https://jing.yandex-team.ru/files/antzhe/desktop-ugc-review-rating-textarea.png]
+    - do: кликнуть по кнопке 'Оставить отзыв'
+    - assert: |
+        поле для ввода текста исчезло
+        отображается введённый текст, выставленный рейтинг и загруженная фотография
+        появилось сообщение о том, что отзыв направлен на проверку [https://jing.yandex-team.ru/files/antzhe/desktop-ugc-review-thanks.png]
+    - do: кликнуть по кнопке меню (в правом верхнем углу отзыва)
+    - assert: появился попап с кнопками действий [https://jing.yandex-team.ru/files/antzhe/desktop-ugc-review-kebab-popup.png]
+    - screenshot: внешний вид [edit]
+    - do: кликнуть по кнопке 'Оставить отзыв'
+    - assert: на странице появилась кнопка меню
+  Удаление отзыва:
+    - do: кликнуть по любой из серых звёзд рейтинга
+    - assert: |
+        звёзды до выбранной включительно окрасились
+        появилось поле для ввода текста отзыва [https://jing.yandex-team.ru/files/melnikovatm/desktop-ugc-review-rating-empty-textarea.png]
+        кнопка 'Оставить отзыв' активна при наличии оценки
+    - do: ввести текст отзыва
+    - assert: |
+        текст введён
+        кнопка 'Оставить отзыв' осталась активной [https://jing.yandex-team.ru/files/antzhe/desktop-ugc-review-rating-textarea.png]
+    - do: кликнуть по кнопке 'Оставить отзыв'
+    - assert: |
+        поле для ввода текста исчезло
+        отображается введённый текст, выставленный рейтинг и загруженная фотография
+        появилось сообщение о том, что отзыв направлен на проверку [https://jing.yandex-team.ru/files/antzhe/desktop-ugc-review-thanks.png]
+    - do: кликнуть по кнопке меню (в правом верхнем углу отзыва)
+    - assert: появился попап с кнопками действий [https://jing.yandex-team.ru/files/antzhe/desktop-ugc-review-kebab-popup.png]
+    - do: кликнуть 'Удалить'
+    - assert: появился вопрос с подтверждением удаления отзыва [https://jing.yandex-team.ru/files/antzhe/desktop-ugc-review-remove-confirm.png]
+    - screenshot: внешний вид [delete-dialog]
+    - do: кликнуть на кнопку 'Нет'
+    - assert: появился ранее оставленный отзыв с рейтингом [https://jing.yandex-team.ru/files/antzhe/desktop-ugc-review-no-photo.png]
+    - do: кликнуть по кнопке меню (в правом верхнем углу отзыва)
+    - assert: появился попап с кнопками действий [https://jing.yandex-team.ru/files/antzhe/desktop-ugc-review-kebab-popup.png]
+    - do: кликнуть на кнопку 'Да'
+    - assert: отзыв исчез, звёзды рейтинга серые [https://jing.yandex-team.ru/files/antzhe/desktop-ugc-review-empty-inset.png]
+    - screenshot: внешний вид [deleted]
+  Дисклеймер о допустимом размере фотографии:
+    - do: кликнуть по любой из серых звёзд рейтинга
+    - assert: |
+        звёзды до выбранной включительно окрасились
+        появилось поле для ввода текста отзыва [https://jing.yandex-team.ru/files/melnikovatm/desktop-ugc-review-rating-empty-textarea.png]
+        кнопка 'Оставить отзыв' активна при наличии оценки
+    - assert: под полем для ввода текста отзыва есть блок загрузки фотографий (в ПП на Андроид блок с загрузкой фото может отсутствовать – в этом случае этап с загрузкой фото нужно пропустить)
+    - do: кликнуть по кнопке загрузки фотографий
+    - assert: открылось системное окно выбора файла
+    - do: выбрать для загрузки фотографию размером больше 10мб
+    - assert: |
+        под блок загрузки фотографий появилась надпись о том, что превышен максимально допустимый размер файла
+        фотография не загрузилась
+    - screenshot: внешний вид [photos-error]
+
+files:
+  - src/features/ReviewsViewer/ReviewsViewer.test/myReview/myReview@desktop.hermione.js
+
+v-team: VanillaGeo
+
+tags:
+  - reviews
+  - react
+
+tlds: all

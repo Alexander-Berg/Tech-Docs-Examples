@@ -1,0 +1,13 @@
+feature:  no asessors Умный дом - Комнаты не переписываются при discovery
+
+specs:
+    no asessors Умный дом - Комнаты не переписываются при discovery:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/3298
+        - release_Smarthome
+        - smarthome_regress
+        - no_assessors
+        - iot_households
+    - do: "Preconditions - Есть аккаунт Xiaomi, на нем есть произвольный девайс (допустим, `Ночник`) в комнате с каким-то именем, например, `Гостиная`; - В ПП уже прокинут этот девайс, но с другой комнатой (например, Туалет); "
+    - do: "Обновляем список устройств"
+    - assert: "Лампочка в той же комнате, что и была в ПП"

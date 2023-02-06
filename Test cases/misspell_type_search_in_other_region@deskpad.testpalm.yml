@@ -1,0 +1,74 @@
+feature: Опечатка и Ко
+type: Поиск в другом регионе
+
+specs:
+  Проверяем кнопку в заграничном домене:
+    - params:
+        lr: '157'
+        tlds: by
+        foreverdata: '2871482136'
+    - do: получить выдачу по запросу "foreverdata"
+    - assert: присутствует сообщение "Показаны результаты для ..." и кнопка "Москва/Минск/Киев/..." в зависимости от вашего региона
+    - do: нажать на кнопку 'Москва'
+    - tech: сработал счетчик '/reask/results_for_region/button', vars 'pos=top'
+    - assert: поисковая выдача обновилась
+    - assert: в адресной строке указан домен "ru"
+    - assertMetrics: '*'
+  Наличие колдунщика на выдаче - данные в wizplaces:
+    - params:
+        lr: '57'
+        foreverdata: '2238711047'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: отображается выдача по указанному запросу
+    - assert: присутствует сообщение "Показаны результаты для Ханты-Мансийска"
+    - assert: присутствует кнопка с текстом "Иннополис"
+    - screenshot: Внешний вид [region]
+    - assertMetrics: '*'
+  Не учитывается регион - данные в wizplaces:
+    - params:
+        lr: '57'
+        foreverdata: '1383863648'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: отображается выдача по указанному запросу
+    - assert: присутствует сообщение "При поиске не учитывается регион"
+    - assert: присутствует кнопка с текстом "Иннополис"
+    - screenshot: Внешний вид [unknown-region]
+    - assertMetrics: '*'
+  Город из двух слов выделяется жирным:
+    - params:
+        lr: '57'
+        foreverdata: '3018895096'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: отображается выдача по указанному запросу
+    - screenshot: Внешний вид [bold-region]
+    - assertMetrics: '*'
+
+files:
+  - features/misspell/misspell_type_search_in_other_region@deskpad.hermione.js
+
+v-team: Freshness
+
+tags:
+  - button
+  - regions
+  - granny
+  - wtp_button
+  - meta
+  - otherregion
+  - wtp_ajax
+  - wizard
+  - misprint
+  - ajax
+  - no_assessors
+  - reviewed
+  # гарантированно увидеть региональный опечаточник сейчас нельзя, открытие по счетчику тоже не гарантирует показ.
+  - skip_e2e_check
+
+counter: /reask/results_for_region
+
+tlds:
+  - ru
+  - by
+  - ua
+  - kz
+  - uz

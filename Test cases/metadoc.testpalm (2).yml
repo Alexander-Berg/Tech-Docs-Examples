@@ -1,0 +1,25 @@
+feature: Объектный ответ
+type: Карточка объекта / метадок
+
+specs:
+  Перед связанными списками:
+    - do: получить выдачу по запросу 'губка'
+    - assert: |
+        на выдаче есть карточка объекта,
+        в карточке есть врезка метадока до связанных списков
+    - screenshot: пример внешнего вида [plain]
+    - do: кликнуть по первому элементу метадока
+    - assert: открылся ответ на вопрос
+    - tech: сработал счетчик
+
+files:
+  - features/touch-phone/z-entity-search/metadoc/metadoc.hermione.js
+
+v-team: OO
+
+tags:
+  - oo_feature_card
+  - oo_metadoc
+  - pp_new_core
+
+tlds: ['ru']

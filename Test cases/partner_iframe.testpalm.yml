@@ -1,0 +1,28 @@
+feature: Iframe для сайтов-партнёров
+
+specs:
+  Проверка отсутствия шапки и футера:
+    - params:
+        promo: search.tut.by
+    - do: получить выдачу по запросу 'test' с укзанным promo с одним из адресов из белого списка партнёров
+    - assert: отсутствуют шапка и футер
+
+  Проверка присутствия шапки и футера без promo:
+    - do: получить выдачу по запросу 'test' без указания promo
+    - assert: на странице есть шапка и футер
+
+  Проверка присутствия шапки и футера на promo не из белого списка:
+    - params:
+        promo: not-exist-site.ru
+    - do: получить выдачу по запросу 'test'
+    - assert: на странице есть шапка и футер
+
+files:
+  - features/touch-phone/partner-iframe/partner_iframe.hermione.js
+
+v-team: Distribution
+
+tags:
+  - no_assessors
+
+tlds: none

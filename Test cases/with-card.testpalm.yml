@@ -1,0 +1,21 @@
+feature: Объектный ответ
+type: Карусель над карточкой
+counter: /$page/$main/$result[@wizard_name="entity_search"]/carousel
+
+specs:
+  Основной сценарий:
+    - do: получить выдачу по запросу 'малефисента фильм 2014' с параметром ento=0oCgpydXc0MDE3NjkxEmNsc3Quc2xtQ2tJS0JIUmxlSFFTT2loelgyRmpkRzl5T25KMWR6RXpOelkyTWlCOElITmZaR2x5WldOMGIzSTZjblYzTVRNM05qWXlLU0FtSmlCelgyZGxibkpsT21acGJHMD0YApDb8Mk;collapsed
+    - screenshot: внешний вид [plain-film]
+    - assert: на выдаче есть карусель и карточка ОО
+    - assertMetrics: '*'
+
+files:
+  - features/touch-phone/z-entity-search/carousel/with-card/with-card.hermione.js
+
+v-team: OO
+
+tags:
+  - no_assessors
+  - smoke_extended
+
+tlds: [ru, by, kz, ua, com.tr, com]

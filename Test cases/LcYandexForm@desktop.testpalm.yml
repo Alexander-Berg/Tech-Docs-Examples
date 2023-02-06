@@ -1,0 +1,22 @@
+feature: LcYandexForm
+
+tags: no_assessors
+
+specs:
+    Внешний вид формы:
+        - do: открыть страницу примера блока LcYandexForm (https://yandex.ru/turbo?stub=lcyandexform/default.json)
+        - screenshot: внешний вид соответствует скриншоту [plain]
+    Внешний вид формы, когда прокидываем флаг device=phone:
+        - do: открыть страницу примера блока LcYandexForm (https://yandex.ru/turbo?stub=lcyandexform/default.json&device=phone)
+        - screenshot: внешний вид соответствует скриншоту [mobile]
+
+files:
+    - platform/components/LcYandexForm/__tests__/LcYandexForm@desktop.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: ratyulenev
+
+tlds: none

@@ -1,0 +1,12 @@
+feature:  Разлогин на паспорте
+
+specs:
+    Разлогин на паспорте:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/2474
+        - release_Webview
+        - platform_common
+    - do: "Зайти в паспорте, выйти из всех устройств"
+    - assert: "В ПП некоторое время отображается логин, из которого только что вышли; "
+    - do: "Открыть страницу устройств"
+    - assert: "Не возникает ошибка, открывается страница как без залогина:; ![](https://jing.yandex-team.ru/files/osennikovak/2021-04-08T08:56:02Z.1338bfb.png)"

@@ -1,0 +1,40 @@
+feature: Метка
+type: Страховые
+
+specs:
+  В рекламе:
+    - params:
+        foreverdata: '1697251825'
+    - do: получить выдачу по запросу 'foreverdata'
+    - screenshot: рекламный сниппет с меткой официальности присутствует на странице [plain]
+    - do: кликнуть в метку (если задание выполняется на десктопе - навести мышку на метку)
+    - assert: появился тултип
+    - tech: сработал счётчик показа тултипа path='/$page/$main/$result[@type="adv"]/insurance'
+    - screenshot: вид сниппета с меткой и тултипом [hover]
+    - do: проверить ссылку внутри тултипа
+    - assert: ссылка открывает сайт ЦБ РФ в новой вкладке
+    - tech: на ссылке есть счетчик path='/$page/$main/$result[@type="adv"]/insurance/link'
+  В органике:
+    - params:
+        foreverdata: '3521376560'
+    - do: получить выдачу по запросу 'foreverdata'
+    - screenshot: органический сниппет с меткой официальности присутствует на странице [plain]
+    - do: кликнуть в метку (если задание выполняется на десктопе - навести мышку на метку)
+    - assert: появился тултип
+    - tech: сработал счётчик показа тултипа path='/$page/$main/$result[@type="organic"]/insurance'
+    - screenshot: вид сниппета с меткой и тултипом [hover]
+    - do: проверить ссылку внутри тултипа
+    - assert: ссылка открывает сайт ЦБ РФ в новой вкладке
+    - tech: на ссылке есть счетчик path='/$page/$main/$result[@type="organic"]/insurance/link'
+
+files:
+  - features/common/verified/__ssd/verified__ssd.hermione.js
+
+v-team: Beauty
+
+tags:
+  - reviewed
+  - skip_e2e_check
+
+tlds:
+  - ru

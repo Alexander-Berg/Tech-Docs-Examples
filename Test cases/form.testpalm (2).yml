@@ -1,0 +1,52 @@
+feature: form
+
+specs:
+  Проверка переполнения textarea инпута:
+    - params:
+        foreverdata: '3484915946'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок первого сниппета (название заголовка Тестовая страница для заполненного инпута textarea — турбо)
+    - assert: открылась страница турбо
+    - screenshot: внешний вид инпута соответствует скриншоту, буквы не "наезжают" на рамку [plain]
+    - do: нажать на кнопку "отправить"
+    - assert: появилось сообщение об ошибке
+    - screenshot: внешний вид инпута соответствует скриншоту, буквы не "наезжают" на рамку [error]
+
+  Паблишерская форма поиска не теряет query-параметры:
+    - do: перейти на страницу https://yandex.ru/turbo?text=bin:search-form-multiple-query-params
+    - assert: открылась турбо-страница с формой
+    - do: вписать в поле ввода слово "search"
+    - do: нажать на иконку лупы
+    - assert: |
+        открылась новая вкладка с сайтом h-doctor.club
+        URL страницы содержит query-параметр x=1
+        URL страницы содержит query-параметр searchid=1
+        URL страницы содержит query-параметр text=search
+
+  Форма поиска preset=search:
+    afterEach:
+      - tech: не должно быть клиентских ошибок
+
+    replace-query:
+      Внешний вид:
+        - do: открыть ссылку yandex.ru/turbo?stub=form/preset-search-replace-query.json
+        - screenshot: внешний вид аналогичен примеру [plain]
+
+    replace-action:
+      Внешний вид:
+        - do: открыть ссылку yandex.ru/turbo?stub=form/preset-search-replace-action.json
+        - screenshot: внешний вид аналогичен примеру [plain]
+
+    Неправильный action:
+      - do: открыть ссылку yandex.ru/turbo?stub=form/preset-search-multiple-replaces.json
+      - assert: на странице нет ни одной формы поиска
+
+files:
+  - features/common/blocks/form/form.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: olga0321, dakhetov
+
+tlds: none

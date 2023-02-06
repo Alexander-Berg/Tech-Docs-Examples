@@ -1,0 +1,37 @@
+feature: Смартбаннер React
+type: system-icon
+
+params:
+  exp_flags:
+    - smartbanner_atom=1
+
+specs:
+  Внешний вид системного смартбаннера с иконкой:
+    - params:
+        foreverdata: '1789004778'
+    - do: получить выдачу по запросу 'foreverdata'
+    - tech: сработал серверный счётчик /$page/distr-smartbanner с атрибутами bannerid product layout
+    - assert: появился системный смартбаннер с иконкой
+    - screenshot: Пример внешнего вида смартбаннера (текст и расположение кнопок могут отличаться — не баг) [smartbanner-system-icon]
+
+  Внешний вид системного модального смартбаннера с иконкой:
+    - params:
+        foreverdata: '1188682494'
+    - do: получить выдачу по запросу 'foreverdata'
+    - tech: сработал серверный счётчик /$page/distr-smartbanner с атрибутами bannerid product layout
+    - assert: появился системный модальный смартбаннер с иконкой
+    - screenshot: Пример внешнего вида смартбаннера (текст и расположение кнопок могут отличаться — не баг) [smartbanner-system-icon-center]
+
+files:
+  - src/features/DistrSmartbannerReact/DistrSmartbannerReact.test/distr-smartbanner_type_system-icon/DistrSmartbanner_type_system-icon@touch-phone.hermione.js
+
+browsers:
+  - iphone
+
+tags:
+  - distribution
+  - smartbanner
+
+v-team: Distribution
+
+tlds: [ru, by]

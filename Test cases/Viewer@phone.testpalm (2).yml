@@ -1,0 +1,40 @@
+feature: Viewer
+
+params:
+  exp_flags:
+    - turbo-app-any-ua=1
+
+specs:
+  должен открыться по клику на изображение:
+    - do: открыть страницу https://yandex.ru/turbo/spideradio.github.io/s/rnd/fnu7e56jbff?product_id=292
+    - do: нажать на первое изображение в слайдере
+    - assert: открылся просмотщик
+    - screenshot: внешний вид [plain]
+
+  должен закрыться по клику на крестик:
+    - do: открыть страницу https://yandex.ru/turbo/spideradio.github.io/s/rnd/fnu7e56jbff?product_id=292
+    - do: нажать на первое изображение в слайдере
+    - assert: открылся просмотщик
+    - do: нажать на крестик в шапке просмотрщика
+    - assert: просмотщик закрылся
+
+  должна работать браузерная навигация:
+    - do: открыть страницу https://yandex.ru/turbo/spideradio.github.io/s/rnd/fnu7e56jbff?product_id=292
+    - do: нажать на первое изображение в слайдере
+    - assert: открылся просмотщик
+    - do: нажать кнопку "назад" в браузере
+    - assert: просмотщик закрылся
+    - do: нажать кнопку "вперед" в браузере
+    - assert: просмотщик открылся
+
+  перелистывание картинок в просмотрщике:
+    - do: открыть страницу https://yandex.ru/turbo/spideradio.github.io/s/rnd/fnu7e56jbff?product_id=292
+    - do: нажать на первое изображение в слайдере
+    - assert: открылся просмотщик
+    - do: перелистнуть картинку
+    - assert: картинка перелистнулась
+
+files:
+    - components/Viewer/__tests__/Viewer@phone.hermione.js
+
+tlds: ru

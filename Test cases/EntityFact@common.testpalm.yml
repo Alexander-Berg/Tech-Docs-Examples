@@ -1,0 +1,15 @@
+feature: Факт
+type: Объектный
+
+specs-integration:
+  Проверка наличия:
+    - do: получить выдачу Поиска по запросу 'сколько лет зюганову' _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: на первой позиции выдачи есть Фактовый ответ
+    - counter: /$page/$main/$result[@wizard_name="entity-fact"]
+
+files:
+  - src/features/EntityFact/EntityFact.test/EntityFact@common.hermione.e2e.js
+
+v-team: Facts
+
+tlds: [ru, by, ua, kz, uz, com.tr, com]

@@ -1,0 +1,31 @@
+feature: Картинка в мете страницы
+
+specs:
+  на главной:
+    - do: открыть страницу 'https://yandex.ru/news'
+    - assert: в head страницы есть элемент meta с property='og:image'
+
+  в рубрике Политика:
+    - do: открыть страницу 'https://yandex.ru/news/rubric/politics'
+    - assert: в head страницы есть элемент meta с property='og:image'
+
+  на странице сюжета:
+    - do: открыть страницу 'https://yandex.ru/news/story/a--63bfebf474bc45784c250c4a89b'
+    - assert: в head страницы есть элемент meta с property='og:image'
+
+  на странице 404 сюжета:
+    - do: открыть страницу 'https://yandex.ru/news/story/a--63bfebf474bc45784c250c4a89'
+    - assert: в head страницы есть элемент meta с property='og:image'
+
+  на странице поиска:
+    - do: открыть страницу 'https://yandex.ru/news/search?text=собянин'
+    - assert: в head страницы есть элемент meta с property='og:image'
+
+files:
+  - features/news/MetaImage/MetaImage.phone.hermione.js
+
+manager: Glushneva
+
+qa-engineer: volkhonov
+
+tlds: none

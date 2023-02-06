@@ -1,0 +1,19 @@
+feature:  Мультирум группа в ПП - сторя
+
+specs:
+    Мультирум группа в ПП - сторя:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/3207
+        - release_Webview
+        - release_Smarthome
+        - platform_common
+        - webview_regress
+    - do: "Preconditions На аккаунте хотя бы две колонки ст/ст2/мини/лайт/jbl; "
+    - do: "Открыть список устройств"
+    - assert: "Отображается история про группу колонок; ![](https://jing.yandex-team.ru/files/osennikovak/2021-04-08T11:27:51Z.b958de4.png)"
+    - do: "Нажать на историю"
+    - assert: "Отображается экран с кнопкой; ![](https://jing.yandex-team.ru/files/osennikovak/2021-04-08T11:28:42Z.de3e558.png)"
+    - do: "Нажать на Добавить группу"
+    - assert: "Открывается экран с соответствующими саджестами; ![](https://jing.yandex-team.ru/files/osennikovak/2021-04-08T11:29:20Z.2ef35da.png)"
+    - do: "Ввести любое название (не нажимать Сохранить); Нажать на Выбрать устойства"
+    - assert: "Открывается список только колонок (без других устройств), которые можно добавить в группу; ![](https://jing.yandex-team.ru/files/osennikovak/2021-04-08T11:31:04Z.8fac704.png)"

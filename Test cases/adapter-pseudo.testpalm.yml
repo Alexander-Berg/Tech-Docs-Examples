@@ -1,0 +1,23 @@
+feature: Pseudo
+
+params:
+  foreverdata: '2715611226'
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу 'foreverdata'
+  Внешний вид:
+    - assert: на выдаче присутствует сниппет с информацией об игре
+    - screenshot: внешний вид [pseudo]
+  Эксперимент с отключением:
+    - params:
+        exp_flags: 'freshness_pseudo_off_granny=1'
+    - do: нажать на гринурл
+    - assert: на выдаче отсутствует сниппет с информацией об игре
+
+files:
+  - features/touch-phone/adapters/adapter-pseudo.hermione.js
+
+v-team: Suggest_Freshness
+
+tlds: none

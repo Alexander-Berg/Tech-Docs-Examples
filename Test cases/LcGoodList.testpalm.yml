@@ -1,0 +1,42 @@
+feature: LcGoodList
+
+tags: no_assessors
+
+specs:
+  Внешний вид блока. Одна колонка:
+    - do: открыть страницу https://yandex.ru/turbo?stub=lcgoodlist/withOneColumn.json
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Внешний вид блока. Две колонки:
+    - do: открыть страницу https://yandex.ru/turbo?stub=lcgoodlist/withTwoColumns.json
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Внешний вид блока. Три колонки:
+    - do: открыть страницу https://yandex.ru/turbo?stub=lcgoodlist/withThreeColumns.json
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Внешний вид блока. Четыре колонки:
+    - do: открыть страницу https://yandex.ru/turbo?stub=lcgoodlist/withFourColumns.json
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Внешний вид блока. Длинный текст в кнопке:
+    - do: открыть страницу https://yandex.ru/turbo?stub=lcgoodlist/withLongButtonCaption.json
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Внешний вид блока. Превью изображений:
+    - do: открыть страницу https://yandex.ru/turbo?stub=lcgoodlist/withImagePreview.json
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Внешний вид блока. Контрастный фон и картинка товара:
+    - do: открыть страницу https://yandex.ru/turbo?stub=lcgoodlist/withContrastBackground.json
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Внешний вид блока. Светлая картинка товара на светлом фоне:
+    - do: открыть страницу https://yandex.ru/turbo?stub=lcgoodlist/withLightBackground.json
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/components/LcGoodList/__tests__/LcGoodList.hermione.js
+
+v-team: Lc
+
+tlds: none
+
+manager: nuyakshin
+
+qa-engineer: olimiya, shinuta
+
+

@@ -1,0 +1,30 @@
+feature: YandexComments
+
+specs-integration:
+  Проверка отображения списка комментариев:
+    - do: открыть главную страницу поиска, удалить все параметры кроме yandex.ru и добавить в адресную строку к URL ‘/turbo?stub=yandexcomments/default.json’
+    - assert: открывается турбо-страница в той же вкладке
+    - assert: загрузился список комментариев
+    - tech: страница не содержит клиентских ошибок
+  Скролл до компонента:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=yandexcomments/article.json&cmnt_login=comment
+    - assert: страница должна доскроллиться до комментариев
+
+specs:
+  Отступы от основного контента:
+    - tags: no_assessors
+    - do: перейти по адресу 'https://yandex.ru/turbo?stub=yandexcomments/default.json'
+    - assert: загрузился список комментариев
+    - screenshot: страница соответствует скриншоту [plain]
+
+files:
+  - platform/components/YandexComments/__tests__/YandexComments.hermione.e2e.js
+  - platform/components/YandexComments/__tests__/YandexComments.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: olga0321, dakhetov
+
+tlds: none

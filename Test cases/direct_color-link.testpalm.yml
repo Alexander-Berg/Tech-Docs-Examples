@@ -1,0 +1,66 @@
+feature: Спец.размещение
+experiment: Переопределение цвета синей ссылки (--color-link)
+
+params:
+  exp_flags:
+    - direct_color-link=1
+
+specs:
+  Direct_{header3__login, app__button}:
+    - tags: [serp_header, distribution]
+    - params:
+        foreverdata: '611188287'
+        exp_flags:
+          - direct_color-link=33FF8D
+    - do: получить выдачу по запросу 'foreverdata' (неавторизованным)
+    - assert: цвет тайтла псевдо к-ка установки браузера отличается от синего
+    - screenshot: пример внешнего вида псевдо к-ка установки браузера [app__button]
+  Direct_{link_theme_normal, extended-text_link, sitelinks__more, cut2__more_with-arrow_yes, feature-cut, serp-title_blue_yes}:
+    - params:
+        foreverdata: '40499194'
+        exp_flags:
+          - direct_color-link=33FF8D
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: присутствует выдача
+    - screenshot: пример внешнего вида перекрашенной синей ссылки [link_theme_normal]
+    - screenshot: пример внешнего вида "Читать еще" [extended-text_link]
+    - screenshot: пример внешнего вида перекрашенных сайтлинков и "Ещё" + стрелка [sitelinks__more]
+    - screenshot: пример внешнего вида "Раскрыть >" [cut2__more_with-arrow_yes]
+    - screenshot: пример внешнего вида ссылок и стрелок у 'feature-cut' блока [feature-cut-and-serp-title_blue_yes]
+    - assertMetrics: '*'
+  Direct_{service-user, bno__companies, HotelOfferLite-price, avia-dynamic-best-offers}:
+    - params:
+        foreverdata: '1027309458'
+        exp_flags:
+          - direct_color-link=33FF8D
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: присутствует выдача
+    - assert: цвет тайтла к-ка Яндекс.Услуги отличается от синего
+    - screenshot: пример внешнего вида к-ка Яндекс.Услуги (текст и элементы могут отличаться) [service-user]
+    - screenshot: пример внешнего вида ссылки на отзывы о компании (текст и элементы могут отличаться) [bno__companies]
+    - screenshot: пример внешнего вида предложений отелей (текст и элементы могут отличаться) [HotelOfferLite-Price]
+    - screenshot: пример внешнего вида блока авиа-рейсов (текст и элементы могут отличаться) [avia-dynamic-best-offers]
+    - assertMetrics: '*'
+  Direct_carousel__item_type_title:
+    params:
+      exp_flags:
+        - direct_color-link=33FF8D
+    Фильмы:
+      - do: получить выдачу по запросу 'фильмы'
+      - screenshot: пример внешнего вида [films]
+      - assertMetrics: '*'
+    Королевство Испании:
+      - do: получить выдачу по запросу 'Королевство Испании' с параметром &ento=0oEg1ydXcxNDkyOmFzc29jGAJCJdC60L7RgNC-0LvQtdCy0YHRgtCy0L4g0LjRgdC_0LDQvdC40Y85u-NW
+      - screenshot: пример внешнего вида [spain]
+      - assertMetrics: '*'
+
+files:
+  - features/touch-phone/adapter-adv/direct_color-link/direct_color-link.hermione.js
+
+tags:
+  - skip_e2e_check
+
+tlds:
+  - ru
+
+v-team: Distribution

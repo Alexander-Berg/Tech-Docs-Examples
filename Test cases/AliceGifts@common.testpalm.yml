@@ -1,0 +1,31 @@
+feature: Генератор подарков с Алисой
+
+specs:
+  Форма ввода:
+    - params:
+        foreverdata: '486334836'
+    - do: получить выдачу по запросу "что подарить"
+    - assert: |
+        на странице присутствует блок Алисы 
+        с предложением ввести информацию о человеке
+    - screenshot: внешний вид [plain]
+  Показ подарков при загрузке:
+    - params:
+        foreverdata: '486334836'
+    - do: получить выдачу по запросу "подарок"
+    - assert: |
+        на странице присутствует блок Алисы 
+        с тремя подарками и предложением вести информацию о человеке 
+    - screenshot: внешний вид [plain]
+  
+
+files:
+  - src/features/Garage/Garage.features/AliceGifts/AliceGifts.test/AliceGifts@common.hermione.js
+
+v-team: Garage
+
+tags:
+  - skip_e2e_check
+  - react
+
+tlds: ru

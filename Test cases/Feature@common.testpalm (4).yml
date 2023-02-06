@@ -1,0 +1,17 @@
+feature: Feature-name
+experiment: Exp-name
+
+params:
+  exp_flags: flag-name=1
+  rearr: '1'
+
+specs:
+  Second describe:
+    beforeEach:
+      - do: experiment - before each
+    Should check second:
+      - do: получить выдачу по запросу 'an interesting text'
+
+tlds: all
+
+v-team: '2'

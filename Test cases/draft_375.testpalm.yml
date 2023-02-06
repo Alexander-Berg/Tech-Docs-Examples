@@ -1,0 +1,16 @@
+feature:  Умный дом - Экраны групп
+
+specs:
+    Умный дом - Экраны групп:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/3333
+        - release_Webview
+        - platform_common
+        - iot_groups
+    - do: "Preconditions В доме нет групп (создать новый дом, если в других есть)"
+    - do: "Перейти Настройки - Дома (выбрать дом) - Группы; "
+    - assert: "Отображается экран с промо-картинкой умения групп:; ![](https://jing.yandex-team.ru/files/levkovskayama/Снимок%20экрана%202021-07-05%20в%2021.56.11.png)"
+    - do: "Перейти из экрана настроек устройства на список групп"
+    - assert: "Видим экран ; ![](https://jing.yandex-team.ru/files/levkovskayama/Снимок%20экрана%202021-07-06%20в%2022.50.43.png)"
+    - do: "Нажать `+ Добавить группу`; Добавить любым образом группу"
+    - assert: "Отображается список групп ; Под списком фиолетовая надпись-кнопка `+ Добавить группу`; ; <img src=`https://jing.yandex-team.ru/files/rbol/IMG_EA13923E8CC2-1.jpeg` alt=`Скриншот` width=`300`/>"

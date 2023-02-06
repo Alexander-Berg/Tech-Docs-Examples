@@ -1,0 +1,44 @@
+feature: Спортивное соревнование
+
+specs:
+  Базовый вид блока:
+    - tags:
+      - sportauto
+    - params:
+        foreverdata: '3917631895'
+    - do: открыть мок /turbo?stub=sportcompetition/default.json
+    - assert: блок виден
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Базовый вид блока со стадией:
+    - tags:
+      - sportauto
+    - params:
+        foreverdata: '18916751'
+    - do: открыть мок /turbo?stub=sportcompetition/with-phase.json
+    - assert: блок виден
+    - screenshot: внешний вид соответствует скриншоту [with-phase]
+
+  Блок скрывается при клике по заголовку:
+    - tags:
+      - sportauto
+    - params:
+        foreverdata: '710735605'
+    - do: открыть мок /turbo?stub=sportcompetition/toggleable.json
+    - assert: блок виден
+    - do: кликнуть по заголовку блока
+    - assert: блок свернулся
+    - screenshot: внешний вид соответствует скриншоту [toggleable-close]
+
+  Блок без команд:
+    - do: открыть страницу "https://yandex.ru/turbo?stub=sportcompetition/no-team.json"
+    - assert: блок виден
+    - screenshot: внешний вид соревнования при отсутствии команд (ещё не определены )соответствует скриншоту [without-team]
+
+files:
+  - platform/components/SportCompetition/__tests__/SportCompetition.hermione.js
+
+v-team: News
+manager: glushneva
+
+tlds: none

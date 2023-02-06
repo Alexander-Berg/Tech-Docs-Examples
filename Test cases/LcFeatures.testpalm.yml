@@ -1,0 +1,64 @@
+feature: LcFeatures
+
+tags: no_assessors
+
+specs:
+  Стандартные фичи:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcfeatures/default.json)
+    - screenshot: внешний вид соответствует скриншоту [default]
+  Фичи с кнопками:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcfeatures/cta-buttons.json)
+    - screenshot: внешний вид соответствует скриншоту [cta-buttons]
+  Фичи с кнопками и дисклеймерами:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcfeatures/cta-buttons-disclaimers.json)
+    - screenshot: внешний вид соответствует скриншоту [cta-buttons-disclaimers]
+  Фичи со ссылками:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcfeatures/cta-links.json)
+    - screenshot: внешний вид соответствует скриншоту [cta-links]
+  Фичи с подложкой:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcfeatures/cover.json)
+    - screenshot: внешний вид соответствует скриншоту [cover]
+  Фичи с кнопками, которые появляются на ховер:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcfeatures/cta-on-hover.json)
+    - screenshot: внешний вид соответствует скриншоту [cta-on-hover]
+    - do: навести курсор мыши (тапнуть на мобильных) на первую карточку
+    - screenshot: произойдет анимированное появление кнопки снизу карточки, внешний вид соответствует скриншоту [cta-on-hover_hovered]
+  Фичи с обратной стороной (эффект переворот):
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcfeatures/flip.json)
+    - screenshot: внешний вид соответствует скриншоту [flip]
+    - do: навести курсор мыши (тапнуть на мобильных) на первую карточку
+    - screenshot: произойдет анимация переворота карточки и отображение ее обратной стороны, внешний вид соответствует скриншоту [flip_hovered]
+  Фичи с обратной стороной (эффект переворот) и подложкой:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcfeatures/flip.json)
+    - screenshot: внешний вид соответствует скриншоту [flip-with-substrate]
+    - do: навести курсор мыши (тапнуть на мобильных) на первую карточку
+    - screenshot: произойдет анимация переворота карточки и отображение ее обратной стороны, внешний вид соответствует скриншоту [flip-with-substrate_hovered]
+  Фичи с обратной стороной (эффект слайда):
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcfeatures/slide.json)
+    - screenshot: внешний вид соответствует скриншоту [slide]
+    - do: навести курсор мыши (тапнуть на мобильных) на первую карточку
+    - screenshot: произойдет анимация скрытия карточки и появления ее обратной стороны снизу, внешний вид соответствует скриншоту [slide_hovered]
+  Фичи с выравниванием по центру:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcfeatures/default-align-center.json)
+    - screenshot: внешний вид соответствует скриншоту [default-align-center]
+  Фичи с выравниванием по правому краю:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcfeatures/default-align-right.json)
+    - screenshot: внешний вид соответствует скриншоту [default-align-right]
+  Фичи с каруселью:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcfeatures/carousel.json)
+    - screenshot: внешний вид соответствует скриншоту [carousel]
+    - do: кликнуть (тапнуть на мобильных) по правой стрелке
+    - screenshot: произойдет анимированный переход к следующей карточке, внешний вид соответствует скриншоту [carousel_swiped]
+    - do: кликнуть (тапнуть на мобильных) по первой точке в навигации под карточками
+    - screenshot: произойдет анимированный переход к первой карточке, внешний вид соответствует скриншоту [carousel_returned]
+
+files:
+  - platform/components/LcFeatures/__tests__/LcFeatures.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: ratyulenev
+
+tlds: none

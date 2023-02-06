@@ -1,0 +1,36 @@
+feature: Иконка на кнопке виджета
+
+specs:
+  before:
+    - do: открыть тестовый стенд с виджетом
+
+  Все иконки отображаются корректно:
+    - screenshot: иконка на кнопке имеет вид [auto]
+    - do: выставить параметр конструктора buttonIcon=colored
+    - screenshot: иконка на кнопке имеет вид [colored]
+    - do: выставить параметр конструктора buttonIcon=black
+    - screenshot: иконка на кнопке имеет вид [black]
+    - do: выставить параметр конструктора buttonIcon=white
+    - do: выставить параметр конструктора theme=dark
+    - screenshot: иконка на кнопке имеет вид [white]
+
+  Все иконки отображаются ожидаемо на теме схожего цвета:
+    - do: выставить параметр конструктора buttonIcon=colored
+    - do: выставить параметр конструктора theme=dark
+    - screenshot: иконка на кнопке имеет вид [colored]
+    - do: выставить параметр конструктора buttonIcon=black
+    - do: выставить параметр конструктора theme=dark
+    - screenshot: иконка на кнопке имеет вид [black]
+    - do: выставить параметр конструктора buttonIcon=white
+    - screenshot: иконка на кнопке имеет вид [white]
+
+files:
+  - tests/hermione/suites/widget/icon/icon.common.hermione.js
+
+v-team: Chat
+
+tags:
+    - no_assessors
+    - widget
+
+tlds: all

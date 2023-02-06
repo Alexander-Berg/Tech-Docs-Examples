@@ -1,0 +1,28 @@
+feature: Фильтры
+
+specs:
+  beforeEach:
+    - do: Залогиниться под пользователем robot-internal-002
+
+  Положительные:
+    1. Работа фильтров после запроса сертификата:
+      - do: открыть CRT https://crt.test.yandex-team.ru/
+      - assert: без фильтров в таблице есть сертификаты, таблица не пуста
+      - do: в поле фильтра Common name вводим «123»
+      - screenshot: при заданных фильтрах таблица пуста [certs-table-no-data]
+      - do: нажать на кнопку “Заказать сертификат”
+      - do: выбираем CA name "InternalTestCA"
+      - do: заполняем параметр Хосты "test.ru"
+      - do: выбираем ABC-сервис "Сертификатор"
+      - do: нажать на кнопку “Заказать”
+      - do: нажать на кнопку “Закрыть”
+      - screenshot: при заданных фильтрах таблица пуста [certs-table-no-data]
+
+files:
+  - hermione/tests/01-cert-request-form/01-cert-table-filters/filters.hermione.js
+
+priority: normal
+
+tags:
+  - reviewed
+  - no_assessors

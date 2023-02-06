@@ -1,0 +1,142 @@
+feature: LcFeature
+
+tags: no_assessors
+
+specs:
+  Внешний вид блока. Размер L:
+    Ориентация картинки:
+      1x1:
+        - do: открыть страницу по адресу https://yandex.ru/turbo?stub=lcfeature/sizeL_ratio1x1.json)
+        - screenshot: внешний вид соответствует скриншоту [plain]
+      4x5:
+        - do: открыть страницу по адресу https://yandex.ru/turbo?stub=lcfeature/sizeL_ratio4x5.json)
+        - screenshot: внешний вид соответствует скриншоту [plain]
+      16x9:
+        - do: открыть страницу по адресу https://yandex.ru/turbo?stub=lcfeature/sizeL_ratio16x9.json)
+        - screenshot: внешний вид соответствует скриншоту [plain]
+
+    Наполнение контентом:
+      Фича с кнопкой:
+        - do: открыть страницу по адресу https://yandex.ru/turbo?stub=lcfeature/sizeL_content.json)
+        - do: проскролить до первой карточки
+        - screenshot: внешний вид соответствует скриншоту [plain]
+      Фича со ссылкой:
+        - do: открыть страницу по адресу https://yandex.ru/turbo?stub=lcfeature/sizeL_content.json)
+        - do: проскролить до второй карточки
+        - screenshot: внешний вид соответствует скриншоту [plain]
+      Фича с непрерывным текстом:
+        - do: открыть страницу по адресу https://yandex.ru/turbo?stub=lcfeature/sizeL_content.json)
+        - do: проскролить до третьей карточки
+        - screenshot: внешний вид соответствует скриншоту [plain]
+      Фича без описания:
+        - do: открыть страницу по адресу https://yandex.ru/turbo?stub=lcfeature/sizeL_content.json)
+        - do: проскролить до четвертой карточки
+        - screenshot: внешний вид соответствует скриншоту [plain]
+      Фича без заголовка:
+        - do: открыть страницу по адресу https://yandex.ru/turbo?stub=lcfeature/sizeL_content.json)
+        - do: проскролить до пятой карточки
+        - screenshot: внешний вид соответствует скриншоту [plain]
+      Фича без кнопки / ссылки:
+        - do: открыть страницу по адресу https://yandex.ru/turbo?stub=lcfeature/sizeL_content.json)
+        - do: проскролить до шестой карточки
+        - screenshot: внешний вид соответствует скриншоту [plain]
+      Фича только с заголовком:
+        - do: открыть страницу по адресу https://yandex.ru/turbo?stub=lcfeature/sizeL_content.json)
+        - do: проскролить до седьмой карточки
+        - screenshot: внешний вид соответствует скриншоту [plain]
+      Фича только с описанием:
+        - do: открыть страницу по адресу https://yandex.ru/turbo?stub=lcfeature/sizeL_content.json)
+        - do: проскролить до восьмой карточки
+        - screenshot: внешний вид соответствует скриншоту [plain]
+      Фича с выравниванием по левому краю:
+        - do: открыть страницу по адресу https://yandex.ru/turbo?stub=lcfeature/sizeL_content.json)
+        - do: проскролить до девятой карточки
+        - screenshot: внешний вид соответствует скриншоту [plain]
+
+    Подложка:
+      Прямые углы с границей и заливкой:
+        - do: открыть страницу по адресу https://yandex.ru/turbo?stub=lcfeature/sizeL_substrate.json)
+        - do: просроклить до первой карточки
+        - screenshot: внешний вид соответствует скриншоту [plain]
+
+      Прямые углы с границей без заливки:
+        - do: открыть страницу по адресу https://yandex.ru/turbo?stub=lcfeature/sizeL_substrate.json)
+        - do: просроклить до второй карточки
+        - screenshot: внешний вид соответствует скриншоту [plain]
+
+      Прямые углы без границы с заливкой:
+        - do: открыть страницу по адресу https://yandex.ru/turbo?stub=lcfeature/sizeL_substrate.json)
+        - do: просроклить до третьей карточки
+        - screenshot: внешний вид соответствует скриншоту [plain]
+
+      Прямые углы без границы и без заливки:
+        - do: открыть страницу по адресу https://yandex.ru/turbo?stub=lcfeature/sizeL_substrate.json)
+        - do: просроклить до четвертой карточки
+        - screenshot: внешний вид соответствует скриншоту [plain]
+
+      Закругленные углы с границей и заливкой:
+        - do: открыть страницу по адресу https://yandex.ru/turbo?stub=lcfeature/sizeL_substrate.json)
+        - do: просроклить до пятой карточки
+        - screenshot: внешний вид соответствует скриншоту [plain]
+
+      Закругленные углы с границей без заливки:
+        - do: открыть страницу по адресу https://yandex.ru/turbo?stub=lcfeature/sizeL_substrate.json)
+        - do: просроклить до шестой карточки
+        - screenshot: внешний вид соответствует скриншоту [plain]
+
+      Закругленные углы без границы с заливкой:
+        - do: открыть страницу по адресу https://yandex.ru/turbo?stub=lcfeature/sizeL_substrate.json)
+        - do: просроклить до седьмой карточки
+        - screenshot: внешний вид соответствует скриншоту [plain]
+
+      Закругленные углы без границы и без заливки:
+        - do: открыть страницу по адресу https://yandex.ru/turbo?stub=lcfeature/sizeL_substrate.json)
+        - do: просроклить до восьмой карточки
+        - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Внешний вид блока. Размер M:
+    Ориентация картинки:
+      1x1:
+        - do: открыть страницу по адресу https://yandex.ru/turbo?stub=lcfeature/sizeM_ratio1x1.json)
+        - screenshot: внешний вид соответствует скриншоту [plain]
+      4x5:
+        - do: открыть страницу по адресу https://yandex.ru/turbo?stub=lcfeature/sizeM_ratio4x5.json)
+        - screenshot: внешний вид соответствует скриншоту [plain]
+      16x9:
+        - do: открыть страницу по адресу https://yandex.ru/turbo?stub=lcfeature/sizeM_ratio16x9.json)
+        - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Внешний вид блока. Размер S:
+    Ориентация картинки:
+      1x1:
+        - do: открыть страницу по адресу https://yandex.ru/turbo?stub=lcfeature/sizeS_ratio1x1.json)
+        - screenshot: внешний вид соответствует скриншоту [plain]
+      4x5:
+        - do: открыть страницу по адресу https://yandex.ru/turbo?stub=lcfeature/sizeS_ratio4x5.json)
+        - screenshot: внешний вид соответствует скриншоту [plain]
+      16x9:
+        - do: открыть страницу по адресу https://yandex.ru/turbo?stub=lcfeature/sizeS_ratio16x9.json)
+        - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Внешний вид блока. Размер XS:
+    Ориентация картинки:
+      1x1:
+        - do: открыть страницу по адресу https://yandex.ru/turbo?stub=lcfeature/sizeXS_ratio1x1.json)
+        - screenshot: внешний вид соответствует скриншоту [plain]
+      4x5:
+        - do: открыть страницу по адресу https://yandex.ru/turbo?stub=lcfeature/sizeXS_ratio4x5.json)
+        - screenshot: внешний вид соответствует скриншоту [plain]
+      16x9:
+        - do: открыть страницу по адресу https://yandex.ru/turbo?stub=lcfeature/sizeXS_ratio16x9.json)
+        - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/components/LcFeature/__tests__/LcFeature.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: olimiya, kossakovskaya, shinuta
+
+tlds: none

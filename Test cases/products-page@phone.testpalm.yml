@@ -1,0 +1,52 @@
+feature: ProductsPage
+
+params:
+  exp_flags:
+    - analytics-disabled=1
+
+browsers:
+  - ios-safari-12-touch
+  - ios-safari-11-touch
+  - ios-safari-10-touch
+  - ios-safari-9-touch
+
+specs:
+  Отступы между блоками:
+    Корень каталога:
+      - tags: no_assessors
+      - do: открыть страницу https://yandex.ru/turbo?stub=productspage/index.json
+      - screenshot: отступы между блоками соответствуют скриншоту [plain]
+    Категория:
+      - tags: no_assessors
+      - do: открыть страницу https://yandex.ru/turbo?stub=productspage/category.json
+      - screenshot: отступы между блоками соответствуют скриншоту [plain]
+    С саджестом:
+      - tags: no_assessors
+      - do: открыть страницу https://yandex.ru/turbo?stub=productspage/index-with-suggest.json
+      - screenshot: отступы между блоками соответствуют скриншоту [plain]
+    С поиском и заметкой:
+      - tags: no_assessors
+      - do: открыть страницу https://yandex.ru/turbo?stub=productspage/index-with-notice.json
+      - screenshot: отступы между блоками соответствуют скриншоту [plain]
+  Внешний вид категории:
+    - do: открыть страницу https://yandex.ru/turbo?stub=productspage/category.json
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Внешний вид с бейджом безопасности:
+    - do: открыть страницу https://yandex.ru/turbo?stub=productspage/category-with-safe.json
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+tags:
+  - e-commerce
+  - no_assessors #раскатили новый дизайн на 100%
+
+files:
+  - platform/components/ProductsPage/__tests__/products-page@phone.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: spv
+
+tlds: none

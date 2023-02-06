@@ -1,0 +1,69 @@
+feature: Навигационные табы
+experiment: Изменение порядка навигационных табов
+
+specs:
+  Внешний вид на ru:
+    - params:
+        exp_flags: tabs_order_version=search,images,video,news,market,translate
+    - do: получить выдачу по запросу 'тест'
+    - screenshot: вид по умолчанию [plain]
+  Внешний вид на by:
+    - params:
+        exp_flags: tabs_order_version=search,images,video,news,market,translate
+    - do: получить выдачу по запросу 'тест'
+    - screenshot: вид по умолчанию [plain]
+  Внешний вид на kz:
+    - params:
+        exp_flags: tabs_order_version=search,images,video,news,market,translate
+    - do: получить выдачу по запросу 'тест'
+    - screenshot: вид по умолчанию [plain]
+  Внешний вид на com:
+    - params:
+        exp_flags: tabs_order_version=search,images,video,news,market,translate
+    - do: получить выдачу по запросу 'тест'
+    - screenshot: вид по умолчанию [plain]
+  Внешний вид на com.tr:
+    - params:
+        exp_flags: tabs_order_version=search,images,video,news,market,translate
+    - do: получить выдачу по запросу 'тест'
+    - screenshot: вид по умолчанию [plain]
+  Порядок табов:
+    - params:
+        exp_flags: tabs_order_version=search,images,video,news,market,translate,sport
+    - do: получить выдачу по запросу 'madonna'
+    - assert: порядок навигационных табов следующий - поиск, картинки, видео, новости, маркет, переводчик, спорт
+    - screenshot: внешний вид [order]
+  Порядок табов при наличии вертикали, более трех табов:
+    - params:
+        exp_flags: tabs_order_version=search,images,video,news,market:translate,music,mail
+    - do: получить выдачу по запросу 'test'
+    - do: добавить blogs/ в адресную строку перед search
+    - assert: порядок навигационных табов следующий - поиск, картинки, видео, блоги, новости, ещё
+    - do: нажать на кнопку "ещё" в табах
+    - assert: появились следующие табы - маркет, переводчик, музыка, почта
+  Порядок табов при наличии вертикали, три таба:
+    - params:
+        exp_flags: tabs_order_version=search,images,video
+    - do: получить выдачу по запросу 'test'
+    - do: добавить blogs/ в адресную строку перед search
+    - assert: порядок навигационных табов следующий - поиск, картинки, видео, блоги
+  Внешний вид при наличии вертикали blogs:
+    - params:
+        exp_flags: tabs_order_version=search,images,video,news,market,translate:music,mail
+    - do: получить выдачу по запросу 'test'
+    - screenshot: внешний вид [blogs-plain]
+
+files:
+  - features/desktop/navigation/navigation.hermione.js
+
+v-team: Lego
+
+tlds:
+  - ru
+  - by
+  - kz
+  - com
+  - com.tr
+
+tags:
+  - no_assessors

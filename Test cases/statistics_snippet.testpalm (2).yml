@@ -1,0 +1,29 @@
+feature: Статистика
+type: Сниппет статистики
+
+specs:
+  Проверка функциональности [manual]:
+    - automation: ISEARCH-6625
+    - do: открыть страницу поиска /statsearch?text=<название_статистики>
+    - assert: |
+        вкладка 'Статистика' активна
+        на странице отображаются сниппеты статистики
+        в сниппете присутствует тайтл, ссылка на верхнеуровневый кластер, ссылка на кластер страницы
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/grikyan91/statistika__Poisk_po_Statistike_nashlos_1006_2020-07-16_14-53-24.png]
+    - do: проверить ссылку в тайтле сниппета
+    - assert: ссылка содержит https://stat.yandex-team.ru/<названия_уровней_кластеров>
+    - tech: при клике на ссылку дернулся clck.yandex.ru/click/
+    - do: проверить ссылку в названии верхнеуровневого кластера
+    - assert: ссылка содержит https://stat.yandex-team.ru/<название_верхнеуровневого_кластера>
+    - do: проверить ссылку в названии нижнеуровневого кластера
+    - assert: ссылка содержит https://stat.yandex-team.ru/<названия_уровней_кластеров>
+
+tags:
+  - reviewed
+
+priority: minor
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

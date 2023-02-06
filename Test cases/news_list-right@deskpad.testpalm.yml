@@ -1,0 +1,58 @@
+feature: Колдунщик новостей
+type: List-right
+
+specs:
+  params:
+    foreverdata: '2655449846'
+  beforeEach:
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на выдаче есть колдунщик новостей
+    - screenshot: внешний вид [news_list-right-{{PLATFORM}} >> newsListRight]
+  Внешний вид:
+    - label: news_list-right-{{PLATFORM}}
+    - screenshot: проверить внешний вид [newsListRight]
+  Заголовок:
+    - do: нажать на ссылку в заголовке колдунщика
+    - tech: отправился счётчик '/$page/$main/$result[@wizard_name="news"]/title'
+    - assert: в новой вкладке открылись 'Яндекс Новости'
+  2ая новость:
+    Тумба:
+      - do: нажать на картинку второй новости
+      - tech: отправился счётчик '/$page/$main/$result[@wizard_name="news"]/item/thumb'
+      - assert: в новой вкладке открылся сайт выбранной новости
+    Заголовок:
+      - do: нажать на заголовок второй новости
+      - tech: отправился счётчик '/$page/$main/$result[@wizard_name="news"]/item/link'
+      - assert: в новой вкладке открылся сайт выбранной новости
+    Хост:
+      - do: нажать на хост ссылку под заголовком второй новости
+      - tech: отправился счётчик '/$page/$main/$result[@wizard_name="news"]/item/path/host'
+      - assert: в новой вкладке открылся сайт выбранной новости
+
+specs-integration:
+  Основные проверки:
+    - counter: /$page/$main/$result[@wizard_name="news" and @subtype="list-right"]
+    - do: получить выдачу по запросу 'новости пробки' (альтернативные запросы 'новости ремонт', 'новости сенсация', 'новости дтп', 'новости выборы', 'новости праздники')
+    - assert: колдунщик новостей с заголовком 'Сейчас в СМИ' присутствует на выдаче (если заголовок отличается - попробуйте другие запросы из предыдущего шага)
+    - assert: у колдунщика есть заголовок, на который можно нажать
+    - assert: в колдунщике есть хотя бы одна новость, на заголовок которой можно нажать
+
+files:
+  - features/news/news_list-right@deskpad.hermione.js
+  - features/news/news_list-right@deskpad.hermione.e2e.js
+
+tags:
+  - reviewed
+  - news
+  - smoke
+
+v-team: Freshness
+
+counter: /$page/$main/$result[@wizard_name="news" and @subtype="list-right"]
+
+tlds:
+  - ru
+  - by
+  - ua
+  - kz
+  - uz

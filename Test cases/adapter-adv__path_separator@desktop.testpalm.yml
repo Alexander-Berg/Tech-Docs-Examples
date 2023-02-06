@@ -1,0 +1,30 @@
+feature: Спец.размещение
+type: Разделитель для гринурла
+
+params:
+  foreverdata: '3028801108'
+
+specs:
+  Внешний вид:
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: реклама присутствует на выдаче
+    - assert: гринурл в рекламе разделен символом '>' только один раз
+    - screenshot: пример внешнего вида гринурла [plain]
+    - do: кликнуть по ссылке гринурла
+    - tech: клиентский счетчик '/tech/direct/ad/urlnav' не сработал
+
+files:
+  - features/adapter-adv/__path/adapter-adv__path_separator@desktop.hermione.js
+
+tags:
+  - skip_e2e_check
+  - adv
+
+v-team: Distribution
+
+tlds:
+  - ru
+  - by
+  - ua
+  - kz
+  - uz

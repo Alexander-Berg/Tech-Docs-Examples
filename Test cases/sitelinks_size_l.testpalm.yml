@@ -1,0 +1,32 @@
+feature: Сайтлинки БНО
+type: Common
+
+params:
+  foreverdata: '1793547244'
+
+specs:
+  Внешний вид:
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на выдаче присутствует рекламный сниппет
+    - screenshot: внешний вид сайтлинков [plain]
+    - assert: |
+        в заголовке сайтлинка слова, длиной в три символа и меньше, не переносятся на следующую строку, если перед ними нет тире
+        если перед коротким словом (3 или меньше символа) есть тире (или длинное тире), тире не переносится на следующую строку
+
+files:
+  - features/common/sitelinks/_size/sitelinks_size_l.hermione.js
+
+v-team: Beauty
+
+tags: pp_new_core
+
+tlds:
+  - ru
+  - by
+  - ua
+  - kz
+  - uz
+  - com.tr
+  - com
+
+priority: high

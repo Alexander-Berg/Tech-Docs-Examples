@@ -1,0 +1,24 @@
+feature: Hotels / Колдунщик одной организации
+type: Стандартный вид / Отель в попапе
+experiment: Поддержать плюс в колдунщиках
+
+specs:
+  Внешний вид:
+    - params:
+        exp_flags: hotels_plus=1
+    - do: получить выдачу по запросу "мета москва"
+    - assert: показался отельный 1орг справа
+    - do: кликнуть по заголовку с названием отеля
+    - assert: открылся попап на вкладке "Про отель"
+    - screenshot: под услугами есть дисклеймер [plain]
+
+files:
+  - features/companies/hotels/experiments/hotels_plus/hotels-popup@desktop.hermione.js
+
+tlds:
+  - ru
+  - by
+  - kz
+  - ua
+
+v-team: KotTeam

@@ -1,0 +1,18 @@
+feature:  Умный дом - блок саджестов "Основные"
+
+specs:
+    Умный дом - блок саджестов "Основные":
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/2985
+        - release_Webview
+        - release_Smarthome
+        - platform_common
+        - iot_suggests
+        - iot_lamp
+    - do: "Preconditions На аккаунте есть цветная лампочка"
+    - do: "Открыть раздел голосовых команд лампочки"
+    - assert: "Присутствует блок `Основные` в верней части списка; ; ![](https://jing.yandex-team.ru/files/osennikovak/2020-12-08T08:21:37Z.edd2f15.png)"
+    - do: "Тапнуть на `Показать ещё`"
+    - assert: "Список разворачивается; ; <img src=`https://jing.yandex-team.ru/files/rbol/IMG_EC01E0F2AD11-1.jpeg` alt=`Скриншот` width=`300`/>"
+    - do: "Тапнуть на любой из саджестов"
+    - assert: "Происходит переход в диалог с Алисой, команда выполняется корректно"

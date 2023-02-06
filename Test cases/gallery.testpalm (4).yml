@@ -1,0 +1,90 @@
+feature: Объектный ответ
+type: Галерея
+counter: /$page/$main/$result[@wizar_name="entity_search"]/gallery/scroller/row/thumb
+
+specs:
+  Ссылки:
+    - label: entity-search__gallery-{{SET_NAME}}
+    - do: получить выдачу по запросу 'Нил Патрик Харрис'
+    - screenshot: появилась карточка объекта с галереей (примерный внешний вид) [default]
+    - tech: сработал счетчик показа галереи
+    - do: кликнуть на первую картинку в галерее
+    - assert: открылся просмотрщик картинок
+    - tech: проверить счётчик на большой картинке в галерее
+    - do: кликнуть на крестик в просмотрщике
+    - assert: просмотрщик закрылся
+    - tech: проверить счетчик закрытия просмотрщика
+    - do: кликнуть на вторую картинку в галерее
+    - assert: открылся просмотрщик картинок
+    - tech: проверить счётчик на первой картинке в галерее
+    - assertMetrics:
+      - daily.total_session_count
+      - web.total_request_count
+      - web.total_click_count
+      - web.total_all_click
+      - web.abandonment
+      - web.tech_part_misc_click
+      - all.total_dynamic_click_count
+      - feature.web.wizards_common.entity_search_wizard_main.total.clicks
+  Свайп галереи:
+    - tags:
+      - no_assessors
+    - do: получить выдачу по запросу 'Нил Патрик Харрис'
+    - screenshot: появилась карточка объекта с галереей [entity-search__gallery-{{SET_NAME}} >> default]
+    - do: сделать свайп галереи
+    - assert: галерея прокручивается
+    - tech: сработал динамический счётчик
+    - tech: в счётчике присутсвует атрибут baobab-event-json с event, равным scroll, и behaviour, равным {type=dynamic}
+    - assert: загрузились все картинки галереи
+    - assertMetrics:
+      - daily.total_session_count
+      - web.total_request_count
+      - web.total_click_count
+      - web.total_all_click
+      - web.abandonment
+      - web.tech_part_misc_click
+      - all.total_dynamic_click_count
+      - feature.web.wizards_common.entity_search_wizard_main.total.clicks
+  После перезадачи запроса:
+    - browsers:
+        notFor:
+          - searchapp-phone
+    - do: получить выдачу по запросу 'Нил Патрик Харрис'
+    - screenshot: появилась карточка объекта с галереей [entity-search__gallery-{{SET_NAME}} >> default]
+    - do: получить новую выдачу по запросу 'Кэти Перри'
+    - assert: |
+        происходит ajax перезапрос,
+        на странице отображается карточка нового объекта с галереей
+    - assertMetrics:
+      - daily.total_session_count
+      - web.total_request_count
+      - web.total_click_count
+      - web.total_all_click
+      - web.abandonment
+      - web.tech_part_misc_click
+      - all.total_dynamic_click_count
+      - feature.web.wizards_common.entity_search_wizard_main.total.clicks
+
+  Масштабирование галереи:
+    - do: получить выдачу по запросу 'померанский шпиц'
+    - assert: появилась карточка объекта с галереей
+    - do: поскроллить галерею
+    - assert: галерея увеличилась в размере
+    - screenshot: внешний вид [scaled]
+
+  Перенос галереи после табиков:
+    - do: получить выдачу по запросу 'Мадонна'
+    - assert: появилась карточка объекта с табиками и галереей под ними
+    - screenshot: внешний вид [plain]
+
+files:
+  - features/touch-phone/z-entity-search/gallery/gallery.hermione.js
+
+v-team: OO
+
+tags:
+  - smoke_extended
+  - reviewed
+  - oo_gallery
+
+tlds: ['ru', 'ua', 'by', 'kz', 'fr', 'com.tr', 'uz']

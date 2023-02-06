@@ -1,0 +1,50 @@
+feature: Ресурсы
+
+aliases:
+  - &checkImportantResource
+    - do: открыть список ресурсов сервиса "autotest-service-with-important-resources" (/services/autotest-service-with-important-resources/resources/?layout=table)
+    - screenshot: среди ресурсов сервиса есть хотя бы один важный (отмеченный красным флажком) в статусе "Выдан" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-06-03%2011-20-03.png]
+  - &prepareToChangeServiceState
+    - do: навести курсор на заголовок сервиса "autotest-service-with-important-resources"
+    - screenshot: справа от заголовка появилась иконка карандашика [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-06-03%2011-21-10.png]
+    - do: кликнуть на карандашик
+    - screenshot: появился попап с пунктами "Редактирование названия", "Редактирование статуса" и "Редактирование наследования" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-06-03%2011-22-43.png]
+    - do: кликнуть на пункт "Редактирование статуса"
+    - screenshot: в развёрнутом пункте "Редактирование статуса" есть поле "Статус", выбрано значение "Развивается" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-06-03%2011-34-59.png]
+  - &attemptToSave
+    - do: кликнуть на кнопку "Сохранить"
+    - screenshot: в правом верхнем углу появилось сообщение "Действие невозможно. Этому сервису или его детям выданы важные ресурсы, для удаления/закрытия их нужно отозвать. Sent data is wrong." [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-06-03%2011-35-56.png]
+
+specs:
+  beforeEach:
+    - tech: залогиниться под пользователем robot-abc-001
+  
+  Положительные:
+   1. Нельзя закрыть сервис с важными ресурсами в активном статусе:
+    - automation: ABC-10866
+    - *checkImportantResource
+    - *prepareToChangeServiceState
+    - do: выбрать в поле "Статус" значение "Закрыт"
+    - *attemptToSave
+
+   2. Нельзя удалить сервис с важными ресурсами в активном статусе:
+    - automation: ABC-10866
+    - do: (PREPARE) открыть страницу сервиса "autotest-service-with-important-resources" (/services/autotest-service-with-important-resources/)
+    - do: (PREPARE) кликнуть на иконку карандашика рядом с надписью "Управляющие" 
+    - screenshot: (PREPARE) карандашик рядом с надписью "Управляющие" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-06-21%2015-23-01.png]
+    - do: (PREPARE) в модалке "Редактирование управляющих" в поле "Добавить сотрудника" ввести свои имя и фамилию 
+    - assert: (PREPARE) под полем появился выпадающий список вариантов 
+    - do: (PREPARE) выбрать в выпадающем списке себя 
+    - assert: (PREPARE) в блоке "Управляющие" появился выбранный сотрудник 
+    - do: (PREPARE) кликнуть на кнопку "Сохранить"
+    - *checkImportantResource
+    - *prepareToChangeServiceState
+    - do: выбрать в поле "Статус" значение "Удалён"
+    - *attemptToSave
+
+files: []
+
+priority: normal
+
+tags:
+  - reviewed

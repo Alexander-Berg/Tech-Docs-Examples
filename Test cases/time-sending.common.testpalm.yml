@@ -1,0 +1,25 @@
+feature: Время отправки сообщения
+
+import-steps:
+    - tests/hermione/suites/messenger/shared-steps/open-messenger.testpalm.steps.yml
+
+tlds: ru
+
+specs:
+
+    Время отправки сообщения[manual]:
+        - automation: MSSNGRFRONT-2149
+        - attach: Открытие чата
+        - do: отправить произвольное сообщение в чат
+        - assert: время отображается справа от текста отправленного сообщения в формате ЧЧ:ММ
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/joshuan/Messenger_2019-02-01_14-33-14.png]
+
+files: []
+
+v-team: Chat
+
+tags:
+    - chamb
+    - no_assessors
+    - yamb #TODO: заменить ссылки
+    - y-team #TODO: заменить ссылки

@@ -1,0 +1,19 @@
+feature: Скелетон
+
+specs:
+  Внешний вид:
+    - do: получить выдачу по запросу 'тест'
+    - assert: появилась выдача
+    - do: выполнить this.Ya.reactBus().emit('skeleton:show') в консоли
+    - screenshot: внешний вид [plain]
+
+files:
+  - features/touch-phone/skeleton/skeleton.hermione.js
+
+v-team: SPAS
+
+tags:
+  - skip_e2e_check
+  - no_assessors
+
+tlds: all

@@ -1,0 +1,82 @@
+feature: Мимикрия рекламы
+experiment: Хэширование los
+
+specs:
+  Проверяем куку:
+    - params:
+        exp_flags: 'direct_double_los=1'
+        foreverdata: '3450195293'
+    - do: |
+        включить adblock
+        получить выдачу по запросу ‘foreverdata’
+        перезагрузить страницу
+    - tech: |
+        присутствует кука yp со значением emcXMiqunpv.1 (где emcXMiqunpv является частью icookie)
+        присутствует кука yp со значением uzzm8MjmE3v.0 (где uzzm8MjmE3v является частью icookie)
+    - do: |
+        отключть adblock
+        получить выдачу по запросу ‘foreverdata’
+    - tech: |
+        присутствует кука yp со значением emcXMiqunpv.1 (где emcXMiqunpv является частью icookie)
+        присутствует кука yp со значением uzzm8MjmE3v.1 (где uzzm8MjmE3v является частью icookie)
+  В контроле при отключенном блокировщике не срабатывают счетчики:
+    - params:
+        exp_flags: 'direct_double_los=0'
+        foreverdata: '3450195293'
+    - do: |
+        выключить adblock
+        получить выдачу по запросу ‘foreverdata’
+        перезагрузить страницу
+    - tech: |
+        не сработал счетчик /$page[@tech@direct_double_los=1]
+        не сработал счетчик /$page[@tech@irect_double_los_off_has_los=1]
+
+  В эксперименте при отключенном блокировщике не срабатывают счетчики:
+    - params:
+        exp_flags: 'direct_double_los=1'
+        foreverdata: '3450195293'
+    - do: |
+        выключить adblock
+        получить выдачу по запросу ‘foreverdata’
+        перезагрузить страницу
+    - tech: |
+        не сработал счетчик /$page[@tech@direct_double_los=1]
+        не сработал счетчик /$page[@tech@direct_double_los_on_has_generated_cookie=1]
+
+  Логирование в контроле с включенным блокировщиком рекламы:
+    - params:
+        exp_flags: 'direct_double_los=0'
+        foreverdata: '3450195293'
+    - do: |
+        включить adblock
+        получить выдачу по запросу ‘foreverdata’
+        перезагрузить страницу
+    - tech: |
+        сработал счетчик /$page[@tech@direct_double_los=1]
+        сработал счетчик /$page[@tech@irect_double_los_off_has_los=1]
+
+  Эксперимент с включенным блокировщиком рекламы:
+    - params:
+        exp_flags: 'direct_double_los=1'
+        foreverdata: '3450195293'
+    - do: |
+        включить adblock
+        получить выдачу по запросу ‘foreverdata’
+        перезагрузить страницу
+    - tech: |
+        сработал счетчик /$page[@tech@direct_double_los=1]
+        сработал счетчик /$page[@tech@direct_double_los_on_has_generated_cookie=1]
+
+files:
+  - features/desktop/serp-adv/direct_double_los/direct_double_los.hermione.js
+
+v-team: Distribution
+
+tags:
+  - skip_e2e_check
+  - no_assessors
+  - adv
+  - adblock
+  - cookie
+
+tlds: all

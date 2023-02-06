@@ -1,0 +1,19 @@
+feature: LcEventsSpeaker
+
+tags: no_assessors
+
+specs:
+  Cписок спикеров:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lceventsspeaker/default.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/components/LcEventsSpeaker/__tests__/LcEventsSpeaker.hermione.js
+
+v-team: Lc
+
+manager: polyakovadi
+
+qa-engineer: pankov97
+
+tlds: none

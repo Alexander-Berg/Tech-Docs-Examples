@@ -1,0 +1,16 @@
+feature: Кнопка Выбрать Номер
+
+specs:
+  beforeEach:
+    - do: рэдиссон славянская отель
+    - assert: на выдаче есть карточка одной организации
+  Внешний вид:
+    - assert: в карточке под основным рядом кнопок есть одна широкая кнопка
+    - screenshot: пример внешнего вида кнопки (название кнопки может отличаться) [plain]
+
+files:
+  - src/features/Companies/Companies.features/OrgButtons/OrgButtons.test/BigBookingButton/BigBookingButton@touch-phone.hermione.js
+
+v-team: KotTeam
+
+tlds: ['ru', 'by', 'ua', 'kz']

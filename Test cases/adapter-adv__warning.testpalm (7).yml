@@ -1,0 +1,22 @@
+feature: Адаптер рекламы
+experiment: Рефакторинг дисклеймера
+params:
+  exp_flags:
+    - direct_disclaimer_refactoring=1
+
+specs:
+  Проверка внешнего вида сниппетов-аскетов с предупреждениями:
+    - params:
+        foreverdata: '1095298756'
+    - do: получить выдачу по запросу 'foreverdata'
+    - screenshot: пример вида по умолчанию [asket-warning]
+
+files:
+  - features/touch-phone/adapters/adapter-adv/__warning/adapter-adv__warning.hermione.js
+
+tags:
+  - skip_e2e_check
+
+v-team: Distribution
+
+tlds: [ru]

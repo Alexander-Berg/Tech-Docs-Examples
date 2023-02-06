@@ -1,0 +1,25 @@
+feature: Колдунщик новостей
+type: Турция
+
+specs:
+  params:
+    foreverdata: '3847776927'
+  beforeEach:
+    - do: получить выдачу по запросу 'foreverdata'
+  Внешний вид:
+    - assert: появился колдунщик новостей
+    - assert: заголовок не является ссылкой
+    - screenshot: внешний вид колдунщика [plain]
+
+files:
+  - features/desktop/news/tr/news_tr.hermione.js
+
+v-team: Suggest_Freshness
+
+tags:
+  - news
+  - wizard
+
+counter: /$page/$main/$result[@wizard_name="news"]
+
+tlds: [com.tr]

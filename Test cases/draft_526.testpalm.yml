@@ -1,0 +1,16 @@
+feature:  Умный дом - пуши в сценариях - не больше 1 пуша
+
+specs:
+    Умный дом - пуши в сценариях - не больше 1 пуша:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/4339
+        - release_Webview
+        - release_Smarthome
+        - platform_common
+        - testid_546180
+        - webview_regress
+        - iot_scenario
+    - do: "Добавить сценарий с любым названием и фразой; Начать добавлять действие"
+    - assert: "Отображается пункт Пуш уведомление; <img src=`https://jing.yandex-team.ru/files/osennikovak/photo_2022-03-19%2016.11.27.jpeg` alt=`Скриншот` width=`300`/>"
+    - do: "Начать добавлять ещё одно действие"
+    - assert: "Нет возможности добавить пуш"

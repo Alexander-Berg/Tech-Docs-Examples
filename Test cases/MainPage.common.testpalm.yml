@@ -1,0 +1,36 @@
+feature: MainPage
+
+specs:
+  Сохранение позиции скролла:
+    - browsers:
+      - linux-chrome
+      - linux-chrome-iphone
+    - do: открыть https://yandex.ru/products
+    - assert: открылась главная страница со списком категорий
+    - do: проскроллить страницу до 10-й категории и кликнуть в нее
+    - assert: открылась страница поиска с выбранной категорией
+    - do: кликнуть на кнопку назад в браузере
+    - assert: |
+        открылась главная страница со списком категорий
+        позиция скролла сохранилась на 10-й категории
+
+  Отображение списка категорий:
+    - do: открыть /products
+    - assert: открылась главная страница со списком категорий [plain]
+    
+  Гуру вверху:
+    - do: открыть /products?exp_flags=GARAGE_alice_guru&exp_flags=enable_guru_saas_request&is_guru_first=1
+    - assert: открылась главная страница с блоком "Алиса, где дешевле" вначале
+    - do: проскроллить страницу вниз
+    - assert: внизу есть блок "Алиса, помоги выбрать"
+
+  Гуру внизу:
+    - do: открыть /products?exp_flags=GARAGE_alice_guru&exp_flags=enable_guru_saas_request
+    - assert: открылась главная страница с блоком "Алиса, помоги выбрать" вначале
+    - do: проскроллить страницу вниз
+    - assert: внизу есть блок "Алиса, где дешевле"
+
+v-team: goods
+
+files:
+    - src/pages/MainPage/tests/MainPage.common.hermione.ts

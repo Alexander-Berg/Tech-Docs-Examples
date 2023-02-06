@@ -1,0 +1,33 @@
+feature: Профессия
+
+specs:
+  Проверка страницы вакансий [manual]:
+    - automation: VACANCIES-780
+    - do: открыть страницу /jobs/professions/<профессия>
+    - assert: | 
+        активен таб 'Профессии'
+        отображается приветствующий блок
+        отображается поисковая строка
+        отображается счетчик вакансий
+        отображается блок фильтров
+        в блоке фильтров отсутствует пункт - 'Направления'
+        отображаются карточки вакансий
+
+platform:
+  - desktop
+
+tlds:
+  - ru
+  - by
+  - ua
+
+priority: critical
+
+browsers:
+  - yandex-browser-desktop
+  - chrome-browser-desktop
+  - firefox-desktop
+  - safari-desktop
+  - opera-desktop
+  - edge-desktop
+  - msie-desktop

@@ -1,0 +1,271 @@
+feature: Счётчики скорости
+type: Common
+
+description: |
+  Счётчики отправляются батчем с помощью POST-запроса. В логи пишутся как обычно,
+  найти в браузере можно, если посмотреть на POST-запросы на ручку clck
+  (DevTools > Network > Headers у запроса > Request Payload; поиском по network не ищутся)
+
+specs:
+  Тайминги загрузки страницы:
+    - params:
+        exp_flags:
+          - velocity_send_extra_rum=1
+    - do: получить выдачу по запросу 'Rammstein'
+    - tech: проверить наличие счётчика 690.1033 (/tech/timing), он должен быть единственным
+    - tech: |
+        проверить наличие переменных
+        1484 (visibility), 1036 (wait), 1037 (dns),
+        1038 (tcp), 1039 (ttfb), 1040 (html), 1040.906 (html.total), 1310.2084 (dom.loading),
+        1310.2085 (dom.interactive), 1310.1309 (dom.init), 1310.1007 (dom.loaded),
+        143 (page), 287 (region),
+        их значения не должны быть пустыми, null или undefined
+    - tech: |
+        значения переменных таймингов должны лежать в пределах от 0 до 60000, к таким переменным относятся
+        1036 (wait), 1037 (dns), 1038 (tcp), 1039 (ttfb), 1040 (html), 1040.906 (html.total),
+        1310.2084 (dom.loading), 1310.2085 (dom.interactive), 1310.1309 (dom.init), 1310.1007 (dom.loaded)
+  Основные тайминги AJAX:
+    - params:
+        exp_flags:
+          - velocity_send_extra_rum=1
+    - do: получить выдачу по запросу 'Rammstein'
+    - tech: выполнить в консоли `BEM.blocks['serp-request'].navigateTo('?text=Laibach')`
+    - tech: проверить наличие счётчика 690.1201 (/tech/ajax), он должен быть единственным
+    - tech: |
+        проверить наличие переменных
+        1201.689 (ajax.action), 1201.2154 (ajax.start), 1201.3103 (ajax.complete),
+        1201.906 (ajax.total), 1201.789 (ajax.before), 1201.1310 (ajax.dom),
+        143 (page), 287 (region),
+        их значения не должны быть пустыми, null или undefined
+    - tech: |
+        значения переменных таймингов должны лежать в пределах от 0 до 60000, к таким переменным относятся
+        1201.689 (ajax.action), 1201.2154 (ajax.start), 1201.3103 (ajax.complete),
+        1201.906 (ajax.total), 1201.789 (ajax.before), 1201.1310 (ajax.dom)
+  Расширенные тайминги AJAX:
+    - params:
+        exp_flags:
+          - velocity_send_extra_rum=1
+    - do: получить выдачу по запросу 'Rammstein'
+    - tech: выполнить в консоли `BEM.blocks['serp-request'].navigateTo('?text=Laibach')`
+    - tech: проверить наличие счётчика 690.1201 (/tech/ajax), он должен быть единственным
+    - tech: |
+        проверить наличие переменных
+        1201.689 (ajax.action), 1201.2154 (ajax.start), 1201.3103 (ajax.complete),
+        1201.906 (ajax.total), 1201.789 (ajax.before), 1201.1310 (ajax.dom),
+        2136 (duration), 2322 (start_time), 2111 (fetch_start), 2112 (domain_lookup_start),
+        2113 (domain_lookup_end), 2114 (connect_start), 2116 (connect_end),
+        2117 (request_start), 2119 (response_start), 2120 (response_end),
+        1036 (wait), 1037 (dns), 1038 (tcp), 1039 (ttfb), 1040 (html), 1040.906 (html.total),
+        143 (page), 287 (region), 2772.720 (xhr.status), 2772.720.232 (xhr.status.text),
+        их значения не должны быть пустыми, null или undefined
+    - tech: |
+        значения переменных таймингов должны лежать в пределах от 0 до 60000, к таким переменным относятся
+        1201.689 (ajax.action), 1201.2154 (ajax.start), 1201.3103 (ajax.complete),
+        1201.906 (ajax.total), 1201.789 (ajax.before), 1201.1310 (ajax.dom),
+        2136 (duration), 2322 (start_time), 2111 (fetch_start), 2112 (domain_lookup_start),
+        2113 (domain_lookup_end), 2114 (connect_start), 2116 (connect_end),
+        2117 (request_start), 2119 (response_start), 2120 (response_end),
+        1036 (wait), 1037 (dns), 1038 (tcp), 1039 (ttfb), 1040 (html), 1040.906 (html.total)
+  Метки времени загрузки страницы:
+    - params:
+        exp_flags:
+          - velocity_send_extra_rum=1
+    - do: получить выдачу по запросу 'Rammstein'
+    - tech: |
+        проверить наличие счётчиков 690.2096.207 (/tech/perf/time), где есть переменные
+        1701=2616.183.205 (id=raf_metric.header.first),
+        1701=2616.183.1928 (id=raf_metric.header.last),
+        1701=2325 (id=post-search),
+        1701=2417 (id=before_static),
+        1701=2300 (id=inline-js),
+        1701=2418 (id=before_bem-init),
+        1701=2295 (id=bem-inited),
+        1701=1724 (id=load),
+        1701=2616.85.205 (id=raf_metric.p0.first),
+        1701=2616.85.1928 (id=raf_metric.p0.last),
+        каждый ID должен встречаться только один раз
+    - tech: |
+        проверить наличие переменных
+        207 (time), 143 (page), 287 (region),
+        143.2129 (page.navigation_start),
+        их значения не должны быть пустыми, null или undefined
+    - tech: |
+        значения переменных таймингов должны лежать в пределах от 0 до 60000, к таким переменным относятся
+        207 (time)
+  Метки времени загрузки страницы - First Paint:
+    - params:
+        exp_flags:
+          - velocity_send_extra_rum=1
+    - do: получить выдачу по запросу 'Rammstein'
+    - tech: |
+        проверить наличие счётчиков 690.2096.207 (/tech/perf/time), где есть переменные
+        1926.2793 (id=paint.first-paint),
+        1926.2794 (id=paint.first-contentful-paint),
+        каждый ID должен встречаться только один раз
+    - tech: |
+        проверить наличие переменных
+        207 (time), 143 (page), 287 (region),
+        143.2129 (page.navigation_start),
+        их значения не должны быть пустыми, null или undefined
+    - tech: |
+        значения переменных таймингов должны лежать в пределах от 0 до 60000, к таким переменным относятся
+        207 (time)
+  Метки времени загрузки страницы на AJAX:
+    - params:
+        exp_flags:
+          - velocity_send_extra_rum=1
+    - do: получить выдачу по запросу 'Rammstein'
+    - tech: выполнить в консоли `BEM.blocks['serp-request'].navigateTo('?text=Laibach')`
+    - tech: |
+        проверить наличие счётчиков 690.2096.207 (/tech/perf/time), где есть переменная
+        1701=1201.2295 (id=ajax.bem-inited),
+        1701=2616.1201.2876.205 (id=raf_metric.ajax.hero_element.first),
+        1701=2616.1201.2876.1928 (id=raf_metric.ajax.hero_element.last),
+        этот ID должен встречаться только один раз
+    - tech: |
+        проверить наличие переменных
+        207 (time), 143 (page), 287 (region),
+        143.2129 (page.navigation_start),
+        их значения не должны быть пустыми, null или undefined
+    - tech: |
+        значения переменных таймингов должны лежать в пределах от 0 до 60000, к таким переменным относятся
+        207 (time)
+  Отсутствие запрещённых меток времени загрузки страницы на AJAX:
+    - params:
+        exp_flags:
+          - velocity_send_extra_rum=1
+    - do: получить выдачу по запросу 'Rammstein'
+    - tech: выполнить в консоли `BEM.blocks['serp-request'].navigateTo('?text=Laibach')`
+    - tech: |
+        в логах не должно быть новых счётчиков 690.2096.207 (/tech/perf/time), где есть переменные
+        1701=2616.183.205 (id=raf_metric.header.first) или
+        1701=2616.183.1928 (id=raf_metric.header.last) или
+        1701=2616.183.205 (id=raf_metric.header.first) или
+        1701=2616.183.1928 (id=raf_metric.header.last) или
+        1701=2325 (id=post-search) или
+        1701=2417 (id=before_static) или
+        1701=2300 (id=inline-js) или
+        1701=2418 (id=before_bem-init) или
+        1701=2295 (id=bem-inited) или
+        1701=1724 (id=load)
+  Метки rAF для шапки:
+    - params:
+        exp_flags:
+          - velocity_send_extra_rum=1
+    - description: проверка выделена в отдельный шаг, так как не актуальна для searchapp
+    - do: получить выдачу по запросу 'Rammstein'
+    - tech: |
+        проверить наличие счётчиков 690.2096.207 (/tech/perf/time), где есть переменные
+        1701=2616.183.205 (id=raf_metric.header.first),
+        1701=2616.183.1928 (id=raf_metric.header.last),
+        каждый ID должен встречаться только один раз
+    - tech: |
+        проверить наличие переменных
+        207 (time), 143 (page), 287 (region),
+        143.2129 (page.navigation_start),
+        их значения не должны быть пустыми, null или undefined
+    - tech: |
+        значения переменных таймингов должны лежать в пределах от 0 до 60000, к таким переменным относятся
+        207 (time)
+  Отсутствие rAF для шапки в searchapp:
+    - params:
+        exp_flags:
+          - velocity_send_extra_rum=1
+    - do: получить выдачу по запросу 'Rammstein'
+    - tech: |
+        в логах не должно быть счётчиков 690.2096.207 (/tech/perf/time), где есть переменные
+        1701=2616.183.205 (id=raf_metric.header.first) или
+        1701=2616.183.1928 (id=raf_metric.header.last)
+  Счётчики загрузки ресурсов:
+    - params:
+        exp_flags:
+          - velocity_send_extra_rum=1
+    - do: получить выдачу по запросу 'Rammstein'
+    - tech: |
+        проверить наличие счётчиков 690.2096.2044 (/tech/perf/resource_timing), где есть переменные
+        1701=1218 (id=metrika),
+        1701=1811.321.85 (Объектный ответ, основная картинка),
+        1701=1811.85.85 (Объектный ответ, 0 позиция в первом ряду),
+        1701=1811.85.86 (Объектный ответ, 1 позиция в первом ряду),
+        1701=1811.85.87 (Объектный ответ, 2 позиция в первом ряду),
+        1701=2104 (id=jquery),
+        1701=2095 (id=main-js),
+        каждый ID должен встречаться только один раз
+    - tech: |
+        проверить наличие переменных
+        2136 (duration), 2322 (start_time), 2111 (fetch_start), 2112 (domain_lookup_start),
+        2113 (domain_lookup_end), 2114 (connect_start), 2116 (connect_end),
+        2117 (request_start), 2119 (response_start), 2120 (response_end),
+        143 (page), 287 (region),
+        143.2129 (page.navigation_start),
+        их значения не должны быть пустыми, null или undefined
+    - tech: |
+        значения переменных таймингов должны лежать в пределах от 0 до 60000, к таким переменным относятся
+        2136 (duration), 2322 (start_time), 2111 (fetch_start), 2112 (domain_lookup_start),
+        2113 (domain_lookup_end), 2114 (connect_start), 2116 (connect_end),
+        2117 (request_start), 2119 (response_start), 2120 (response_end),
+        143.2129 (page.navigation_start)
+  Счётчики дельт времени:
+    - params:
+        exp_flags:
+          - velocity_send_extra_rum=1
+    - do: получить выдачу по запросу 'Rammstein'
+    - tech: |
+        проверить наличие счётчиков 690.2096.2877 (/tech/perf/delta), где есть переменные
+        1701=2095 (id=main-js),
+        каждый ID должен встречаться только один раз
+    - tech: |
+        проверить наличие переменных
+        2877 (delta),
+        207.2154 (time.start),
+        207.1428 (time.end),
+        их значения не должны быть пустыми, null или undefined
+  Счётчики Navigation Timing Level 2:
+    - params:
+        exp_flags:
+          - velocity_send_extra_rum=1
+    - do: получить выдачу по запросу 'Rammstein'
+    - tech: |
+        проверить наличие счётчиков 690.2096.2892 (/tech/perf/navigation). Должен быть отправлен 1 раз
+    - tech: |
+        проверить наличие переменных
+        2116 (connect_end), 2114 (connect_start), 2124 (dom_complete),
+        2131 (dom_content_loaded_event_end), 2123 (dom_content_loaded_event_start),
+        2770 (dom_interactive), 2113 (domain_lookup_end), 2112 (domain_lookup_start),
+        2136 (duration), 2111 (fetch_start), 2126 (load_event_end),
+        2125 (load_event_start),
+        143  (page), 287 (region),
+        их значения не должны быть пустыми, null или undefined
+    - tech: |
+        значения переменных таймингов должны лежать в пределах от 0 до 60000, к таким переменным относятся
+        2116 (connect_end), 2114 (connect_start), 2124 (dom_complete),
+        2131 (dom_content_loaded_event_end), 2123 (dom_content_loaded_event_start),
+        2770 (dom_interactive), 2113 (domain_lookup_end), 2112 (domain_lookup_start),
+        2136 (duration), 2111 (fetch_start), 2126 (load_event_end),
+        2125 (load_event_start)
+  Метки времени long tasks:
+    - params:
+        exp_flags:
+          - velocity_send_extra_rum=1
+    - do: получить выдачу по запросу 'Rammstein'
+    - tech: |
+        проверить наличие счётчиков 690.2096.207 (/tech/perf/time), где есть переменные
+        1701=2796.2797 (id=long-task.value),
+        1701=689.2322 (id=action.start_time),
+        каждый ID должен встречаться только один раз
+
+files:
+  - features/common/rum/rum_type_common.hermione.js
+
+v-team: Velocity
+
+tlds: none
+
+tags:
+  - counters
+  - rum
+  - ajax
+  - smoke_extended
+  - reviewed
+  - no_assessors
+  - skip_e2e_check

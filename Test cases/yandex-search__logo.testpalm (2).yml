@@ -1,0 +1,27 @@
+feature: Лого
+
+langs: ru, tr
+
+params:
+  user_time: '20180910'
+
+specs:
+  Базовые проверки:
+    Взаимодействие с саджестом:
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: шапка с логотипом присуствует на выдаче
+      - do: нажать на поисковую строку в шапке
+      - assert: открылся саджест
+      - screenshot: внешний вид [with-suggest]
+
+files:
+  - features/desktop/yandex-search/yandex-search__logo/yandex-search__logo.hermione.js
+
+tags:
+  - skip_e2e_check
+  - serp_header
+
+v-team: Distribution
+
+tlds:
+  - ru

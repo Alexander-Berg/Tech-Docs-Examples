@@ -1,0 +1,28 @@
+feature: Страница сервиса
+
+specs:
+  beforeEach:
+    - do: залогиниться под пользователем robot-abc-002
+
+  Положительные:
+    1. Сервис предоставляет ресурсы:
+      - do: открыть сервис "Стафф" (/services/staff/)
+      - screenshot: в правой части в описании сервиса есть блок "Ресурсы", в котором указаны два ресурса - "Робот" и "API" [service-resources]
+      - do: навести курсор на ресурс "Робот"
+      - assert: рядом с надписью "Робот" появилась ссылка "запросить"
+      - do: кликнуть на ссылку "запросить" 
+      - assert: произошёл переход на страницу с ресурсами сервиса "Стафф" (/services/staff/resources/?new-resource=yes&new-resource-resource=92)
+      - screenshot: на странице открыта форма запроса ресурса, в форме заполнено только поле "Тип ресурса" значением "Стафф - Робот" [resource-request-modal]
+
+    2. Сервис не предоставляет ресурсы:
+      - do: открыть сервис "Автотестовый сервис" (/services/autotestservice2309/)
+      - screenshot: в правой части в описании сервиса есть блок "Ресурсы", в котором указано "сервис не предоставляет ресурсы" [service-no-resources]
+      
+files:
+  - test/features/desktop/service/service-resources.hermione.js
+
+priority: critical
+
+tags:
+  - reviewed
+  - no_assessors

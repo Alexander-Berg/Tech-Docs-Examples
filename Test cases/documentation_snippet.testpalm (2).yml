@@ -1,0 +1,26 @@
+feature: Документация
+type: Сниппет документации
+
+specs:
+  Проверка функциональности [manual]:
+    - automation: ISEARCH-6519
+    - do: открыть страницу поиска /docsearch?text=<поисковый_запрос>
+    - assert: |
+        открылась страница на вкладке 'Документация'
+        на странице отображаются страницы сервиса 'Яндекс Документация'
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/grikyan91/test__Poisk_po_Dokumentatsii_nashlos_4218_2020-07-01_15-20-07.png]
+    - do: проверить ссылку в тайтле сниппета
+    - assert: ссылка ведет на соответствующую страницу сервиса 'Яндекс Документация'
+    - tech: при клике на ссылку дернулся clck.yandex.ru/click/
+    - do: клик на значение в 'Оцените релевантность документа'
+    - assert: появилось сообщение 'Спасибо за оценку! Вы – настоящий асессор поиска :)'
+
+tags:
+  - reviewed
+
+priority: blocker
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

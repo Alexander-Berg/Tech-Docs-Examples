@@ -1,0 +1,30 @@
+feature: Страница новостей
+type: С бесконечной лентой новостей
+experiment: Сокращение места под бесконечной ленты
+
+specs:
+  Стандартное поведение для страниц паблишеров:
+    - do: открыть страницу /turbo?stub=page/test_news_infinite.json
+    - do: пролистать до конца страницы
+    - screenshot: снизу добавилась новая страница, внешний вид первой страницы соответствует скриншоту [plain_1]
+    - screenshot: снизу добавилась новая страница, внешний вид второй страницы соответствует скриншоту [plain_2]
+
+  Поведение для страниц паблишеров под флагом:
+    - params:
+       exp_flags:
+          - simplified_ajax=1
+    - do: открыть страницу /turbo?stub=page/test_news_infinite.json
+    - do: пролистать до конца страницы
+    - screenshot: снизу добавилась новая страница, внешний вид первой страницы соответствует скриншоту [plain_1]
+    - screenshot: снизу добавилась новая страница, внешний вид второй страницы соответствует скриншоту [plain_2]
+
+files:
+  - features/touch-phone/pages/simplified_ajax/simplified_ajax.hermione.js
+
+v-team: Turbo
+
+manager: mviktorov
+
+qa-engineer: olga0321, dakhetov
+
+tlds: none

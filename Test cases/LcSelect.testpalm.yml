@@ -1,0 +1,31 @@
+feature: LcSelect
+
+tags: no_assessors
+
+specs:
+  Обычный селект:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcselect/default.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Селект с выбранным вариантом:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcselect/selected.json)
+    - screenshot: внешний вид соответствует скриншоту [selected]
+  Невалидный селект:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcselect/invalid.json)
+    - screenshot: внешний вид соответствует скриншоту [invalid]
+  Открытый селект на десктопе:
+    - browsers:
+        - chrome-desktop
+        - firefox
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcselect/selected.json)
+    - screenshot: внешний вид соответствует скриншоту [opened-desktop]
+
+files:
+  - platform/components/LcSelect/__tests__/LcSelect.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: olimiya, shinuta
+
+tlds: none

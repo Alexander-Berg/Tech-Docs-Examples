@@ -1,0 +1,127 @@
+feature: Универсальный колдунщик образования
+
+specs:
+  Клик по ссылке:
+    - tags: no_assessors
+    - params:
+        foreverdata: '4087341600'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на выдаче есть универсальный колдунщик образования
+    - tech: |
+        в баобаб дереве присутствет узел по пути "/$page/$main/$result/unisearch_education/item"
+        и аттрибутами url и title
+    - do: кликнуть в первый сниппет в колдунщике
+    - tech: сработал счётчик "/$page/$main/$result/unisearch_education/item/link"
+
+  Фильтр «Бесплатные»:
+    - do: получить выдачу по запросу 'python курсы'
+    - assert: на выдаче есть универсальный колдунщик образования с платными курсами
+    - do: нажать на кнопку фильтра «Бесплатные»
+    - assert: появились исключительно бесплатные курсы
+    - tech: сработал счётчик "/$page/$main/$result/unisearch_education/scroller/quick-filter"
+
+  Обогащённое превью:
+    Счётчик закрытия по клику на крестик:
+      - params:
+          foreverdata: '603351045'
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: на выдаче есть универсальный колдунщик образования
+      - do: нажать на первый курс в блоке
+      - assert: отобразилось превью курса
+      - do: нажать на крестик в правом верхнем углу модального окна
+      - assert: превью закрылось
+      - tech: сработал счётчик 'preview-closed'
+
+    Счётчик закрытия по нажатию esc:
+      - params:
+          foreverdata: '603351045'
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: на выдаче есть универсальный колдунщик образования
+      - do: нажать на первый курс в блоке
+      - assert: отобразилось превью курса
+      - do: нажать на esc
+      - assert: превью закрылось
+      - tech: сработал счётчик 'preview-closed'
+
+    Счётчик закрытия по клику в паранжу:
+      - params:
+          foreverdata: '603351045'
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: на выдаче есть универсальный колдунщик образования
+      - do: нажать на первый курс в блоке
+      - assert: отобразилось превью курса
+      - do: кликнуть в затенённую область вне контента модального окна
+      - assert: превью закрылось
+      - tech: сработал счётчик 'preview-closed'
+
+    Разметка контента baobab:
+      - tags: no_assessors
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: на выдаче есть универсальный колдунщик образования
+      - do: кликнуть в первый сниппет в колдунщике
+      - assert: появилось превью курса
+      - tech: |
+          в baobab дереве есть узел по пути "/$page/$main/$result/unisearch_education/preview_content"
+          с атрибутами title и url
+      - tech: |
+          в baobab дереве есть узел по пути "/$page/$main/$result/unisearch_education/preview_content/key-value"
+          c атрибутом duration
+      - tech: |
+          в baobab дереве есть узел по пути "$page/$main/$result/unisearch_education/preview_content/price-item"
+          с атрибутами periodicity, full и discount
+      - tech: |
+          в baobab дереве есть узел по пути "$page/$main/$result/unisearch_education/preview_content/extended-text"
+          с атрибутами type и cutted
+      - tech: |
+          в baobab дереве есть узел по пути "$page/$main/$result/unisearch_education/preview_content/bullet-list"
+          с атрибутом type
+
+    UGC отзывы:
+      Внешний вид:
+        - params:
+            foreverdata: '3361526588'
+        - do: получить выдачу по запросу "foreverdata"
+        - assert: на выдаче есть универсальный колдунщик образования
+        - do: нажать на первый курс в блоке
+        - assert: отобразилось превью курса
+        - assert: отобразился список отзывов
+        - screenshot: внешний вид [plain]
+
+  Курсы со скрытой ценой:
+    params:
+      foreverdata: '3975423565'
+
+    Внешний вид в заголовке превью:
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: на выдаче есть универсальный колдунщик образования
+      - do: кликнуть в сниппет в колдунщике
+      - screenshot: внешний вид описания курса в шапке превью соответствует скриншоту [plain]
+
+    Описание цены в шапке превью имеет правильную baobab-разметку:
+      - tags: no_assessors
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: на выдаче есть универсальный колдунщик образования
+      - do: кликнуть в сниппет в колдунщике
+      - tech: |
+          в baobab дереве есть узел по пути "$page/$main/$result/unisearch_education/preview_content/price-item"
+          с атрибутом text и значением "Цена на сайте"
+
+  Cсылка на агрегатора в шторке:
+    Внешний вид:
+      - params:
+          foreverdata: '920191366'
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: на выдаче есть универсальный колдунщик образования
+      - do: кликнуть в сниппет в колдунщике
+      - screenshot: внешний вид подвала превью соответствует скриншоту [plain]
+
+files:
+  - src/features/UniSearch/UniSearch.features/UniSearchEducation/UniSearchEducation.test/UniSearchEducation@desktop.hermione.js
+
+v-team: UniSearch
+
+tlds: [ru, by, ua, kz, uz]
+
+tags:
+  - react
+  - skip_e2e_check

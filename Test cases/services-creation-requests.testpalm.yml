@@ -1,0 +1,46 @@
+feature: Запросы создания сервисов
+
+specs:
+  beforeEach:
+    - do: Залогиниться под пользователем robot-internal-003
+
+  aliases:
+    _filterTestCases: &filterTestCases
+      - do: открыть запросы создания сервисов (/approves/services-creation/?exp_flags=service-creation&lang=${lang})
+      - screenshot: открылись запросы с фильтром Непосредственные [direct-requests]
+      - do: нажать на фильтр С учетом иерархии
+      - screenshot: открылись запросы с фильтром С учетом иерархии [hierarchy-requests]
+      - do: нажать на фильтр Непосредственные
+      - screenshot: открылись запросы с фильтром Непосредственные [direct-requests-again]
+
+  Положительные:
+    Фильтры(ru):
+      - params:
+          lang: ru
+      - <<: *filterTestCases
+
+    Фильтры(en):
+      - params:
+          lang: en
+      - <<: *filterTestCases
+
+    Подтверждение запроса:
+      - do: открыть запросы создания сервисов (/approves/services-creation/?exp_flags=service-creation)
+      - screenshot: первый запрос перед подтверждением [request-before-approvement]
+      - do: нажать кнопку подтверждения в первом запросе
+      - screenshot: первый запрос подтвержден [approve-request]
+
+    Отклонение запроса:
+      - do: открыть запросы создания сервисов (/approves/services-creation/?exp_flags=service-creation)
+      - screenshot: первый запрос перед отказом [request-before-rejection]
+      - do: нажать кнопку отказа в первом запросе
+      - screenshot: первый запрос отказан [reject-request]
+
+files:
+  - test/features/desktop/service-creation/services-creation-requests.hermione.js
+
+priority: critical
+
+tags:
+  - reviewed
+  - no_assessors

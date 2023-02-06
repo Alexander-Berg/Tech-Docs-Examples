@@ -1,0 +1,32 @@
+feature: Колдунщик видео
+experiment: Исправление типографики в колдунщике (гринурл и временная метка)
+
+tags: [no_assessors, not_in_prod] #фича не в проде, удалить yml и hermione
+
+tlds: ['ru']
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу "foreverdata"
+    - assert: появился видеоколдунщик
+
+  По гайдам Депо:
+    - params:
+        exp_flags:
+          - video_wizard_redesign_compact=depo
+        foreverdata: '3556267449'
+    - screenshot: примерный внешний вид [plain]
+
+  По гайдам Депо, но гринурл Я.Видео:
+    - params:
+        exp_flags:
+          - video_wizard_redesign_compact=video
+        foreverdata: '3556267449'
+    - screenshot: примерный внешний вид [plain]
+
+files:
+  - features/touch-phone/adapter-videowiz/exp/adapter-videowiz_compact-typograghy.hermione.js
+
+v-team: Video
+
+priority: normal

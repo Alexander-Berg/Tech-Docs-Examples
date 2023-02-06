@@ -1,0 +1,22 @@
+feature: Ставить куку yp/ds, если в Safari поиск по умолчанию Яндекс
+
+specs:
+  Проверка установки куки yp/ds для clid=1906591:
+    - params:
+        text: памаигте
+        clid: '1906591'
+    - do: получить выдачу по запросу 'памаигте'
+    - do: получить значение куки "yp"
+    - assert: значение ds для куки "yp" установилось в 1
+
+files:
+  - features/direct_safari_default_cookie/direct_safari_default_cookie@touch-phone.hermione.js
+
+v-team: Distribution
+
+tags:
+  - skip_e2e_check
+  - no_assessors
+
+tlds:
+  - ru

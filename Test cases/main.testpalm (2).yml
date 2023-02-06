@@ -1,0 +1,30 @@
+feature: Главная страница
+
+specs:
+    beforeEach:
+        - do: запустить ПП
+        - do: перейти по урлу "https://health.yandex.ru/searchapp"
+
+    Внешний вид:
+        - assert: открылась главная страница "Онлайн-консультация"
+        - screenshot: вид по умолчанию [plain]
+        - do: выбрать категорию "дети"
+        - assert: список тем поменялся
+        - screenshot: скриншот [topic changed]
+
+    Переход по таксономии:
+        - do: выбрать таксономию 'Педиатр'
+        - assert: |
+              открылась страница выбора формата консультации с педиатром
+              урл поменялся на "/searchapp/taxonomy/100"
+
+    Переход по топику:
+        - do: выбрать тему "простуда"
+        - assert: |
+            открылась страница выбора формата консультации с терапевтом
+            урл поменялся на "/searchapp/taxonomy/1"
+
+v-team: Telemed
+
+files:
+    - tests/hermione/suites/touch/main/main.hermione.js

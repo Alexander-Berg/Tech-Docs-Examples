@@ -1,0 +1,16 @@
+feature:  Отложенные сценарии - сценарий с удалённым устройством - не завершенный сценарий
+
+specs:
+    Отложенные сценарии - сценарий с удалённым устройством - не завершенный сценарий:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/2830
+        - release_Webview
+        - release_Smarthome
+        - smarthome_regress
+        - platform_common
+        - webview_regress
+        - iot_timer
+        - iot_scenario
+    - do: "Preconditions Сделать любой сценарий, например, `выключи лампочку через 10 секунд`, убедиться, что сценарий отображается в списке"
+    - do: "Удалить устройство из УД"
+    - assert: "Сценарий пропал из списка"

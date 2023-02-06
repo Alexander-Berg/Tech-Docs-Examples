@@ -1,0 +1,37 @@
+feature: EmcSection
+
+tags: no_assessors
+
+specs:
+  Обычный внешний вид секции:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emcsection/default.json)
+    - screenshot: внешний вид соответствует скриншоту [emcsection]
+
+  Внешний вид секций с фоновым цветом и различными настройками отступов:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emcsection/offsets.json)
+    - screenshot: внешний вид соответствует скриншоту [emcsection]
+
+  Внешний вид секций с различными настройками размера фоновой картинки:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emcsection/sizes.json)
+    - screenshot: внешний вид соответствует скриншоту [emcsection]
+
+  Внешний вид секций с различными настройками позиционирования фоновой картинки:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emcsection/positions.json)
+    - screenshot: внешний вид соответствует скриншоту [emcsection]
+  Внешний вид секций с различными настройками границ:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emcsection/border.json)
+    - screenshot: внешний вид соответствует скриншоту [emcsection]
+  Внешний вид секций с различными настройками скругления:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emcsection/border-radius.json)
+    - screenshot: внешний вид соответствует скриншоту [emcsection]
+
+files:
+  - platform/components/EmcSection/__tests__/EmcSection.hermione.js
+
+v-team: Lc
+
+manager: polyakovadi
+
+qa-engineer: pankov97
+
+tlds: none

@@ -1,0 +1,70 @@
+feature: Факт
+type: Саджест (с телефоном)
+
+specs:
+  Ссылки в карточке:
+    - do: получить выдачу Поиска по запросу 'телефон доверия'  _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: |
+        на первой позиции выдачи есть Фактовый ответ с кнопкой телефона
+        в Фактовом ответе один номер телефона
+    - screenshot: внешний вид [plain]
+    - assertMetrics: '*'
+    - do: тапнуть по кнопке с телефоном
+    - assert: произошел переход в приложение 'телефон' с номером из Фактового ответа
+    - tech: проверить счетчик в кнопке с телефоном
+    - do: тапнуть на синем тайтле
+    - assert: в новой вкладке открылся сайт-источник информации
+    - tech: проверить счетчик в синем тайтле
+    - do: тапнуть по гринурлу
+    - assert: в новой вкладке открылся сайт организации
+    - tech: проверить счетчик в гринурле
+    - assertMetrics: '*'
+  Внешний вид для размера текста s:
+    - tags:
+        - no_assessors
+    - do: получить выдачу Поиска по запросу 'телефон доверия' _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: на первой позиции выдачи есть Фактовый ответ с кнопкой телефона
+    - screenshot: внешний вид [size-s]
+    - assertMetrics: '-'
+  Внешний вид для размера текста xxl:
+    - tags:
+        - no_assessors
+    - do: получить выдачу Поиска по запросу 'полиция как вызвать' _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: на первой позиции выдачи есть Фактовый ответ с кнопкой телефона
+    - screenshot: внешний вид [size-xxl]
+    - assertMetrics: '-'
+  Внешний вид для размера текста m:
+    - tags:
+        - no_assessors
+    - do: получить выдачу Поиска по запросу 'телефон налоговой' _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: на первой позиции выдачи есть Фактовый ответ с кнопкой телефона
+    - screenshot: внешний вид [size-m]
+    - assertMetrics: '-'
+
+specs-integration:
+  beforeEach:
+    - do: получить выдачу Поиска по запросу 'телефон доверия'  _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: на первой позиции выдачи есть Фактовый ответ с кнопкой телефона
+  Ссылки в карточке:
+    - do: тапнуть по кнопке с телефоном
+    - assert: произошел переход в приложение 'телефон' с номером из Фактового ответа
+
+files:
+  - features/touch-phone/adapter-suggest-fact/adapter-suggest-fact_phone.hermione.js
+  - features/touch-phone/adapter-suggest-fact/adapter-suggest-fact_phone.hermione.e2e.js
+
+v-team: Facts
+
+tags:
+  - reviewed
+
+tlds:
+  - ru
+  - by
+  - ua
+  - kz
+  - uz
+  - com.tr
+  - com
+
+counter: /$page/$main/$result[@wizard_name="suggest_fact"]/button

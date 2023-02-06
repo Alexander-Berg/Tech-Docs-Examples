@@ -1,0 +1,27 @@
+feature: Спец.размещение
+type: БНО
+
+specs:
+  Проверка видимости и ссылок:
+    - do: получить выдачу по запросу 'lamoda' (альтернативные запросы 'кредит тинькофф', 'ортопедические матрасы')
+    - assert: рекламный сниппет с БНО присутствует на странице
+    - screenshot: пример внешнего вида [serp-adv-bno]
+    - do: нажать на первую навигационную ссылку (первый сайтлинк)
+    - assert: осуществился переход на выбранный раздел сайта рекламодателя
+    - tech: href ссылки содержит yabs.yandex.ru/count
+    - assertMetrics: "*"
+
+files:
+  - features/touch-phone/serp-adv-item/serp-adv-bno/serp-adv-bno.hermione.js
+
+
+v-team: Distribution
+
+tags:
+  - smoke_extended
+  - reviewed
+  - skip_e2e_check
+  - adv
+  - BNO
+
+tlds: [ru]

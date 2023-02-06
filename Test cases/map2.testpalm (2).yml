@@ -1,0 +1,24 @@
+feature: Карта
+
+specs:
+  Ховер на пине:
+    - params:
+        foreverdata: '484344364'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на странице присутствует карта
+    - do: навести курсор мыши на пин без подписи
+    - assert: у пина появилась подпись
+    - screenshot: внешний вид [hover]
+
+files:
+  - features/desktop/map2/map2.hermione.js
+
+v-team: VanillaGeo
+
+counter: /web/item/point
+
+tags:
+  - skip_e2e_check
+  - no_assessors
+
+tlds: all

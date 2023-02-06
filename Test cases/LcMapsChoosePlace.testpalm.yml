@@ -1,0 +1,24 @@
+feature: LcMapsChoosePlace
+
+tags: no_assessors
+
+specs:
+  Обычная карта:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcmapschooseplace/default.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  При движении карты появляется кнопка:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcmapschooseplace/default.json)
+    - do: подвигать карту
+    - assert: появилась кнопка "Отправить заявку"
+    - assert: ссылка в кнопке "Отправить заявку" содержит query-параметр ll
+
+files:
+  - platform/components/LcMapsChoosePlace/__tests__/LcMapsChoosePlace.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: ratyulenev
+
+tlds: none

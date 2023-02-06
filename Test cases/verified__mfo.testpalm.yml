@@ -1,0 +1,42 @@
+feature: Метка
+type: МФО
+
+specs:
+  В рекламе:
+    - params:
+        foreverdata: '291615899'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: рекламный сниппет с меткой 'ЦБ РФ' присутствует на странице
+    - screenshot: вид сниппета с меткой [plain]
+    - do: кликнуть в метку (если задание выполняется на десктопе - навести мышку на метку)
+    - assert: появился тултип
+    - tech: сработал счётчик показа тултипа path='/$page/$main/$result[@type="adv"]/mfo'
+    - screenshot: вид сниппета с меткой и тултипом [hover]
+    - do: проверить ссылку внутри тултипа
+    - assert: ссылка открывает сайт ЦБ РФ в новой вкладке
+    - tech: на ссылке есть счетчик path='/$page/$main/$result[@type="adv"]/mfo/link'
+  В органике:
+    - params:
+        foreverdata: '3922256456'
+    - do: получить выдачу спо запросу 'foreverdata'
+    - assert: органический сниппет с меткой 'ЦБ РФ' присутствует на странице
+    - screenshot: вид сниппета с меткой [plain]
+    - do: кликнуть в метку (если задание выполняется на десктопе - навести мышку на метку)
+    - assert: появился тултип
+    - tech: сработал счётчик показа тултипа path='/$page/$main/$result[@type="organic"]/mfo'
+    - screenshot: вид сниппета с меткой и тултипом [hover]
+    - do: проверить ссылку внутри тултипа
+    - assert: ссылка открывает сайт ЦБ РФ в новой вкладке
+    - tech: на ссылке есть счетчик path='/$page/$main/$result[@type="organic"]/mfo'
+
+files:
+  - features/common/verified/__mfo/verified__mfo.hermione.js
+
+tags:
+  - reviewed
+  - skip_e2e_check
+
+v-team: Beauty
+
+tlds:
+  - ru

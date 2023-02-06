@@ -1,0 +1,34 @@
+feature: Ecom-tap
+
+params:
+    exp_flags:
+      - turbo-app-bottombar=1
+
+specs:
+  turbo-app-bottombar:
+    Внешний вид:
+      - do: перейти по ссылке https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog/main/?ecommerce_main_page_preview=1&morda=1
+      - assert: на странице есть нижняя панель навигации
+      - screenshot: внешний вид соотвествует скриншоту [bottombar]
+
+    Переходы по ссылкам:
+      - do: перейти по ссылке https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog/main/?ecommerce_main_page_preview=1&morda=1
+      - assert: на странице есть нижняя панель навигации
+      - do: нажать на кнопку "Каталог" в нажней панели навигации
+      - assert: произошел переход на страницу каталога
+      - do: нажать на кнопку "Корзина" в нажней панели навигации
+      - assert: произошел переход в корзину
+      - do: нажать на кнопку "Магазин" в нажней панели навигации
+      - assert: произошел переход в раздел о магазине
+      - do: нажать на кнопку "Избранное" в нажней панели навигации
+      - assert: произошел переход на passport.yandex.ru для залогина
+
+files:
+    - experiments/turbo-app-bottombar/components/EcomBottomBar/__tests__/EcomBottomBar@phone.hermione.js
+
+tags:
+    - ecom-tap
+
+tlds: ru
+
+v-team: Turbo

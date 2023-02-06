@@ -1,0 +1,26 @@
+feature: Колдунщик топонимов
+type: Полигоны
+
+params:
+  rearr: EntitySearch_off
+  # колдунщик топонимов отключен на стороне данных, этот флаг возвращает колдун
+  srcparams: 'UPPER:rearr=scheme_Local/ToponymWizard/Enabled=1'
+
+specs-integration:
+  Наличие полигона на карте:
+    - do: получить выдачу по запросу 'москва на карте'
+    - assert: |
+        на странице присутствует колдунщик топонимов
+        на карте отрисована граница города (полигон)
+
+files:
+  - features/desktop/adapter-maps/map2_areas.hermione.e2e.js
+
+v-team: VanillaGeo
+
+counter: /$page/$main/$result[@wizard_name="maps" and @subtype="district"]
+
+tags:
+  - hasE2E
+
+tlds: all

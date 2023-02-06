@@ -1,0 +1,16 @@
+feature: marketReviewCard
+
+specs:
+  Внешний вид блока:
+    - do: открыть страницу примера блока marketReviewCard (/turbo?stub=marketreviewcard/default.json)
+    - assert: видена карточка отзыва
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+    - platform/components/MarketReviewCard/__tests__/MarketReviewCard.hermione.js
+
+v-team: Market
+
+manager: seoshnik
+
+tlds: none

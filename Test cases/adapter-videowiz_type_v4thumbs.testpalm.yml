@@ -1,0 +1,24 @@
+feature: Колдунщик видео
+
+tlds:
+  - ru
+  - ua
+  - by
+  - kz
+
+specs:
+  Проверка ссылок и счётчиков:
+    # TODO: отрефакторить в https://st.yandex-team.ru/SERP-56662
+    - tags:
+        - no_assessors
+    - assert: проверить ссылку в заголовке
+    - tech: проверить счётчик в заголовке
+    - assert: проверить ссылку у первого тумба
+    - tech: проверить счётчик у первого тумба
+    - assert: проверить ссылку 'Еще видео'
+    - tech: проверить счётчик у ссылки 'Еще видео'
+
+files:
+  - features/touch-phone/adapter-videowiz/adapter-videowiz_type_v4thumbs.hermione.js
+
+v-team: Video

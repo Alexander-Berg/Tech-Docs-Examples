@@ -1,0 +1,64 @@
+feature: Кандидаты
+type: Дубликаты. Блокировка действий
+
+specs:
+  Добавление на вакансию [manual]:
+    - automation: FEMIDA-5558
+    - do: открыть страницу кандидата, у которого есть дубликат /candidates/<id_кандидата>/
+    - screenshot: открылась страница кандидата [https://jing.yandex-team.ru/files/tavria/Data.867c77d.png]
+    - assert: на странице есть кнопка 'Добавить на вакансию'
+    - do: клик на кнопку 'Добавить на вакансию'
+    - screenshot: появилось сообщение об ошибке [https://jing.yandex-team.ru/files/tavria/Data.0a06c0e.png]
+    - assert: в сообщении об ошибке ссылка ведёт на /candidates/duplicates/<id_дубликата>
+
+  Завершение работы по кандидату [manual]:
+    - automation: FEMIDA-5558
+    - do: открыть страницу кандидата, у которого есть дубликат /candidates/<id_кандидата>/
+    - screenshot: открылась страница кандидата [https://jing.yandex-team.ru/files/tavria/Data.867c77d.png]
+    - assert: на странице есть кнопка '...'
+    - do: клик на кнопку '...'
+    - screenshot: открылось меню кандидата [https://jing.yandex-team.ru/files/tavria/Data.3b1eaf2.png]
+    - do: клик на кнопку 'Завершить работу по кандидату'
+    - screenshot: появилось сообщение об ошибке [https://jing.yandex-team.ru/files/tavria/Data.0a06c0e.png]
+
+  Отправка на проверку конфликта интересов [manual]:
+    - automation: FEMIDA-5558
+    - do: |
+        открыть страницу кандидата, у которого есть дубликат /candidates/<id_кандидата>/
+        он должен быть добавлен на вакансию и не проходил проверку конфкликта интересов
+        (т.к. только в этом случае показывается эта кнопка)
+    - screenshot: открылась страница кандидата [https://jing.yandex-team.ru/files/tavria/Data.867c77d.png]
+    - assert: на странице есть кнопка '...'
+    - do: клик на кнопку '...'
+    - screenshot: открылось меню кандидата [https://jing.yandex-team.ru/files/tavria/Data.3b1eaf2.png]
+    - do: клик на кнопку 'Отправить на проверку конфликта интересов'
+    - screenshot: появилось сообщение об ошибке [https://jing.yandex-team.ru/files/tavria/Data.0a06c0e.png]
+
+  Создание секции [manual]:
+    - automation: FEMIDA-5558
+    - do: открыть страницу кандидата, у которого есть дубликат /candidates/<id_кандидата>/interviews/
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/tavria/Data.867c77d.png]
+    - assert: |
+        открылась страница кандидата
+        вкладка 'Испытания' активна
+        на вкладке есть кнопка 'Создать секцию'
+    - do: клик на кнопку 'Создать секцию'
+    - screenshot: появилось сообщение об ошибке [https://jing.yandex-team.ru/files/tavria/Data.0a06c0e.png]
+
+  Отправка на согласование оффера [manual]:
+    - automation: FEMIDA-5558
+    - do: открыть страницу оффера в статусе 'Готов к согласованию' кандидата, у которого есть дубликат /offers/<id_кандидата>/
+    - screenshot: открылась страница оффера [https://jing.yandex-team.ru/files/tavria/Data.572bfe7.png]
+    - assert: на странице есть кнопка 'На согласование'
+    - do: клик на кнопку 'На согласование'
+    - screenshot: появилось сообщение об ошибке [https://jing.yandex-team.ru/files/tavria/Data.0a06c0e.png]
+
+tags:
+  - reviewed
+
+priority: normal
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

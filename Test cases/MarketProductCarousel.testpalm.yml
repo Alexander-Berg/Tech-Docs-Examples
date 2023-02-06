@@ -1,0 +1,16 @@
+feature: marketProductCarousel
+
+specs:
+  Внешний вид блока:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=marketproductcarousel/default.json)
+    - assert: должена быть видена каруселька с карточками товаров
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/components/MarketProductCarousel/__tests__/MarketProductCarousel.hermione.js
+
+v-team: Market
+
+manager: seoshnik
+
+tlds: none

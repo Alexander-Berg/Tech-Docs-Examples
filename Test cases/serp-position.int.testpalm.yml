@@ -1,0 +1,24 @@
+feature: Спец.размещение
+type: Замешивание рекламы [integration testing]
+
+description: |
+  Работает только в dev-сервере при выполнении запросов как с использованием дампов данных, так и на живых данных.
+  Фича включается передачей параметра запроса `yabs:serp_position/test_trafaret_104`.
+specs:
+  Проверка замешивания:
+    - params:
+        data-patchers: yabs:serp_position/test_trafaret_104
+    - do: получить выдачу по запросу "тирания социума"
+    - assert: рекламные сниппеты расположены на позициях '0', '1', '2', '3', '9', '16', '17'
+
+files:
+  - features/touch-phone/serp-adv/serp-position/serp-position.int.hermione.js
+
+tags:
+  - no_assessors
+  - skip_e2e_check
+  - adv
+
+v-team: Distribution
+
+tlds: none

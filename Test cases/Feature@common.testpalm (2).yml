@@ -1,0 +1,26 @@
+feature: Feature-name
+
+params:
+  rearr: '1'
+
+specs:
+  First describe:
+    Should check first:
+      - do: получить выдачу по запросу 'some-text'
+      - screenshot: на странице появился элемент, пример внешнего вида [plain]
+  Second describe:
+    beforeEach:
+      - do: something
+    Should check second:
+      - do: получить выдачу по запросу 'some-text 2'
+    Should check experimental:
+      - do: получить выдачу по запросу 'an interesting text'
+      - screenshot: на странице появился элемент, пример внешнего вида [ex_plain]
+  New describe:
+    Should check something new:
+      - params: {}
+      - screenshot: на странице появился элемент, пример внешнего вида [plain]
+
+tlds: all
+
+v-team: '2'

@@ -1,0 +1,25 @@
+feature: Спец.размещение
+type: Нижний и верхний блоки спец.размещения
+
+specs:
+  Внешний вид:
+    - do: получить выдачу по запросу 'окна' (альтернативные запросы 'матрас', 'кресло качалка', 'удобрения купить')
+    - assert: верхний блок рекламы присутствует на выдаче
+    - label: serp-adv-item-{{BROWSER_TYPE}}
+    - screenshot: пример внешнего вида (текст и наличие различных элементов снипета может отличаться от примера - не баг) [premium]
+    - assert: нижний блок рекламы присутствует на выдаче
+    - screenshot: пример внешнего вида рекламного снипета (текст и наличие различных элементов снипета может отличаться от примера - не баг) [halfpremium]
+
+files:
+  - features/touch-phone/serp-adv-item/premium-and-halfpremium/premium-and-halfpremium.hermione.js
+
+tags:
+  - skip_e2e_check
+  - adv
+  - smoke
+
+v-team: Distribution
+
+priority: high
+
+tlds: [ru, by]

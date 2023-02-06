@@ -1,0 +1,19 @@
+feature:  no assessors Умный дом - Azuma - Войти пользователем без УД и устройств
+
+specs:
+    no assessors Умный дом - Azuma - Войти пользователем без УД и устройств:
+    - tags:
+        - https://testpalm.yandex-team.ru/alice/testcases/4300
+        - release_Webview
+        - release_Smarthome
+        - smarthome_regress
+        - app_regress
+        - platform_common
+        - webview_regress
+        - azuma
+        - iot_households
+        - no_assessors
+    - do: "Description Кейс для проверки отображения вебвью для пользователя, **которого нет в базе**; ; заюзать можно акк ; ; ivanovtimur2021; 2021timurivanov; "
+    - do: "Preconditions Пользователь залогинен в ПУДЯ"
+    - do: "Зайти в `Устройства`"
+    - assert: "Отображается разводящий экран ; Ошибок нет, прелоадер не крутится; ; <img src=`https://jing.yandex-team.ru/files/levkovskayama/photo_2022-03-24%2016.29.31.a749f1a.jpeg` alt=`Скриншот` width=`300`/>; "

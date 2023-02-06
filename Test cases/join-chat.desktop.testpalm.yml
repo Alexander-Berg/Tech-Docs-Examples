@@ -1,0 +1,53 @@
+feature: Присоединение к чату
+
+import-steps:
+    - tests/hermione/suites/messenger/shared-steps/open-messenger.testpalm.steps.yml
+
+specs:
+
+    Присоединение к чату по публичной ссылке[manual]:
+        - automation: MSSNGRFRONT-3772
+        - attach: Открытие чата q
+        - do: перейти по ссылке https://latest.release.messenger.dev.yandex-team.ru/#/join/e3142eac-5735-46b9-b9c0-7a45d5db73d4
+        - assert: |
+                открылся чат, поле ввода перекрыто кнопкой "присоединиться"
+                содержимое чата отображается на экране
+                шапка чата соответсвует скриншоту
+        - screenshot: внешний вид для десктопов [https://jing.yandex-team.ru/files/ismateush/uhura_2019-08-02T17:25:24.jpg]
+        - do: кликнуть на троеточие в шапке чата
+        - do: в выпадающем меню выбрать "Информация о чате"
+        - assert: открывается карточка чата
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/ismateush/uhura_2019-08-02T17:27:59.jpg]
+        - do: закрыть карточку чата
+        - do: нажать на кнопку "присоединиться"
+        - assert: |
+                в чате появилась информация о вашем присоединении
+                кнопка пропала, поле ввода сообщений доступно
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/ismateush/uhura_2019-08-02T17:31:45.jpeg]
+        - do: кликнуть на ваше имя в сообщении о присоединении
+        - assert: открывается карточка информации о пользователе
+        - do: закрыть карточку
+        - do: в шапке чата нажать на троеточие
+        - do: в выпадающем меню выбрать "покинуть чат"
+        - do: подтвердить решение во всплывающем окне
+        - assert: |
+                чат закрыт
+                отображается сообщение "Выберите чат для начала общения"
+
+    Присоединение к чату по закрытой ссылке[manual]:
+        - automation: MSSNGRFRONT-3772
+        - attach: Открытие чата q
+        - do: перейти по ссылке https://latest.release.messenger.dev.yandex-team.ru/#/join/656ad945-bb35-443b-aba2-47da21ecafc8
+        - assert: отобразилось сообщение "не удалось присоединиться к чату"
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/ismateush/uhura_2019-08-02T17:41:31.jpg]
+
+files: []
+
+v-team: Chat
+
+tlds: ru
+
+tags:
+    - q
+    - release
+    - y-team

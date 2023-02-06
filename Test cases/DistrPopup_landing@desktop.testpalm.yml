@@ -1,0 +1,49 @@
+feature: Popup на СЕРПе
+type: C промо для скачивания Я.Бро
+
+params:
+  foreverdata: '1222369131'
+  srcskip: 'YABS_DISTR'
+
+specs:
+  beforeEach:
+    - do: почистить куки и получить выдачу по запросу 'foreverdata'
+    - assert: на выдаче присутствует попап-блок дистрибуции возле авторизации
+    - tech: сработал блокстат-счетчик /distr/bk/data/popup (дописать в урл &exp_flags=dump_counters=bk)
+    - tech: сработал БК-счетчик видимости yabs.yandex.ru/count/ (смотреть в Network)
+    - tech: сработал счетчик на показ /$page/promo_popup type=distr-popup-show
+    - tech: записалась кука показа попап-блока (в yp появился пар-р p_sw)
+  Внешний вид:
+    - screenshot: пример внешнего вида попап-блока дистрибуции [plain]
+  Проверка кнопки закрыть:
+    - do: кликнуть на кнопку 'Закрыть'
+    - tech: сработал счётчик клика на кнопку 'Закрыть' /$page/promo_popup/close
+    - assert: попап-блок дистрибуции скрылся
+    - tech: записалась кука закрытия попап-блока (в yp появился пар-р p_cl)
+    - assertMetrics: "*"
+  Проверка кнопки установить:
+    - do: проверить href в кнопке 'Установить' при помощи DevTools
+    - assert: href ссылки содержит yabs?type=landing
+    - do: клик на кнопку 'Установить'
+    - tech: сработал счётчик клика на кнопку 'Установить' /$page/promo_popup/install
+    - tech: записалась кука клика на кнопку 'Установить' (в yp появился пар-р p_clc)
+    - assert: открывается новая вкладка. Валидность ее содержимого проверять не нужно
+    - do: вернуться на исходную тестируемую страницу
+    - assert: попап-блок дистрибуции скрылся
+    - assertMetrics: "*"
+  Взаимодействие с саджестом:
+    - do: открыть саджест в поисковой стрелке
+    - assert: попап-блок дистрибуции скрылся
+    - do: закрыть саджест в поисковой стрелке
+    - assert: попап-блок дистрибуции не появился снова
+
+files:
+  - src/features/DistrPopup/DistrPopup.test/_landing/DistrPopup_landing@desktop.hermione.js
+
+tags:
+  - distribution
+  - popup
+
+v-team: Distribution
+
+tlds: [ru, by]

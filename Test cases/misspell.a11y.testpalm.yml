@@ -1,0 +1,38 @@
+feature: Опечатка и Ко
+type: Доступность
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу 'gjrthjr cfqn'
+    - assert: на странице присутствует сообщение "Исправлена раскладка клавиатуры с «gjrthjr cfqn»" и кнопка "Отменить"
+  Должны иметь атрибуты доступности:
+    - tech: должен быть заголовок в блоке
+    - tech: у блока опечаточника должен быть атрибут role='complementary'
+    - tech: у блока опечаточника должен быть атрибут aria-labelledby с id, указывающим на заголовок
+  Кнопка "Отменить" может быть сфокусирована:
+    - tech: у кнопки "Отменить" есть атрибут tabindex=0
+
+specs-integration:
+  Должны иметь атрибуты доступности:
+    - counter: /$page/$main/misspell/type_misspell/keyboard_layout
+    - do: получить выдачу по запросу 'gjrthjr cfqn' _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: на странице присутствует сообщение "Исправлена раскладка клавиатуры" и кнопка "Отменить"
+    - tech: у блока опечаточника должен быть атрибут role='complementary'
+    - tech: у блока опечаточника должен быть атрибут aria-labelledby с id, указывающим на заголовок
+
+files:
+  - features/common/misspell/misspell.a11y.hermione.js
+  - features/common/misspell/misspell.a11y.hermione.e2e.js
+
+v-team: Freshness
+
+tlds:
+  - ru
+  - by
+  - ua
+  - kz
+  - uz
+
+tags:
+  - no_assessors
+  - A11y_serp

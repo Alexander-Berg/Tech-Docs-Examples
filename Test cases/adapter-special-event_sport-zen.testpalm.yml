@@ -1,0 +1,32 @@
+feature: Специальные события
+type: Дзен в спорте
+
+specs:
+  Карусели:
+    Карточки с видео:
+      params:
+        foreverdata: '1318664137'
+      Внешний вид ховера:
+        - do: получить выдачу по запросу 'foreverdata'
+        - assert: получена выдача по указанному запросу
+        - assert: на выдаче присутствует колдунщик НХЛ
+        - screenshot: примерный внешний вид первой карточки [video-plain]
+        - do: навести курсор на видео в первой карточке
+        - screenshot: примерный внешний вид карточки с ховером [video-hovered]
+
+tlds:
+  - ru
+  - by
+  - uz
+  - kz
+  - uz
+
+tags:
+  - sport
+  - reviewed
+  - skip_e2e_check # эксперимент
+
+files:
+  - features/desktop/adapter-special-event/adapter-special-event_type_sport/zen/adapter-special-event_sport-zen.hermione.js
+
+v-team: Sport

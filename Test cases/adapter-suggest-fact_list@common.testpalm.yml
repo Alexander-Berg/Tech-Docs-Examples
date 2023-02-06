@@ -1,0 +1,64 @@
+feature: Факт
+type: Саджест (Списки)
+
+specs:
+  Короткий список:
+    - do: получить выдачу Поиска по запросу 'чем отмыть руки после огорода' _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: на выдаче присутствует факт со списком
+    - screenshot: внешний вид [plain]
+    - tech: проверить серверный счетчик на показ факта со списком
+  Нумерованный список:
+    - params:
+        foreverdata: '1891788977'
+    - do: получить выдачу Поиска по запросу 'foreverdata'
+    - assert: на выдаче присутствует факт с нумерованным списком
+    - screenshot: внешний вид [ordered]
+    - do: кликнуть в 'Читать ещё'
+    - assert: список раскрылся
+    - screenshot: развернутый список [ordered-expanded]
+  С "читать ещё":
+    - params:
+        foreverdata: '1167028438'
+    - do: получить выдачу Поиска по запросу 'foreverdata'
+    - assert: на выдаче присутствует факт со списком и ссылкой "Читать ещё"
+    - screenshot: внешний вид [more]
+    - do: кликнуть в 'Читать ещё'
+    - assert: список раскрылся
+    - tech: проверить счетчик на раскрывашке 'Читать ещё'
+    - screenshot: развернутый список [more-expanded]
+    - counter: /$page/$main/$result[@wizard_name="suggest_fact" and @subtype="list_featured_snippet"]/list/open
+  С "читать полностью":
+    - params:
+        foreverdata: '1167028438'
+    - do: получить выдачу Поиска по запросу 'foreverdata'
+    - assert: на выдаче присутствует факт со списком и ссылкой "Читать ещё"
+    - do: кликнуть в 'Читать ещё'
+    - assert: список раскрылся, под списком есть ссылка "Читать полностью"
+    - screenshot: внешний вид [full]
+    - do: кликнуть в "Читать полностью"
+    - assert: в новой вкладке открылся сайт с источником списка
+    - tech: проверить счетчик на ссылке 'Читать полностью'
+    - counter: /$page/$main/$result[@wizard_name="suggest_fact" and @subtype="list_featured_snippet"]/list/full
+
+specs-integration:
+  Проверка наличия элементов:
+    - tags: ['smoke']
+    - do: получить выдачу Поиска по запросу 'для чего знать правила вежливости' _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: на первой (или на второй - при наличии рекламы) позиции выдачи есть Фактовый ответ со списком
+
+counter: /$page/$main/$result[@wizard_name="suggest_fact" and @subtype="list_featured_snippet"]
+
+files:
+  - features/adapter-suggest-fact/fact_with_list/adapter-suggest-fact_list@common.hermione.js
+  - features/adapter-suggest-fact/fact_with_list/adapter-suggest-fact_list@common.hermione.e2e.js
+
+v-team: Facts
+
+tlds:
+  - ru
+  - by
+  - ua
+  - kz
+  - uz
+  - com.tr
+  - com

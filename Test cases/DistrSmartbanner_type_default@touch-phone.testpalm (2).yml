@@ -1,0 +1,50 @@
+feature: Смартбаннер
+type: default
+
+params:
+  exp_flags:
+    - smartbanner_atom=1
+
+specs:
+  Внешний вид смартбаннера с заголовком:
+    - params:
+        foreverdata: '1239240421'
+    - do: получить выдачу по запросу 'foreverdata'
+    - tech: сработал серверный счётчик /$page/distr-smartbanner с атрибутами bannerid product layout
+    - assert: появился смартбаннер с заголовком
+    - screenshot: внешний вид смартбаннера [smartbanner-default-with-title]
+
+  Внешний вид смартбаннера с имитацией заголовка:
+    - params:
+        foreverdata: '78063548'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: появился смартбаннер с заголовком
+    - screenshot: внешний вид смартбаннера [smartbanner-default-title-like]
+
+  Внешний вид смартбаннера без кнопки закрыть:
+    - params:
+        foreverdata: '1011945489'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: появился смартбаннер с крестиком вместо кнопки закрыть
+    - screenshot: внешний вид смартбаннера [smartbanner-default-cross]
+
+files:
+  - features/touch-phone/distr-smartbanner/distr-smartbanner_type_default/DistrSmartbanner_type_default@touch-phone.hermione.js
+
+tlds:
+  - ru
+  - by
+  - kz
+  - ua
+
+tags:
+  - distribution
+  - smartbanner
+  - no_assessors # убрать после https://st.yandex-team.ru/SERPTEST-2384
+
+v-team: Distribution
+
+browsers:
+  notFor:
+    - searchapp
+    - winphone

@@ -1,0 +1,49 @@
+feature: Информация о доставке
+
+specs:
+    Разворачивание и скрытие текста:
+        - do: перейти по ссылке https://yandex.ru/turbo/spideradio.github.io/s/rnd/fnu7e56jbff?product_id=292
+        - assert: на странице есть список возможных доставок
+        - screenshot: внешний вид соотвествует скриншоту [collapsed]
+        - do: в списке "Курьером" нажать кнопку "Ещё одна опция"
+        - assert: появился еще один вариант доставки
+        - screenshot: внешний вид соотвествует скриншоту [expanded]
+
+    Два варианта доставки:
+        - do: перейти по ссылке https://yandex.ru/turbo/spideradio.github.io/s/rnd/fnu7e56jbff?product_id=292
+        - assert: в списке "Курьером" есть кнопка "Ещё одна опция"
+        - do: кликнуть на "Ещё одна опция"
+        - assert: появился еще один вариант доставки
+
+    Один вариант доставки:
+        - do: перейти по ссылке https://yandex.ru/turbo/spideradio.github.io/s/rnd/fnu7e56jbff?product_id=292
+        - assert: |
+            - в списке "Самовывоз" есть только один вариант самовывоза
+            - в списке "Самовывоз" нет кнопки раскрытия списка
+
+    Отображение текста кнопки раскрытия списка:
+        - do: перейти по ссылке https://yandex.ru/turbo/farkop.ru/s/catalog/bagazhnye_sistemy/reylingi/reylingi_s_tremya_poperechinami_usilennye_serebristyy_muar_dlya_lada_largus_s_2012_po_nast/?product_id=99149
+        - assert: в списке "Курьером" есть кнопка "Ещё одна опция"
+        - assert: в списке "Самовывоз" есть кнопка "Ещё 2 опции"
+
+    Отображение длинного текста:
+        - tags: no_assessors # используется патч
+        - do: перейти по ссылке https://yandex.ru/turbo/spideradio.github.io/s/rnd/fnu7e56jbff?product_id=292&patch=setLongDeliveryTitle
+        - assert: на странице есть список блок "Доствка" и список "Самовывоз"
+        - assert: в списке "Самовывоз" первая строка с адресом обрезается тремя точками, если не пощается на ширину экрана
+        - screenshot: внешний вид соотвествует скриншоту [collapsed]
+        - do: в списке "Самовывоз" нажать кнопку "Ещё 2 опции"
+        - assert: |
+            - список развернулся
+            - адреса самовывозов показанны полностью
+        - screenshot: внешний вид соотвествует скриншоту [expanded]
+
+files:
+    - components/DeliveryInfo/__tests__/DeliveryInfo@phone.hermione.js
+
+tags:
+    - ecom-tap
+
+tlds: ru
+
+v-team: Turbo

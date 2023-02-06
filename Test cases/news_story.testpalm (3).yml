@@ -1,0 +1,22 @@
+feature: Колдунщик новостей
+type: story
+
+specs:
+  Внешний вид:
+    - params:
+        foreverdata: '4108266915'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на выдаче присутствует колдунщик новостей
+    - screenshot: внешний вид [news]
+
+files:
+  - features/touch-phone/news/news_story.hermione.js
+
+counter: /$page/$main/$result[@wizard_name="news"]
+
+tags:
+  - skip_e2e_check
+
+v-team: Suggest_Freshness
+
+tlds: ru

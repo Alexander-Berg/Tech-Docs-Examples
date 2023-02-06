@@ -1,0 +1,20 @@
+feature:  ПП - Настройки - Покупки и подписки
+
+specs:
+    ПП - Настройки - Покупки и подписки:
+    - tags:
+        - https://testpalm.yandex-team.ru/alice/testcases/527
+        - release_Webview
+        - surface_station
+        - platform_ios
+        - platform_android
+        - webview_regress
+    - do: "Description После ухода Амедиатеки сделанные на ней покупки **пропадают** из списка покупок и ленты покупок на главном экране.; Причина -- картинки и данные фильма получаются с сервера Амедиатеки, который боле недоступен."
+    - do: "Preconditions В ПП на устройстве подключена станция, открыть пункт `Устройства - Настройки - Покупки и подписки` в приложении; ; Для проверки юзера с транзакциями можно использовать yndx.quasar.test.2"
+    - do: "Выбрать “Покупки и подписки”"
+    - assert: "Проверить все четыре категории:; ; [collapsed-image](https://jing.yandex-team.ru/files/levkovskayama/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202021-08-27%20%D0%B2%2013.11.19.6f7f028.png){title=Вид с доступным промопериодом Плюса};"
+    - assert: "Проверить все четыре категории:; ; [collapsed-image](https://jing.yandex-team.ru/files/levkovskayama/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202021-08-26%20%D0%B2%2017.43.41.8afd53a.png){title=Вид с доступным промопериодом Плюса Мульти}; "
+    - assert: "Проверить все четыре категории:; ; [collapsed-image](https://jing.yandex-team.ru/files/levkovskayama/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202021-08-26%20%D0%B2%2017.43.28.3521c2e.png){title=Вид без промопериода}; "
+    - assert: "Проверить все четыре категории:; ; [collapsed-image](https://jing.yandex-team.ru/files/osennikovak/uhura_2021-03-04T15%3A54%3A34.327275.jpg){title=Вид без покупок - надпись `Вы ещё ничего не купили`} ; "
+    - do: "Тапнуть на карточку транзакции (из списка Мои заказы в нижней части страницы Покупки и подписки)"
+    - assert: "На карточке есть:; - статус оплаты; - способ оплаты; - название навыка/провайдера; - состав заказа: сумма по каждой позиции и итого; ; [collapsed-image](https://jing.yandex-team.ru/files/osennikovak/uhura_2020-11-17T23%3A31%3A27.169966.jpg){title=Карточка транзакции}"

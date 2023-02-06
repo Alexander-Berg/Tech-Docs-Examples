@@ -1,0 +1,49 @@
+feature: Внешняя анкета
+type: Урезанный вид
+
+description: |
+    идём в админку офферов /admin/offers/offer/?status__in=accepted
+    нам нужен принятый оффер accepted
+    выделяем интересующий оффер -> действие -> создать внешнюю ссылку -> выполнить
+    ссылка на внешнюю анкету видна в самой правой колонке (есть горизонт. скролл). Также, её можно увидеть перейдя в оффер, под катом 'Ссылки' 
+    переходим на форму редактирования оффера в админке
+    находим блок 'Документы' (под катом)
+    в блоке документы меняем 'Docs processing status' на 'need_information' и сохраняем -> получаем урезанную анкету
+    после отправки анкеты на странице оффера отобразились данные из анкеты (паспорт, снилс, адрес проживания)
+
+specs:
+  beforeEach:
+    - do: открыть страницу https://femida-ext.test.yandex-team.ru/hire/offers/<id_анкеты> (если правки на стенде, надо указывать доменную часть стенда)
+    - screenshot: открылась урезанная анкета [https://jing.yandex-team.ru/files/grikyan91/Rabota_v_Yandekse_2020-06-03_12-38-09.png]
+  Проверка обязательных полей [manual]:
+    - automation: FEMIDA-5580
+    - do: клик на кнопку 'Отправить'
+    - screenshot: появились ошибки на странице [https://jing.yandex-team.ru/files/grikyan91/Rabota_v_Yandekse_2020-06-03_12-38-49.png]
+  Проверка англ. версии [manual]:
+    - automation: FEMIDA-5580
+    - do: клик в правом верхнем углу на 'ENG'
+    - screenshot: открылась английская версия страницы [https://jing.yandex-team.ru/files/grikyan91/Yandex_Jobs_2020-06-03_12-39-23.png]
+  Отправка анкеты [manual]:
+    - automation: FEMIDA-5580
+    - do: заполнить поле 'Адрес проживания'
+    - do: перезагрузить страницу
+    - screenshot: появилось сообщение о возможности восстановления из черновика [https://jing.yandex-team.ru/files/grikyan91/Rabota_v_Yandekse_2020-06-03_12-54-45.png]
+    - do: клик на ссылку 'восстановить'
+    - assert: |
+        сообщение о возможности восстановления пропало
+        поле 'Адрес проживания' заполнен ранее введенным текстом
+    - do: добавить несколько файлов в поле 'Паспорт'
+    - do: добавить файл в поле 'СНИЛС'
+    - screenshot: пример внешнего вида заполненных полей [https://jing.yandex-team.ru/files/grikyan91/Rabota_v_Yandekse_2020-06-03_12-53-04.png]
+    - do: клик на кнопку 'Отправить'
+    - screenshot: появилось сообщение с благодарностью [https://jing.yandex-team.ru/files/grikyan91/Rabota_v_Yandekse_2020-06-03_12-56-30.png]
+
+tags:
+  - reviewed
+
+priority: normal
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

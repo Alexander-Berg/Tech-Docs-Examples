@@ -1,0 +1,29 @@
+feature: Специальные события
+type: Олимпиада
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на выдаче присутствует колдунщик олимпиады
+  Внешний вид:
+    - params:
+        foreverdata: '4074841978'
+    - screenshot: внешний вид [olympic]
+    - do: проскроллить карусель с таблицами до конца вправо (если это возможно)
+    - screenshot: внешний вид [olympic-scrolled]
+  Медали сборной:
+    - params:
+        foreverdata: '1725002290'
+    - screenshot: внешний вид [olympic-country]
+
+tags:
+  - sport
+  - skip_e2e_check
+
+files:
+  - features/adapter-special-event/adapter-special-event_type_sport/adapter-special-event_type_olympic@deskpad.hermione.js
+
+v-team: Sport
+
+tlds:
+  - ru

@@ -1,0 +1,23 @@
+feature: Связанные запросы по возврату
+experiment: Подскролл во вьюпорт
+
+specs:
+  При возврате на серп:
+    - params:
+        exp_flags: related_wizards_scroll=true
+    - do: |
+        получить выдачу по запросу 'как открыть вино' (альтернативные запросы: "холодильник купить", "как сделать роллы")
+        кликнуть по третьему сниппету
+        вернуться на СЕРП
+    - assert: появился колдунщик рекомендаций под третьим сниппетом
+    - screenshot: внешний вид (набор рекомендаций может отличаться) [plain]
+
+files:
+  - features/touch-phone/related/experiments/related_wizards_scroll/related_wizards_scroll.hermione.js
+
+v-team: UniAnswer
+
+tags:
+  - skip_e2e_check
+
+tlds: all

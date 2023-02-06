@@ -1,0 +1,52 @@
+feature: Получение файлов и изображений в q
+
+tlds: ru
+
+import-steps:
+    - tests/hermione/suites/messenger/shared-steps/open-messenger.testpalm.steps.yml
+
+specs:
+  beforeEach:
+    - attach: Открытие чата q
+    - do: пользователем "A" открыть чат с пользователем "B"
+
+  Получение файла:
+    - do: пользователем "B" нажать на скрепку и отправить файл в чат
+    - assert: пользователь "A" получил сообщение с файлом
+    - screenshot: пример внешнего вида [message-with-file]
+    - do: кликнуть на ссылку "скачать"
+    - assert: файл скачался
+
+  Получение изображения:
+    - do: пользователем "B" нажать на скрепку и отправить картинку в чат
+    - assert: пользователь "A" получил сообщение с картинкой
+    - do: навести курсор мыши на картинку
+    - assert: при наведении курсора в правом углу картинки отображается время отправки
+    - do: кликнуть на картинку
+    - assert: |
+        картинка открывается на черном фоне на всю ширину окна
+        в правом верхнем углу крестик закрытия
+        в левом нижнем углу имя и аватар отправителя
+        в правом нижнем углу иконка "скачать"
+    - screenshot: пример внешнего вида [full-screen-image]
+    - do: кликнуть на иконку "скачать"
+    - assert: картинка скачалась
+    - do: кликнуть на крестик
+    - assert: картинка закрылась
+
+files:
+  - tests/hermione/suites/messenger/receiving-messages/receiving-files.desktop.hermione.ts
+
+v-team: Chat
+
+tags:
+    - q
+    - release
+    - yamb
+    - y-team
+    - desktop-app
+
+browsers:
+  notFor:
+    - ie11
+    - edge-desktop

@@ -1,0 +1,22 @@
+feature: Контакты организации
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу 'ikea москва 41 километр'
+    - assert: на выдаче есть колдунщик организации
+
+  Адрес:
+    Должен открыться сайдблок с картой при клике в адрес:
+      - do: тапнуть в адрес организации
+      - assert: открылся сайдблок с картой
+
+files:
+  - src/features/Companies/Companies.features/OrgContacts/OrgContacts.test/Address/Address@touch-phone.hermione.js
+
+v-team: VanillaGeo
+
+counter: /$page/$main/$result[@wizard_name="companies" and @subtype="company"]/composite/contacts
+
+tags: skip_e2e_check
+
+tlds: all

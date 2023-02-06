@@ -1,0 +1,75 @@
+feature: Портал
+type: Главная
+description: |-
+  Для просмотра данных в консоли необходимо добавит ключ в адресную строку.
+  Адрес для тестировщиков https://travel-test.yandex.ru/?_ym_debug=1
+  Адрес для асессоров https://travel.crowdtest.yandex.ru/?_ym_debug=1
+specs:
+  Отправлять события в Метрику при клике по элементам шапки:
+    - do: Зайти на портал по ссылке с ключем и войти в консоль
+    - assert: >-
+        В консоли есть строчка, подтверждающая логирование в консоль:
+        https://jing.yandex-team.ru/files/rifat-k/2019-12-16_12-16-17.png
+    - do: >-
+        Находясь на главной портала нажать в шапке на слово Путешествия, справа
+        от Яндекс.
+    - assert: >-
+        - В консоли появилась строчка "Reach goal. Counter: 50912507. Goal id:
+        header_travel_link_click. Params:  undefined"
+
+        - В строке указано именно **header_travel_link_click**
+
+        https://jing.yandex-team.ru/files/rifat-k/2019-12-16_12-24-50.png
+    - do: 'Поочередно прокликать по кнопкам Ж/Д билеты, Отели и Авиабилеты'
+    - assert: >-
+        После каждого клика:
+
+        - в консоли появляется строчка "Reach goal. Counter: 50912507. Goal id:
+        tab_hotels_click. Params:  undefined"
+
+        - Goal id принимает значение того направления, на которое был сделан
+        клик.
+
+        https://jing.yandex-team.ru/files/rifat-k/2019-12-16_12-34-46.png
+    - do: >-
+        Находясь в любом направлении (Авиа, ЖД или Отели) нажать на то же
+        направление в шапке
+    - assert: >-
+        В консоли появляется строчка "PageView. Counter 50912507 . URL: /avia/ .
+        Referrer: undefined . Params:  undefined", где  после URL адрес
+        соответствующей вертикали.
+    - do: >-
+        Находясь в любой вертикали, зайти в любую выдачу, к примеру
+        https://travel-test.yandex.ru/trains/yekaterinburg--tyumen/?when=today&_ym_debug=1
+
+        Находясь на странице выдачи кликнуть по поисковой форме
+
+        ![image](https://jing.yandex-team.ru/files/rifat-k/2019-12-16_12-56-51.png)
+    - assert: >-
+        В консоли появилась строчка "Reach goal. Counter: 50912507. Goal id:
+        header_search_form_information_click. Params:  undefined"
+    - do: Повторить пункт 5 для других вертикалей (Авиабилеты и Отели)
+    - assert: В консоли появляется строчка Reach goal с соответствующим id
+    - do: >-
+        Зайти в любую выдачу любой вертикали, к примеру
+        https://travel-test.yandex.ru/trains/yekaterinburg--tyumen/?when=today&_ym_debug=1
+
+        Нажать в шапке на Ж/Д билеты
+    - assert: >-
+        В консоли появилась строчка Reach goal. Counter: 50912507. Goal id:
+        **tab_active_click.** Params:  undefined
+    - do: Повторить шаг 7 для остальных вертикалей
+    - assert: 'В консоли, после id будет стоять **tab_active_click**'
+    - do: Находясь в портале нажать на слово Яндекс в шапке
+    - assert: >-
+        В консоли можно увидеть "Reach goal. Counter: 50912507. Goal id:
+        **header_yandex_link_click** Params: undefined"
+
+        https://jing.yandex-team.ru/files/rifat-k/kCZLnL7v7K.mp4
+manual: true
+Устройство: Десктоп
+Страница:
+  - Главная
+  - Выдача
+Сервис: Портал
+Тестирование асессорами: Да

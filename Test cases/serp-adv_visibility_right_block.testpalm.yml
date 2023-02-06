@@ -1,0 +1,31 @@
+feature: Разместить объявления
+
+specs:
+  Внешний вид блока только c коммерческим предложением:
+    - params:
+        exp_flags: 'direct_promo_block_remove=ads_link_only'
+    - do: получить выдачу по запросу 'окна пластиковые'
+    - assert: на странице справа присутствует блок про кол-во найденных результатов
+    - screenshot: пример внешнего вида [only_direct_right_commerc]
+  Внешний вид блока только с размещением рекламы:
+    - params:
+        exp_flags: 'direct_promo_block_remove=direct_promotion_only'
+    - do: получить выдачу по запросу 'окна пластиковые'
+    - assert: на странице справа присутствует блок про возможность размещения рекламы
+    - screenshot: пример внешнего вида [only_direct_right_not_commerc]
+  Внешний вид блока только с обратной связью:
+    - params:
+        exp_flags: 'direct_promo_block_remove=ads_direct_all'
+    - do: получить выдачу по запросу 'окна пластиковые'
+    - assert: на странице справа присутствует ссылка на обратную связь
+    - screenshot: пример внешнего вида [only_direct_right_feedback]
+
+files:
+  - features/desktop/serp-adv/serp-adv_visibility_right_block.hermione.js
+
+v-team: Distribution
+
+tags:
+  - skip_e2e_check
+
+tlds: [ru, by]

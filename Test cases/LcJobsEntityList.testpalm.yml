@@ -1,0 +1,39 @@
+feature: LcJobsEntityList
+
+tags: no_assessors
+
+specs:
+  Базовый вид:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcjobsentitylist/default.json)
+    - screenshot: внешний вид соответствует скриншоту [default]
+
+  Города:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcjobsentitylist/locations.json)
+    - screenshot: внешний вид соответствует скриншоту [locations]
+
+  Профессии:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcjobsentitylist/professions.json)
+    - screenshot: внешний вид соответствует скриншоту [professions]
+
+  Сервисы:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcjobsentitylist/services.json)
+    - screenshot: внешний вид соответствует скриншоту [services]
+
+  Пустой список:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcjobsentitylist/empty.json)
+    - screenshot: внешний вид соответствует скриншоту [empty]
+
+  Ошибка загрузки:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcjobsentitylist/error.json)
+    - screenshot: внешний вид соответствует скриншоту [error]
+
+files:
+  - platform/components/LcJobsEntityList/__tests__/LcJobsEntityList.hermione.js
+
+v-team: Backoffice
+
+manager: kiparis
+
+qa-engineer: grikyan
+
+tlds: none

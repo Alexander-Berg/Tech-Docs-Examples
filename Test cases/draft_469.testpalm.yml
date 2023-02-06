@@ -1,0 +1,15 @@
+feature:  Эквалайзер. Выключение
+
+specs:
+    Эквалайзер. Выключение:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/4141
+        - release_Webview
+        - app_regress
+        - surface_station
+        - platform_common
+        - webview_regress
+    - do: "Description Эквалайзер должен выключаться в ПП и голосом (*пока не реализовано*); ; "
+    - do: "Preconditions 1. Добавить в корень конфига флаг:; ``equalizer`: {;     `enabled`: true,;     `type`: `android`;   }`; ; 2. Включить эквалайзер, если выключен; "
+    - do: "Включить музыку на колонке; Выключить эквалайзер в ПП"
+    - assert: "- Эквалайзер выключён;; - Звук в колонке изменился и соответствует `дефолтному`"

@@ -1,0 +1,58 @@
+feature: Факт
+type: Саджест (с галереей)
+
+specs:
+  beforeEach:
+    - do: получить выдачу Поиска по запросу 'эпос' (или 'хостес') _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: на первой позиции выдачи есть Фактовый ответ с галереей
+
+  Ссылки в карточке:
+    - tags: ['smoke']
+    - assertMetrics: '*'
+    - screenshot: на первой позиции выдачи есть Фактовый ответ с галереей [gallery]
+    - do: тапнуть на синий тайтл в фактовом ответе
+    - assert: в новой вкладке открылся сайт-источник информации
+    - tech: проверить счетчик в синем тайтле
+    - do: тапнуть на гринурл в фактовом ответе
+    - assert: в новой вкладке открылся сайт-источник информации
+    - tech: проверить счетчик в гринурле
+    - assertMetrics: '*'
+
+  Просмоторщик в галерее:
+    - tags: ['smoke']
+    - tech: проверить счетчик в первой картинке галереи
+    - do: тапнуть на первую картинку галереи в Фактовом ответе
+    - assert: открылась увеличенная картинка в просмотрщике картинок (без перехода на другую страницу)
+    - screenshot: просмоторщик [viewer]
+    - assertMetrics: '*'
+
+  Счетчик на свайп галереи (только андроид):
+    - do: свайпнуть галерею влево до конца
+    - assert: галерея проскролилась вправо
+    - do: свайпнуть галерею вправо
+    - assert: галерея проскролилась влево
+    - tech: проверить счетчик на свайп галереи
+    - assertMetrics: '*'
+
+specs-integration:
+  Просмоторщик в галерее:
+    - do: получить выдачу Поиска по запросу 'что такое superior room' _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: на первой позиции выдачи есть Фактовый ответ с галереей
+    - do: тапнуть на первую картинку галереи в Фактовом ответе
+    - assert: открылась увеличенная картинка в просмотрщике картинок (без перехода на другую страницу)
+
+files:
+  - features/touch-phone/adapter-suggest-fact/adapter-suggest-fact_gallery.hermione.js
+  - features/touch-phone/adapter-suggest-fact/adapter-suggest-fact_gallery.hermione.e2e.js
+
+v-team: Facts
+
+tags:
+- reviewed
+- skip_manual_check
+
+tlds: [ru, by, ua, kz, uz, com.tr, com]
+
+counter: /$page/$main/$result[@wizard_name="suggest_fact"]/gallery
+
+priority: high

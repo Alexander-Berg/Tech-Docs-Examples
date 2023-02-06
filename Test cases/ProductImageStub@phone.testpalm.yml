@@ -1,0 +1,50 @@
+feature: ProductImageStub
+
+browsers:
+  - ios-safari-12-touch
+  - ios-safari-11-touch
+  - ios-safari-10-touch
+  - ios-safari-9-touch
+
+specs:
+  afterEach:
+    - tech: нет клиентских ошибок
+
+  Должен вставляться на листинге:
+    - do: открыть страницу https://yandex.ru/turbo?stub=productspage/index.json
+    - assert: в блоке первого товара используется заглушка изображения товара
+    - screenshot: внешний вид блока со стабом [product-item]
+  Должен вставляться в карточке товара:
+    - do: открыть страницу https://yandex.ru/turbo?stub=productpage/product-1.json
+    - assert: на странице используется заглушка изображения товара
+    - screenshot: внешний вид блока со стабом [image]
+  Должен вставляться в корзине:
+    - do: открыть страницу https://yandex.ru/turbo?stub=productimagestub/in-cart.json
+    - assert: в блоке первого товара используется заглушка изображения товара
+    - screenshot: внешний вид блока со стабом [cart-list]
+  Должен вставляться на листинге (landscape):
+    - do: перевести устройство в горизонтальное положение
+    - do: открыть страницу https://yandex.ru/turbo?stub=productspage/index.json
+    - assert: в блоке первого товара используется заглушка изображения товара
+    - screenshot: внешний вид блока со стабом [product-item]
+  Должен вставляться в карточке товара (landscape):
+    - do: перевести устройство в горизонтальное положение
+    - do: открыть страницу https://yandex.ru/turbo?stub=productpage/product-1.json
+    - assert: на странице используется заглушка изображения товара
+    - screenshot: внешний вид блока со стабом [image]
+  Должен вставляться в корзине (landscape):
+    - do: перевести устройство в горизонтальное положение
+    - do: открыть страницу https://yandex.ru/turbo?stub=productimagestub/in-cart.json
+    - assert: в блоке первого товара используется заглушка изображения товара
+    - screenshot: внешний вид блока со стабом [cart-list]
+
+files:
+  - platform/components/ProductImageStub/__test__/ProductImageStub@phone.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: dakhetov
+
+tlds: none

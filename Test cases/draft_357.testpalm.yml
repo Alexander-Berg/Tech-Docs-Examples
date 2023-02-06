@@ -1,0 +1,15 @@
+feature:  Умный дом - Запрет на создание домов пользователю без устройств
+
+specs:
+    Умный дом - Запрет на создание домов пользователю без устройств:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/3250
+        - release_Webview
+        - release_Smarthome
+        - platform_searchapp
+        - platform_common
+        - webview_regress
+        - iot_households
+    - do: "Preconditions Создать новый акк с 0"
+    - do: "Перейти в; Устройства - Шестеренка - Умный дом; "
+    - assert: "Отображается экран с текстом:; ; **У вас пока нет домов**; *Чтобы в приложении появился дом, нужно подключить хотя бы одно умное устрйоство*; ; <img src=`https://jing.yandex-team.ru/files/rbol/IMG_A8C088803888-1.jpeg` alt=`Скриншот` width=`300`/>"

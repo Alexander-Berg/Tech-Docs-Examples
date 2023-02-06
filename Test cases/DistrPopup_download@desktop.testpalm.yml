@@ -1,0 +1,54 @@
+feature: Popup на СЕРПе
+type: C паранджой для скачивания Я.Бро
+
+params:
+  foreverdata: '1318899850'
+  srcskip: 'YABS_DISTR'
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: попап-блок дистрибуции появился на выдаче
+    - tech: сработал счетчик на показ path=/$page/promo_popup type='distr-popup-show'
+    - tech: сработал БК-счетчик видимости yabs.yandex.ru/count/ (смотреть в Network)
+  Внешний вид:
+    - screenshot: пример внешнего вида попап-блока дистрибуции [plain]
+  Проверка кнопки закрыть:
+    - do: кликнуть на кнопку 'Закрыть'
+    - tech: сработал счётчик клика на кнопку 'Закрыть' path=/$page/promo_popup/close
+    - tech: сработал БК-счетчик в кнопке 'Закрыть' yabs?type=close (смотреть в Network)
+    - assert: попап-блок дистрибуции скрылся
+    - assertMetrics: "*"
+  Проверка кнопки установить:
+    - do: клик на кнопку 'Установить'
+    - assert: на выдаче появилась паранджа
+    - tech: сработал счётчик клика на кнопку 'Установить' path=/$page/promo_popup/install vars=-product=browser,-type=download,,-location=right-bottom',-layout=flat
+    - assertMetrics: "*"
+  Проверка паранджи:
+    - do: клик на кнопку 'Установить'
+    - assert: на выдаче появилась паранджа
+    - screenshot: пример внешнего вида паранджи [promo-curtain]
+    - tech: сработал счетчик показа паранджи /$page/promo_popup/promo_popup, type=promo-curtain-show, product=browser
+    - do: клик на крестик в парандже
+    - assert: паранджа скрылась
+    - tech: сработал счетчик закрытия паранджи /promo-curtain/close -product=browser
+    - assert: попап-блок дистрибуции скрылся
+    - assertMetrics: "*"
+  Взаимодействие с саджестом:
+    - do: открыть саджест в поисковой стрелке
+    - assert: попап-блок дистрибуции скрылся
+    - tech: сработал счетчик автоматического скрытия попап-блока /tech/promo_popup/auto_closed/ action=dynamic_click
+    - do: закрыть саджест в поисковой стрелке
+    - assert: попап-блок дистрибуции не появился снова
+
+tags:
+  - smoke_ext
+  - distribution
+  - popup
+
+files:
+  - src/features/DistrPopup/DistrPopup.test/_download/DistrPopup_download@desktop.hermione.js
+
+v-team: Distribution
+
+tlds: [ru, by, ua, uz, kz]

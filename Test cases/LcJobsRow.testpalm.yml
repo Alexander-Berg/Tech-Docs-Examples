@@ -1,0 +1,27 @@
+feature: LcJobsRow
+
+tags: no_assessors
+
+specs:
+  left_offset_0:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=LcJobsRow/left_offset_0.json)
+    - screenshot: внешний вид соответствует скриншоту [default]
+
+  left_offset_1:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=LcJobsRow/left_offset_1.json)
+    - screenshot: внешний вид соответствует скриншоту [default]
+
+  left_offset_2:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=LcJobsRow/left_offset_2.json)
+    - screenshot: внешний вид соответствует скриншоту [default]
+
+files:
+  - platform/components/LcJobsRow/__tests__/LcJobsRow.hermione.js
+
+v-team: Backoffice
+
+manager: kiparis
+
+qa-engineer: grikyan
+
+tlds: none

@@ -1,0 +1,23 @@
+feature: Главная
+type: Главная страница internal
+
+specs:
+  Открыть главную:
+    - do: открыть главную страницу
+    - screenshot: пример внешнего вида [plain]
+    - do: ввести в поисковую строку в шапке 'д'
+    - do: дождаться появления саджеста
+    - screenshot: пример внешнего вида с открытым саджестом [with_suggest]
+
+files:
+  - tests/hermione/suites/internal/test/test.hermione.js
+
+tags:
+  - reviewed
+
+priority: blocker
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

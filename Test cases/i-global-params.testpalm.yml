@@ -1,0 +1,90 @@
+feature: Проверка корректности глобальных параметров
+
+specs:
+  Проверка корректности retpath:
+    - do: получить выдачу по запросу 'test'
+    - tech: выполнить в консоли window.location.href
+    - tech: выполнить в консоли BEM.blocks['i-global'].param('retpath')
+    - tech: проверить, что вывод первой и второй команды совпадает с точностью до параметров noredirect, testRunId, ncrnd, exp_flags и template_exp_flags, которые могут отличаться или отсутствовать
+  Проверка корректности passport-host:
+    - do: получить выдачу по запросу 'test'
+    - tech: выполнить в консоли BEM.blocks['i-global'].param('passport-host')
+    - tech: проверить, что вывод соответствует https://passport.yandex.ru
+  Проверка корректности social-host:
+    - do: получить выдачу по запросу 'test'
+    - tech: выполнить в консоли BEM.blocks['i-global'].param('social-host')
+    - tech: проверить, что вывод соответствует https://social.yandex.ru
+  Проверка корректности export-host:
+    - do: получить выдачу по запросу 'test'
+    - tech: выполнить в консоли BEM.blocks['i-global'].param('export-host')
+    - tech: проверить, что вывод соответствует //export.yandex.ru
+  Проверка корректности click-host:
+    - do: получить выдачу по запросу 'test'
+    - tech: выполнить в консоли window.location.href
+    - tech: выполнить в консоли BEM.blocks['i-global'].param('click-host')
+    - tech: проверить, что вывод второй команды содержит //имя-хоста-из-первой-команды/clck
+  Проверка корректности ajaxUrl:
+    - do: получить выдачу по запросу 'test'
+    - tech: выполнить в консоли window.location.href
+    - tech: выполнить в консоли BEM.blocks['i-global'].param('ajaxUrl')
+    - tech: проверить, что вывод второй команды содержит //имя-хоста-из-первой-команды/search/touch/
+  Проверка корректности lang:
+    - do: получить выдачу по запросу 'test'
+    - tech: выполнить в консоли BEM.blocks['i-global'].param('lang')
+    - tech: проверить, что вывод соответствует ru
+  Проверка корректности tld:
+    - do: получить выдачу по запросу 'test'
+    - tech: выполнить в консоли BEM.blocks['i-global'].param('tld')
+    - tech: проверить, что вывод соответствует ru
+  Проверка корректности content-region:
+    - do: получить выдачу по запросу 'test'
+    - tech: выполнить в консоли BEM.blocks['i-global'].param('content-region')
+    - tech: проверить, что вывод соответствует ru
+  Проверка корректности yandexuid:
+    - do: получить выдачу по запросу 'test'
+    - tech: выполнить в консоли BEM.blocks['i-global'].param('yandexuid')
+    - tech: проверить, что вывод содержит только числа
+  Проверка корректности rlr:
+    - do: получить выдачу по запросу 'test'
+    - tech: выполнить в консоли BEM.blocks['i-global'].param('rlr')
+    - tech: проверить, что вывод содержит только числа
+  Проверка корректности query:
+    - browsers:
+        notFor:
+          - searchapp-phone
+    - do: получить выдачу по запросу 'запрос с символами <!@#$%^&*()-=+"\'>'
+    - tech: выполнить в консоли BEM.blocks['i-global'].param('query')
+    - tech: проверить, что вывод содержит введённый запрос
+  Проверка корректности clck:
+    - do: получить выдачу по запросу 'test'
+    - tech: выполнить в консоли window.location.href
+    - tech: выполнить в консоли BEM.blocks['i-global'].param('clck')
+    - tech: проверить, что вывод второй команды содержит //имя-хоста-из-первой-команды/clck/safeclick/data=буквы-и-числа/sign=буквы-и-числа/keyno=0 и может заканчиваться на /ref=буквы-и-числа,
+  Проверка корректности ajaxActionTime:
+    - browsers:
+        notFor:
+          - searchapp-phone
+    - do: получить выдачу по запросу 'test'
+    - tech: выполнить в консоли `BEM.blocks['i-global'].param('ajaxActionTime')`
+    - tech: проверить, что вывод команды равен `null` или `undefined`
+    - tech: выполнить в консоли `BEM.blocks['serp-request'].navigateTo('?text=speedtest')`
+    - tech: выполнить в консоли `BEM.blocks['i-global'].param('ajaxActionTime')`
+    - tech: проверить, что вывод команды является числом с плавающей точкой больше нуля
+  Проверка корректности primary_reqid:
+    - do: получить выдачу по запросу 'котики'
+    - tech: выполнить в консоли BEM.blocks['i-global'].param('primary_reqid')
+    - do: сделать AJAX-перезапрос по запросу 'собачки'
+    - tech: выполнить в консоли BEM.blocks['i-global'].param('primary_reqid')
+    - tech: проверить, что выводы первой и второй команд одинаковые
+
+files:
+  - features/common/i-global-params/i-global-params.hermione.js
+
+v-team: Architecture
+
+tags:
+  - reviewed
+  - no_assessors
+  - skip_e2e_check
+
+tlds: none

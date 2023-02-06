@@ -1,0 +1,26 @@
+feature: Секция
+type: Завершение секции
+
+specs:
+  Завершение секции:
+    - do: открыть страницу секции в статусе 'оценена' /interviews/<id секции>/
+    - do: в блоке 'Впечатления о кандидате' кликнуть в поле 'комментировать'
+    - assert: появились кнопки 'Отмена' и 'Сохранить'
+    - do: добавить комментарий '123'
+    - do: нажать 'Сохранить'
+    - do: нажать кнопку 'Завершить секцию'
+    - assert: статус секции 'завершена'
+    - screenshot: внешний вид секции в статусе 'завершена' [interview_finished]
+
+files:
+  - tests/hermione/suites/desktop/interviews/fihish_interview/interviews.hermione.js
+
+tags:
+  - reviewed
+
+priority: blocker
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

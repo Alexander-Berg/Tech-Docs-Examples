@@ -1,0 +1,50 @@
+feature: Промопериоды
+
+tags:
+    - release_Webview
+    - webview_regress
+    - platform_ios
+    - platform_android
+
+specs:
+
+  Промопериод доступен:
+   - automation: QUASARUI-3219
+   - description: Раздел подписок и баннер доступен только пользователям с активным промо кодом
+   - precondition: Залогиниться аккаунтом со станцией и без плюса в ПУДЯ
+   - do: перейти в Настройки, нажав на шестерёнку в правом верхнем углу
+   - screenshot: плитка «Покупки и подписки» отображается [purchases-and-subscriptions]
+   - assert: <img src=https://jing.yandex-team.ru/files/ollgeny/IMAGE%202022-06-08%2016%3A02%3A09.e23937f.jpg alt=Скриншот width=250>
+
+
+  Промопериод доступен и нет подписки:
+  - automation: QUASARUI-3219
+  - precondition: Залогиниться аккаунтом со станцией и без плюса в ПУДЯ
+  - do: на главном экране нажать на колонку
+  - assert: откроется экран Настроек устройства
+  - screenshot: отображается баннер "Вам доступна подписка на Плюс" [banner]
+  - assert: <img src=https://jing.yandex-team.ru/files/ollgeny/IMAGE%202022-06-08%2016%3A02%3A20.e8e8dd7.jpg alt=Скриншот width=250>
+  - do: нажать на баннер
+  - screenshot: откроется экран управления подпиской [subscription]
+  - assert: <img src=https://jing.yandex-team.ru/files/ollgeny/IMAGE%202022-06-08%2016%3A02%3A25.bd24d1b.jpg alt=Скриншот width=250>
+
+
+  Промопериод не доступен:
+   - automation: QUASARUI-3219
+   - precondition: Залогиниться аккаунтом без станций и подписки в ПУДЯ
+   - do: перейти в Настройки, нажав на шестерёнку в правом верхнем углу
+   - screenshot: плитка «Покупки и подписки» не отображается [purchases-and-subscriptions]
+   - assert: <img src=https://jing.yandex-team.ru/files/ollgeny/IMAGE%202022-06-08%2017%3A12%3A09.0da11fd.jpg alt=Скриншот width=250>
+
+
+
+  
+
+
+
+  
+
+ 
+
+
+

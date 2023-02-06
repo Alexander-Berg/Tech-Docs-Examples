@@ -1,0 +1,11 @@
+feature:  Настройки устройств - доп инфа - номер прошивки
+
+specs:
+    Настройки устройств - доп инфа - номер прошивки:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/2667
+        - release_Webview
+        - platform_ios
+        - platform_android
+    - do: "Открыть настройки колонки JBL или LG -> Дополнительная информация"
+    - assert: "Отображается Device-ID и номер прошивки"

@@ -1,0 +1,129 @@
+feature: Колдунщик stateful сценария
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на выдаче присутствует колдунщик про тему 'Беременность' или 'Путешествия'
+  Активен первый таб:
+    params:
+      foreverdata: '3566695860'
+    Внешний вид:
+      - screenshot: внешний вид [stateful]
+    Ссылка на заголовке:
+      - do: нажать на заголовок колдунщика stateful-сценария
+      - assert: ссылка открылась в новой вкладке
+      - tech: сработал счетчик '/$page/$main/$result/stateful/title'
+    Ссылка на карточке:
+      - do: нажать на заголовок колдунщика stateful-сценария
+      - assert: прозошел перезапрос в поиск в той же вкладке
+      - tech: сработал счетчик '/$page/$main/$result/stateful/recs/scroller/link'
+    Ссылка в футере:
+      - do: нажать в подвале колдунщика stateful-сценария (ссылка "Больше по теме")
+      - assert: ссылка открылась в новой вкладке
+      - tech: сработал счетчик '/$page/$main/$result/stateful/title'
+    Переключение таба:
+      - do: нажать на второй таб в колдунщике stateful-сценария
+      - assert: |
+          стал активным второй таб
+          плашки внутри табика обновились
+      - tech: сработал счетчик '/$page/$main/$result/gallery/scroller' (c behaviour { type 'dynamic' })
+      - screenshot: внешний вид [stateful-change-tab]
+  Активен второй таб:
+    params:
+      foreverdata: '3674600647'
+    Внешний вид:
+      - screenshot: внешний вид [stateful-second-tab]
+  Подскролл к активному табу вне экрана:
+    params:
+      foreverdata: '3675505366'
+    Внешний вид:
+      - assert: активный таб виден на экране
+      - screenshot: внешний вид [scrolled-to-last-tab]
+  Подскролл к активной кнопке вне экрана:
+    params:
+      foreverdata: '674043677'
+    Внешний вид:
+      - assert: в области видимости в колдунщике попадает серая кнопка
+      - screenshot: внешний вид [scrolled-to-current-button]
+  Полная версия колдуна на странице сценария - Трэвел:
+    params:
+      foreverdata: '3132771543'
+    Внешний вид:
+      - screenshot: внешний вид [stateful-complete-travel]
+  Полная версия колдуна на странице сценария - Карьера:
+    params:
+      foreverdata: '981421417'
+    Внешний вид:
+      - screenshot: внешний вид [stateful-complete-career]
+  С посещенной кнопкой:
+    params:
+      foreverdata: '3179424839'
+    Внешний вид:
+      - screenshot: внешний вид [stateful-second-tab]
+  Редизайн важных вопросов:
+    Внешний вид с разными кнопками:
+      - params:
+          foreverdata: '3590043989'
+      - screenshot: внешний вид [stateful-redesign]
+    Внешний вид шторки:
+      - params:
+          foreverdata: '3272246443'
+      - do: нажать на тайтл (Важные вопросы) колдунщика stateful-сценария
+      - assert: открылась шторка
+      - screenshot: внешний вид шторки [stateful-drawer-redesign]
+  Полная версия колдуна на странице сценария - с посещенной кнопкой:
+    params:
+      foreverdata: '1980446186'
+    Внешний вид:
+      - screenshot: внешний вид [stateful-complete-travel]
+    Шторка:
+      - do: нажать на промоблок сверху колдунщика stateful-сценария
+      - assert: открылась шторка Важные вопросы
+      - screenshot: внешний вид шторки [stateful-drawer]
+  Полная версия колдуна на странице сценария:
+    params:
+      foreverdata: '2542891927'
+    Внешний вид:
+      - screenshot: внешний вид [stateful-complete]
+    Ссылка на заголовке:
+      - do: нажать на заголовок колдунщика stateful-сценария (строчка Важные вопросы)
+      - assert: открылась шторка Важные вопросы
+      - tech: сработал счетчик '/$page/$main/$result/stateful/title'
+    Ссылка в промоблоке:
+      - do: нажать на промоблок сверху колдунщика stateful-сценария
+      - assert: открылась шторка Важные вопросы
+      - tech: сработал счетчик '/$page/$main/$result/stateful/promo'
+    Шторка:
+      beforeEach:
+        - do: нажать на промоблок сверху колдунщика stateful-сценария
+        - assert: открылась шторка Важные вопросы
+      Внешний вид:
+        - screenshot: внешний вид шторки [stateful-drawer]
+      Расхлоп и кнопка:
+        - assert: первый расхлоп открыт
+        - do: нажать на заголвок первого расхлопа
+        - assert: расхлоп закрылся
+        - tech: сработал счетчик '/$page/$main/$result/stateful/drawer/stateful-group/Collapser/link'
+        - do: нажать на последний расхлоп
+        - assert: расхлоп открылся
+        - tech: сработал счетчик '/$page/$main/$result/stateful/drawer/stateful-group/Collapser/link'
+        - screenshot: внешний вид [stateful-drawer-with-button]
+        - do: нажать на кнопку внизу третьего расхлопа
+        - assert: |
+            кнопка исчезла
+            появились дополнительные вопросы
+        - tech: сработал счетчик '/$page/$main/$result/stateful/drawer/stateful-group/Collapser/show-all'
+        - screenshot: внешний вид [stateful-drawer-after-button-click]
+      Ссылка при клике на вопрос:
+        - do: нажать на первый вопрос в списке
+        - assert: открылся поиск по соответствующему запросу
+        - tech: сработал счетчик '/$page/$main/$result/stateful/drawer/stateful-group/Collapser/question/link'
+files:
+  - src/features/Stateful/Stateful.test/Stateful@touch-phone.hermione.js
+
+v-team: Freshness
+
+tlds: all
+
+tags:
+  - skip_e2e_check

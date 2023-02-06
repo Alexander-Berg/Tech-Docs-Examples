@@ -1,0 +1,126 @@
+feature: Универсальный колдунщик образования
+
+specs:
+  Внешний вид:
+    - tags:
+      - smoke
+      - smoke_extended
+      - pp_new_core
+    - params:
+        foreverdata: '3938174157'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на выдаче есть универсальный колдунщик образования
+    - screenshot: внешний вид [plain]
+
+  Внешний вид рубрикатора при выборе нескольких профессий:
+    - params:
+        foreverdata: '1374151066'
+        exp_flags:
+          - 'unisearch_ed_filters_desktop=1'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на выдаче есть кнопка рубрикатора, на которой отображено количество выбранных профессий
+    - screenshot: внешний вид [plain]
+
+  Дозагрузка:
+    - tags:
+      - smoke
+      - smoke_extended
+      - pp_new_core
+    - params:
+        test-id: '400354'
+    - do: получить выдачу по запросу 'python курсы'
+    - assert: на выдаче есть универсальный колдунщик образования
+    - do: нажать на кнопку «показать ещё»
+    - assert: загрузились следующие курсы
+    - tech: сработал счётчик "/$page/$main/$result/unisearch_education/more"
+
+  Обогащённое превью:
+    params:
+      foreverdata: '603351045'
+
+    Внешний вид:
+      - tags:
+        - smoke
+        - smoke_extended
+        - pp_new_core
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: на выдаче есть универсальный колдунщик образования
+      - do: кликнуть в первый сниппет в колдунщике
+      - screenshot: внешний вид [plain]
+
+    Переход по ссылке:
+      - tags:
+        - smoke
+        - smoke_extended
+        - pp_new_core
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: на выдаче есть универсальный колдунщик образования
+      - do: кликнуть в первый сниппет в колдунщике
+      - assert: появилось превью курса
+      - do: кликнуть по кнопке "На страницу курса"
+      - assert: открылась страница в новой вкладке
+      - tech: сработал счётчик "/$page/$main/$result/unisearch_education/preview_content/preview-action-button"
+
+    preview_content нет в дереве, если Превью не было открыто:
+      - tags: no_assessors
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: на выдаче есть универсальный колдунщик образования
+      - tech: в baobab дереве нет узла по пути "/$page/$main/$result/unisearch_education/preview_content"
+
+    Короткое описание:
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: на выдаче есть универсальный колдунщик образования
+      - do: кликнуть в первый сниппет в колдунщике
+      - assert: появилось превью курса
+      - screenshot: сокращённое описание соответствет скриншоту [folded]
+      - do: кликнуть по сокращённому тексту
+      - screenshot: полное описание соответствует скриншоту [unfolded]
+
+  Курсы со скрытой ценой:
+    Внешний вид курса в сниппете:
+      - params:
+          foreverdata: '3975423565'
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: на выдаче есть универсальный колдунщик образования
+      - screenshot: внешний вид строки с описанием курса соответствует скриншоту [plain]
+
+  Курсы без цены в данных:
+    params:
+      foreverdata: '3975423565'
+    browsers:
+      - chrome-desktop
+      - chrome-phone
+
+    Внешний вид курса в сниппете:
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: на выдаче есть универсальный колдунщик образования
+      - screenshot: внешний вид строки с описанием курса соответствует скриншоту [plain]
+
+    Внешний вид в заголовке превью:
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: на выдаче есть универсальный колдунщик образования
+      - do: кликнуть в сниппет в колдунщике
+      - screenshot: внешний вид информации о цене в шапке превью соответствует скриншоту [plain]
+
+  Cсылка на агрегатора в шторке:
+    Разметка ссылки в baobab:
+      - tags: no_assessors
+      - params:
+          foreverdata: '920191366'
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: на выдаче есть универсальный колдунщик образования
+      - do: кликнуть в сниппет в колдунщике
+      - tech: |
+          в baobab дереве есть узел по пути "$page/$main/$result/unisearch_education/preview_content/aggregator-link"
+          с атрибутом url и значением "https://цифровыепрофессии.рф/catalog"
+
+files:
+  - src/features/UniSearch/UniSearch.features/UniSearchEducation/UniSearchEducation.test/UniSearchEducation@common.hermione.js
+
+v-team: UniSearch
+
+tlds: [ru, by, ua, kz, uz]
+
+tags:
+  - react
+  - skip_e2e_check

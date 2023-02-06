@@ -1,0 +1,69 @@
+feature: Hotels / Колдунщик многих организаций
+type: Стандартный вид
+
+specs:
+  Большие карточки в сайдблоке:
+    beforeEach:
+      - do: получить выдачу по запросу 'Отели в Ялте'
+      - assert: на выдаче есть колдунщик сетей/рубрик
+      - do: тапнуть в кнопку 'Все отели' в колдунщике сетей/рубрик (под списком организаций - может потребоваться скролл)
+      - assert: открылся сайдблок со списком отелей
+
+    Клик в фото открывает сайдблок на главном табе:
+      - tags: [ajax, offers, orgmn, sideblock, high_priority]
+      - do: кликнуть в фото первой карточки отеля
+      - assert: открылся сайдблок этого отеля на главном табе
+      - tech: сработал счётчик '/$subresult/overlay-wrapper/content/side-block-map-list/hotel-list/item/scroller/thumb'
+      - do: кликнуть в стрелку "назад" в верхнем левом углу
+      - assert: открылся сайдблок со списком отелей
+
+    Клик в тайтл открывает сайдблок на главном табе:
+      - tags: [ajax, title, orgmn, sideblock]
+      - do: кликнуть в заголовок первой карточки отеля
+      - assert: открылся сайдблок этого отеля на главном табе
+      - tech: сработал счётчик '/$subresult/overlay-wrapper/content/side-block-map-list/hotel-list/item/title'
+      - tech: сработал серверный счетчик '/$subresult/overlay-wrapper/content/side-block-map-list/hotel-list/item[@offerId and @permalink]/title'
+
+    Клик в адрес открывает карту сайдблока:
+      - tags: [ajax, map, orgmn, sideblock]
+      - do: кликнуть в адрес первой карточки отеля
+      - assert: открылась карта с отмеченным отелем
+      - tech: сработал счётчик '/$subresult/overlay-wrapper/content/side-block-map-list/hotel-list/item/address'
+      - do: кликнуть в стрелку "назад" в верхнем левом углу
+      - assert: открылся сайдблок со списком отелей
+
+    Клик в отзывы открывает таб с отзывами:
+      - tags: [ajax, orgmn, sideblock]
+      - do: кликнуть в отзывы первой карточки отеля
+      - assert: открылся сайдблок на табе "Отзывы"
+      - tech: сработал счётчик '/$subresult/overlay-wrapper/content/side-block-map-list/hotel-list/item/reviews'
+      - do: кликнуть в стрелку "назад" в верхнем левом углу
+      - assert: открылся сайдблок со списком отелей
+
+    Клик в цену открывает таб "Номера":
+      - tags: [ajax, offers, orgmn, sideblock]
+      - do: кликнуть в цену первой карточки отеля
+      - assert: открылся сайдблок на табе "Номера"
+      - tech: сработал счётчик '/$subresult/overlay-wrapper/content/side-block-map-list/hotel-list/item/price'
+      - do: кликнуть в стрелку "назад" в верхнем левом углу
+      - assert: открылся сайдблок со списком отелей
+
+    Дозагрузка в оверлее:
+      - tags: [ajax, offers, orgmn, sideblock, button, high_priority, pp_new_core]
+      - do: проскроллить список до конца вниз
+      - assert: в конце списка есть кнопка 'Показать ещё'
+      - do: кликнуть по кнопке 'Показать ещё'
+      - assert: список дозагрузился, количество отелей в списке увеличилось
+      - do: проскроллить список до конца вниз
+      - assert: |
+          кнопка 'Показать ещё' отсутствует
+          новые отели подгружаются после спиннера
+
+tags: [ajax, overlay, sidebar, topic]
+
+v-team: KotTeam
+
+files:
+  - features/touch-phone/companies/companies-list_big-cards.hermione.js
+
+tlds: all

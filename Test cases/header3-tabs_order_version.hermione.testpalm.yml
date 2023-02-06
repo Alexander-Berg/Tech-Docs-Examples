@@ -1,0 +1,27 @@
+feature: Табики на выдаче
+experiment: Изменение порядка навигационных табов
+
+tlds: [kz, ua, by, ru, uz, com.tr]
+
+params:
+  exp_flags:
+    - tabs_order_version=search,images,video,sport
+
+specs:
+  Порядок табов:
+    - do: получить выдачу по запросу 'madonna'
+    - assert: |
+        порядок табов - Поиск, Картинки, Видео, Спорт
+        ссылка табика Поиск ведет на главную страницу
+        ссылка табика Картинки ведет на поиск в Картинках
+        ссылка табика Видео ведет на поиск в Видео
+        ссылка табика Спорт ведет на sports.ru
+
+files:
+  - features/touch-phone/header3/experiments/header3-tabs_order_version.hermione.js
+
+browsers:
+  notFor:
+    - searchapp-phone-group
+
+v-team: Lego

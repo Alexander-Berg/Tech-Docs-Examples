@@ -1,0 +1,18 @@
+feature:  Копировать device-id
+
+specs:
+    Копировать device-id:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/2521
+        - release_Webview
+        - platform_ios
+        - platform_android
+    - do: "Preconditions На аккаунте есть любая колонка"
+    - do: "Открыть настройки колонки"
+    - assert: "Есть кнопка `Дополнительная информация`"
+    - do: "Тапнуть на `Дополнительная информация` - Об устройстве"
+    - assert: "Отображается ID колонки с кнопкой `скопировать`: ; <img src=`https://jing.yandex-team.ru/files/bleakfox/identif.PNG` alt=`Скриншот` width=`300`/>"
+    - do: "Тапнуть на ID колонки (строку)"
+    - assert: "ID скопировался, можно проверить, вставив в любое текстовое поле"
+    - do: "Тапнуть на кнопку копирования"
+    - assert: "ID скопировался, можно проверить, вставив в любое текстовое поле"

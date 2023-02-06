@@ -1,0 +1,34 @@
+feature: Объектный ответ
+type: Футер
+counter: /$page/$parallel/$result[@wizard_name="entity_search"]/object-footer/p0
+
+specs:
+  Ссылки:
+    - tags:
+        - smoke_extended
+    - do: открыть выдачу по запросу 'сальвадор дали'
+    - screenshot: примерный внешний вид [plain]
+    - assert: |
+        появилась карточка объектного ответа,
+        в карточке объектного ответа есть футер
+        (внешний вид может отличаться от скриншота - это не баг)
+    - do: проверить первую ссылку футера
+    - assert: ссылка ведёт на Википедию
+    - tech: проверить счетчик первой ссылки футера
+    - do: проверить последнюю ссылку футера
+    - assert: |
+        последней ссылкой является контрол 'Сообщить об ошибке',
+        который открывает попап обратной связи
+    - tech: проверить счетчик контрола 'Сообщить об ошибке'
+    - assertMetrics: '*'
+
+files:
+  - features/desktop/z-entity-search/footer/footer.hermione.js
+
+v-team: OO
+
+tags:
+  - reviewed
+  - oo_footer
+
+tlds: ['ru', 'ua', 'by', 'kz', 'com', 'com.tr']

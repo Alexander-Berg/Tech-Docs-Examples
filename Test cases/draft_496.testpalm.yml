@@ -1,0 +1,12 @@
+feature:  Управление светом в тандеме
+
+specs:
+    Управление светом в тандеме:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/4268
+        - release_Smarthome
+        - smarthome_regress
+        - surface_station
+        - iot_voice
+    - do: "Станция в тандеме с модулем; Дать команды голосом включить/выключить свет в станцию"
+    - assert: "Свет включается и выключается"

@@ -1,0 +1,48 @@
+feature: WikiLanguages
+
+tags:
+  - no_assessors
+
+specs:
+  Кнопка языков на странице Wikipedia:
+    - do: открыть страницу https://yandex.ru/turbo?text=ru.wikipedia.org&stub=wikilanguages%2Fdefault.json
+    - screenshot: шапка страницы соответствует скриншоту [wikipedia]
+
+  Кнопка языков не отображается на страницах паблишеров:
+    - do: открыть страницу https://yandex.ru/turbo?text=test_news
+    - assert: в шапке нет кнопки переключения языков
+
+  Флаг отключения убирает кнопку переключения языков:
+    - params:
+          exp_flags: disable-wikilanguages=1
+    - do: открыть страницу https://yandex.ru/turbo?text=ru.wikipedia.org&stub=wikilanguages%2Fdefault.json
+    - assert: в шапке нет кнопки переключения языков
+
+  Drawer:
+    Внешний вид:
+      - do: открыть страницу https://yandex.ru/turbo?text=ru.wikipedia.org&stub=wikilanguages%2Fdefault.json
+      - do: кликнуть по кнопке переключения языков в шапке страницы
+      - assert: открылось меню выбора языков
+      - screenshot: внешний вид страницы соответствует [drawer]
+
+    Скрывается по клику на текущий язык:
+      - do: открыть страницу https://yandex.ru/turbo?text=ru.wikipedia.org&stub=wikilanguages%2Fdefault.json
+      - assert: открылось меню выбора языков
+      - do: кликнуть по текущему (первому) языку
+      - assert: меню закрылось
+      - assert: перезагрузки страницы не произошло
+
+    Скрывается и открывает новую страницу:
+      - do: открыть страницу https://yandex.ru/turbo?text=ru.wikipedia.org&stub=wikilanguages%2Fdefault.json
+      - do: кликнуть по текущему второму языку (арабский)
+      - assert: меню закрылось
+      - assert: открылась новая страница
+
+files:
+  - platform/components/WikiLanguages/WikiLanguages.tests/WikiLanguages@phone.hermione.js
+
+v-team: Turbo
+
+tlds: none
+
+qa-engineer: narbutovich

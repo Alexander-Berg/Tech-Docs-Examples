@@ -1,0 +1,29 @@
+feature: Объектный ответ
+type: Счетчик оценок фильмов
+
+params:
+  exp_flags:
+    # переопределить число countfilmratings
+    - QA_ugcpub_override=1
+
+specs-integration:
+  Модальное окно при клике в текст счетчика оценок в карусели:
+    - do: получить выдачу по запросу 'фильмы 2018' неавторизованным пользователем
+    - assert: |
+        появилась карусель фильмов
+        в карусели фильмов в шапке есть счетчик оценок
+    - screenshot: примерный внешний вид [https://jing.yandex-team.ru/files/eksamoylova/2021-07-07_21.48.53-ph9qd.png]
+    - do: кликнуть на текст счетчика оценок в карусели
+    - tech: сработал счетчик /parallel/result/wiz/entity_search/upper/likes-counter
+    - assert: появилось модальное окно с большим счетчиком оценок
+    - screenshot: примерный внешний вид [https://jing.yandex-team.ru/files/eksamoylova/2021-07-07_21.49.34-qnhhx.png]
+
+
+files:
+  - features/desktop/z-entity-search/likes-counter/likes-counter.hermione.e2e.js
+
+tags: ['oo_rating']
+
+v-team: UGC
+
+tlds: ru

@@ -1,0 +1,16 @@
+feature: marketSection
+
+specs:
+  Внешний вид блока:
+    - do: открыть страницу примера блока marketSection (/turbo?stub=marketsection/with_text.json)
+    - assert: должны быть видны разделительные полосы и отступы вокруг строк
+    - screenshot: внешний вид соответствует скриншоту [with_text]
+
+files:
+    - platform/components/MarketSection/__tests__/MarketSection.hermione.js
+
+v-team: Market
+
+manager: seoshnik
+
+tlds: none

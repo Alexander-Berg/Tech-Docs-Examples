@@ -1,0 +1,12 @@
+feature: Проверочный тест на реальных данных
+
+tags: no_assessors
+
+specs-integration:
+  Раскрытие аккордеона:
+    - do: TODO TURBOUI-1525
+
+files:
+    - features/common/e2e-stub/accordion.hermione.e2e.js
+
+tlds: none

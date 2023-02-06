@@ -1,0 +1,40 @@
+feature: Рекламный лэйбл
+type: Position absolute на react
+
+specs:
+  С меткой МФО:
+    - params:
+        exp_flags:
+          - direct_label_absolute_react=1
+    - do: получить выдачу по запросу 'окна пвх' с включённым блокировщиком рекламы
+    - assert: справа от гринурла есть рекламный лэйбл
+    - screenshot: Пример скриншота (текст и элементы сниппета могут отличаться от примера) [plain]
+  Без метки МФО:
+    - params:
+        exp_flags:
+          - direct_label_absolute_react=1
+    - do: получить выдачу по запросу 'окна пвх' с включённым блокировщиком рекламы
+    - assert: справа от гринурла есть рекламный лэйбл
+    - screenshot: Пример скриншота (текст и элементы сниппета могут отличаться от примера) [plain]
+  С ачивками:
+    - params:
+        exp_flags:
+          - direct_label_absolute_react=1
+    - do: получить выдачу по запросу 'окна пвх' с включённым блокировщиком рекламы
+    - assert: справа от гринурла есть рекламный лэйбл
+    - screenshot: Пример скриншота (текст и элементы сниппета могут отличаться от примера) [plain]
+
+files:
+  - features/direct_label_absolute_react/direct_label_absolute_react@desktop.hermione.js
+
+tags:
+  - skip_e2e_check
+  - adv
+  - adv_label
+  - adblock
+  - no_assessors
+
+v-team: Distribution
+
+tlds:
+  - ru

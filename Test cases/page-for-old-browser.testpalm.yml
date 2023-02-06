@@ -1,0 +1,21 @@
+feature: Заглушка для старых браузеров
+
+specs:
+    Страница открывается:
+          - do: открыть сервис в старом браузере (ie10, chrome 67)
+          - assert: появилась страница для старых браузеров
+          - screenshot: внешний вид [plain]
+
+v-team: Younglings
+
+qa-engineer:
+    - helm
+
+platform:
+    - desktop
+
+tags:
+    - edu-front
+
+files:
+    - tests/hermione/suites/desktop/page-for-old-browser/page-for-old-browser.hermione.js

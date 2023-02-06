@@ -1,0 +1,22 @@
+feature: Колдунщик видео
+experiment: Бейдж на сайт
+
+tlds: [ru, ua, by, kz]
+
+params:
+  foreverdata: '2702370954'
+
+specs:
+  Многорядный колдунщик видео:
+    - do: получить выдачу по запросу "Паркер (Parker, 2013) www.ivi.ru/watch/97812" (или иному запросу, чтобы был многорядный колдунщик)
+    - assert: у первого ролика присутствует бейдж с надписью "На сайт"
+    - screenshot: метка "на сайт" [on-site-label]
+  Однорядный колдунщик видео:
+    - do: получить выдачу по запросу "Паркер (Parker, 2013) www.ivi.ru/watch/97812" (или иному запросу, чтобы был однорядный колдунщик)
+    - assert: у первого ролика присутствует бейдж с надписью "На сайт"
+    - screenshot: метка "на сайт" [on-site-label]
+
+files:
+  - features/adapter-videowiz/adapter-videowiz_on-site-label@common.hermione.js
+
+v-team: Video

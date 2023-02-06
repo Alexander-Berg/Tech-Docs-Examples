@@ -1,0 +1,44 @@
+feature: Popup на СЕРПе
+type: C паранджой для скачивания расширения
+
+params:
+  foreverdata: '3934913145'
+  srcskip: 'YABS_DISTR'
+
+specs:
+  Общие проверки:
+    beforeEach:
+      - do: почистить куки и получить выдачу по запросу 'foreverdata', будучи незалогиненным
+      - assert: попап-блок дистрибуции присутствует на выдаче
+      - tech: сработал блокстат-счетчик /distr/bk/data/popup (дописать в урл &exp_flags=dump_counters=bk)
+      - tech: сработал БК-счетчик видимости yabs.yandex.ru/count/ и yabs?type=show (смотреть в Network)
+      - tech: записалась кука показа попап-блока (в yp появился пар-р p_sw)
+    Внешний вид:
+      - screenshot: пример внешнего вида попап-блока дистрибуции (цвет фона попапа и цвет кнопок может отличаться от примера - не баг) [plain]
+    Проверка кнопки закрыть:
+      - do: кликнуть на кнопку 'Закрыть'
+      - tech: сработал счётчик клика на кнопку 'Закрыть' /$page/promo_popup/close
+      - tech: сработал БК-счетчик в кнопке 'Закрыть' yabs?type=close (смотреть в Network)
+      - assert: попап-блок дистрибуции скрылся
+      - assertMetrics: "*"
+    Проверка кнопки установки:
+      - do: клик на кнопку 'Установить'
+      - tech: сработал счётчик клика на кнопку 'Установить' /$page/promo_popup/install
+      - tech: сработал счетчик метрики 50054581
+      - assert: попап-блок дистрибуции скрылся (проверять скачивание файла не требуется, открытие новой страницы при клике на кнопку 'Установить' - не баг, проверять валидность новой страницы не нужно)
+      - tech: кука ys и саб-кука bnrd равна show_id
+      - assertMetrics: "*"
+
+files:
+  - src/features/DistrPopup/DistrPopup.test/_extensions-download/DistrPopup_extensions-download@desktop.hermione.js
+
+tags:
+  - skip_e2e_check
+  - distribution
+  - popup
+  - paranja
+  - cookie
+
+v-team: Distribution
+
+tlds: [ru, by]

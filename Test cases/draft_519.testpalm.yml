@@ -1,0 +1,15 @@
+feature:  Zigbee - добавление через навыки - колонка не в сети
+
+specs:
+    Zigbee - добавление через навыки - колонка не в сети:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/4332
+        - release_Webview
+        - platform_ios
+        - platform_android
+        - testid_464873
+        - webview_regress
+        - iot_connection
+    - do: "Preconditions На аккаунте есть мидик не в сети"
+    - do: "Тапнуть на + - Устройство умного дома - выбрать навык Aqara - добавить через зигби - Начать поиск"
+    - assert: "Отображается ошибка, что колонка недоступна; ; <img src=`https://jing.yandex-team.ru/files/osennikovak/photo_2022-03-19%2015.25.54%20%281%29.jpeg` alt=`Скриншот` width=`300`/>; "

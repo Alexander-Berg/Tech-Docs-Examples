@@ -1,0 +1,30 @@
+feature: ProductPage
+experiment: Рекомендации
+
+specs:
+  Внешний вид и клик в рекомендацию:
+    - params:
+      flags:
+        - goods_recommender_enabled=1
+    - do: открыть https://yandex.ru/products/search?text=iphone
+    - assert: отобразилась страница с результатами поиска по товарам
+    - do: открыть первую карточку
+    - assert: в открывшейся карточке с товаром находится блок "Рекомендации"
+    - screenshot: внешний вид [plain]
+    - do: нажать на первый элемент из списка рекомендаций
+    - tech: сработал счетчик path="$page.$main.card.recommendations.scroller.$result.productCard"
+
+  Внешний вид рекомендаций для фармы:
+    - params:
+      flags:
+        - goods_recommender_enabled=1
+    - do: открыть https://yandex.ru/products/search?text=анальгин
+    - assert: отобразилась страница с результатами поиска по товарам
+    - do: открыть первую карточку
+    - assert: в открывшейся карточке с товаром находится блок "Аналоги"
+    - screenshot: внешний вид [plain]
+
+v-team: goods
+
+files:
+  - src/pages/ProductPage/tests/Recommendations/Recommendations.common.hermione.ts

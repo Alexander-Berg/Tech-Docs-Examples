@@ -1,0 +1,21 @@
+feature: LcButton
+
+tags: no_assessors
+
+specs:
+    Рендер LcButton с LcPhone:
+        - do: открыть страницу (https://yandex.ru/turbo?stub=lcbutton/with-lc-phone.json)
+        - screenshot: внешний вид соответствует скриншоту [plain]
+        - do: кликнуть на кнопку
+        - assert: модал открылся
+
+files:
+    - platform/components/LcButton/__tests__/LcButton@desktop.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: olimiya
+
+tlds: none

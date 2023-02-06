@@ -1,0 +1,160 @@
+feature: Одна организация
+experiment: Блок кнопок
+
+specs-integration:
+  Наличие элементов:
+    - do: получить выдачу по запросу 'кафе пушкин' _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: |
+        на выдаче есть карточка организации,
+        в карточке организации есть блок кнопок
+
+specs:
+  Основные проверки:
+    Внешний вид:
+      - tags: 
+          - smoke
+          - pp_new_core
+      - do: получить выдачу по запросу 'кафе пушкин' ('frank ресторан', 'пицца хат', 'ресторан корюшка санкт-петербург', 'панорамный ресторан sky & garden')
+      - assert: |
+          на серпе присутствует колдунщик одной организации,
+          в колдунщике присутствует блок кнопок
+      - screenshot: внешний вид [plain]
+    Внешний вид в альбомной ориентации:
+      - do: получить выдачу по запросу 'кафе пушкин' ('ресторан корюшка санкт-петербург', 'панорамный ресторан sky & garden')
+      - assert: |
+          на серпе присутствует колдунщик одной организации,
+          в колдунщике присутствует блок кнопок
+      - do: перевернуть девайс в landscape ориентацию
+      - screenshot: внешний вид блока кнопок [landscape]
+  Кнопка связаться:
+    Один телефон:
+      - do: получить выдачу по запросу 'кафе пушкин' ('ресторан корюшка санкт-петербург', 'панорамный ресторан sky & garden')
+      - assert: |
+          на серпе присутствует колдунщик одной организации,
+          в колдунщике присутствует блок кнопок с кнопкой "Вызов"
+      - screenshot: внешний вид [phones]
+      - do: нажать на кнопку "Вызов"
+      - assert: открылось системное окно телефонного звонка
+      - tech: сработал счётчик /$page/$main/$result/composite/org-actions/scroller/contacts[@action = "phone"]
+      - tech: отправился счетчик цели звонка mc.yandex.ru/watch/1018907821 с параметром call
+  Кнопка сайты:
+    Только сайт:
+      - do: получить выдачу по запросу 'иридиум самсунг'
+      - assert: |
+          на серпе присутствует колдунщик одной организации,
+          в колдунщике присутствует блок кнопок с кнопкой "Сайт"
+      - screenshot: внешний вид [sites]
+      - do: нажать на кнопку "Сайт"
+      - assert: произошёл переход на сайт организации
+      - tech: сработал счётчик /$page/$main/$result/composite/org-actions/scroller/sites[@action = "site"]
+      - tech: отправился счетчик mc.yandex.ru/watch/1018907821 с параметром site
+  Кнопка маршрут:
+    - tags: smoke
+    - do: в настройках геолокации в браузере разрешить определять ваше местоположение
+    - do: получить выдачу по запросу 'кафе пушкин' ('frank ресторан', 'пицца хат', 'ресторан корюшка санкт-петербург', 'панорамный ресторан sky & garden')
+    - assert: |
+        на серпе присутствует колдунщик одной организации,
+        в колдунщике присутствует блок кнопок с кнопкой "Маршрут"
+    - screenshot: внешний вид [route]
+    - do: нажать на кнопку "Маршрут"
+    - assert: открылся оверлей с маршрутом
+    - tech: отправился счетчик цели маршрута mc.yandex.ru/watch/1018907821 с параметром route
+  Кнопка еда:
+    - do: получить выдачу по запросу 'кафе пушкин' ('ресторан корюшка санкт-петербург', 'панорамный ресторан sky & garden')
+    - assert: |
+        на серпе присутствует колдунщик одной организации,
+        в колдунщике присутствует блок кнопок с кнопкой "Доставка"
+    - screenshot: внешний вид [eda]
+    - do: нажать на кнопку "Доставка"
+    - assert: произошёл переход на страницу организации в Яндекс.Еде
+    - tech: сработал счётчик /$page/$main/$result/composite/org-actions/scroller/delivery[@action = "cta"]
+    - tech: отправился счетчик цели доставки mc.yandex.ru/watch/1018907821 с параметром cta-button
+  Кнопка доставка:
+    - do: получить выдачу по запросу 'папа джонс' (бургер кинг спб)
+    - assert: |
+        на серпе присутствует колдунщик одной организации,
+        в колдунщике присутствует блок кнопок с кнопкой "Доставка"
+    - screenshot: внешний вид [delivery]
+    - do: нажать на кнопку "Доставка"
+    - assert: произошёл переход на страницу сайта организации
+    - tech: сработал счётчик /$page/$main/$result/composite/org-actions/scroller/delivery[@action = "cta"]
+    - tech: отправился счетчик цели доставки mc.yandex.ru/watch/8206618384 с параметром cta-button
+  Кнопка запись:
+    - do: получить выдачу по запросу 'аквапарк мореон' (автосервис gti-motors, клиника медси)
+    - assert: |
+        на серпе присутствует колдунщик одной организации,
+        в колдунщике присутствует блок кнопок с кнопкой "Запись"
+    - screenshot: внешний вид [booking]
+    - do: нажать на кнопку "Запись"
+    - assert: произошёл переход на страницу сайта организации
+    - tech: сработал счётчик /$page/$main/$result/composite/org-actions/scroller/booking[@action = "cta"]
+    - tech: отправился счетчик цели доставки mc.yandex.ru/watch/1018907821 с параметром cta-button
+  Кнопка запись через yclients:
+    - params:
+        exp_flags: GEO_1org_booking_touch=1
+    - do: получить выдачу по запросу 'салон красоты palmier' (салон красоты MONE гжатская)
+    - assert: |
+        на серпе присутствует колдунщик одной организации,
+        в колдунщике присутствует блок кнопок с кнопкой "Запись"
+    - screenshot: внешний вид [booking]
+    - do: нажать на кнопку "Запись"
+    - assert: открылась шторка с формой записи в салон через yclients
+    - tech: сработал счётчик /$page/$main/$result/composite/org-actions/scroller/booking[@action = "cta"]
+    - tech: отправился счетчик цели доставки mc.yandex.ru/watch/1018907821 с параметром cta-button
+  Специальная кнопка:
+    В недвижимости:
+      - do: получить выдачу по запросу 'жк кандинский' ('жк форум сити')
+      - assert: |
+          на серпе присутствует колдунщик одной организации,
+          в колдунщике присутствует блок кнопок с большой жёлтой кнопкой "+7(XXX)-XX-XX Показать"
+      - screenshot: внешний вид [action]
+      - do: нажать на кнопку "+7(XXX)-XX-XX Показать"
+      - assert: открылся попап с кнопкой с номером телефона, названием застройщика и подписью "Реклама"
+      - tech: сработал счётчик /$page/$main/$result/composite/org-actions/realty[@action = "phone"]
+      - tech: сработал пиксельный счётчик https://realty.yandex.ru/api/1.0/event/phone/click
+      - screenshot: внешний вид [realty-popup]
+      - do: кликнуть на номер телефона
+      - tech: отправился счетчик цели звонка mc.yandex.ru/watch/109944240168 с параметром call
+  В сайдблоке:
+    beforeEach:
+      - do: получить выдачу по запросу 'кафе пушкин' ('ресторан корюшка санкт-петербург', 'панорамный ресторан sky & garden')
+      - assert: на серпе присутствует колдунщик одной организации
+      - do: кликнуть на табик главное
+      - assert: |
+          открылся оверлей с карточкой организации,
+          в карточке есть кнопки
+    Кнопка Позвонить:
+      - do: кликнуть на кнопку позвонить
+      - assert: открылось системное окно телефонного звонка
+      - tech: сработал счётчик /$subresult/overlay-wrapper/content/tabs/controls/tabs/about/side-block-bcard/composite/org-actions/scroller/contacts[@action = "phone"]
+      - tech: отправился счетчик цели звонка mc.yandex.ru/watch/1018907821 с параметром call
+    Кнопка Сайт:
+      - do: кликнуть на кнопку сайта
+      - assert: открылся сайт в новой вкладке
+      - tech: сработал счётчик /$subresult/overlay-wrapper/content/tabs/controls/tabs/about/side-block-bcard/composite/org-actions/scroller/sites [@action = "site"]
+      - tech: отправился счетчик цели звонка mc.yandex.ru/watch/1018907821 с параметром site
+    Кнопка Доставки:
+      - do: кликнуть на кнопку доставки
+      - assert: открылась ссылка на яндекс еду в новой вкладке
+      - tech: сработал счётчик /$subresult/overlay-wrapper/content/tabs/controls/tabs/about/side-block-bcard/composite/org-actions/scroller/eda[@action = "cta"]
+      - tech: отправился счетчик цели звонка mc.yandex.ru/watch/1018907821 с параметром cta-button
+    Кнопка Маршрута:
+      - do: кликнуть на кнопку маршрута
+      - assert: открылся оверлей с маршрутом
+      - tech: сработал счётчик /$subresult/overlay-wrapper/content/tabs/controls/tabs/about/side-block-bcard/composite/org-actions/scroller/route
+      - tech: отправился счетчик цели звонка mc.yandex.ru/watch/1018907821 с параметром route
+
+tlds: all
+
+v-team: VanillaGeo
+
+files:
+  - src/features/Companies/Companies.features/OrgActions/OrgActions.test/OrgActions@touch-phone.hermione.e2e.js
+  - src/features/Companies/Companies.features/OrgActions/OrgActions.test/OrgActions@touch-phone.hermione.js
+
+tags:
+  - react
+  - hasE2E
+  - geo
+  - geo_one_org
+  - geo_one_org_actions

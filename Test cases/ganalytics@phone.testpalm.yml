@@ -1,0 +1,65 @@
+feature: Ecom-tap
+
+tags:
+  no_assessors
+
+params:
+  exp_flags:
+    - analytics-disabled=0
+
+specs:
+  Ganalytics:
+    Инициализация:
+      - do: Открыть страницу https://yandex.ru/turbo/spideradio.github.io/s/rnd/0q?product_id=207
+      - tech: Счётчик UA-177644510-1 проинициализировался и отправил один pageview из айфрейма yanalytics
+
+    Отправка хитов:
+      Главная:
+        - do: Открыть страницу https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog/main/?page_type=main&morda=1
+        - tech: Счётчик UA-177644510-1 проинициализировался и отправил один pageview из айфрейма yanalytics
+
+      Каталог:
+        - do: Открыть страницу https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog/
+        - tech: Счётчик UA-177644510-1 проинициализировался и отправил один pageview из айфрейма yanalytics
+
+      Корзина:
+        - do: Открыть страницу https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocart/ (не забыть про слешь в конце ссылки, без него не откроется страница)
+        - tech: Счётчик UA-177644510-1 проинициализировался и отправил один pageview из айфрейма yanalytics
+
+      Чекаут:
+        - do: Открыть страницу https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog/ (не забыть про слешь в конце ссылки, без него не откроется страница)
+        - tech: Счётчик UA-177644510-1 проинициализировался и отправил один pageview из айфрейма yanalytics
+        - do: Нажать "Оформить заказ"
+        - tech: Счётчик UA-177644510-1 отправил один pageview из айфрейма yanalytics
+
+      Страница фильтров:
+        - do: Открыть страницу https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog/?page_type=filter
+        - tech: Счётчик UA-177644510-1 проинициализировался и отправил один pageview из айфрейма yanalytics
+
+      О магазине:
+        - do: Открыть страницу https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog/about/
+        - tech: Счётчик UA-177644510-1 проинициализировался и отправил один pageview из айфрейма yanalytics
+
+      О магазине (подробности):
+        - do: Открыть страницу https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog/about_detail/?about_category_id=0
+        - tech: Счётчик UA-177644510-1 проинициализировался и отправил один pageview из айфрейма yanalytics
+
+      Профиль:
+        - do: Залогинется на yandex.ru
+        - do: Открыть страницу https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog/user/
+        - tech: Счётчик UA-177644510-1 проинициализировался и отправил один pageview из айфрейма yanalytics
+
+      Быстрый заказ:
+        - do: Открыть страницу https://yandex.ru/turbo/spideradio.github.io/s/rnd/0q?product_id=207
+        - tech: Счётчик UA-177644510-1 проинициализировался и отправил один pageview из айфрейма yanalytics
+        - do: Нажать "Быстрый заказ"
+        - tech: Счётчик UA-177644510-1 отправил один pageview из айфрейма yanalytics
+
+      Карточка товара:
+        - do: Открыть страницу https://yandex.ru/turbo/spideradio.github.io/s/rnd/0q?product_id=207
+        - tech: Счётчик UA-177644510-1 проинициализировался и отправил один pageview из айфрейма yanalytics
+
+files:
+    - __tests__/ganalytics@phone.hermione.js
+
+tlds: ru

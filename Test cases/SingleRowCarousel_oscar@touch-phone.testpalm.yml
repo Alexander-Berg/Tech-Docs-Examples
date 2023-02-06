@@ -1,0 +1,43 @@
+feature: Однорядная карусель специальных событий
+type: Оскар
+
+params:
+  foreverdata: '786632608'
+
+specs:
+    beforeEach:
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: на выдаче присутствует колдунщик Оскара
+    Внешний вид:
+      - screenshot: внешний вид колдунщика оскара[oscar]
+    Заголовок:
+      - do: нажать на заголовок колдунщика
+      - assert: в новой вкладке открывается соотв.страница спецпроекта про оскар
+      - tech: сработал счетчик '/$page/$main/$result/title'
+    Иконка около заголовка:
+      - do: нажать на заголовок колдунщика
+      - assert: в новой вкладке открывается соотв.страница спецпроекта про оскар
+      - tech: сработал счетчик '/$page/$main/$result/icon'
+    Карточка номинации:
+      - do: нажать на первую карточку номинации
+      - assert: в новой вкладке открылась соотв.страница спецпроекта про оскар
+      - tech: сработал счетчик '/$page/$main/$result/special-event-showcase/showcase/item/link'
+
+files:
+  - src/features/SingleRowCarousel/_oscar/SingleRowCarousel_oscar.test/SingleRowCarousel_oscar@touch-phone.hermione.js
+
+v-team: Freshness
+
+counter: /$page/$top/$result[@wizard_name="single-row-carousel" and @subtype="oscar"]/title
+
+tlds:
+  - ru
+  - by
+  - uz
+  - kz
+  - uz
+
+tags:
+  - other
+  - reviewed
+  - skip_e2e_check

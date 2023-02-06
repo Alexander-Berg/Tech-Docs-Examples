@@ -1,0 +1,80 @@
+feature: Специальные события
+type: Табы
+
+specs:
+  Базовые проверки:
+    beforeEach:
+      - do: получать выдачу по запросу 'коронавирус'
+      - assert: получена выдача по указанному запросу
+      - assert: на выдаче присутствует колдунщик коронавируса с табиками в шапке
+    Внешний вид:
+      - screenshot: внешний вид [plain]
+    Новости:
+      - do: нажать на таб 'Новости'
+      - tech: отправился счетчик '/$page/$top/$result/tabs/controls/tab'
+      - assert: открылся таб с новостями
+      - screenshot: внешний вид [news]
+    Статистика:
+      - do: нажать на таб 'Статистика'
+      - tech: отправился счетчик '/$page/$top/$result/tabs/controls/tab'
+      - assert: открылся таб со статистикой
+      - screenshot: внешний вид [stats]
+  Кастомизация тайтла:
+    params:
+      foreverdata: '2898366798'
+    beforeEach:
+      - do: получать выдачу по запросу 'foreverdata'
+      - assert: получена выдача по указанному запросу
+      - assert: на выдаче присутствует колдунщик коронавируса с табиками в шапке
+    Сабтайтл на отдельной строке:
+      - screenshot: внешний вид колдунщика [custom-title]
+  Кастомизация фона tab-pane:
+    params:
+      foreverdata: '2639399708'
+    beforeEach:
+      - do: получать выдачу по запросу 'foreverdata'
+      - assert: получена выдача по указанному запросу
+      - assert: на выдаче присутствует колдунщик коронавируса с табиками в шапке
+    Внешний вид:
+      - screenshot: внешний вид колдунщика [colorized-pane]
+  Альтернативные цветовые схемы шапки:
+    beforeEach:
+      - do: получать выдачу по запросу 'foreverdata'
+      - assert: получена выдача по указанному запросу
+      - assert: на выдаче присутствует колдунщик коронавируса с табиками в шапке
+    Светлая:
+      - params:
+          foreverdata: '178629084'
+      - screenshot: внешний вид колдунщика [header-light]
+    Белая:
+      - params:
+          foreverdata: '1045922502'
+      - screenshot: внешний вид колдунщика [header-white]
+  Ленивая загрузка контента:
+    - params:
+        foreverdata: '1466136790'
+        rearr: scheme_Local/Coronavirus/AjaxLoadTabs=1
+    - do: получать выдачу по запросу 'foreverdata'
+    - assert: получена выдача по указанному запросу
+    - assert: на выдаче присутствует колдунщик коронавируса с табиками в шапке
+    - do: нажать на таб "Новости"
+    - assert: таб загрузился аяксом
+    - screenshot: внешний вид колдунщика [ajax_tab]
+
+tlds:
+  - ru
+  - by
+  - ua
+  - kz
+  - uz
+
+files:
+  - features/adapter-special-event/adapter-special-event__tabs/adapter-special-event__tabs@deskpad.hermione.js
+
+v-team: Sport
+
+tags:
+  - reviewed
+  - skip_e2e_check
+
+counter: /$page/$top/$result[@wizard_name="special/event"]

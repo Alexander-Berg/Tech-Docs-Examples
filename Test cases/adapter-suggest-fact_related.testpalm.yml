@@ -1,0 +1,49 @@
+feature: Факт
+type: Саджест (со связанными фактами)
+
+specs:
+  Проверка кнопок:
+    - tags: ['smoke']
+    - counter: /$page/$main/$result[@wizard_name="suggest_fact"]/related/scroller/link
+    - do: получить выдачу Поиска по запросу 'еще' _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: на первой позиции выдачи есть Фактовый ответ c кнопками для связанных запросов
+    - screenshot: пример внешнего вида [related-buttons]
+    - do: кликнуть в первую кнопку в карусели кнопок
+    - tech: проверить счетчик в первой кнопке связанных запросов
+    - assert: произошел перезапрос к поиску, в тексте запроса содержится правильное значение
+
+  С ответом:
+    - params:
+        foreverdata: '4091129865'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: |
+        на выдаче есть быстрый ответ,
+        под быстрым ответом есть рекомендации
+    - screenshot: пример внешнего вида [with-answer]
+
+  С картинкой:
+    - params:
+        foreverdata: '2587144793'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: |
+        на выдаче есть быстрый ответ,
+        под быстрым ответом есть рекомендации
+    - screenshot: пример внешнего вида [with-image]
+
+specs-integration:
+    Проверка кнопок:
+    - counter: /$page/$main/$result[@wizard_name="suggest_fact"]/related/scroller/link
+    - do: получить выдачу Поиска по запросу '6 лет свадьбы' _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: на первой позиции выдачи есть Фактовый ответ c кнопками для связанных запросов
+    - do: кликнуть в первую кнопку в карусели кнопок
+    - assert: произошел перезапрос к поиску
+
+files:
+  - features/touch-phone/adapter-suggest-fact/adapter-suggest-fact_related.hermione.js
+  - features/touch-phone/adapter-suggest-fact/adapter-suggest-fact_related.hermione.e2e.js
+
+v-team: Facts
+
+tlds: [ru, by, ua, kz, uz, com.tr, com]
+
+priority: high

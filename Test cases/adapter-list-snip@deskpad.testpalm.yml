@@ -1,0 +1,37 @@
+feature: Списочный сниппет
+
+specs:
+  Внешний вид:
+    - params:
+        foreverdata: '2341023238'
+    - do: получить выдачу по запросу 'foreverdata'
+    - screenshot: появился списочный сниппет [plain]
+    - do: кликнуть по тайтлу сниппета
+    - assert: ссылка работает и открывается
+    - tech: проверить счетчик на тайтле (path = "/web/item/title/", vars="-main=list_snip,-adapters=list-snip,pos=p1,-source=web")
+    - do: кликнуть по гринурлу сниппета
+    - assert: ссылка работает и открывается
+    - tech: проверить счетчик в гринурле (path = "/web/item/urlnav/", vars="-adapters=list-snip,pos=p1,-source=web")
+  Внешний вид - текст под списком:
+    - params:
+        foreverdata: '2785793003'
+    - do: получить выдачу по запросу 'foreverdata'
+    - screenshot: появился списочный сниппет [plain]
+
+files:
+  - features/list-snip/adapter-list-snip@deskpad.hermione.js
+
+priority: minor
+
+v-team: Chat
+
+tlds:
+  - ru
+  - ua
+  - by
+  - kz
+  - com
+  - com.tr
+
+tags:
+  - reviewed

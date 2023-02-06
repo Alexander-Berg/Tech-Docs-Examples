@@ -1,0 +1,26 @@
+feature: 'Counters Tests'
+type: 'эксперимент sendbeacon в redir счетчиках'
+
+specs:
+  Обязательные проверки:
+    - automation: SERP-74716
+    - do: Получить выдачу по запросу '???'
+    - tech: проверить, что у первого сниппета счетчик отправляется при клике как POST запрос, те sendbeacon
+    - tech: 'Внешний вид [TODO]'
+
+files: []
+
+priority: medium
+
+v-team: Techno
+
+tags:
+  - counters
+  - common
+  - sendbeacon
+  - no_assessors
+  - reviewed
+
+description: Везде, кроме UC браузера и Opera (мини и мобайл) включено по умолчанию
+
+tlds: none

@@ -1,0 +1,17 @@
+feature: news-video-settings
+
+specs:
+  Внешний вид блока:
+    - tags: no_assessors
+    - do: открыть ссылку /turbo?stub=newsvideosettings/default.json
+    - screenshot: внешний вид соответствует скриншоту [plain]
+    - do: нажать на кнопку с 3 точками
+    - screenshot: внешний вид соответствует скриншоту [open]
+
+files:
+  - platform/components/NewsVideoSettings/__tests__/NewsVideoSettings.hermione.js
+
+v-team: News
+manager: glushneva
+
+tlds: none

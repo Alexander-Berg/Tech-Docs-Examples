@@ -1,0 +1,139 @@
+feature: "Dispenser: Квоты"
+
+specs:
+  beforeEach:
+    - do: залогиниться под пользователем 'robot-abc-002'
+  ru:
+    Сайдбар:
+      beforeEach:
+        - do: открыть страницу '/services/shifts223/folders?lang=ru'
+      Из фолдера:
+        beforeEach:
+          - do: нажать на ячейку таблицы с названием фолдера
+          - assert: появился сайдбар
+        Внешний вид:
+          - screenshot: скриншот [sidebar-from-folder-ru]
+        Сворачивание/разворачивание аккаунтов:
+          - do: нажать на кнопку сворачивания списка аккаунтов напротив названия провайдера
+          - assert: все аккаунты первого провайдера свернулись
+          - screenshot: скриншот [sidebar-accounts-collapsed-ru]
+          - do: нажать на шапку первого аккаунта
+          - assert: первый аккаунт развернулся
+          - screenshot: скриншот [sidebar-accounts-first-expanded-ru]
+          - do: нажать на кнопку разворачивания списка аккаунтов напротив названия провайдера
+          - assert: все аккаунты первого провайдера развернулись
+          - screenshot: скриншот [sidebar-accounts-expanded-ru]
+      Из провайдера:
+        beforeEach:
+          - do: нажать на ячейку таблицы с названием провайдера
+          - assert: появился сайдбар
+        Внешний вид:
+          - screenshot: скриншот [sidebar-from-provider-ru]
+        Форма спуска квот:
+          - do: нажать на кнопку 'Изменить'
+          - assert: появилась форма спуска квот
+          - screenshot: скриншот [quotas-form-ru]
+        Форма создания аккаунта:
+          - do: нажать на кнопку 'Создать аккаунт'
+          - assert: появилась форма создания аккаунта
+          - screenshot: скриншот [account-creation-form-ru]
+    Форма передачи квот:
+      Внешний вид:
+        - do: открыть страницу '/folders/transfers/create?lang=ru&variant=betweenFolders&service_out=3405&folder_out=9e2c90d4-19f5-42c0-bf23-02799699fadd&service_in=1357&folder_in=c758629f-5465-4442-8b1b-b79231de6fc2'
+        - screenshot: скриншот [transfer-form-ru_before-provider-select]
+        - do: выбрать первый пункт в селекте провайдеров
+        - screenshot: скриншот [transfer-form-ru_before-resource-select]
+        - do: выбрать первый пункт в селекте ресурсов
+        - screenshot: скриншот [transfer-form-ru]
+    Форма запроса квот из резерва:
+      Внешний вид:
+        - do: открыть страницу '/folders/transfers/create?lang=ru&variant=reserve&provider=b9b52d73-86ed-4c54-98ab-ca6a64d6337b&service_in=1357&folder_in=c758629f-5465-4442-8b1b-b79231de6fc2'
+        - screenshot: скриншот [reserve-form-ru_before-resource-select]
+        - do: выбрать первый пункт в селекте ресурсов
+        - do: выставить в поле 'Сколько передаём' значение 1
+        - do: выбрать первый пункт во второй группе списка в селекте ресурсов
+        - do: выставить у второго ресурса в поле 'Сколько передаём' значение 2
+        - screenshot: скриншот [reserve-form-ru]
+        - do: нажать кнопку 'Создать заявку'
+        - screenshot: скриншот [reserve-form-ru-errors]
+        - do: удалить первый ресурс
+        - screenshot: скриншот [reserve-form-ru-no-errors]
+    Форма просмотра заявки:
+      Внешний вид:
+        - do: открыть страницу '/folders/transfers/dee835b6-fb44-49e1-862b-4a54087a0ee0?lang=ru'
+        - screenshot: скриншот [transfer-request-ru]
+    Форма просмотра списка заявок:
+      Внешний вид:
+        - do: открыть страницу '/approves/quota-transfer?lang=ru'
+        - screenshot: скриншот [transfer-requests-list-ru]
+  en:
+    Сайдбар:
+      beforeEach:
+        - do: открыть страницу '/services/shifts223/folders?lang=en'
+      Из фолдера:
+        beforeEach:
+          - do: нажать на ячейку таблицы с названием фолдера
+          - assert: появился сайдбар
+        Внешний вид:
+          - screenshot: скриншот [sidebar-from-folder-en]
+        Сворачивание/разворачивание аккаунтов:
+          - do: нажать на кнопку сворачивания списка аккаунтов напротив названия провайдера
+          - assert: все аккаунты первого провайдера свернулись
+          - screenshot: скриншот [sidebar-accounts-collapsed-en]
+          - do: нажать на шапку первого аккаунта
+          - assert: первый аккаунт развернулся
+          - screenshot: скриншот [sidebar-accounts-first-expanded-en]
+          - do: нажать на кнопку разворачивания списка аккаунтов напротив названия провайдера
+          - assert: все аккаунты первого провайдера развернулись
+          - screenshot: скриншот [sidebar-accounts-expanded-en]
+      Из провайдера:
+        beforeEach:
+          - do: нажать на ячейку таблицы с названием провайдера
+          - assert: появился сайдбар
+        Внешний вид:
+          - screenshot: скриншот [sidebar-from-provider-en]
+        Форма спуска квот:
+          - do: нажать на кнопку 'Change'
+          - assert: появилась форма спуска квот
+          - screenshot: скриншот [quotas-form-en]
+        Форма создания аккаунта:
+          - do: нажать на кнопку 'Create account'
+          - assert: появилась форма создания аккаунта
+          - screenshot: скриншот [account-creation-form-en]
+    Форма передачи квот:
+      Внешний вид:
+        - do: открыть страницу '/folders/transfers/create?lang=en&variant=betweenFolders&service_out=3405&folder_out=9e2c90d4-19f5-42c0-bf23-02799699fadd&service_in=1357&folder_in=c758629f-5465-4442-8b1b-b79231de6fc2'
+        - screenshot: скриншот [transfer-form-en_before-provider-select]
+        - do: выбрать первый пункт в селекте провайдеров
+        - screenshot: скриншот [transfer-form-en_before-resource-select]
+        - do: выбрать первый пункт в селекте ресурсов
+        - screenshot: скриншот [transfer-form-en]
+    Форма запроса квот из резерва:
+      Внешний вид:
+        - do: открыть страницу '/folders/transfers/create?lang=en&variant=reserve&provider=b9b52d73-86ed-4c54-98ab-ca6a64d6337b&service_in=1357&folder_in=c758629f-5465-4442-8b1b-b79231de6fc2'
+        - screenshot: скриншот [reserve-form-en_before-resource-select]
+        - do: выбрать первый пункт в селекте ресурсов
+        - do: выставить в поле 'Transferred amount' значение 1
+        - do: выбрать первый пункт во второй группе списка в селекте ресурсов
+        - do: выставить у второго ресурса в поле 'Сколько передаём' значение 2
+        - screenshot: скриншот [reserve-form-en]
+        - do: нажать кнопку 'Create request'
+        - screenshot: скриншот [reserve-form-en-errors]
+        - do: удалить первый ресурс
+        - screenshot: скриншот [reserve-form-en-no-errors]
+    Форма просмотра заявки:
+      Внешний вид:
+        - do: открыть страницу '/folders/transfers/dee835b6-fb44-49e1-862b-4a54087a0ee0?lang=en'
+        - screenshot: скриншот [transfer-request-en]
+    Форма просмотра списка заявок:
+      Внешний вид:
+        - do: открыть страницу '/approves/quota-transfer?lang=en'
+        - screenshot: скриншот [transfer-requests-list-en]
+
+files:
+  - test/features/desktop/dispenser/folders.hermione.js
+
+priority: blocker
+
+tags:
+  - no_assessors

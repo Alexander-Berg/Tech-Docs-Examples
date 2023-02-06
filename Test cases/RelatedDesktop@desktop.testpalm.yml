@@ -1,0 +1,19 @@
+feature: RelatedDesktop
+specs:
+  Блок не рендерится, если в данных приходит блок related:
+    - do: перейти по ссылке https://yandex.ru/turbo?stub=related%2Fdefault.json
+    - assert: загрузились лента рекомендаций в правой колонке
+    - tech: в вертске отсутствует блок .related-root
+
+  Блок рендерит сниппеты из autoload:
+    - do: перейти по ссылке https://yandex.ru/turbo?stub=relateddesktop/no-related.json
+    - assert: загрузились лента рекомендаций в правой колонке
+    - tech: в вертске присутсвует блок .related-root
+
+tags:
+  - no_assessors
+
+files:
+  - platform/components/RelatedDesktop/RelatedDesktop.tests/RelatedDesktop@desktop.hermione.js
+v-team: Turbo
+tlds: ru

@@ -1,0 +1,41 @@
+feature: Авторизация в шапке
+
+specs:
+  Логин неизвестен, взаимодействие с курсором:
+    - do: в настройках браузера очистить кэш, удалить файлы cookie и получить выдачу по запросу 'окна'
+    - assert: в шапке есть кнопка "Регистрация"
+    - assert: в шапке есть кнопка "Войти"
+    - do: проверить ссылку кнопки "Регистрация"
+    - assert: ссылка при переходе на сайт содержит фрагмент https://passport.yandex.ru/auth
+    - tech: ссылка содержит счетчик origin = 'serp_desktop_auth_new'
+    - tech: ссылка содержит счетчик retpath = 'https://yandex.ru/search?retpath'
+    - screenshot: пример внешнего вида [unknown-login-init]
+
+  Логин известен:
+    - tags:
+        - smoke
+    - do: в настройках браузера очистить кэш, удалить файлы cookie и авторизоваться
+    - assert: в шапке выводится аватарка
+    - do: разлогиниться пользователем
+    - assert: в шапке появился блок залогина с аватаркой (при ширине экрана меньше 1200px блок залогина с аватаркой не появится - не баг; если блок залогина появился в правой колонке поисковой выдачи, надо закрыть блок нажав на крестик и обновить страницу)
+    - do: проверить кнопку "Да, войти"
+    - assert: ссылка при переходе на сайт содержит фрагмент https://passport.yandex.ru/auth
+    - screenshot: пример внешнего вида [login_yes]
+
+files:
+  - features/desktop/authorization/authorization.hermione.js
+
+v-team: Distribution
+
+tags:
+  - reviewed
+  - smoke_extended
+  - zalogin
+  - serp_header
+  - popup
+
+browsers:
+    notFor:
+      - firefox
+
+tlds: all

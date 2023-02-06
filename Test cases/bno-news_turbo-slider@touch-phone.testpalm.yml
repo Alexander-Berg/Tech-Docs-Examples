@@ -1,0 +1,70 @@
+feature: БНО новостей
+experiment: С Турбо слайдером
+
+description: |
+  Везде, кроме Яндекс Браузера (на Android и на iOs>13), вместо турбо-слайдера открывается отдельная турбо-страница;
+  в шапке нет точек навигации и имени ресурса;
+  вместо крестика - кнопка "Назад"
+
+specs:
+  Открытие Турбо-слайдера с первого элемента шоукейса:
+    Пример внешнего вида:
+      - do: получить выдачу по запросу 'новости'
+      - assert: на выдаче есть новостное БНО с турбо
+      - screenshot: пример внешнего вида [plain]
+    Турбо-слайдер - оверлей:
+      - browsers:
+          - ios-yandex-browser-17-touch
+          - android-yandex-browser-17-touch
+      - do: получить выдачу по запросу 'новости'
+      - assert: на выдаче есть новостное БНО с турбо (картинки и заголовки с новостями может отличаться, дата посещения страницы может отсутствовать) [https://jing.yandex-team.ru/files/skurhanski/chrome_4XD1HRJ0ps.png]
+      - do: кликнуть по первой карточке
+      - assert: |
+          открывается оверлей с турбо страницей, в оверлее в шапке есть слайдер [https://jing.yandex-team.ru/files/i-v-manysheva/Turtsiya_ne_isklyuchila_pokupki_rossiiskih_istrebitelei_Su-35_i_Su-57_2021-03-11_13-28-24.png]
+          в сайд-блоке есть слайдер
+          в слайдер есть iframe и в нем показывается Турбо-страница
+      - do: пролистнуть вправо
+      - assert: слайд переключился на следующий
+      - tech: проверить, что сработал счетчик на переключение турбо страницы /$page/$main/$result[@features has "news_bno_view"]/overlay-multipage/slider
+      - do: в шапке нажать на кнопку с крестиком
+      - tech: проверить, что сработали счетчики на кнопку с крестиком и закрытия всех оверлеев /$page/$main/$result[@features has "news_bno_view"]/overlay-multipage/close
+      - assert: сайд-блок закрылся
+  Открытие Турбо-слайдера со второго элемента шоукейса:
+    Турбо-слайдер - оверлей:
+      - browsers:
+          - ios-yandex-browser-17-touch
+          - android-yandex-browser-17-touch
+      - do: получить выдачу по запросу 'новости'
+      - assert: на выдаче есть новостное БНО с турбо (картинки и заголовки с новостями может отличаться,дата посещения страницы может отсутствовать) [https://jing.yandex-team.ru/files/skurhanski/chrome_4XD1HRJ0ps.png]
+      - do: кликнуть по второй карточке
+      - assert: |
+          открывается оверлей с турбо страницей, в оверлее в шапке есть слайдер [https://jing.yandex-team.ru/files/i-v-manysheva/Turtsiya_ne_isklyuchila_pokupki_rossiiskih_istrebitelei_Su-35_i_Su-57_2021-03-11_13-28-24.png]
+          в сайд-блоке есть слайдер
+          в шапке слайдера 10 точек, вторая точка выделена черным
+
+files:
+  - features/bno/bno-news_turbo-slider@touch-phone.hermione.js
+
+v-team: Turbo
+
+counter: /$page/$main/$result[@features has "news_bno_view"]/bno/showcase/item/thumb
+
+tags:
+  - reviewed
+
+tlds:
+  - ru
+  - by
+  - ua
+  - uz
+  - kz
+  - com.tr
+  - com
+
+browsers:
+  notFor:
+    - searchapp-phone
+    - android-uc-browser-11-touch
+    - android-uc-browser-touch
+
+priority: high

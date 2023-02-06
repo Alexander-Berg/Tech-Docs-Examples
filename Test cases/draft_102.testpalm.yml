@@ -1,0 +1,13 @@
+feature:  Участвовать в бета-тестировании
+
+specs:
+    Участвовать в бета-тестировании:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/2461
+        - release_Webview
+        - platform_common
+    - do: "Preconditions Аккаунт yndx.quasar.test.2"
+    - do: "Перейти на вкладку Станции в списке устройств; ; "
+    - assert: "Есть кнопка участвовать в бета-тестировании"
+    - do: "Включить и выключить кнопку"
+    - assert: "Не происходит ошибок"

@@ -1,0 +1,32 @@
+feature: Борьба с блокировщиками
+
+specs:
+  Консистентность вёрстки органики и рекламы:
+    beforeEach:
+      - do: включить adguard
+      - do: получить выдачу по запросу 'test'
+    В режиме hideads в органике отсутствуют extralinks:
+      - do: обновить страницу
+      - assert: справа от гринурла первого нерекламного сниппета отсутствует зелёный треугольник, по которому раскрывается меню
+    В режиме hideads c обратным флагом extralinks в органике присутствуют:
+      - do: дописать в урл в адресной строке браузера флаг &exp_flags=direct-fake-extralinks=1 и нажать Enter
+      - assert: справа от гринурла первого нерекламного сниппета есть зелёный треугольник, по которому раскрывается меню
+      - do: кликнуть по зелёному треугольнику
+      - assert: появилось меню с одним пунктом "Информация о сайте"
+      - screenshot: вид сниппета с открытым меню [extralinks-opened]
+
+files:
+  - features/desktop/serp-adv/hideads_consistency.hermione.js
+
+v-team: Distribution
+
+tags:
+  - organic
+  - reviewed
+  - smoke_extended
+  - no_assessors
+  - skip_e2e_check
+  - adv
+  - adblock
+
+tlds: fr

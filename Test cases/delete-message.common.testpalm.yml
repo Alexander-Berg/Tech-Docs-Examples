@@ -1,0 +1,32 @@
+feature: Контекстное меню (Удалить)
+
+import-steps:
+    - tests/hermione/suites/messenger/shared-steps/open-messenger.testpalm.steps.yml
+
+tlds: ru
+
+specs:
+    Удаление сообщения:
+        - tags: [smoke_automation]
+        - attach: Авторизация и открытие чата yamb
+        - do: открыть произвольный чат с пользователем и отправить в него сообщение
+        - do: открыть контекстное меню, нажав правой кнопкой мыши(desktop) или тапнув(touch) на отправленное сообщение
+        - do: в контекстном меню нажать на "Удалить"
+        - assert: открылось модальное окно подтверждения удаления сообщения
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/joshuan/Messenger_2019-01-14_11-03-49.png]
+        - do: подтвердить удаление, нажав на кнопку "ОК"
+        - assert: |
+            закрылось модальное окно
+            вместо отправленного сообщения отобразилось информационное сообщение "Сообщение было удалено"
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/joshuan/Messenger_2019-01-14_11-04-59.png]
+
+files:
+    - tests/hermione/suites/messenger/message-history/context-menu/delete-message.common.hermione.ts
+
+v-team: Chat
+
+tags:
+    - chamb
+    - yamb
+    - no_assessors
+    - y-team

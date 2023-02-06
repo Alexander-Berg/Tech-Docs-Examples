@@ -1,0 +1,10 @@
+feature: New feature
+
+specs:
+  Another nested specs:
+    The first it case:
+      - do: something 1
+    The second it case:
+      - do: something 2
+    The last it case:
+      - do: something 3

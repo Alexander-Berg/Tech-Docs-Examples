@@ -1,0 +1,26 @@
+feature: suggest
+
+specs:
+  Базовый вид блока:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=suggest/default.json
+    - screenshot: внешний вид соответствует скриншоту [plain]
+    - do: поставить курсор в поле ввода
+    - screenshot: внешний вид соответствует скриншоту [focused]
+    - do: набрать в поле "столица сша"
+    - screenshot: появился фактовый саджест, внешний вид элемента соответствует скриншоту [washington]
+    - do: нажать на крестик
+    - screenshot: попап скрылся, поле очистилось, в нём снова плейсхолдер, внешний вид соответствует скриншоту [focused-again]
+    - do: набрать в поле "music.yandex"
+    - assert: появился навигационный саджест, отображается какой-либо из сервисов yandex
+    - screenshot: появился навигационный саджест, примерный внешний вид элемента соответствует скриншоту [yandex]
+
+files:
+  - platform/components/Suggest/__tests__/suggest@phone.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: olga0321, dakhetov
+
+tlds: none

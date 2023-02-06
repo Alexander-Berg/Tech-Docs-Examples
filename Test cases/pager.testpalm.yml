@@ -1,0 +1,24 @@
+feature: Пейджер
+
+specs:
+  Проверка ховера:
+    - label: pager
+    - do: получить выдачу по запросу 'тест'
+    - screenshot: кнопка перехода на вторую страницу не прокрашена [active]
+    - do: навести на кнопку перехода на вторую страницу
+    - assert: кнопка перехода на вторую страницу прокрасилась
+    - screenshot: кнопка перехода на вторую страницу прокрасилась [hovered]
+
+files:
+  - features/desktop/pager/pager.hermione.js
+
+v-team: Beauty
+
+priority: high
+
+tags:
+  - reviewed
+
+counter: /$page/$main/$pager
+
+tlds: all

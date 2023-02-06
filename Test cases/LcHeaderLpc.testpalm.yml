@@ -1,0 +1,34 @@
+feature: LcHeaderLpc
+
+tags: no_assessors
+
+specs:
+  Default:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcheaderlpc/default.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Fixed:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcheaderlpc/fixed.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Fixed with transparency at the top:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcheaderlpc/fixed-with-transparency.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  User login unauthorised:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcheaderlpc/user-login.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  User login:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcheaderlpc/user.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Hidden login:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcheaderlpc/user-hidden.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/components/LcHeaderLpc/__tests__/LcHeaderLpc.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: ratyulenev
+
+tlds: none

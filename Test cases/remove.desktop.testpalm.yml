@@ -1,0 +1,31 @@
+feature: Удаление приложения
+
+import-steps:
+    - tests/hermione/suites/desktopApp/shared-steps/setup.testpalm.steps.yml
+
+tlds: none
+
+specs:
+    beforeEach:
+        - attach: Скачивание архива с последним предрелизным приложением
+        - attach: Установка приложения
+
+    Удаление приложения Windows[manual]:
+        - automation: MSSNGRFRONT-3314
+        - do: зайти в Control Panel\Programs\Programs and Features
+        - do: найти наше приложение в списке и нажать ЛКМ
+        - do: нажать кнопку "Uninstall"(Удалить)
+        - do: нажать ОК в появившемся попапе с примерным содержанием "Вы уверенны, что хотите удалить?"
+        - do: нажать ОК в появившемся попапе с примерным содержанием "Остановить приложение перед удалением?"
+        - assert: |
+              в taskbar нет иконки нашего приложения
+              в списке приложений его тоже нет
+              в tray нет иконки приложения
+
+files: []
+
+v-team: Chat
+
+tags:
+    - no_assessors
+    - desktop-app

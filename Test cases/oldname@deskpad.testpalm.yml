@@ -1,0 +1,67 @@
+feature: Колдунщик топонимов
+type: Устаревшее название
+
+params:
+  rearr: EntitySearch_off
+  # колдунщик топонимов отключен на стороне данных, этот флаг возвращает колдун
+  srcparams: 'UPPER:rearr=scheme_Local/ToponymWizard/Enabled=1'
+
+specs-integration:
+  Наличие колдунщика:
+    - do: получить выдачу по запросу 'киев осенний переулок'
+    - assert: на выдаче есть колдунщик c картой
+    - counter: /$page/$main/$result[@wizard_name="maps" and @subtype="street"]/title
+
+specs:
+  aliases:
+    - &CheckMetrics
+      - assertMetrics:
+          - feature.web.wizards_common.maps_wizard.total.shows
+          - feature.web.wizards_common.maps_wizard.total.external_clicks
+          - feature.web.wizards_common.maps_wizard.total.dynamic_clicks
+          - web.total_request_results_clicks
+          - web.total_request_results_ext_clicks
+          - web.total_request_results_dyn_clicks
+          - web.total_request_results_main_column_clicks
+          - web.total_request_results_main_column_ext_clicks
+          - web.total_request_results_main_column_dyn_clicks
+          - web.total_request_results_parallel_column_clicks
+          - web.total_request_results_parallel_column_ext_clicks
+          - web.total_request_results_parallel_column_dyn_clicks
+          - web.tech_part_misc_click
+          - web.total_request_count
+          - daily.total_session_count
+  beforeEach:
+    - do: получить выдачу по запросу 'киев осенний переулок'
+  Проверить внешний вид, общие ссылки и счётчики колдунщика топонимов:
+    - tags:
+        - title
+        - greenurl
+    - screenshot: на странице появился колдунщик топонимов, его внешний вид [plain]
+    - do: перейти по ссылке в тайтле
+    - assert: осуществился переход на Яндекс.Карты, на которых указан Осенний переулок в Киеве
+    - *CheckMetrics
+
+files:
+  - features/adapter-maps/oldname@deskpad.hermione.js
+  - features/adapter-maps/oldname@deskpad.hermione.e2e.js
+
+tlds: all
+
+v-team: VanillaGeo
+
+regions:
+  ru: 213
+  by: 157
+  kz: 163
+  ua: 143
+
+requests:
+  ru: киев осенний переулок
+  ua: київ осінній провулок
+
+counter: /$page/$main/$result[@wizard_name="maps" and @subtype="street"]/map/goto-map
+
+tags:
+  - reviewed
+  - hasE2E

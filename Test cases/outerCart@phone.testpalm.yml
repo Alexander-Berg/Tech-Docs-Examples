@@ -1,0 +1,47 @@
+feature: Ecom-tap
+
+specs:
+  С внешней корзиной:
+    Общий внешний вид:
+      - do: открыть страницу https://yandex.ru/turbo/005mebel.ru/s/katalog/mebel/mjagkaja-mebel/uglovye-divany-v-20122/modulnyj-divan-step-tajm?product_id=4052
+      - assert: открылась страница товара
+      - assert: в правом верхнем углу нет иконки с тележкой
+      - assert: внизу экрана нет залипающей панели
+      - do: проскроллить до низа страницы
+      - assert: внизу страницы есть футер
+      - screenshot: внушний вид футера (состав данных может отличаться) [footer]
+
+    Кнопки "В корзину":
+      В карточке товара:
+        - do: открыть страницу https://yandex.ru/turbo/005mebel.ru/s/katalog/mebel/mjagkaja-mebel/uglovye-divany-v-20122/modulnyj-divan-step-tajm?product_id=4052
+        - assert: на странице есть кнопка "Добавить в корзину"
+        - screenshot: внешний вид кнопки, цвет кнопки может отличаться [button]
+        - do: нажать на кнопку "Добавить в корзину"
+        - assert: |
+            в новой вкладке открылась корзина оригинального магазина
+            в корзине добавлен выбранный товар
+            цена товара совпадает с ценой на странице с которой перешли
+      На морде:
+        - do: открыть страницу https://yandex.ru/turbo/005mebel.ru/n/yandexturbocatalog/main/?morda=1&ecommerce_main_page_preview=1
+        - assert: внизу страницы есть рекомендации
+        - assert: в карточках рекомендаций есть кнопки "В корзину"
+        - screenshot: внешний вид кнопки [button]
+        - do: нажать на кнопку "Добавить в корзину"
+        - assert: в новой вкладке открылась страница '/turbo?text=about'
+      В листинге:
+        - do: открыть страницу https://yandex.ru/turbo/005mebel.ru/n/yandexturbocatalog/
+        - assert: на странице есть каталог товаров
+        - assert: в карточках товаров есть кнопки "В корзину"
+        - screenshot: внешний вид кнопки [button]
+        - do: нажать на кнопку "Добавить в корзину"
+        - assert: в новой вкладке открылась страница '/turbo?text=about'
+
+files:
+  - __tests__/outerCart@phone.hermione.js
+
+tlds: ru
+
+v-team: Turbo
+
+tags:
+  - ecom-tap

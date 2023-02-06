@@ -1,0 +1,35 @@
+feature: Кейсы Красоты для EU
+type: Смоук на домене eu
+
+specs:
+    Внешний вид шапки [manual]:
+      - automation: SERPTEST-549
+      - do: получить выдачу по запросу 'bmw'
+      - screenshot: шапка и табы переведены на английский и выглядят так [https://jing.yandex-team.ru/files/mikitadz/2021-02-22T12%3A57%3A35Z.6d3ff24.png]
+
+    Внешний вид выдачи и подвала [manual]:
+      - automation: SERPTEST-549
+      - do: получить выдачу по любому англоязычному запросу
+      - assert: на выдаче не должно быть БНО и сайтлинков
+      - do: проскроллить в конец выдачи
+      - screenshot: внешний вид соответствует скриншоту [https://jing.yandex-team.ru/files/antontintul/eu_footer.png]
+      - do: кликнуть на ссылки подвала (help, feedback, settings)
+      - assert: ссылки ведут на yandex.eu (кроме ссылки на help, она ведёт на домен .com)
+
+langs:
+  - en
+
+tlds:
+  - eu
+
+priority: normal
+
+files: []
+
+v-team: Beauty
+
+tags:
+  - not automated
+  - skip_e2e_check
+  - skip_manual_check
+  - Beauty_in_EU

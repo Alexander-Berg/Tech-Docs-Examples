@@ -1,0 +1,25 @@
+feature: Колдунщик видео
+
+tlds:
+  - ru
+  - ua
+  - by
+  - kz
+
+tags: no_assessors
+
+specs:
+  Внешний вид с длинным заголовком:
+    XL колдунщик видео:
+      - do: получить выдачу по запросу 'маша и медведь варится варенье'
+      - assert: появился видеоколдунщик
+      - screenshot: примерный внешний вид [long-titles-xl]
+    Многорядный колдунщик видео:
+      - do: получить выдачу по запросу 'видео'
+      - assert: появился видеоколдунщик
+      - screenshot: примерный внешний вид [long-titles-vast]
+
+files:
+  - features/adapter-videowiz/adapter-videowiz_long-titles@touch-phone.hermione.js
+
+v-team: Video

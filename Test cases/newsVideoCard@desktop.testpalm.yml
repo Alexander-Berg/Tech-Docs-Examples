@@ -1,0 +1,21 @@
+feature: newsVideoCard
+
+specs:
+  Внешний вид блока:
+    - tags:
+      - sportauto
+    - do: Открыть страницу /turbo?stub=newsvideocard/default.json
+    - screenshot: внешний вид соответствует скриншоту [sport]
+
+
+files:
+  - platform/components/NewsVideoCard/__tests__/newsVideoCard@desktop.hermione.js
+
+v-team: News
+
+qa-engineer:
+  - volkhonov
+
+manager: glushneva
+
+tlds: none

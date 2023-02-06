@@ -1,0 +1,23 @@
+feature: Колдунщик видео
+experiment: Ограничение количества сниппетов на бэкэнде
+
+tlds: all
+
+specs:
+  Отображается 3 сниппета:
+    - params:
+        rearr: scheme_Local/Video/MaxDocsCount=3
+    - do: получить выдачу по запросу "смешные видео смотреть"
+    - assert: на странице присутствует колдунщик видео с 3 сниппетами
+    - screenshot: внешний вид [backend_3_docs]
+  Отображается 5 сниппетов:
+    - params:
+        rearr: scheme_Local/Video/MaxDocsCount=5
+    - do: получить выдачу по запросу "смешные видео смотреть"
+    - assert: на странице присутствует колдунщик видео с 5 сниппетами
+    - screenshot: внешний вид [backend_5_docs]
+
+files:
+  - features/adapter-videowiz/adapter-videowiz_backend-docs-count@common.hermione.js
+
+v-team: Video

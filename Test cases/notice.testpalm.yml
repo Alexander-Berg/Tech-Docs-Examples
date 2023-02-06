@@ -1,0 +1,32 @@
+feature: Notice
+
+params:
+  exp_flags:
+    - analytics-disabled=1
+
+browsers:
+  - ios-safari-12-touch
+  - ios-safari-11-touch
+  - ios-safari-10-touch
+  - ios-safari-9-touch
+
+specs:
+  Внешний вид:
+    - do: открыть страницу https://yandex.ru/turbo?stub=notice/default.json
+    - assert: на странице есть текст
+    - screenshot: внешний вид [plain]
+
+files:
+  - platform/components/Notice/__tests__/notice.hermione.js
+
+v-team: Turbo
+
+tags: 
+  - e-commerce
+  - no_assessors #раскатили новый дизайн на 100%
+
+manager: tanzwuta
+
+qa-engineer: spv
+
+tlds: none

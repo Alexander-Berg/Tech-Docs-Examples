@@ -1,0 +1,58 @@
+feature: Объектный ответ
+type: Карточка
+experiment: Интентная шапка
+
+specs:
+  Общие проверки:
+    - params:
+        exp_flags: OO_header_intent=1
+        foreverdata: '3425471203'
+    - do: получить выдачу по запросу "foreverdata"
+    - assert: |
+        на странице есть шапка карточки ОО
+        в шапке есть табы
+    - screenshot: внешний вид [plain]
+
+  Таб с контентом:
+    - params:
+        exp_flags: OO_header_intent=1
+        foreverdata: '1848864617'
+    - do: получить выдачу по запросу "foreverdata"
+    - assert: |
+        на странице есть шапка карточки ОО
+        в шапке есть табы
+        у карточки есть футер
+    - screenshot: внешний вид [plain]
+
+  Пустой таб main:
+    - params:
+        exp_flags: OO_header_intent=1
+        foreverdata: '3302284193'
+    - do: получить выдачу по запросу "foreverdata"
+    - assert: |
+        на странице есть шапка карточки ОО
+        в шапке есть табы
+        у карточки нет футера
+    - screenshot: внешний вид [without-footer]
+  
+  В карточке с треком присутствует футер:
+    - params:
+        exp_flags: OO_header_intent=1
+        rearr:
+          - "scheme_Local/EntitySearch/MoveESToWizplacesEnto=1"
+    - do: получить выдачу по запросу "Alejandro" с параметром ento=0oCgp5YW0zNjM2NjA0GAIV6xmn
+    - assert: |
+        на странице присутствует карточка ОО
+        у карточки есть футер
+
+files:
+  - features/touch-phone/z-entity-search/experiments/OO_header_intent/OO_header_intent.hermione.js
+
+tags:
+  - skip_e2e_check
+  - oo_card
+  - no_assessors
+
+tlds: [ru, by, kz, ua, com.tr, com]
+
+v-team: OO

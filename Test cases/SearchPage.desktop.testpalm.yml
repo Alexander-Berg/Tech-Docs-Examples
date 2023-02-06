@@ -1,0 +1,162 @@
+feature: SearchPage
+
+specs:
+  Саджест:
+    - do: открыть https://yandex.ru/products/search?text=iphone
+    - do: ввести в поисковую строку запрос «ipho»
+    - assert: появились подсказки под поисковой строкой (саджест)
+    - do: нажать на первую подсказку
+    - assert: |
+        саджест скрылся
+        в поисковой строке появился запрос из выбранной подсказки
+        появилась выдача по запросу из выбранной подсказки
+
+  Сортировка → Фильтр по цене → Сортировка:
+    - do: открыть https://yandex.ru/products/search?text=iphone
+    - assert: повилась кнопка сортировки выдачи и фильтрации по цене
+    - do: нажать на кнопку сортировки выдачи
+    - tech: сработал счетчик event "click", по пути $page.$main.product-list-sorting.button
+    - do: выбрать «Сначала недорогие»
+    - tech: сработал счетчик event "click", по пути $page.$main.product-list-sorting
+    - assert: |
+        выдача поменялась в соответствии с выбранной сортировкой
+        в адресной строке браузера появился параметр `order=aprice`
+    - do: нажать на кнопку фильтрации по цене
+    - tech: сработал счетчик event "click", по пути $page.$main.product-list-price-filter.button
+    - do: |
+        ввести в поле «от» значение «50000»
+        нажать на кнопку «применить»
+    - tech: сработал счетчик event "click", по пути $page.$main.product-list-price-filter
+    - assert: |
+        выдача поменялась в соответствии с выбранным фильтром и сортировкой
+        в адресной строке браузера появился параметр `pricefrom=50000`
+    - do: нажать на кнопку сортировки выдачи
+    - tech: сработал счетчик event "click", по пути $page.$main.product-list-sorting.button
+    - do: выбрать «По популярности»
+    - tech: сработал счетчик event "click", по пути $page.$main.product-list-sorting
+    - assert: |
+        выдача поменялась в соответствии с выбранным фильтром и сортировкой
+        в адресной строке браузера появился параметр `order=dpop`
+        в адресной строке браузера сохранился параметр `pricefrom=50000`
+
+  Сортировка:
+    Применение параметра order:
+      - do: открыть https://yandex.ru/products/search?text=iphone
+      - assert: повилась кнопка сортировки выдачи
+      - do: нажать на кнопку сортировки выдачи
+      - assert: повился список с пунктами сортировки выдачи
+      - tech: сработал счетчик event "click", по пути $page.$main.product-list-sorting.button
+      - do: нажать на кнопку «Сначала недорогие» в списке сортировки
+      - assert: |
+          выдача поменялась в соответствии с выбранной сортировкой
+          в адресной строке браузера появился параметр `order=aprice`
+      - tech: сработал счетчик event "click", по пути $page.$main.product-list-sorting
+      - do: нажать на кнопку сортировки выдачи
+      - assert: повился список с пунктами сортировки выдачи
+      - tech: сработал счетчик event "click", по пути $page.$main.product-list-sorting.button
+      - do: нажать на кнопку «Сначала подороже» в блоке сортировки
+      - assert: |
+          выдача поменялась в соответствии с выбранной сортировкой
+          в адресной строке браузера появился параметр `order=dprice`
+      - tech: сработал счетчик event "click", по пути $page.$main.product-list-sorting
+
+    Применение параметра категорий:
+      - do: открыть https://yandex.ru/products/search?text=iphone
+      - assert: повилась кнопка сортировки выдачи
+      - do: нажать на кнопку сортировки выдачи
+      - tech: сработал счетчик event "click", по пути $page.$main.product-list-sorting.button
+      - assert: повился список с пунктами сортировки выдачи
+      - do: нажать на кнопку «Сначала недорогие» в списке сортировки
+      - assert: выдача поменялась в соответствии с выбранной сортировкой
+      - tech: сработал счетчик event "click", по пути $page.$main.product-list-sorting
+
+  Параметр rs:
+    Должен сбрасываться при изменении сортировки:
+      - tags:
+          - no_assessors
+      - do: открыть https://yandex.ru/products/search?text=iphone&rs=foo
+      - do: выбрать сортировку «сначала недорогие»
+      - assert: в запросе за отсортированной выдачей отсутствует параметр rs
+
+  Сообщение о потери сети:
+    - do: открыть https://yandex.ru/products/search?text=iphone
+    - assert: повилась кнопка сортировки выдачи
+    - do: |
+        выключить доступ в интернет
+        нажать на кнопку сортировки выдачи
+        выбрать в селекте «Сначала недорогие»
+    - assert: появилось сообщение «Нет интернета»
+
+  Флаг tabs_order_version:
+    - params:
+        exp_flags:
+          - tabs_order_version=search,images,video,products,all
+    - do: открыть https://yandex.ru/products/search?text=iphone
+    - assert: появилась навигация
+    - screenshot: в навигации присутствуют только табы из скриншота [plain]
+
+  Баобаб:
+    Открытие товара в модалке с выдачи:
+      - tags:
+          - no_assessors
+      - do: открыть https://yandex.ru/products/search?text=iphone%2012
+      - assert: страница загрузилась
+      - do: нажать на первую карточку товара
+      - assert: открылась модалка с товаром
+      - tech: сработал счетчик event "show" с деревом модалки
+
+    Отправка события show при переходе на выдачу:
+      - tags:
+          - no_assessors
+      - do: открыть https://yandex.ru/products/product/1414986413/sku/101446177754
+      - assert: открылась модалка с товаром
+      - do: закрыть модалку с товаром
+      - tech: сработал счетчик event "show" с деревом выдачи
+
+    При возврате на выдачу не должно отправляться событие show:
+      - tags:
+          - no_assessors
+      - do: открыть https://yandex.ru/products/search?text=iphone%2012
+      - assert: страница загрузилась
+      - do: нажать на первую карточку товара
+      - assert: открылась модалка с товаром
+      - do: закрыть модалку с товаром
+      - tech: при возврате на выдачу дерево не отправилось повторно
+
+    Отправка события show при сортировке выдачи:
+      - tags:
+          - no_assessors
+      - do: открыть https://yandex.ru/products/search?text=iphone%2012
+      - assert: открылась страница с товаром
+      - do: |
+          нажать на кнопку сортировки выдачи
+          выбрать «Сначала недорогие»
+      - tech: |
+          новое баобаб дерево после сортировки залогировалось с событием "show"
+          в url в атрибутах дерева залогирована ссылка с параметрами сортировки "order=aprice"
+
+  Metrics:
+    Запросы:
+      - tags:
+          - no_assessors
+      - do: открыть https://yandex.ru/products/search?text=iphone
+      - assert: открылась поисковая выдача
+      - tech: |
+          - метрика "products.all_requests" = 1
+          - метрика "products.requests" = 1
+      - do: нажать на первую карточку товара
+      - assert: открылась страница с товаром
+      - tech: |
+          - метрика "products.all_requests" = 2
+          - метрика "products.requests" = 1
+          - метрика "products.sku_requests" = 1
+      - do: нажать на крестик на карточке товара
+      - tech: |
+          - метрика "products.all_requests" = 2
+          - метрика "products.requests" = 1
+          - метрика "products.sku_requests" = 1
+
+v-team: goods
+
+files:
+    - src/pages/SearchPage/tests/SearchPage.desktop.hermione.ts

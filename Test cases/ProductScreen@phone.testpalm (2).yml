@@ -1,0 +1,301 @@
+feature: Ecom-tap
+
+params:
+    exp_flags:
+        - analytics-disabled=1
+
+specs:
+    beforeEach:
+        - do: при дальнейшей проверке указанных ожидаемых результатов обращайте внимание на любые некорректные на ваш взгляд поведения, основываясь на свой опыт использования web-приложений (например, сохранение позиции при переходах туда-обратно кнопками на устройстве, пустые экраны при переходах, кривая верстка, скачкИ элементов, плавность скролла, неработающая функциональность и т.п.)
+
+    Внешний вид страницы товара:
+        - do: открыть страницу https://yandex.ru/turbo/spideradio.github.io/s/rnd/tvowcsnngw?product_id=92
+        - assert: |
+            открылась карточка товара
+            под ценой товара отображается информация о доставке
+        - screenshot: примерный внешний вид [page]
+
+    Внешний вид длинного названия на странице товара:
+        - do: открыть страницу https://yandex.ru/turbo/spideradio.github.io/s/rnd/fwj3pt?product_id=92
+        - tech: в консоли выполнить "document.querySelector('.ScreenContent h1').innerText = 'ГдеТоОднаждыПоявилсяНаСветСЛаемИМяуканьемЗверьКакихНет'"
+        - screenshot: внешний вид названия [long]
+
+    Подскрол картинки в слайдере по параметру sliderimg в адресе страницы:
+        - do: открыть страницу https://yandex.ru/turbo/spideradio.github.io/s/rnd/tvowcsnngw?product_id=92&sliderimg=%2F%2Favatars.mds.yandex.net%2Fget-turbo%2F3322662%2Frthac4b88805a760cdda749cbbfe8625eff%2F
+        - assert: открыта третья картинка товара в слайдере
+
+    Не показываем слайдер при отсутствии фотографий товара:
+        - do: открыть страницу https://yandex.ru/turbo/spideradio.github.io/s/rnd/9j2?product_id=147
+        - screenshot: страница корректно отображается, фотографий товара нет [page]
+
+    Товар добавляется в корзину по кнопке:
+        Переход с каталога:
+            - automation: TURBOUI-3910
+            - do: получить выдачу по запросу 'site:super01.ru' (альтернативные запросы - site:fulmar.ru каталог)
+            - assert: на выдаче присутствует турбо-сниппет(ы) с серой иконкой ракеты справа от гринурла
+            - do: кликнуть по любой ссылке турбо-сниппета для перехода на страницу магазина
+            - assert: открылась страница магазина с активной кнопкой Каталог на нижней панели
+            - assert: цветовое оформление может отличаться в зависимости от магазина [https://jing.yandex-team.ru/files/skurhanski/chrome_Gw9upIcJ8I.png]
+            - do: кликнуть по пиктограмме Каталог на нижней панели
+            - do: нажать на любую карточку товара
+            - do: нажать на кнопку "Добавить в корзину" на странице товара
+            - assert: кнопка изменилась на "Перейти в корзину"
+            - assert: на пиктограмме корзины внизу появилась цифра "1"
+            - do: нажать на "Перейти в корзину"
+            - assert: открылась страница корзины
+            - assert: переход произошел без анимации
+            - assert: в корзине отображается товар с карточки
+
+        Переход с серпа:
+            - automation: TURBOUI-3910
+            - do: получить выдачу по запросу 'site:fulmar.ru' (альтернативные запросы - site:kupicase.ru каталог, 'site:super01.ru')
+            - assert: на выдаче присутствует турбо-сниппет(ы) с серой иконкой ракеты справа от гринурла и с галереей карточек товаров [https://jing.yandex-team.ru/files/skurhanski/chrome_zIpnRA44Yt.png]
+            - do: кликнуть по карточке в галерее
+            - assert: открылась страница товара
+            - do: нажать на кнопку "Добавить в корзину" на странице товара
+            - assert: кнопка изменилась на "Перейти в корзину"
+            - assert: на пиктограмме корзины внизу появилась цифра "1"
+            - do: нажать на "Перейти в корзину"
+            - assert: открылась страница корзины
+            - assert: переход произошел без анимации
+            - assert: в корзине отображается товар с карточки
+
+    По кнопке переход в быстрый заказ:
+        - automation: TURBOUI-3910
+        - do: получить выдачу по запросу 'site:fulmar.ru' (альтернативные запросы - site:kupicase.ru каталог, 'site:zymbo.ru', 'site:super01.ru')
+        - assert: на выдаче присутствует турбо-сниппет(ы) с серой иконкой ракеты справа от гринурла
+        - do: кликнуть по любой ссылке турбо-сниппета для перехода на страницу магазина
+        - assert: открылась страница магазина с активной кнопкой Каталог на нижней панели
+        - assert: цветовое оформление может отличаться в зависимости от магазина [https://jing.yandex-team.ru/files/skurhanski/chrome_Gw9upIcJ8I.png]
+        - do: кликнуть по пиктограмме Каталог на нижней панели и далее кликнуть по любой карточке товара
+        - do: нажать на кнопку "Быстрый заказ"
+        - assert: открылась страница "Оформление заказа"
+        - assert: переход произошел с анимацией
+
+    Подтягиваются данные из корзины:
+        - automation: TURBOUI-3910
+        - do: получить выдачу по запросу 'site:fulmar.ru' (альтернативные запросы - site:kupicase.ru каталог, 'site:super01.ru')
+        - assert: на выдаче присутствует турбо-сниппет(ы) с серой иконкой ракеты справа от гринурла
+        - do: кликнуть по любой ссылке турбо-сниппета для перехода на страницу магазина
+        - assert: открылась страница магазина с активной кнопкой Каталог на нижней панели
+        - assert: цветовое оформление может отличаться в зависимости от магазина [https://jing.yandex-team.ru/files/skurhanski/chrome_Gw9upIcJ8I.png]
+        - do: кликнуть по пиктограмме Каталог на нижней панели
+        - do: нажать на кнопку "В корзину" на любой карточке
+        - do: нажать на карточку
+        - assert: открылась страница товара
+        - assert: отображается кнопка "Перейти в корзину"
+
+    Отображается цена со скидкой:
+        - automation: TURBOUI-3910
+        - do: перейти по ссылке https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog/main/?morda=1&ecommerce_main_page_preview=1
+        - do: кликнуть по карточке товара со скидкой
+        - assert: открылась расширенная карточка товара
+        - assert: рядом с ценой отображается цена со скидкой [https://jing.yandex-team.ru/files/dakhetov/saleprice.png]
+
+    Читать еще:
+        - automation: TURBOUI-3910
+        - do: получить выдачу по запросу 'site:fulmar.ru' (альтернативные запросы - site:kupicase.ru каталог, 'site:super01.ru')
+        - assert: на выдаче присутствует турбо-сниппет(ы) с серой иконкой ракеты справа от гринурла
+        - do: кликнуть по любой ссылке турбо-сниппета для перехода на страницу магазина
+        - assert: открылась страница магазина с активной кнопкой Каталог на нижней панели
+        - assert: цветовое оформление может отличаться в зависимости от магазина [https://jing.yandex-team.ru/files/skurhanski/chrome_Gw9upIcJ8I.png]
+        - do: кликнуть по пиктограмме Каталог на нижней панели
+        - do: нажать на любой товар
+        - do: на странице товара нажать на ссылку "Читать еще" в блоке с Описание (либо Хатактеристики)
+        - assert: текст под ссылкой стал видимым
+        - assert: текст ссылки поменялся на "Скрыть"
+        - do: нажать на ссылку "Скрыть"
+        - assert: текст свернулся в первоначальное состояние, ссылка сменилась на "Читать еще"
+
+    Переход в другую карточку товара:
+        - automation: TURBOUI-3910
+        - do: получить выдачу по запросу 'site:fulmar.ru' (альтернативные запросы - site:kupicase.ru каталог, 'site:super01.ru')
+        - assert: на выдаче присутствует турбо-сниппет(ы) с серой иконкой ракеты справа от гринурла
+        - do: кликнуть по любой ссылке турбо-сниппета для перехода на страницу магазина
+        - assert: открылась страница магазина с активной кнопкой Каталог на нижней панели
+        - assert: цветовое оформление может отличаться в зависимости от магазина [https://jing.yandex-team.ru/files/skurhanski/chrome_Gw9upIcJ8I.png]
+        - do: кликнуть по пиктограмме Каталог на нижней панели
+        - do: нажать на любой товар
+        - do: проскроллить страницу товара вниз
+        - do: в блоке "Рекомендуем" нажать на любую карточку
+        - assert: открылась страница товара с карточки
+        - assert: переход произошел с анимацией
+        - assert: страница не прыгнула
+
+    Сохранение скролла в блоке рекомендаций на странице Товара:
+        - do: получить выдачу по запросу 'site:fulmar.ru' (альтернативные запросы - site:kupicase.ru каталог, 'site:super01.ru')
+        - assert: на выдаче присутствует турбо-сниппет(ы) с серой иконкой ракеты справа от гринурла
+        - do: кликнуть по любой ссылке турбо-сниппета для перехода на страницу магазина
+        - assert: открылась страница магазина с активной кнопкой Каталог на нижней панели
+        - assert: цветовое оформление может отличаться в зависимости от магазина [https://jing.yandex-team.ru/files/skurhanski/chrome_Gw9upIcJ8I.png]
+        - do: кликнуть по пиктограмме Каталог на нижней панели и далее кликнуть по любой карточке товара
+        - do: пролистать до блока рекомендаций товаров
+        - do: проскроллить блок рекомендаций до конца
+        - do: нажать на последнюю карточку товара
+        - assert: открылась новая страница
+        - do: перейти по истории назад
+        - assert: блок рекомендаций проскроллен до конца
+
+    Слайдер скролится корректно после длительной загрузки карточек:
+      - do: открыть страницу https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog/?category_id=9&category_count=10
+      - do: нажать на второй товар в списке или любой другой у которого есть несклько изображений
+      - assert: открылась детальная страница товара
+      - do: Дождаться завершения загрузки данных
+      - do: перелистнуть картинку
+      - assert: картинка перелистнулась
+
+    Обновление страницы и переход по истории:
+        - automation: TURBOUI-3910
+        - browsers:
+              - chrome-phone
+              - ios-chrome-mobile-touch
+              - ios-safari-11-touch
+              - ios-safari-12-touch
+              - ios-safari-13-touch
+        - do: получить выдачу по запросу 'site:fulmar.ru' (альтернативные запросы - site:kupicase.ru каталог, 'site:super01.ru')
+        - assert: на выдаче присутствует турбо-сниппет(ы) с серой иконкой ракеты справа от гринурла
+        - do: кликнуть по любой ссылке турбо-сниппета для перехода на страницу магазина
+        - assert: открылась страница магазина с активной кнопкой Каталог на нижней панели
+        - assert: цветовое оформление может отличаться в зависимости от магазина [https://jing.yandex-team.ru/files/skurhanski/chrome_Gw9upIcJ8I.png]
+        - do: кликнуть по пиктограмме Каталог на нижней панели
+        - do: нажать на любой товар
+        - assert: открылась страница товара
+        - do: проскроллить страницу товара вниз
+        - do: в блоке "Рекомендуем" нажать на любую карточку
+        - assert: открылась страница товара с карточки
+        - do: обновить страницу
+        - do: нажать кнопку назад устройства или браузера
+        - assert: произошел возврат на страницу ранее открытого товара
+
+    Позиция кнопок после подгрузки данных:
+        - do: перейти по ссылке https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog/?category_id=9
+        - do: нажать на первый товар
+        - screenshot: страница товара открылась, под картинкой товара нет точек [before-load]
+        - do: дождаться загрузки контента
+        - screenshot: под картинкой товара появились точки [after-load]
+        - assert: кнопки "Добавить в корзину" и "Быстрый заказ" не прыгнули вниз
+
+    Показывает попап при добавлении товара с карточки продукта:
+        - do: перейти по ссылке https://yandex.ru/turbo/spideradio.github.io/s/rnd/tvowcsnngw?product_id=92
+        - do: нажать на кнопку "Добавить в корзину"
+        - screenshot: показался, а затем скрылся попап [bottom-bar-popup]
+
+    Залипающая кнопка на странице товара:
+        - do: перейти по ссылке https://yandex.ru/turbo/spideradio.github.io/s/rnd/tvowcsnngw?product_id=92
+        - do: Пролистать страницу до конца пока кнопка "Добавить в корзину" не начнет пропадать в области видимости
+        - screenshot: показалась кнопка "В корзину" над панелью навигации [page]
+
+    Кнопка добавления в избранное:
+        - do: залогиниться на yandex.ru
+        - do: открыть страницу https://yandex.ru/turbo/spideradio.github.io/s/rnd/tvowcsnngw?product_id=92
+        - assert: |
+            открылась карточка товара
+            над картинкой товара отображается кнопка добавления в избранное
+        - screenshot: кнопка выглядит корректно [initial]
+        - do: нажать на кнопку добавления в избранное
+        - screenshot: кнопка меняет цвет на красный [saved]
+        - do: перезагрузить страницу
+        - assert: кнопка все ещё выделена красным
+        - do: повторно нажать на кнопку добавления в избранное
+        - screenshot: кнопка больше не выделена красным [deleted]
+
+    Показывает попап при добавлении в избранное с карточки продукта:
+        - do: авторизоваться в Яндексе
+        - do: перейти по ссылке https://yandex.ru/turbo/spideradio.github.io/s/rnd/tvowcsnngw?product_id=92
+        - assert: |
+              открылась карточка товара
+              над картинкой товара отображается кнопка добавления в избранное
+        - do: нажать на кнопку добавления в избранное
+        - screenshot: показался, а затем скрылся попап [bottom-bar-popup]
+
+    Рендерятся несколько фильтров товара:
+        - do: перейти по ссылке https://yandex.ru/turbo/lixma.ru/s/product/stul-shkolnyj-stil-pljus-regulir-2/?product_id=5140&pcgi=turboofferid%3D5140
+        - assert: на странице товара есть три выпадающих меню с выбором параметров товара
+
+    Лейбл "под заказ" на карточке товара:
+        - tags: no_assessors # используется патч
+        - do: перейти по ссылке https://yandex.ru/turbo/spideradio.github.io/s/rnd/8t7herpitk?product_id=172&patch=setProductIsNotAvailable
+        - assert: на странице товара есть лейбл "Под заказ"
+        - screenshot: внешний вид соответствует скриншоту [label]
+
+    Рекомендации на странице товара:
+        - tags: no_assessors # используется патч
+        - do: перейти по ссылке https://yandex.ru/turbo/spideradio.github.io/s/rnd/2lum7hf3?product_id=202&_ym_debug=1
+        - do: доскроллить вниз до рекомендаций
+        - assert: рекомендации есть на странице
+        - do: доскролить так, чтобы первый товар в карусели был внутри viewport
+        - assert: |
+            проверить, что отправилась цель метрики в счетчик 53911873
+            с названием "product-carousel-seen" и параметрами
+            ecom_spa: 1,
+            host: 'spideradio.github.io',
+            mainOfferId: '202',
+            metrikaIds: \['65243191'\],
+            place: 'productPage',
+            recommendationType: 'personal',
+            reqid: '1611135338710778-1076811384583772757300104-hamster-app-host-vla-web-yp-1',
+            turbo_app_enabled: 1.
+            reqid будет отличаться по значению, но по структуре должен совпадать.
+        - assert: |
+            проверить, что отправилась цель метрики в счетчик 53911873
+            с названием "product-item-seen" и параметрами
+            host: 'spideradio.github.io',
+            mainOfferId: '202',
+            metrikaIds: \['65243191'\],
+            offerId: '127',
+            originalUrl: 'https://spideradio.github.io/rnd/2lum7hf3',
+            place: 'productPage',
+            productUrl: 'https://yandex.ru/turbo/spideradio.github.io/s/?pcgi=rnd%3Djy7b4qqsed',
+            reqid: '1611135338710778-1076811384583772757300104-hamster-app-host-vla-web-yp-1',
+            recommendationType: 'personal',
+            turbo_app_enabled: 1.
+            offerId, reqid и productUrl будут отличаться по значению, но по структуре должны совпадать.
+        - do: нажать кнопку "В корзину"
+        - assert: отправилась цель с теми же параметрами, что и "product-item-seen", но с названием "product-item-click-add-to-cart"
+        - do: нажать на картинку товара
+        - assert: отправилась цель с теми же параметрами, что и "product-item-seen", но с названием "product-item-click"
+
+    Рекомендации с тем же товаром:
+        - tags: no_assessors # используется патч
+        - do: перейти по ссылке https://yandex.ru/turbo/spideradio.github.io/s/rnd/jy7b4qqsed?product_id=127&patch=addProduct202SpideradioRecommendations
+        - assert: в галерее рекомендаций первой рекомендацией идет тот же товар, что и в самой карточке
+        - assert: |
+            отображается информация о доставке товара
+            кнопка `В корзину` не находится в состоянии загрузки (не моргает)
+
+    Кнопки выбора комплектации и быстрого заказа у магазина без корзины:
+        - do: перейти по ссылке https://yandex.ru/turbo/strelka11.ru/s/zashhita-radiatora/standart/nissan-x-trail-iii-restajling-2017-2019-984&product_id=984000059
+        - screenshot: внешний вид кнопок [plain]
+
+    Эксперимент turbo-app-product-image-design:
+      Растягивание картинки товара:
+        - do: перейти по ссылке https://yandex.ru/turbo/super01.ru/s/products/kruzhka-s-artom-soul-knight?product_id=19708&exp_flags=turbo-app-product-image-design=1&exp_flags=turbo-app-listing-design=1
+        - screenshot: внешний вид картинки товара соответствует скриншоту [image]
+
+      Квадратная картинка со скидкой:
+        - do: перейти по ссылке https://yandex.ru/turbo/super01.ru/s/products/myagkaya-igrushka-bolshoi-pikachu-pokemon-pikachu-80-sm-utsenka?product_id=17493_Y&exp_flags=turbo-app-product-image-design=1&exp_flags=turbo-app-listing-design=1
+        - screenshot: внешний вид картинки товара соответствует скриншоту [image]
+        - do: нажать по картинке товара, чтобы она открылась на весь экран
+        - screenshot: внешний вид картинки в просмотрщике соответствует скриншоту [viewer]
+
+      Много картинок в слайдере:
+        - do: перейти по ссылке https://yandex.ru/turbo/aptekabarato.ru/s/barnaul/dlya-sluha/otilor/?product_id=79&exp_flags=turbo-app-product-image-design=1&exp_flags=turbo-app-listing-design=1
+        - screenshot: внешний вид слайдера соответствует скриншоту [image]
+
+      Товар без картинки:
+        - do: перейти по ссылке https://yandex.ru/turbo?text=https://spideradio.github.io/rnd/9j2&product_id=147&exp_flags=turbo-app-product-image-design=1&exp_flags=turbo-app-listing-design=1
+        - screenshot: внешний вид картинки соответствует скриншоту [image]
+
+      Выбор размера и цвета:
+        - do: перейти по ссылке https://yandex.ru/turbo?text=https://ymturbo.t-dir.com/catalog/underwear/lingerie-intimate-evening/&turboofferid=126&exp_flags=turbo-app-product-image-design=1&exp_flags=turbo-app-listing-design=1
+        - screenshot: внешний фильтров товара соответствует скриншоту [filters]
+
+files:
+  - screens/ProductScreen/__tests__/ProductScreen@phone.hermione.js
+
+tlds: ru
+
+tags:
+  - ecom-tap
+
+v-team: Turbo

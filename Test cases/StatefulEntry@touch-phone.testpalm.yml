@@ -1,0 +1,49 @@
+feature: Точка входа на страницу стейтфула
+    
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: плашка про тему Беременность присутствует на выдаче
+  Базовый вариант:
+    params:
+      foreverdata: '3563329814'
+    Внешний вид:
+      - screenshot: внешний вид [stateful-entry]
+    Внешний вид в горизонтальной ориентации:
+      - do: повернуть девайс в горизонтальную ориентацию [stateful-entry-horiz]
+    Ссылка и счетчик:
+      - do: нажать на заголовок колдунщика
+      - assert: ссылка открылась в новой вкладке
+      - tech: сработал счетчик '/$page/$main/$result/stateful-entry/title' c data.themeId равным '2174754698598328073'
+  Базовый вариант с избранным:
+    params:
+      foreverdata: '2980491333'
+    Внешний вид:
+      - screenshot: внешний вид [stateful-entry-fav]
+    Внешний вид в горизонтальной ориентации:
+      - do: повернуть девайс в горизонтальную ориентацию [stateful-entry-fav-horiz]
+  Базовый вариант с большим количеством избранного:
+    params:
+      foreverdata: '1182070855'
+    Внешний вид:
+      - screenshot: внешний вид [stateful-entry-fav]
+  Вариант с фиолетовым сабтайтлом:
+    params:
+      foreverdata: '2634301389'
+    Внешний вид:
+      - screenshot: внешний вид [stateful-entry-alice]
+  Вариант с фиолетовым сабтайтлом с большим количеством избранного:
+    params:
+      foreverdata: '2098195610'
+    Внешний вид:
+      - screenshot: внешний вид [stateful-entry-alice-fav]
+
+files:
+  - src/features/StatefulEntry/StatefulEntry.test/StatefulEntry@touch-phone.hermione.js
+
+v-team: Freshness
+
+tags:
+  - skip_e2e_check
+
+tlds: all

@@ -1,0 +1,79 @@
+feature: Смартбаннер React
+type: button
+
+params:
+  exp_flags:
+    - smartbanner_atom=1
+
+specs:
+  Скромный смартбаннер, короткий заголовок:
+    - params:
+        foreverdata: '1198104246'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: появился смартбаннер с заголовком, отцентрированный по горизонтали
+    - screenshot: Пример внешнего вида смартбаннера [smartbanner-button-centered]
+
+  Скромный смартбаннер, эталонный заголовок:
+    - params:
+        foreverdata: '1270428695'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: появился смартбаннер, растянутый контентом заголовка и отцентрированный по горизонтали
+    - screenshot: Пример внешнего вида смартбаннера [smartbanner-button]
+
+  Скромный смартбаннер, эталонный заголовок, проверка кликабельных областей:
+    - tags: no_assessors
+    - params:
+        foreverdata: '1270428695'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: появился смартбаннер с заголовком
+    - do: |
+        выполнить в devTools/console
+        window.$('.DistrSmartbanner-Control_type_action').css('background', 'blue')
+        window.$('.DistrSmartbanner-Control_type_close').css('background', 'red')
+    - screenshot: Пример внешнего вида смартбаннера с выделенными кликабельными областями [smartbanner-button-clickable-area]
+
+  Скромный смартбаннер, длинный заголовок с обрезанием текста и троеточием:
+    - params:
+        foreverdata: '720303474'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: |
+        появился смартбаннер, растянутый контентом заголовка до границ экрана с учетом отступов
+        лишний текст обрезан троеточием
+    - screenshot: Пример внешнего вида смартбаннера [smartbanner-button-long]
+
+  Скромный смартбаннер, установка цвета:
+    - params:
+        foreverdata: '4008142256'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: появился смартбаннер с желтым цветом фона и иконкой
+    - screenshot: Пример внешнего вида смартбаннера [smartbanner-button-colored]
+
+  По клику на смартбаннер он должен скрываться:
+    - params:
+        foreverdata: '1270428695'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: появился смартбаннер с заголовком
+    - do: клик на область баннера
+    - assert: смартбаннер исчез до момента перехода по ссылке
+    - tech: сработал счётчик на скачивание /$page/microdistribution/ok
+
+  По клику на кнопку закрытия смартбаннер должен скрываться:
+    - params:
+        foreverdata: '1270428695'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: появился смартбаннер с заголовком
+    - do: клик в кнопку 'Закрыть'
+    - assert: смартбаннер исчез
+    - tech: сработал счётчик на закрытие /$page/microdistribution/close
+
+files:
+  - src/features/DistrSmartbannerReact/DistrSmartbannerReact.test/distr-smartbanner_type_button/distr-smartbanner_type_button@touch-phone.hermione.js
+
+tags:
+  - skip_e2e_check
+  - distribution
+  - smartbanner
+
+v-team: Distribution
+
+tlds: all

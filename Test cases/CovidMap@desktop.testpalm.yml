@@ -1,0 +1,16 @@
+feature: Карта коронавируса
+
+specs:
+  Основные проверки:
+    - do: получить выдачу по запросу 'коронавирус карта россии'
+    - assert: на выдаче есть карта коронавируса
+    - screenshot: пример внешнего вида карты [https://jing.yandex-team.ru/files/sladex/2021-09-14T09:34:58Z.6e91126.png]
+
+files:
+  - src/features/CovidMap/CovidMap.test/CovidMap@desktop.hermione.js
+
+counter: /$page/$main/$result[@wizard_name="special/event" and @subtype="virus_map"]
+
+v-team: VanillaGeo
+
+tlds: all

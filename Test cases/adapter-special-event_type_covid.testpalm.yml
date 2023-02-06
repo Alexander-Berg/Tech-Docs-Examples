@@ -1,0 +1,40 @@
+feature: Специальные события
+type: Коронавирус
+
+specs:
+  Гистограмма:
+    params:
+      foreverdata: '3219852521'
+      exp_flags: hide-popups=1
+    Гистограмма новых заболеваний:
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: |
+          на выдаче присутствует колдунщик коронавируса
+          под заголовком "Сколько новых подтверждённых заболеваний?" присутствует гистограмма новых заболеваний
+      - screenshot: внешний вид гистограммы [chart-delta]
+      - do: навести мышь на любой столбец
+      - assert: столбец выделился цветом, над ним появилась подпись со значением, а под ним - подпись с датой
+      - screenshot: внешний вид гистограммы с выделенным столбцом [chart-delta-active]
+    Гистограмма числа заболевших:
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: |
+          на выдаче присутствует колдунщик коронавируса
+          под заголовком "Сколько заболело в России?" присутствует гистограмма числа заболевших
+      - screenshot: внешний вид гистограммы [chart-current]
+      - do: навести мышь на любой столбец
+      - assert: столбец выделился цветом, над ним появилась подпись со значением, а под ним - подпись с датой
+      - screenshot: внешний вид гистограммы с выделенным столбцом [chart-current-active]
+
+tags: [smoke]
+
+priority: high
+
+counter: /$page/$main/$result[@wizard_name="special/event" and @subtype="coronavirus"]
+
+files:
+  - features/desktop/adapter-special-event/adapter-special-event_type_other/adapter-special-event_type_covid.hermione.js
+
+v-team: Freshness
+
+tlds:
+  - ru

@@ -1,0 +1,20 @@
+feature: Яндекс.Здоровье
+type: Статья
+
+specs:
+  Источник со стандартным лого:
+    - do: открыть страницу '/turbo?stub=healtharticlesource/source.json'
+    - screenshot: внешний вид соответствует скриншоту [health-article-source]
+
+  Источник с лого из списка избранных:
+    - do: открыть страницу '/turbo?stub=healtharticlesource/favorite.json'
+    - screenshot: внешний вид соответствует скриншоту [health-article-source]
+
+files:
+  - platform/components/HealthArticleSource/__tests__/HealthArticleSource.hermione.js
+
+v-team: Health
+
+manager: alenka-md
+
+tlds: ru

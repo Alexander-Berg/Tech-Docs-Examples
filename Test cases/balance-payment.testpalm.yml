@@ -1,0 +1,36 @@
+feature: Пополнение счета
+
+import-steps:
+  - tests/hermione/shared-steps/registration.testpalm.steps.yml
+
+specs:
+  Положительные:
+    1. Редирект на заполнение платежной информации:
+      - do: авторизоваться под учеткой в паспорте у которой есть организация или зарегистрироваться и создать организацию
+      - attach: Регистрация организации с промо коннекта
+      - do: перейти по ссылке {{CONNECT_HOST}}/portal/balance
+      - assert: выполнился переход на страницу {{CONNECT_HOST}}/portal/balance/contract?source=balance
+
+  Отрицательные:
+    1. Сотрудник у которого уже есть client_id:
+      - do: залогиниться под админом у которого есть свой client_id и в его организации заполнена платежная информация и перейти по ссылке {{CONNECT_HOST}}/portal/balance
+      - do: |
+          ввести сумму в поле "Сумма"
+          нажать на кнопку "Пополнить"
+      - assert: под полем "Сумма" появилось сообщение красного цвета "К сожалению, ваш аккаунт используется для оплаты другого сервиса Яндекса. Для проведения оплаты, пожалуйста, используйте другой аккаунт администратора или создайте новый."
+      - screenshot: скриншот формы с сообщением [balance-payment-error]
+
+priority: blocker
+
+files:
+  - tests/hermione/suites/payment/balance-payment.js
+
+tlds:
+ - ru
+ - com
+
+tags:
+  - smoke_test_assessors
+  - regression
+  - smoke_test
+  - reviewed

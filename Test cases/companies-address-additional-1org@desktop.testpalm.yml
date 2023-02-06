@@ -1,0 +1,24 @@
+feature: Колдунщик 1орг
+type: Клеим доп. адрес к адресу
+
+specs:
+  Проверяем наличие доп. адреса в колдунщике 1орг:
+    - params:
+        foreverdata: '3702962556'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: |
+        в выдаче есть блок 1орг в правой колонке
+        Адрес организации заканчивается доп. адресом в скобках: площадь Киевского Вокзала, 2, Москва (Европейский, 2 этаж)
+
+files:
+  - features/companies/companies-address-additional-1org@desktop.hermione.js
+
+v-team: VanillaGeo
+
+tlds: all
+
+counter: /$page/$parallel/$result[@wizard_name="companies"]/composite/tabs/about/contacts/address
+
+# сама ссылка проверяется здесьfeatures/desktop/companies/one/companies-one.hermione.e2e.js
+tags:
+  - skip_e2e_check

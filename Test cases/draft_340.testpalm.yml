@@ -1,0 +1,18 @@
+feature:  Умный дом - Households - Выбор активного дома на списке устройств
+
+specs:
+    Умный дом - Households - Выбор активного дома на списке устройств:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/3223
+        - release_Webview
+        - platform_ios
+        - platform_android
+        - webview_regress
+        - iot_households
+    - do: "Preconditions На аккаунте есть несколько домов"
+    - do: "На главном экране `устройства`: ; - Заголовок страницы `Мой дом` имеет контрол, показывающий на его `выпадучесть`; - При клике открывается выпадающее меню снизу со списком домов и пунктом `Добавить новый дом`.; "
+    - assert: "По тапу на контрол снизу экрана выпадает список домов:; ; <img src=`https://jing.yandex-team.ru/files/rbol/Spisok_ustroistv__Figma_2021-03-31_13-43-29.7d24aad.png` alt=`Скриншот` >"
+    - do: "Тапнуть на дом, отличный от текущего "
+    - assert: "Становится активным выбранный дом"
+    - do: "Выбрать дом без устройств"
+    - assert: "Отображается экран с плитками подключения колонок/УД:; ![](https://jing.yandex-team.ru/files/lawyard/Spisok_ustroistv__Figma_2021-04-06_11-23-52.png)"

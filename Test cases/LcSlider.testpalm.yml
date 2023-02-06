@@ -1,0 +1,23 @@
+feature: LcSlider
+
+tags: no_assessors
+
+specs:
+  Внешний вид блока:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcslider/default.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Внешний вид блока c длинным описанием:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcslider/longDescription.json)
+    - assert: Длинное описание переносится но новую строку
+    - screenshot: Внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/components/LcSlider/__tests__/LcSlider.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: olimiya, kossakovskaya, shinuta
+
+tlds: none

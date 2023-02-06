@@ -1,0 +1,21 @@
+feature: Просмоторщик коллекций в Новостях (news-media-viewer)
+
+specs:
+  Внешний вид просмоторщика коллекций:
+    - do: открыть страницу примера блока slider yandex.ru/turbo?stub=newscardshecollection/default.json
+    - do: кликнуть на первом слайде
+    - assert: появился просмоторщик
+    - screenshot: внешний вид соответствует скриншоту [basic]
+
+browsers:
+  notFor:
+    - android-browser-4.4-touch
+
+files:
+  - platform/components/NewsMediaViewer/__tests__/news-media-viewer.hermione.js
+
+v-team: News
+
+manager: glushneva
+
+tlds: none

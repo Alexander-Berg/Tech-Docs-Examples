@@ -1,0 +1,17 @@
+feature: news-quote
+
+specs:
+  Внешний вид блока:
+    - params:
+        foreverdata: '446683467'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок первого сниппета (название заголовка Тестовая страница для компонента NewsQuote — Турбо)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/components/NewsQuote/__tests__/news-quote.hermione.js
+
+v-team: News
+
+manager: glushneva
+
+tlds: none

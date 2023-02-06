@@ -1,0 +1,29 @@
+feature: Смартбаннер React
+type: with-tooltip
+
+params:
+  foreverdata: '3769250375'
+  exp_flags:
+    - smartbanner_atom=1
+
+specs:
+  beforeEach:
+  - do: удалить cookie
+  - do: получить выдачу по запросу 'foreverdata'
+  Смартбаннер находится над тултипом verified:
+  - do: проскроллить вниз и кликнуть по метке кредитных организаций в рекламном сниппете
+  - assert: смартбаннер находится над тултипом кредитных организаций
+  - screenshot: Пример внешнего вида смартбаннера [plain]
+
+files:
+  - src/features/DistrSmartbannerReact/DistrSmartbannerReact.test/distr-smartbanner_with_tooltip/DistrSmartbanner_with_tooltip@touch-phone.hermione.js
+
+tags:
+  - skip_e2e_check
+  - distribution
+  - smartbanner
+
+tlds:
+  - ru
+
+v-team: Distribution

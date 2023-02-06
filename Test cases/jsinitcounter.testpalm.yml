@@ -1,0 +1,45 @@
+feature: Счётчики инита скриптов
+
+specs:
+  Проверка отправки счетчиков инита скриптов:
+    - do: открыть главную страницу Яндекса с параметром '/turbo?text=test_news'
+    - assert: открывается турбо-страница в той же вкладке
+    - tech: проверить наличие счётчиков 690.2096.207 (/tech/perf/time)
+    - tech: |
+        Со следующими наборами переменных
+        143(page)='28.2719.584'(/ru/turbo/touch), 1701(id)='2295'(bem-inited), -id='2719.2295'
+        143(page)='28.2719.584'(/ru/turbo/touch), 1701(id)='3872'(react-inited), -id='2719.3872'
+  Собирается время загрузки main.js:
+    - do: открыть главную страницу Яндекса с параметром '/turbo?text=test_news'
+    - assert: открывается турбо-страница в той же вкладке
+    - tech: проверить наличие счётчиков 690.2096.2044 (/tech/perf/resource_timing)
+    - tech: |
+        Со следующими наборами переменных
+        143(page)='28.2719.584'(/ru/turbo/touch), 1701(id)='2095'(main-js)'
+  Собирается время загрузки react-with-dom.js:
+    - do: открыть главную страницу Яндекса с параметром '/turbo?text=test_news'
+    - assert: открывается турбо-страница в той же вкладке
+    - tech: проверить наличие счётчиков 690.2096.2044 (/tech/perf/resource_timing)
+    - tech: |
+        Со следующими наборами переменных
+        143(page)='28.2719.584'(/ru/turbo/touch), 1701(id)='3874'(react-with-dom-js)'
+  Собирается время загрузки bundles.common.js:
+    - do: открыть главную страницу Яндекса с параметром '/turbo?text=test_news'
+    - assert: открывается турбо-страница в той же вкладке
+    - tech: проверить наличие счётчиков 690.2096.2044 (/tech/perf/resource_timing)
+    - tech: |
+        Со следующими наборами переменных
+        143(page)='28.2719.584'(/ru/turbo/touch), 1701(id)='3873'(bundles-common-js)'
+
+files:
+  - features/common/jsinitcounter.hermione.js
+
+v-team: Turbo
+
+tags: no_assessors
+
+manager: gfranco
+
+qa-engineer: olga0321, dakhetov
+
+tlds: none

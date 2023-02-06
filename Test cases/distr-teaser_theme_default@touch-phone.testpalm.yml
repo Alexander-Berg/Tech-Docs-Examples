@@ -1,0 +1,51 @@
+feature: Дистрибуционный тизер
+type: Default
+
+params:
+  foreverdata: '254983438'
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: появился дистрибуционный тизер на выдаче
+  Внешний вид default horizontal:
+    - label: TeaserD-{{SET_NAME}}
+    - screenshot: внешний вид [plain]
+    - do: повернуть устройство в ландшафтную (горизонтальную) ориентацию
+    - screenshot: пример внешнего вида в ландшафтной ориентации [horizontal]
+  По клику на кнопку 'Установить' тизер должен скрываться:
+    - screenshot: внешний вид [TeaserD-{{SET_NAME}} >> plain]
+    - tech: проверить счётчик в кнопке 'Установить'
+    - do: клик в кнопку 'Сохраните'
+    - counter: /distr/teaser/click
+    - assert: тизер исчез
+    - assert: открылся магазин приложений
+  По клику на кнопку 'Установить' ссылка открывается в новой вкладке:
+    - screenshot: внешний вид [TeaserD-{{SET_NAME}} >> plain]
+    - do: клик в кнопку 'Сохраните'
+    - counter: /distr/teaser/click
+    - assert: ссылка открылась в новом табе
+    - assert: открылся магазин приложений
+  По клику на кнопку 'Закрыть' тизер должен скрываться:
+    - screenshot: внешний вид [TeaserD-{{SET_NAME}} >> plain]
+    - tech: проверить счётчик в кнопке 'Закрыть'
+    - do: клик в кнопку 'Закрыть'
+    - counter: /distr/teaser/close
+    - assert: тизер исчез
+
+files:
+  - features/distr-teaser/distr-teaser_theme_default@touch-phone.hermione.js
+
+tags:
+  - skip_e2e_check
+  - distribution
+
+v-team: Distribution
+
+tlds:
+  - ru
+  - by
+
+browsers:
+  notFor:
+    - searchapp-phone

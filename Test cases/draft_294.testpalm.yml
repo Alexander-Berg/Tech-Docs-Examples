@@ -1,0 +1,15 @@
+feature:  Уведомления - баннер
+
+specs:
+    Уведомления - баннер:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/3078
+        - release_Webview
+        - platform_common
+    - do: "Preconditions На аккаунте есть станция/станция-2/мини"
+    - do: "Открыть ПП - Устройства - Настройки - Уведомления от Алисы"
+    - assert: "Отображается баннер; ![](https://jing.yandex-team.ru/files/osennikovak/2021-01-27T14:01:33Z.3e03bbc.png)"
+    - do: "Закрыть баннер тапом на крестик"
+    - assert: "Баннер закрылся"
+    - do: "Открыть новую вкладку Устройства - Настройки - Уведомления от Алисы"
+    - assert: "Баннер не отображается"

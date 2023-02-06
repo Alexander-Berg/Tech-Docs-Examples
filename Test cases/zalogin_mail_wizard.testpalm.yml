@@ -1,0 +1,44 @@
+feature: Залогин в спецсниппете Яндекс.Почты
+
+specs:
+  С cookieL:
+    - params:
+        foreverdata: '3818842428'
+    - do: неавторизованным пользователем получить выдачу по запросу 'foreverdata'
+    - assert: серая кнопка Войти в почту и логин присутствуют под спец.сниппетом Яндекс Почты
+    - screenshot: пример внешнего вида [zalogin-mail-cookiel]
+
+  Без cookieL:
+    - params:
+        foreverdata: '387374731'
+    - do: неавторизованным пользователем получить выдачу по запросу 'foreverdata'
+    - assert: кнопки залогина присутствуют под спец.сниппетом Яндекс Почты
+    - screenshot: пример внешнего вида [zalogin-mail]
+
+  Кнопка Войти:
+    - params:
+        exp_flags: 'zalogin_mail_wizard=1'
+        foreverdata: '387374731'
+    - do: проверить кнопку "Войти"
+    - assert: ссылка ведет на сайт https://passport.yandex.ru/auth
+    - tech: ссылка содержит счетчик origin = 'serp_mail_snippet'
+
+  Кнопка Регистрация:
+    - params:
+        exp_flags: 'zalogin_mail_wizard=1'
+        foreverdata: '387374731'
+    - do: проверить кнопку "Регистрация"
+    - assert: ссылка ведет на сайт https://passport.yandex.ru/registration
+    - tech: ссылка содержит счетчик origin = 'serp_mail_snippet'
+
+files:
+  - features/desktop/zalogin_mail_wizard/zalogin_mail_wizard.hermione.js
+
+v-team: Distribution
+
+tags:
+  - skip_e2e_check
+  - zalogin
+  - distribution
+
+tlds: [ru]

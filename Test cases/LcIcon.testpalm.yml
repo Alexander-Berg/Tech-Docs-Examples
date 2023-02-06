@@ -1,0 +1,41 @@
+feature: LcIcon
+
+tags: no_assessors
+
+specs:
+  Все виды иконок:
+    - do: открыть страницу блока LcIcon (https://yandex.ru/turbo?stub=lcicon/default.json)
+    - assert: отображается вертикальный список иконок
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Стилизация иконки:
+    - do: открыть страницу блока LcIcon с разными стилями (https://yandex.ru/turbo?stub=lcicon/with-custom-style.json)
+    - assert: иконка с заданым цветом, применен цвет фона и цвет обводки
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Размеры иконок:
+    - do: открыть страницу блока LcIcon в разных размерах (https://yandex.ru/turbo?stub=lcicon/with-size.json)
+    - assert: иконки не «мылятся» при любом размере
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Свойство hidden:
+    - do: открыть страницу блока LcIcon со спрятаной иконкой (https://yandex.ru/turbo?stub=lcicon/hidden.json)
+    - assert: отображается только одна иконка из двух
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Иконка со ссылкой:
+    - do: открыть страницу блока LcIcon с иконкой-ссылкой (https://yandex.ru/turbo?stub=lcicon/link.json)
+    - assert: отображается иконка
+    - screenshot: внешний вид соответствует скриншоту [plain]
+    - do: навести указатель мыши на иконку
+    - assert: внешний вид иконки не поменялся
+    - screenshot: внешний вид соответствует скриншоту [hovered]
+    - do: кликнуть по иконке
+    - assert: открылась страница https://yandex.ru/turbo?stub=title/default.json
+
+files:
+    - platform/components/LcIcon/__tests__/LcIcon.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: olimiya, shinuta
+
+tlds: none

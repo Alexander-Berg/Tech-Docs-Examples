@@ -1,0 +1,41 @@
+feature: Сниппет форумов
+type: Темы
+
+# форум с темами
+specs:
+  Внешний вид и ссылки:
+    - do: получить выдачу Поиска по запросу 'перепрошивка iphone форумы'
+    - screenshot: на выдаче есть форумный сниппет с темами (и количеством сообщений), пример внешнего вида [plain]
+    - tech: проверить счетчик на показ тайтла
+    - tech: проверить счетчик на показ гринурла
+    - tech: проверить счетчик на показ первой ссылки на тему
+    - assert: |
+        ссылка в тайтле форумного сниппета работает и открывается
+        ссылка в гринурле форумного сниппета работает и открывается
+        первая ссылка на тему в форумном сниппете работает и открывается
+    - tech: проверить счетчик в тайтле path = "/$page/$main/$result[@type="organic" and @subtype="forum_topic"]/title"
+    - tech: проверить счетчик в гринурле path = "/$page/$main/$result[@type="organic" and @subtype="forum_topic"]/path/urlnav"
+    - tech: проверить счетчик в первой ссылке на тему path = "/$page/$main/$result[@type="organic" and @subtype="forum_topic"]/table/link"
+
+specs-integration:
+  Внешний вид:
+    - do: получить выдачу Поиска по запросу 'перепрошивка iphone форумы'
+    - assert: на выдаче есть форумный сниппет с датами сообщений
+    - counter: /$page/$main/$result[@type="organic" and @subtype="forum_topic"]/table/link
+
+files:
+  - features/forum/forum_type_topic@deskpad.hermione.js
+  - features/forum/forum_type_topic@deskpad.hermione.e2e.js
+
+v-team: Turbo
+
+tags:
+  - reviewed
+
+tlds:
+  - ru
+  - by
+  - ua
+  - kz
+
+counter: /$page/$main/$result[@type="organic" and @subtype="forum_topic"]

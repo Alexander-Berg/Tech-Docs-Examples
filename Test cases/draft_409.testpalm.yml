@@ -1,0 +1,15 @@
+feature:  Умный дом - Датчики - Иконка девайса в условии срабатывания
+
+specs:
+    Умный дом - Датчики - Иконка девайса в условии срабатывания:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/3527
+        - release_Webview
+        - platform_common
+        - testid_339235
+        - iot_scenario
+    - do: "Preconditions На аккаунте есть датчик/устройство с датчиком числовых показаний(напр. увлажнитель, розетка, датчик влажности)"
+    - do: "Начать создавать сценарий; Выбрать триггер по датчику"
+    - assert: ""
+    - do: "Добавить устройство, имеющее датчик; Добавить любой триггер ; Сохранить"
+    - assert: "Иконка девайса отображается в сценарии; ; <img src=`https://jing.yandex-team.ru/files/levkovskayama/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202021-09-09%20%D0%B2%2023.58.35.4a4faf8.png` alt=`Скриншот` width=`300`/>; ; <img src=`https://jing.yandex-team.ru/files/levkovskayama/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202021-09-09%20%D0%B2%2023.57.24.cce7878.png` alt=`Скриншот` width=`300`/>"

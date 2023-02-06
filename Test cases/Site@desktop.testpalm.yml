@@ -1,0 +1,21 @@
+feature: Контакты организации
+
+specs:
+  Сайт:
+    Должен открыться сайт организации в новой вкладке:
+      - do: получить выдачу по запросу 'кафе пушкин'
+      - assert: в правой колонке есть колдунщик организации
+      - do: кликнуть в сайт орагнизации
+      - assert: открылся сайт организации в новой вкладке
+      - tech: отправился счетчик mc.yandex.ru/watch/57901423 с параметром site
+
+files:
+  - src/features/Companies/Companies.features/OrgContacts/OrgContacts.test/Site/Site@desktop.hermione.js
+
+v-team: VanillaGeo
+
+counter: /$page/$parallel/$result[@wizard_name="companies" and @subtype="company"]/composite/tabs/about/contacts
+
+tags: skip_e2e_check
+
+tlds: all

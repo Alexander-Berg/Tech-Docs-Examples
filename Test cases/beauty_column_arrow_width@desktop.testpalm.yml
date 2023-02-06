@@ -1,0 +1,17 @@
+feature: Ширина стрелки
+
+specs:
+  Внешний вид:
+    - params:
+        exp_flags:
+          - beauty_column_arrow_width=200:200
+    - do: получить выдачу по запросу 'котики картинки'
+    - screenshot: ширина стрелки соответствуют скриншоту [plain]
+
+files:
+  - features/beauty-column/beauty_column_arrow_width@desktop.hermione.js
+
+v-team: Beauty
+
+tlds: all
+

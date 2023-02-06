@@ -1,0 +1,15 @@
+feature: Устройства
+
+files:
+  - tests/hermione/suites/touch/legacy/devices/color-speakers.hermione.js
+
+specs:
+  'Цветные колонки':
+    'Станция Макс':
+      - automation: TODO
+    'Лайт':
+      - automation: TODO
+    'Мини 2':
+      - automation: TODO
+    'Миди':
+      - automation: TODO

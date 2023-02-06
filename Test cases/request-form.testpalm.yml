@@ -1,0 +1,20 @@
+feature: "Dispenser: Форма заказа оборудования"
+
+specs:
+  beforeEach:
+    - do: Залогиниться под пользователем robot-abc-002
+
+  Внешний вид формы:
+    - do: открыть страницу редактирования заявки 5086 (/hardware/5086/edit)
+    - screenshot: внешний вид формы [form]
+    - screenshot: внешний вид провайдера [provider]
+    - do: навести курсор мыши на первую строку с ресурсом
+    - screenshot: внешний вид строки при наведении [row-hovered]
+
+files:
+  - test/features/desktop/dispenser/request-form.hermione.js
+
+priority: blocker
+
+tags:
+  - no_assessors

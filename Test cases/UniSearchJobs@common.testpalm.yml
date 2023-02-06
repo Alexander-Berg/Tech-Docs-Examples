@@ -1,0 +1,36 @@
+feature: Универсальный колдунщик поиска вакансий
+
+specs:
+  Внешний вид:
+    - params:
+        foreverdata: '1893390488'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на выдаче есть универсальный колдунщик вакансий
+    - screenshot: внешний вид [plain]
+
+  Переход по ссылке вакансии:
+    - params:
+        foreverdata: '1634108701'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на выдаче есть универсальный колдунщик вакансий
+    - do: нажать по заголовку первой вакансии
+    - tech: сработал счётчик "/$page/$main/$result/unisearch_vacancies/item/link"
+
+  Переход по ссылке из списка сайтов:
+    - params:
+        foreverdata: '1634108701'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на выдаче есть универсальный колдунщик вакансий
+    - do: нажать на ссылку hh.ru у первой вакансии
+    - tech: сработал счётчик "/$page/$main/$result/unisearch_vacancies/item/site-link/link"
+
+files:
+  - src/features/UniSearch/UniSearch.features/UniSearchJobs/UniSearchJobs.test/UniSearchJobs@common.hermione.js
+
+v-team: UniSearch
+
+tlds: [ru, by, ua, kz, uz]
+
+tags:
+  - react
+  - skip_e2e_check

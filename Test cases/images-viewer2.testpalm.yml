@@ -1,0 +1,88 @@
+feature: Объектный ответ
+type: Просмотрщик картинок
+counter: /$page/$main/$result[@wizard_name="entity_search"]/gallery/scroller/row/thumb
+
+specs-integration:
+  Просмотрщик на серпе:
+    - do: получить выдачу по запросу 'Нил Патрик Харрис'
+    - assert: появился объектный ответ
+    - assert: в карточке есть галерея
+    - do: кликнуть по первой картинке в галерее
+    - assert: открылся просмотрщик
+    - do: кликнуть на крестик
+    - assert: просмотрщик закрылся
+
+specs:
+  На СЕРПе:
+    beforeEach:
+      - do: получить выдачу по запросу 'Том Харди'
+      - assert: появилась карточка объекта
+      - assert: нажать на первую картинку в галерее
+    Открывается при клике на картинку в галерее:
+      - screenshot: внешний вид [imagesViewer2]
+      - assert: |
+          открылось окно просмотра картинок
+          окно просмотра картинок имеет светлый фон
+          окно просмотра картинок открылось на весь экран
+      - tech: сработал счетчик /$page/$main/$result[@wizard_name="entity_search"]/images-viewer
+      - assertMetrics: '*'
+    Закрывается по крестику:
+      - assert: открылось окно просмотра картинок
+      - do: нажать на крестик
+      - assert: окно просмотра картинок закрылось
+      - tech: сработал счетчик /$page/$main/$result[@wizard_name="entity_search"]/images-viewer/close
+      - assertMetrics: '*'
+    Закрывается свайпом вниз:
+      - browsers:
+          notFor:
+            - searchapp-phone
+      - assert: открылось окно просмотра картинок
+      - do: свайпнуть вниз на окне просмотра картинок
+      - assert: окно просмотра картинок закрылось
+      - tech: сработал счетчик /$page/$main/$result[@wizard_name="entity_search"]/images-viewer/close
+      - assertMetrics: '*'
+    Закрывается при переходе по истории назад:
+      - browsers:
+          notFor:
+            - ios-pp-3.2-touch
+            - ios-touch-group
+      - assert: открылось окно просмотра картинок
+      - do: нажать кнопку "назад" на устройстве
+      - assert: окно просмотра картинок закрылось
+      - assertMetrics: '*'
+    Полноэкранный режим просмотра открывается и закрывается:
+      - tags:
+        - pp_new_core
+      - assert: открылось окно просмотра картинок
+      - do: нажать на середину картинки
+      - assert: кнопки (крестик, скачать) скрылись
+      - screenshot: внешний вид [imagesViewer2_fullscreen]
+      - do: нажать на картинку
+      - assert: кнопки (крестик, скачать) снова отображаются
+      - assertMetrics: '*'
+    Картинки листаются по нажатию на край экрана:
+      - assert: открылось окно просмотра картинок
+      - do: нажать на правую сторону картинки
+      - assert: картинка переключилась на следущую
+      - tech: сработал счетчик со скроллом карусели /$page/$main/$result/images-viewer/carousel
+      - tech: сработал счетчик открытия просмотрщика /$page/$main/$result/images-viewer
+      - do: нажать на левую сторону картинки
+      - assert: картинка переключилась на предыдущую
+      - tech: сработал счетчик со скроллом карусели /$page/$main/$result/images-viewer/carousel
+      - tech: сработал счетчик открытия просмотрщика /$page/$main/$result/images-viewer
+      - assertMetrics: '*'
+    Скачивание картинки:
+      - tags:
+        - pp_new_core
+      - do: нажать на иконку скачивания
+      - tech: сработал счетчик /snippet/entity_search/object-badge/gallery/open/
+      - assert: скачалась картинка или открылось окно просмотра картинок
+      - assertMetrics: '*'
+
+files:
+  - features/touch-phone/z-entity-search/images-viewer2/images-viewer2.hermione.js
+  - features/touch-phone/z-entity-search/images-viewer2/images-viewer2.hermione.e2e.js
+
+v-team: OO
+
+tlds: ['ru', 'ua', 'by', 'kz', 'com', 'com.tr']

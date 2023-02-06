@@ -1,0 +1,30 @@
+feature: Объектный ответ
+type: Рейтинги
+
+counter: /$page/$main/$result[@wizard_name="entity_search"]/object-badge/link
+
+specs-integration:
+  Базовая проверка рейтингов:
+    - counter: /$page/$main/$result[@wizard_name="entity_search"]/object-badge/rating/link
+    - do: получить выдачу по запросу 'маша и медведь'
+    - assert: на выдаче есть карточка ОО
+    - assert: в карточке есть рейтинги
+
+specs:
+  Базовые проверки:
+    - do: получить выдачу по запросу 'mass effect 3'
+    - assert: на выдаче есть карточка ОО, в карточке есть рейтинги
+    - screenshot: пример внешнего вида [rating]
+    - do: кликнуть на ссылку рейтинга
+    - assert: открылась ссылка в новой вкладке
+    - tech: сработал счетчик /snippet/entity_search/object-badge/rating/link
+    - assertMetrics: '*'
+
+files:
+  - features/touch-phone/z-entity-search/rating/rating.hermione.js
+  - features/touch-phone/z-entity-search/rating/rating.hermione.e2e.js
+
+v-team: OO
+
+tlds: all
+

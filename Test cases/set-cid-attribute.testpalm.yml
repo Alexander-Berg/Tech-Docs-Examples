@@ -1,0 +1,19 @@
+feature: Простановка атрибутов data-cid
+
+specs:
+  Проставляется data-cid для каждого блока в поисковой выдаче:
+    - do: получить выдачу по запросу 'котики'
+    - tech: у каждого блока в поисковой выдаче должен быть атрибут data-cid с проставленным номером
+
+files:
+  - features/common/set-cid-attribute/set-cid-attribute.hermione.js
+
+v-team: Techno
+
+tags:
+  - cid
+  - counters
+  - reviewed
+  - no_assessors
+
+tlds: none

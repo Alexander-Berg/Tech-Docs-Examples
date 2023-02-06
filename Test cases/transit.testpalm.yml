@@ -1,0 +1,34 @@
+feature: Колдунщик топонимов
+type: Маршруты общественного транспорта
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу 'трамвай 17 маршрут москва' _ALTERNATIVE_SEARCH_QUERIES_
+  Внешний вид:
+    - screenshot: внешний вид [plain]
+  Cсылки и счётчики:
+    - tags:
+        - title
+        - greenurl
+        - map
+    - do: перейти по тайтлу
+    - assert: |
+        произошёл переход на сервис Яндекс.Карты
+        на сервисе отображается схема искомого маршрута
+    - do: вернуться на страницу выдачи результатов и кликнуть на статичную карту
+    - assert: |
+        произошёл переход на сервис Яндекс.Карты
+        на сервисе отображается схема искомого маршрута
+    - assertMetrics: '*'
+
+files:
+  - features/touch-phone/adapter-maps/transit.hermione.js
+
+v-team: VanillaGeo
+
+tlds: all
+
+counter: /$page/$main/$result[@wizard_name="maps" and @subtype="transit"]
+
+tags:
+  - hasE2E

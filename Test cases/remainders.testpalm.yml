@@ -1,0 +1,28 @@
+feature: "Dispenser: Заявка на оборудование"
+
+specs:
+  beforeEach:
+    - do: Залогиниться под пользователем robot-abc-002
+
+  Просмотр остатка для выдачи в заказе:
+    1. на русском языке:
+      - do: открыть страницу заявки 4758 (/hardware/4758)
+      - do: кликнуть на карточку CPU
+      - screenshot: блок ресурса с неактивной кнопкой "Осталось выдать" [remainder-closed-ru]
+      - do: кликнуть на кнопку "Осталось выдать"
+      - screenshot: блок ресурса с открытым попапом остатка [remainder-open-ru]
+
+    2. на английском языке:
+      - do: открыть страницу заявки 4758 на английском языке (/hardware/4758?lang=en)
+      - do: кликнуть на карточку CPU
+      - screenshot: блок ресурса с неактивной кнопкой "Осталось выдать" [remainder-closed-en]
+      - do: кликнуть на кнопку "Осталось выдать"
+      - screenshot: блок ресурса с открытым попапом остатка [remainder-open-en]
+
+files:
+  - test/features/desktop/dispenser/remainders.hermione.js
+
+priority: critical
+
+tags:
+  - no_assessors

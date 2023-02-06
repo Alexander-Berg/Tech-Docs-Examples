@@ -1,0 +1,27 @@
+feature: Кандидат.Испытания
+type: Активное и архивное рассмотрение
+
+specs:
+    Внешний вид секций с активными и архивными рассмотрениями:
+        - do: открыть кандидата с архивными испытаниями в котором были испытания /candidates/<id_кандидата>/interviews/
+        - assert: |
+            на вкладке испытаний есть тайтл Архив
+            в архиве есть период дат испытаний
+            в архивах есть Источник
+            в архиве с испытаниями есть свернутый список с кол-вом испытаний в списке
+        - screenshot: пример внешнего вида [archived_consideration_type_interview]
+        - do: клик на свернутый список
+        - screenshot: развернулись архивные испытания [archived_consideration_type_interview_expanded]
+
+files:
+  - tests/hermione/suites/desktop/candidates/interviews/archival_interview_with_active_consideration/archival_interview_with_active_consideration.hermione.js
+
+tags:
+  - reviewed
+
+priority: blocker
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

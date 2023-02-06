@@ -1,0 +1,130 @@
+feature: Сборка проекта
+
+specs:
+
+  Полная сборка [manual]:
+    Одна платформа:
+      - automation: SERP-71895
+      - do: выполнить 'YPROJECT=desktop make'
+      - assert: сборка завершилась без ошибок
+    Две платформы:
+      - automation: SERP-71895
+      - do: выполнить 'YPROJECT=deskpad make'
+      - assert: сборка завершилась без ошибок
+    Все платформы:
+      - automation: SERP-71895
+      - do: выполнить 'make'
+      - assert: сборка завершилась без ошибок
+  Пересборка [manual]:
+    beforeEach:
+      - do: выполнить 'npm run deps && npm run build'
+      - assert: сборка завершилась без ошибок
+      - do: запустить kotik через 'npm run dev'
+      - do: открыть локальную бету
+    Automake:
+      Основные уровни:
+        Статика:
+          - automation: SERP-71895
+          - do: поменять цвет гринурла в construct/blocks-common/path/path.styl
+          - do: обновить страницу
+          - assert: лог полной пересборки не виден, страница обновилась сразу
+          - assert: цвет гринурла поменялся
+        Priv:
+          - automation: SERP-71895
+          - do: поменять содержимое гринурла в construct/blocks-common/path/path.priv.js
+          - do: обновить страницу
+          - assert: лог полной пересборки не виден, страница обновилась сразу
+          - assert: содержимое гринурла поменялось
+        Bemhtml:
+          - automation: SERP-71895
+          - do: поменять содержимое элемента гринурла в construct/blocks-common/path/path.bemhtml.js
+          - do: обновить страницу
+          - assert: лог полной пересборки не виден, страница обновилась сразу
+          - assert: вид гринурла поменялся
+      Адаптеры:
+        - automation: SERP-71895
+        - do: удалить title в adapters/blocks-common/adapter-legacy/adapter-legacy.priv.js
+        - do: обновить страницу
+        - assert: лог полной пересборки не виден, страница обновилась сразу
+        - assert: тайтлы обычных сниппетов исчезли
+      Экспериментальные уровни:
+        Статика:
+          - automation: SERP-71895
+          - do: поменять цвет body (https://paste.yandex-team.ru/523782) в любом styl-файле любого эксперимента с bundleAutoPush=true
+          - do: обновить страницу, включив флаг измененного эксперимента
+          - assert: лог полной пересборки не виден, страница обновилась сразу
+          - assert: цвет страницы поменялся
+        Priv:
+          - automation: SERP-71895
+          - do: переопределить blocks['organic'] в любом priv-файле любого эксперимента
+          - do: обновить страницу, включив флаг измененного эксперимента
+          - assert: лог полной пересборки не виден, страница обновилась сразу
+          - assert: содержимое органического сниппета изменилось
+    WatchBuilder:
+      Основные уровни:
+        - automation: SERP-71895
+        - do: добавить новый файл construct/blocks-common/construct/construct.styl
+        - do: поменять цвет body (https://paste.yandex-team.ru/523782) в construct/blocks-common/construct/construct.styl
+        - do: обновить страницу
+        - assert: в браузере виден лог полной пересборки
+        - assert: после пересборки страница автоматически обновилась на выдачу
+        - assert: цвет страницы поменялся
+      Адаптеры:
+        - automation: SERP-71895
+        - do: удалить adapters/blocks-common/adapter-legacy/adapter-legacy.priv.js
+        - do: обновить страницу
+        - assert: в браузере виден лог полной пересборки
+        - assert: после пересборки страница автоматически обновилась на выдачу
+        - assert: на странице исчезли все результаты, а в консоли появились ошибки
+      Экспериментальные уровни:
+        Статика:
+          - automation: SERP-71895
+          - do: добавить styl-файл, изменяющий цвет body (https://paste.yandex-team.ru/523782), в любой эксперимент с bundleAutoPush=true
+          - do: обновить страницу, включив флаг измененного эксперимента
+          - assert: в браузере виден лог полной пересборки
+          - assert: после пересборки страница автоматически обновилась на выдачу
+          - assert: цвет страницы поменялся
+        Priv:
+          - automation: SERP-71895
+          - do: добавить priv-файл, переопределяющий blocks['organic'], в любой эксперимент
+          - do: обновить страницу, включив флаг измененного эксперимента
+          - assert: в браузере виден лог полной пересборки
+          - assert: после пересборки страница автоматически обновилась на выдачу
+          - assert: содержимое органического сниппета изменилось
+      Зависимости:
+        Deps:
+          - automation: SERP-71895
+          - do: удалить из construct/blocks-common/construct/construct.deps.js зависимость от элемента 'context'
+          - do: обновить страницу
+          - assert: в браузере виден лог полной пересборки
+          - assert: после пересборки страница автоматически обновилась на выдачу
+          - assert: на странице присутствует ошибка про отсутствие blocks['construct__context']
+        Bemdecl:
+          - automation: SERP-71895
+          - do: изменить в bundles-?/organic/organic.bemdecl.js название блока на 'organic2'
+          - do: обновить страницу
+          - assert: в браузере виден лог полной пересборки
+          - assert: после пересборки страница автоматически обновилась на выдачу
+          - assert: на странице присутствует ошибка про отсутствие blocks['organic']
+  Ребейз [manual]:
+    Бандлы основных уровней:
+      - automation: SERP-71895
+      - do: создать новый файл 'bundles-desktop/foo/foo.sources.js' с содержимым https://paste.yandex-team.ru/522538
+      - do: выполнить 'make'
+      - assert: сборка завершилась без ошибок
+    Бандлы экспериментальных уровней:
+      - automation: SERP-71895
+      - do: создать новый файл 'experiments/?/.bundle/desktop/desktop.css' для эксперимента '?', в котором нет стилей
+      - do: выполнить 'make'
+      - assert: сборка завершилась без ошибок
+
+files: []
+
+tags:
+  - no_assessors
+  - skip_manual_check
+  - skip_e2e_check
+
+v-team: Architecture
+
+tlds: all

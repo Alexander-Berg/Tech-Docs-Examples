@@ -1,0 +1,20 @@
+feature: Спец.размещение
+type: Предупреждение в рекламе
+params:
+    foreverdata: '2004023243'
+
+specs:
+    БНО с предупреждением:
+        - do: получить выдачу по запросу 'foreverdata'
+        - assert: на выдаче присутствует рекламный БНО с меткой-предупреждением
+        - screenshot: внешний вид [bno-warning]
+
+files:
+    - features/common/serp-adv-item/adapter-adv-warning.hermione.js
+
+v-team: Distribution
+
+tags:
+    - skip_e2e_check
+
+tlds: [ru, by, kz, ua]

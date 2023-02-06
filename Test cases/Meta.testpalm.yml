@@ -1,0 +1,18 @@
+feature: Meta
+
+specs:
+  Основные проверки:
+    - do: открыть страницу https://yandex.ru/turbo?stub=meta%2Fon-react.json
+    - assert: на странице показалось несколько блоков с метой
+    - screenshot: внешний вид [plain]
+
+files:
+  - platform/components/Meta/__tests__/Meta.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: dakhetov, spv
+
+tlds: none

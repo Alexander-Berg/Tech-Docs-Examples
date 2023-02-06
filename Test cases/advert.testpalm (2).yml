@@ -1,0 +1,53 @@
+feature: Advert
+
+tags: no_assessors
+
+specs:
+    partner:
+        Добавляются параметры в поход за перетяжкой:
+            - do: открыть ссылку yandex.ru/turbo?stub=advert/partner-params.json&hermione_advert=stub&exp_flags=adv-disabled=0
+            - assert: на странице появился проиниченый блок рекламы (advert_js_inited)
+            - tech: получить объект window.AdvertCalls
+            - assert: в массиве partner есть вызов для блока R-A-0001-03
+            - assert: у вызова R-A-0001-03 в extParams добавлен portal_placement=turbo_top
+            - assert: в массиве partner есть вызов для блока R-A-0001-04
+            - assert: у вызова R-A-0001-04 в extParams добавлен portal_placement=turbo_bottom
+            - assert: в массиве partner есть вызов для блока R-A-0001-01
+            - assert: у вызова R-A-0001-01 в extParams нет portal_placement=turbo_top и portal_placement=turbo_bottom
+            - tech: в консоли нет ошибок
+
+        Работа при переключение вкладок:
+            - tags: no_assessors
+            - do: открыть страницу https://yandex.ru/turbo?exp_flags=adv-disabled=0&hermione_advert=stub&in-iframe=&check_swipe=1&stub=page/povarenok-infinite-1.json
+            - assert: рекламный блок не загружается
+            - do: отправить сообщение "показа", выполнив в консолу `window.postMessage('{"action":"overlay-slider-active"}', '*')`
+            - assert: рекламный блок перешел в состояние "загружен"
+            - do: открыть еще одну вкладку https://yandex.ru/turbo
+            - do: вернуться на предыдущую вкладку
+            - assert: реклама осталась прежней
+            - tech: дополнительного похода за рекламой не произошло
+
+        Пробрасывается turbouid в партнерскую рекламу под флагом:
+            - tags: no_assessors
+            - do: открыть страницу /turbo?exp_flags=adv-disabled=0&exp_flags=adv-cookie-matching=1&hermione_advert=stub&stub=advert/partner-params.json&turbo_uid=123
+            - assert: на странице появился проиниченый блок рекламы (advert_js_inited)
+            - tech: получить объект window.AdvertCalls
+            - assert: все вызовы в массиве partner содержат в extParams ssp-ext-uniq-id=123
+
+        Пробрасывается custom_exp_flags в партнерскую рекламу:
+            - tags: no_assessors
+            - do: открыть страницу /turbo?exp_flags=adv-disabled=0&exp_flags=adv-cookie-matching=1&hermione_advert=stub&stub=advert/partner-params-exp-flags.json&exp_flags=turbo_custom_exp_params_yandex_manual_ads=1
+            - assert: на странице появился проиниченый блок рекламы (advert_js_inited)
+            - tech: получить объект window.AdvertCalls
+            - assert: все вызовы в массиве partner содержат в extParams наличие custom_exp_flags
+
+files:
+    - features/common/blocks/advert/advert.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: olga0321, dakhetov
+
+tlds: none

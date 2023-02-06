@@ -1,0 +1,25 @@
+feature: Prefetch (touch-phone)
+
+specs-integration:
+  Возвращает корректный /search/touchcache.js:
+    - do: получить файл /search/touchcache.js
+    - tech: ответ должен содержать синтаксически правильный JavaScript, в конце должен быть массив со ссылками на *.js файлы статики
+    - tech: ответ не должен содержать файл granny/touch/prefetch.txt
+  Возвращает корректный /search/prefetch.txt (touch-phone):
+    - do: получить файл /search/prefetch.txt
+    - tech: ответ должен содержать одну или более строк текста, в каждой строке должен быть корректный URL к *.js или *.txt файлу
+    - tech: ответ должен содержать файл granny/touch/prefetch.txt
+
+files:
+  - features/touch-phone/prefetch/prefetch.hermione.e2e.js
+
+v-team: Velocity
+
+tags:
+  - prefetch
+  - cache
+  - reviewed
+  - no_assessors
+  - hasE2E
+
+tlds: none

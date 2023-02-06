@@ -1,0 +1,33 @@
+feature: Страница сервиса
+
+specs:
+  beforeEach: 
+    - tech: залогиниться пользователем robot-abc-001
+
+  Положительные:
+    1. Отображение заполненного блока "Инфраструктура":
+      - do: открыть страницу сервиса "Каталог сервисов Яндекса (ABC)" (/services/abc/)
+      - screenshot: в правой части есть блок "Инфраструктура", в блоке указаны ссылки [infrastructure-block]
+
+    2. Проверка ссылок в блоке "Инфраструктура":
+      - do: открыть страницу сервиса "Каталог сервисов Яндекса (ABC)" (/services/abc/)
+      - assert: в правой части отображается блок "Инфраструктура"
+      - assert: ссылка "Сервис в warden" ведёт на "https://warden.z.yandex-team.ru/components/abcd/s/abc/"
+      - assert: ссылка "Чат SPI" ведёт на "https://t.me/joinchat/sJJKUjAFzopiMDcy"
+      - assert: ссылка "Пресет в infra" ведёт на "https://infra.yandex-team.ru/timeline?preset=Zft6tfk3eXT"
+      - assert: ссылка "Аркадия frontend/services/abc" ведёт на "https://arcanum-test.yandex.net/arc/trunk/arcadia/frontend/services/abc/"
+      - assert: ссылка "Аркадия intranet/plan" ведёт на "https://arcanum-test.yandex.net/arc/trunk/arcadia/intranet/plan/"
+
+    3. Отображение пустого блока "Инфраструктура":
+      - do: открыть страницу сервиса "autotest-contacts" (/services/autotest-contacts/)
+      - screenshot: в правой части есть блок "Инфраструктура", в блоке написано "пусто" [infrastructure-block-empty]
+
+
+files:
+  - test/features/desktop/service/infrastructure-block.hermione.js
+
+priority: normal
+
+tags:
+  - no_assessors
+  - reviewed

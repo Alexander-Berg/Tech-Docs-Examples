@@ -1,0 +1,13 @@
+feature:  Умный дом - заглушка на браузерах Mac OS/Linux
+
+specs:
+    Умный дом - заглушка на браузерах Mac OS/Linux:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/3059
+        - release_Smarthome
+        - iot_voice
+    - do: "Preconditions Открыть Алису в браузере Mac OS/Linux; Аккаунт с устройствами УД"
+    - do: "`Включи свет`"
+    - assert: "Заглушка `С умным домом я справлюсь лучше на телефоне или умной колонке`; ![](https://jing.yandex-team.ru/files/osennikovak/2021-01-20T09:27:09Z.9218228.png)"
+    - do: "`Подключи лампочку`"
+    - assert: "Заглушка `С умным домом я справлюсь лучше на телефоне или умной колонке`; ![](https://jing.yandex-team.ru/files/osennikovak/2021-01-20T09:27:09Z.9218228.png)"

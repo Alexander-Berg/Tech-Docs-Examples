@@ -1,0 +1,269 @@
+feature: Cart
+
+params:
+  exp_flags:
+    - turboforms_endpoint=https://test-turbo-forms.common.yandex.ru/
+    - analytics-disabled=1
+
+browsers:
+  - ios-safari-12-touch
+  - ios-safari-11-touch
+  - ios-safari-10-touch
+  - ios-safari-9-touch
+
+specs:
+  Данные с сервера (дефолт):
+    Внешний вид:
+      - do: |
+          открыть страницу https://yandex.ru/turbo?stub=productpage%2Fproduct-1-server-for-screens.json
+          если товар не в корзине (в товаре есть кнопка `добавить в корзину`) - добавить
+          открыть страницу https://yandex.ru/turbo?stub=productpage%2Fproduct-server-for-screens.json
+          если товар не в корзине (в товаре есть кнопка `добавить в корзину`) - добавить
+          открыть ссылку https://yandex.ru/turbo?stub=cart/default.json
+      - screenshot: внешний вид соответствует скриншоту (количество товаров и описание может отличаться, надписи "под заказ" может не быть) [plain]
+
+    Внешний вид (кастомные цвета):
+      - do: открыть страницу https://yandex.ru/turbo?stub=productpage%2Fproduct-server-for-screens.json
+      - do: если товар отсутстует в корзине (в товаре есть кнопка `добавить в корзину`) - добавить
+      - assert: товар добавлен в корзину
+      - do: открыть ссылку https://yandex.ru/turbo?stub=cart/custom-theme.json
+      - screenshot: внешний вид соответствует скриншоту [plain]
+
+    Указывать суммарную стоимость у каждого товара с учетом количества:
+      - do: |
+          открыть ссылку https://yandex.ru/turbo?stub=cart/default.json
+          если в корзине есть товары - нажать `Удалить` на каждой карточке
+          открыть страницу https://yandex.ru/turbo?stub=productpage%2Fproduct-1-server-for-screens.json
+          нажать `Добавить в корзину`
+          открыть ссылку https://yandex.ru/turbo?stub=cart/default.json
+      - assert: в корзине лежит 1 товар, стоимость в карточке составляет 1790 ₽
+      - do: нажать на кнопку `Плюс` в  карточке товара
+      - assert: количетсво товара равно двум, стоимость в карточке товара изменилась на 3580 ₽
+
+    Проверка ссылок:
+      - do: |
+          открыть ссылку https://yandex.ru/turbo?stub=cart/default.json
+          если в корзине есть товары - нажать `Удалить` на каждой карточке
+          открыть страницу https://yandex.ru/turbo?stub=productpage%2Fproduct-1-server-for-screens.json
+          нажать `Добавить в корзину`
+          открыть ссылку https://yandex.ru/turbo?stub=cart/default.json
+      - assert: в корзине лежит 1 товар
+      - do: нажать на картинку первого товара
+      - assert: |
+          открылась ссылка в той же вкладке
+          адрес страницы заканчивается на /turbo?stub=productpage%2Fproduct-1-server-for-screens.json
+      - do: нажать на название первой карточки
+      - assert: |
+          открылась ссылка в той же вкладке
+          адрес страницы заканчивается на /turbo?stub=productpage%2Fproduct-1-server-for-screens.json
+
+    Пустые данные:
+      - do: открыть ссылку https://yandex.ru/turbo?stub=cart/default.json
+      - do: если корзина не пуста - нажать в каждом товаре `Удалить` и обновить страницу
+      - screenshot: внешний вид [plain]
+      - do: нажать на `Перейти в каталог`
+      - assert: |
+          открылась ссылка в той же вкладке
+          адрес страницы заканчивается на /turbo?exp_flags=platform%3Dtouch&stub=productspage%2Findex-server-for-screens.json
+    Удаление элементов:
+      - do: |
+          открыть страницу https://yandex.ru/turbo?stub=productpage%2Fproduct-1-server-for-screens.json
+          если товар не в корзине (в товаре есть кнопка `добавить в корзину`) - добавить
+          открыть страницу https://yandex.ru/turbo?stub=productpage%2Fproduct-server-for-screens.json
+          если товар не в корзине (в товаре есть кнопка `добавить в корзину`) - добавить
+          открыть ссылку https://yandex.ru/turbo?stub=cart/default.json
+      - assert: в корзине 2 товара
+      - do: нажать на ссылку `Удалить` первой карточки
+      - assert: товар исчез
+      - do: нажать на ссылку `Удалить` первой карточки
+      - assert: |
+          товар исчез
+          появился текст, что корзина пуста
+
+    Удаление элементов через инпут (количество = 0):
+      - do: |
+          открыть страницу https://yandex.ru/turbo?stub=productpage%2Fproduct-1-server-for-screens.json
+          если товар не в корзине (в товаре есть кнопка `добавить в корзину`) - добавить
+          открыть страницу https://yandex.ru/turbo?stub=productpage%2Fproduct-server-for-screens.json
+          если товар не в корзине (в товаре есть кнопка `добавить в корзину`) - добавить
+          открыть ссылку https://yandex.ru/turbo?stub=cartpage/server-data-on-screens.json
+      - assert: в корзине 2 товара
+      - do: ввести `0` в поле количества первой карточки
+      - assert: товар исчез
+      - do: ввести `0` в поле количества первого товара
+      - assert: |
+          товар исчез
+          появился текст, что корзина пуста
+
+    Удаление элементов переключением количества до 0:
+      - do: |
+          открыть страницу https://yandex.ru/turbo?stub=productpage%2Fproduct-1-server-for-screens.json
+          если товар не в корзине (в товаре есть кнопка `добавить в корзину`) - добавить
+          открыть страницу https://yandex.ru/turbo?stub=productpage%2Fproduct-server-for-screens.json
+          если товар не в корзине (в товаре есть кнопка `добавить в корзину`) - добавить
+          открыть ссылку https://yandex.ru/turbo?stub=cartpage/server-data-on-screens.json
+      - assert: в корзине 2 товара
+      - do: нажать на кнопку `Минус` первой карточки
+      - assert: товар исчез
+      - do: нажать на кнопку `Минус` первой карточки
+      - assert: |
+          товар исчез
+          появился текст, что корзина пуста
+
+    Переключение количества:
+      - do: |
+          открыть страницу https://yandex.ru/turbo?stub=productpage%2Fproduct-1-server-for-screens.json
+          если товар не в корзине (в товаре есть кнопка `добавить в корзину`) - добавить
+          открыть страницу https://yandex.ru/turbo?stub=productpage%2Fproduct-server-for-screens.json
+          если товар не в корзине (в товаре есть кнопка `добавить в корзину`) - добавить
+          открыть ссылку https://yandex.ru/turbo?stub=cartpage/server-data-on-screens.json
+      - assert: в корзине 2 товара
+      - do: нажать на кнопку `Плюс` первой карточки
+      - assert: |
+          количество в первой карточке увеличелось до 2
+          увеличилась суммарная цена товаров под списком
+      - do: нажать на кнопку `Плюс` второй карточки
+      - assert: |
+          количество во второй карточке увеличелось до 2
+          увеличилась суммарная цена товаров под списком
+      - do: нажать на кнопку `Плюс` первой карточки
+      - assert: |
+          количество в первой карточке увеличелось до 3
+          увеличилась суммарная цена товаров под списком
+      - do: нажать на кнопку `Минус` второй карточки
+      - assert: |
+          количество во второй карточке уменьшилось до 2
+          уменьшилась суммарная цена товаров под списком
+
+    Переключение количества через инпут:
+      - do: открыть страницу https://yandex.ru/turbo?stub=productpage%2Fproduct-1-server-for-screens.json
+      - do: если товар отсутстует в корзине (в товаре есть кнопка `добавить в корзину`) - добавить
+      - assert: товар добавлен в корзину
+      - do: открыть страницу https://yandex.ru/turbo?stub=productpage%2Fproduct-server-for-screens.json
+      - do: если товар отсутстует в корзине (в товаре есть кнопка `добавить в корзину`) - добавить
+      - assert: товар добавлен в корзину
+      - do: открыть ссылку https://yandex.ru/turbo?stub=cartpage/server-data-on-screens.json
+      - assert: в корзине 2 товара
+      - do: кликнуть в инпут с количеством товара и удалить значение
+      - screenshot: значение удалено [clear]
+      - do: кликнуть в любое пустое место вне карточки товара
+      - screenshot: ранее удаленное значение восстановлено [blur]
+
+    Рекомендованные товары:
+      - tags: no_assessors
+      - do: открыть https://yandex.ru/turbo?text=farkop.ru/yandexturbocart/&exp_flags=turboforms_endpoint=/multiple/delay-2000/&patch=ecomCartRecommends
+      - assert: рекомендуемые товары не видны
+      - do: дождаться появления товаров в корзине в течение 5 секунд
+      - assert: вместе с товарами в корзине появились так же и две карусели рекомендованных товаров
+
+  Данные из localstorage:
+    data=null удаляет данные из localStorage:
+      - tags: no_assessors
+      - do: |
+          открыть ссылку https://yandex.ru
+          в консоли выполнить localStorage.setItem('turbo-ecomm-mvideo', '{"shopId":"mvideo","loading":false,"items":[{"product":{"id":"1","description":"","price":{"current":1000},"thumb":{"src":"src","height":10,"width":10},"meta":"meta_product"},"count":1,"meta":"meta_item"}],"catalogueUrl":"/turbo?exp_flags=platform%3Dtouch&stub=productspage%2Findex.json","etag":0,"summary":{"count":12,"cost":10000}}');
+          открыть ссылку https://yandex.ru/turbo?stub=cart/clear-data.json
+          в консоли выполнить localStorage.getItem('turbo-ecomm-mvideo');
+      - assert: ответ {"shopId":"mvideo","loading":false,"catalogueUrl":"/turbo?exp_flags=platform%3Dtouch&stub=productspage/index.json","items":[],"etag":0,"summary":{"count":0,"cost":0,"costWithDelivery":0}}
+
+    Проверка работы:
+      - do: |
+          открыть ссылку https://yandex.ru/turbo?stub=cart/ls-set-data.json
+          нажать на кнопку "плюс" первой карточки
+          нажать на кнопку "удалить" второй карточки
+      - assert: запомнить состояние (в корзине 2 товара, первого товара 3шт)
+      - do: открыть ссылку https://yandex.ru/turbo?stub=cart/ls-read-data.json
+      - assert: состояние корзины при переходе не изменилось
+      - do: |
+          нажать на кнопку "минус" второй карточки
+          обновить страницу
+      - assert: во второй карточке выставлено количество - 4
+      - do: |
+          нажать на кнопку "удалить" первой карточки
+          нажать на кнопку "удалить" второй карточки
+      - assert: показался текст, что корзина пуста
+      - do: обновить страницу
+      - assert: все еще показывается текст, что корзина пуста
+
+    Поддержка нескольких shopId:
+      - do: |
+          открыть ссылку https://yandex.ru/turbo?stub=cart/ls-set-data.json
+          нажать на кнопку "плюс" первой карточки
+          открыть ссылку https://yandex.ru/turbo?stub=cart/ls-set-data-another-shopid.json
+          нажать на кнопку "плюс" первой карточки
+          открыть ссылку https://yandex.ru/turbo?stub=cart/ls-read-data.json
+      - screenshot: внешний вид соответствует скриншоту [from-storage]
+      - do: открыть ссылку https://yandex.ru/turbo?stub=cart/ls-read-data-another-shopid.json
+      - screenshot: внешний вид соответствует скриншоту [from-storage-2]
+
+  Блокировка оплаты онлайн при сумме за товары более 150к рублей:
+    - do: |
+        открыть ссылку https://yandex.ru/turbo?text=https%3A%2F%2Fymturbo.t-dir.com%2Fcatalog%2Fwomen-s-belts%2Fstrap-rainbow%2F
+        нажать кнопку «Добавить в корзину»
+        нажать на появившуюся на её месте кнопку «Перейти в корзину»
+        ввести 385 единиц в количество товара
+        нажать на кнопку «Оформить заказ»
+    - screenshot: в появившемся модальном окне выбор способа оплаты заблокирован [products-amount-online-disabled]
+    - do: |
+        перейти в браузере назад по истории
+        нажать кнопку минуса, чтобы уменьшить количество товаров на единицу до 384 штук
+        нажать на кнопку «Оформить заказ»
+    - screenshot: в появившемся модальном окне выбор способа оплаты разблокирован [products-amount-online-enabled]
+
+  Блокировка оплаты онлайн при сумме заказа с доставкой более 150к рублей:
+    - do: |
+        открыть ссылку https://yandex.ru/turbo?text=https%3A%2F%2Fymturbo.t-dir.com%2Fcatalog%2Fwomen-s-belts%2Fstrap-rainbow%2F
+        нажать кнопку «Добавить в корзину»
+        нажать на появившуюся на её месте кнопку «Перейти в корзину»
+        ввести 384 единиц в количество товара
+        нажать на кнопку «Оформить заказ»
+    - do: выбрать способ доставки «Почтой, 500 ₽»
+    - screenshot: выбор способа оплаты заблокирован [delivery-amount-online-disabled]
+    - do: выбрать способ доставки «Курьером, 10 ₽»
+    - screenshot: выбор способа оплаты разблокировался [delivery-amount-online-enabled]
+
+  Обновление корзины в мультипейдже:
+    - do: |
+        открыть страницу https://yandex.ru/turbo?text=happymagic.ru%2Fyandexturbocart%2F
+        если в корзине есть товары - нажать `Удалить` в каждой карточке, пока корзина не будет пуста
+        открыть страницу https://yandex.ru/search/touch/?text=site:happymagic.ru
+    - assert: на странице поиска есть сниппет с галереей товаров https://jing.yandex-team.ru/files/olliva/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202020-04-08%20%D0%B2%2013.11.31.png
+    - do: кликнуть на третий товар в галерее
+    - assert: |
+        открылась карточка товара
+        на значке корзины в правом верхнем углу нет числа - корзина пуста
+    - do: нажать `Добавить в корзину` у товара
+    - assert: |
+        кнопка поменялась на `Перейти в корзину`
+        на иконке корзины в шапке появилось число 1
+    - do: сделать свайп слева направо - чтобы переключиться на предыдущий товар
+    - assert: в открывшейся карточке товара в корзине отображается число 1
+    - do: нажать `Добавить в корзину` у товара
+    - assert: |
+        кнопка поменялась на `Перейти в корзину`
+        на иконке корзины в шапке появилось число 2
+    - do: сделать свайп справа налево - вернуться на прошлый товар
+    - assert: в открывшейся карточке товара в корзине отображается число 2
+    - do: сделать свайп справа налево - перейти к следующему товару
+    - assert: в открывшейся карточке товара в корзине отображается число 2
+    - do: нажать `Добавить в корзину` у товара
+    - assert: |
+        кнопка поменялась на `Перейти в корзину`
+        на иконке корзины в шапке появилось число 3
+    - do: сделать свайп слева направо - чтобы переключиться на предыдущий товар
+    - assert: в открывшейся карточке товара в корзине отображается число 3
+
+tags:
+  - e-commerce
+  - no_assessors #раскатили новый дизайн на 100%
+
+files:
+  - platform/components/Cart/__tests__/Cart@phone.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: spv
+
+tlds: none

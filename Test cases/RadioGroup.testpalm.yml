@@ -1,0 +1,40 @@
+feature: radio-group
+
+specs:
+  Группа кнопок выбора цвета:
+    - do: открыть страницу https://yandex.ru/turbo?stub=radiogroup/color.json
+    - screenshot: внешний вид соответствует скриншоту [plain]
+    - do: выбрать цвет
+    - assert: выбран только один цвет
+    - screenshot: внешний вид соответствует скриншоту [click]
+
+  Группа радио-кнопок голубой темы:
+    - do: открыть страницу https://yandex.ru/turbo?stub=radiogroup/default.json
+    - screenshot: внешний вид соответствует скриншоту [plain]
+    - do: кликнуть на первый пункт из списка
+    - assert: выбран первый пункт из списка
+    - do: кликнуть на второй пункт из списка
+    - assert: выбран второй пункт из списка
+    - screenshot: внешний вид соответствует скриншоту [click]
+
+  Группа заблокированных радио-кнопок голубой темы:
+    - do: открыть страницу https://yandex.ru/turbo?stub=radiogroup/disabled.json
+    - screenshot: внешний вид соответствует скриншоту [plain]
+    - do: кликнуть на первый пункт из списка
+    - assert: радио-кнопки не переключаются
+    - screenshot: внешний вид соответствует скриншоту [click]
+
+  Группа радио-кнопок кастомные цвета:
+    - do: открыть страницу https://yandex.ru/turbo?stub=radiogroup/custom-theme.json
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/components/RadioGroup/__tests__/RadioGroup.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: olga0321, klimovaksyu
+
+tlds: none

@@ -1,0 +1,11 @@
+feature:  elari watch Голосовое подключение лампочки - нельзя в этом приложении
+
+specs:
+    elari watch Голосовое подключение лампочки - нельзя в этом приложении:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/2813
+        - release_Smarthome
+        - smarthome_regress
+    - do: "Preconditions ; "
+    - do: "Сказать в нави `Подключи лампочку`"
+    - assert: "Ответ текстом и голосом `С умным домом я справлюсь лучше на телефоне или умной колонке.`"

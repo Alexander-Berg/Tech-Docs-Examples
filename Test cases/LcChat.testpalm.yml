@@ -1,0 +1,18 @@
+feature: LcChat
+
+tags: no_assessors
+
+specs:
+  Внешний вид без id чата:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcchat/no-chat-id.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+files:
+  - platform/components/LcChat/__tests__/LcChat.hermione.js
+
+v-team: Lc
+
+manager: hanky
+
+qa-engineer: kudyukova
+
+tlds: none

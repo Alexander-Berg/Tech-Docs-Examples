@@ -1,0 +1,30 @@
+feature: LcAnchors
+
+tags: no_assessors
+
+specs:
+    Незакрепленная:
+        - do: открыть страницу (https://yandex.ru/turbo?stub=lcanchors/notFixed.json)
+        - screenshot: внешний вид соответствует скриншоту [notFixed]
+    Закрепленная:
+        - do: открыть страницу (https://yandex.ru/turbo?stub=lcanchors/fixed.json)
+        - screenshot: внешний вид соответствует скриншоту [fixed]
+    Скролл до секции 3:
+        - do: открыть страницу (https://yandex.ru/turbo?stub=lcanchors/fixed.json)
+        - screenshot: внешний вид соответствует скриншоту [fixedScroll]
+    Исходное положение после скролла:
+        - do: открыть страницу (https://yandex.ru/turbo?stub=lcanchors/fixed.json)
+        - do: проскроллить к заголовку "Секция 3"
+        - do: проскроллить в начало страницы
+        - screenshot: внешний вид соответствует скриншоту [fixedScrollToOriginal]
+
+files:
+    - platform/components/LcAnchors/__tests__/LcAnchors.hermione.js
+
+v-team: Lc
+
+manager: polyakovadi
+
+qa-engineer: pankov97
+
+tlds: none

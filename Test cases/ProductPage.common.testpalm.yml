@@ -1,0 +1,502 @@
+feature: ProductPage
+
+specs:
+  Оффер:
+    Внешний вид без характеристик:
+      - do: открыть https://yandex.ru/products/product/1701611514/sku/101633134145?promo=nomooa&exp_flags=disable_product_specs
+      - assert: |
+          открылась страница оффера
+          у товара нет характеристик
+      - screenshot: внешний вид [plain]
+
+    Внешний вид:
+      - do: открыть https://yandex.ru/products/offer/yeJt5ScVjDY7PlsRSoyB3A
+      - assert: |
+          открылась страница оффера
+          вкладка имеет заголовок «Лист а/ц (шифер волновой) 1750х1130х5,8мм (1,97 кв.м.) / Лист асбестоцементный (шифер кровельный волновой) 1130х1750х5,8мм (1,97 кв.м.) — Цены»
+      - screenshot: внешний вид [plain]
+
+    Внешний вид б/у оффер:
+      - params:
+        exp_flags:
+          - used_goods=1
+      - do: открыть https://yandex.ru/products/offer/rIeYtjtNi8KWlSsN51hbQw?is_used=1
+      - assert: открылась страница оффера
+      - screenshot: внешний вид [plain]
+
+    Избранное:
+      - params:
+        exp_flags:
+          - enable_favorites=1
+      - do: открыть https://yandex.ru/products/offer/yeJt5ScVjDY7PlsRSoyB3A
+      - assert: |
+          открылась страница оффера
+          есть флажок избранного под заголовком
+      - screenshot: внешний вид флажка [favorites]
+
+    Цель Метрики по переходу:
+      - do: открыть https://yandex.ru/products/offer/dWyaaz1vxjQQekL3I2INbA
+      - do: нажать на оффер в списке офферов
+      - tech: Отправилась цель 'from-offer-to-shop-link' с параметрами "offerId = <id оффера>, url = <ссылка на оффер>"
+      - do: нажать на кнопку 'В магазин'
+      - tech: Отправилась цель 'from-offer-to-shop-button' с параметрами "offerId = <id оффера>, url = <ссылка на оффер>"
+
+    Проверка проставления метки utm_referrer:
+      - do: открыть https://yandex.ru/products/offer/LWHF1wRHNpfzlhFX1tR-HA?retpath=%2Fsearch%3Ftext%3Diphone%252012
+      - assert: открылась страница оффера
+      - do: нажать на кнопку 'В магазин'
+      - assert: открылась страница магазина с параметром utm_referrer равным "https%3A%2F%2Fyandex.ru%2Fproducts%2Fsearch%3Ftext%3Diphone%252012"
+      - do: вернуться на страницу оффера
+      - do: нажать на предложение от магазина
+      - assert: открылась страница магазина с параметром utm_referrer равным "https%3A%2F%2Fyandex.ru%2Fproducts%2Fsearch%3Ftext%3Diphone%252012"
+
+    Проверка отсутствия проставления метки utm_referrer для магазина, неподдерживающего метку:
+      - do: открыть https://yandex.ru/products/offer/9nQrXlcWN9lC_5p-oWshjQ?retpath=%2Fsearch%3Ftext%3DСмартфоны
+      - assert: открылась страница оффера
+      - do: нажать на кнопку 'В магазин'
+      - assert: открылась страница магазина БЕЗ параметра utm_referrer
+      - do: вернуться на страницу оффера
+      - do: нажать на предложение от магазина
+      - assert: открылась страница магазина БЕЗ параметра utm_referrer
+
+    Проверка проставления SC куки:
+      - tags:
+          - no_assessors
+      - do: открыть https://yandex.ru/products/offer/dWyaaz1vxjQQekL3I2INbA?retpath=%2Fsearch%3Ftext%3Diphone
+      - assert: открылась страница оффера
+      - do: нажать на кнопку 'В магазин'
+      - assert: проставилась SC кука "sc_XXXXXXXXXXXXX" со значением "iphone:appleshop-service.ru:%2Fproducts%2Fsearch"
+
+  Модель:
+    Внешний вид:
+      - do: открыть https://yandex.ru/products/product/722974019
+      - assert: |
+          открылась страница оффера
+          вкладка имеет заголовок «Смартфон Apple iPhone 12 — Цены»
+      - screenshot: внешний вид [plain]
+
+    Избранное:
+      - params:
+        exp_flags:
+          - enable_favorites=1
+      - do: открыть https://yandex.ru/products/product/722974019
+      - assert: |
+          открылась страница оффера
+          есть флажок избранного под заголовком
+      - screenshot: внешний вид флажка [favorites]
+
+    Дозагрузка офферов:
+      - do: открыть https://yandex.ru/products/product/722974019
+      - assert: |
+          открылась страница товара
+          в списке магазинов 5 предложений
+          есть кнопка "Показать еще"
+      - do: нажать на кнопку "Показать еще"
+      - assert: появилось еще 15 предложений
+      - do: нажать на кнопку "Показать еще"
+      - assert: появилось еще 10 предложений
+
+    Цель Метрики по переходу:
+      - do: открыть https://yandex.ru/products/product/1414986413
+      - do: нажать на первый оффер в списке офферов
+      - tech: Отправилась цель 'from-model-to-shop-link' с параметрами "offerId = <id оффера>, url = <ссылка на оффер>"
+
+  SKU:
+    Внешний вид:
+      - do: открыть https://yandex.ru/products/product/558171067/sku/101106238734
+      - assert: |
+          открылась страница sku
+          вкладка имеет заголовок «Смартфон Apple iPhone 11 128 ГБ RU, фиолетовый, Slimbox — Цены»
+      - screenshot: внешний вид [plain]
+
+    Внешний вид с избранным:
+      - do: открыть https://yandex.ru/products/product/558171067/sku/101106238734?exp_flags=enable_favorites=1
+      - assert: |
+          открылась страница sku
+          вкладка имеет заголовок «Смартфон Apple iPhone 11 128 ГБ RU, фиолетовый, Slimbox — Цены»
+          есть кнопка "В избранное"
+      - screenshot: внешний вид [plain]
+
+    Дозагрузка офферов:
+      - do: открыть https://yandex.ru/products/product/722974019/sku/101077348745
+      - assert: |
+          открылась страница товара
+          в списке магазинов 5 предложений
+          есть кнопка "Показать еще"
+      - do: нажать на кнопку "Показать еще"
+      - assert: появилось еще 15 предложений
+      - do: нажать на кнопку "Показать еще"
+      - assert: появилось еще 10 предложений
+
+    Проверка проставления метки utm_referrer:
+      - do: открыть https://yandex.ru/products/product/722974019/sku/101077347753?retpath=%2Fsearch%3Ftext%3Diphone%252012
+      - assert: открылась страница товара
+      - do: нажать на первый оффер в списке офферов
+      - assert: открылась страница магазина с параметром utm_referrer равным "https%3A%2F%2Fyandex.ru%2Fproducts%2Fsearch%3Ftext%3Diphone%252012"
+
+    Цель Метрики по переходу:
+      - do: открыть https://yandex.ru/products/product/558171067/sku/101106238734
+      - do: нажать на первый оффер в списке офферов
+      - tech: Отправилась цель 'from-sku-to-shop-link' с параметрами "offerId = <id оффера>, url = <ссылка на оффер>"
+
+    Показывает график с динамикой цен:
+      По умолчанию:
+        - params:
+            exp_flags:
+              - price_charts_enabled=1
+        - do: открыть https://yandex.ru/products/product/752262035/sku/101100443755?text=iphone
+        - assert: |
+            открылась страница товара
+            на странице присутствует секция "Динамика минимальной цены" с графиком изменения минимальной цены
+            под заголовком секции указан диапазон: min значение минимальной цены - max значение минимальной цены
+            на последней точке графика тултип с ценой и датой
+        - do: нажать в пределах области графика для выбора другой точки
+        - assert: на графике выделилась ближайшая к области нажатия точка рядом с которой отобразился тултип с ценой и датой
+      После редизайна:
+        - params:
+            exp_flags:
+              - price_charts_enabled=1
+              - price_trend_redesign=1
+        - do: открыть https://yandex.ru/products/product/752262035/sku/101100443755?text=iphone
+        - assert: |
+            открылась страница товара
+            на странице присутствует секция "Динамика минимальной цены" с графиком изменения минимальной цены
+            по оси Y графика указаны значения минимальной и минимальной цены
+            на последней точке графика тултип с ценой и датой
+        - do: нажать в пределах области графика для выбора другой точки
+        - assert: на графике выделилась ближайшая к области нажатия точка рядом с которой отобразился тултип с ценой и датой
+
+    Нотификация об изменении цены, после перехода по ссылке из уведомления:
+      Показывается, если цена изменилась:
+        - params:
+            exp_flags:
+              - price_charts_enabled=1
+              - enable_price_subscription=1
+              - sku_subscriptions_enabled=1
+        - do: открыть https://yandex.ru/products/product/1414986413/sku/101446177752?&expected_price=20999
+        - assert: |
+            открылась страница товара
+            на странице появилась нотификация с текстом "Цена на товар успела измениться"
+      Не показывается, если цена не изменилась:
+        - params:
+            exp_flags:
+              - price_charts_enabled=1
+              - enable_price_subscription=1
+              - sku_subscriptions_enabled=1
+        - do: открыть https://yandex.ru/products/product/1414986413/sku/101446177752?&expected_price=54390
+        - assert: |
+            открылась страница товара
+            на странице не появилась нотификация с текстом "Цена на товар успела измениться"
+
+    Подписка на снижение цены:
+      - params:
+          exp_flags:
+            - price_charts_enabled=1
+            - enable_price_subscription=1
+            - sku_subscriptions_enabled=1
+      - do: открыть https://yandex.ru/products/product/752262035/sku/101100443755
+      - assert: |
+          открылась страница товара
+          на странице присутствует секция "Динамика минимальной цены" с графиком изменения минимальной цены
+          под графиком присутствует кнопка "Следить за снижением цены"
+      - do: нажать на кнопку "Следить за снижением цены"
+      - assert: |
+          появилось всплывающее окно "Подписка на снижение цены" с формой подписки на снижение цены
+          форма содержит неактивное поле ввода с e-mail текущего пользователя
+          форма содержит активную кнопку "Подписаться"
+      - do: нажать на кнопку "Подписаться"
+      - assert: |
+          скрылось всплывающее окно "Подписка на снижение цены"
+          подпись к кнопке "Следить за снижением цены" изменилась на "Отменить подписку"
+      - do: нажать на кнопку "Отменить подписку"
+      - assert: |
+          подпись к кнопке "Отменить подписку" изменилась на "Следить за снижением цены"
+          появилось всплывающее сообщение "Подписка на изменение цены отменена"
+
+    Подписка на снижение цены → Переход по ссылке "Политики Конфиденциальности":
+      - params:
+          exp_flags:
+            - price_charts_enabled=1
+            - enable_price_subscription=1
+            - sku_subscriptions_enabled=1
+      - do: открыть https://yandex.ru/products/product/752262035/sku/101100443755
+      - assert: |
+          открылась страница товара
+          на странице присутствует секция "Динамика минимальной цены" с графиком изменения минимальной цены
+          под графиком присутствует кнопка "Следить за снижением цены"
+      - do: нажать на кнопку "Следить за снижением цены"
+      - assert: появилось всплывающее окно "Подписка на снижение цены" с ссылкой "Политики Конфиденциальности" в подвале
+      - do: нажать на ссылку "Политики Конфиденциальности"
+      - assert: открылась страница https://yandex.ru/legal/confidential/
+
+    Подписка на снижение цены для неавторизованных пользователей:
+      Авторизация пользователя:
+        - params:
+            exp_flags:
+              - price_trend_redesign=1
+              - price_charts_enabled=1
+              - sku_subscriptions_enabled=1
+              - enable_price_subscription=1
+              - enable_price_subscription_unauthorized=1
+        - do: открыть https://yandex.ru/products/product/752262035/sku/101100443755 под неавторизованным пользователем
+        - assert: |
+            открылась страница товара
+            на странице присутствует секция "Динамика минимальной цены" с графиком изменения минимальной цены
+            под графиком присутствует кнопка "Следить за снижением цены"
+        - do: нажать на кнопку "Следить за снижением цены"
+        - assert: |
+            открылась страница авторизации https://passport.yandex.ru/auth
+            форма авторизации содержит сообщение "Чтобы узнать о снижении цен, войдите с Яндекс_ID"
+        - do: войти через форму авторизации
+        - assert: |
+            после авторизации открылась страница товара
+            на странице присутствует секция "Динамика минимальной цены" с графиком изменения минимальной цены
+            открылось всплывающее окно "Подписка на снижение цены"
+
+      Первоначальная подписка:
+        - params:
+            exp_flags:
+              - price_trend_redesign=1
+              - price_charts_enabled=1
+              - sku_subscriptions_enabled=1
+              - enable_price_subscription=1
+              - enable_price_subscription_unauthorized=1
+        - do: открыть https://yandex.ru/products/product/752262035/sku/101100443755 под неавторизованным пользователем
+        - assert: |
+            открылась страница товара
+            на странице присутствует секция "Динамика минимальной цены" с графиком изменения минимальной цены
+            под графиком присутствует кнопка "Следить за снижением цены"
+        - do: нажать на кнопку "Следить за снижением цены"
+        - assert: |
+            открылась страница авторизации https://passport.yandex.ru/auth
+            форма авторизации содержит сообщение "Чтобы узнать о снижении цен, войдите с Яндекс_ID"
+        - do: войти через форму авторизации
+        - assert: |
+            после авторизации открылась страница товара
+            на странице присутствует секция "Динамика минимальной цены" с графиком изменения минимальной цены
+            открылось всплывающее окно "Подписка на снижение цены"
+        - do: нажать на кнопку "Подписаться"
+        - assert: |
+            скрылось всплывающее окно "Подписка на снижение цены"
+            подпись к кнопке "Следить за снижением цены" изменилась на "Отменить подписку"
+
+      Повторная подписка:
+        - params:
+            exp_flags:
+              - price_trend_redesign=1
+              - price_charts_enabled=1
+              - sku_subscriptions_enabled=1
+              - enable_price_subscription=1
+              - enable_price_subscription_unauthorized=1
+        - do: открыть https://yandex.ru/products/product/988979000/sku/101356256896 под неавторизованным пользователем
+        - assert: |
+            открылась страница товара
+            на странице присутствует секция "Динамика минимальной цены" с графиком изменения минимальной цены
+            под графиком присутствует кнопка "Следить за снижением цены"
+        - do: нажать на кнопку "Следить за снижением цены"
+        - assert: |
+            открылась страница авторизации https://passport.yandex.ru/auth
+            форма авторизации содержит сообщение "Чтобы узнать о снижении цен, войдите с Яндекс_ID"
+        - do: войти через форму авторизации
+        - assert: |
+            после авторизации открылась страница товара
+            на странице присутствует секция "Динамика минимальной цены" с графиком изменения минимальной цены
+            под графиком присутствует кнопка "Отменить подписку"
+        - do: нажать на кнопку "Отменить подписку"
+        - assert: |
+            подпись к кнопке "Отменить подписку" изменилась на "Следить за снижением цены"
+            появилось всплывающее сообщение "Подписка на изменение цены отменена"
+
+  Восстановление поискового запроса:
+    Из параметра retpath:
+      - do: открыть /products/offer/yeJt5ScVjDY7PlsRSoyB3A?retpath=%2Fsearch%3Ftext%3Diphone
+      - assert: в поисковой строке написано «iphone»
+
+    Из параметра text:
+      - do: открыть /products/offer/yeJt5ScVjDY7PlsRSoyB3A?text=iphone
+      - assert: в поисковой строке написано «iphone»
+
+    Из категории:
+      - do: открыть products/offer/yeJt5ScVjDY7PlsRSoyB3A
+      - assert: в поисковой строке написано «Мобильные телефоны»
+
+  Баобаб:
+    Отправка дерева в blockstat для страницы оффера:
+      - tags:
+          - no_assessors
+      - do: открыть https://yandex.ru/products/offer/HcUgV37NWyQ2ixFLRnL28g
+      - assert: страница загрузилась
+      - tech: в blockstat отправилось баобаб дерево с событием show
+      - tech: при загрузке страницы не было отправлено redir счетчиков
+      - tech: |
+          в blockstat отправилось баобаб дерево с событием "show"
+          у дерева есть атрибут "subservice" со значение "offer"
+          при загрузке страницы не было отправлено redir счетчиков
+
+    Отправка дерева в blockstat для страницы модели:
+      - tags:
+          - no_assessors
+      - do: открыть https://yandex.ru/products/product/1414858424
+      - assert: страница загрузилась
+      - tech: в blockstat отправилось баобаб дерево с событием show
+      - tech: при загрузке страницы не было отправлено redir счетчиков
+      - tech: |
+          в blockstat отправилось баобаб дерево с событием "show"
+          у дерева есть атрибут "subservice" со значение "product"
+          при загрузке страницы не было отправлено redir счетчиков
+
+    Отправка дерева в blockstat для страницы sku:
+      - tags:
+          - no_assessors
+      - do: открыть https://yandex.ru/products/product/558171067/sku/101116062742
+      - assert: страница загрузилась
+      - tech: |
+          в blockstat отправилось баобаб дерево с событием "show"
+          у дерева есть атрибут "subservice" со значение "sku"
+          при загрузке страницы не было отправлено redir счетчиков
+
+    Соответствие деревьев на клиенте и на сервере для страницы оффера:
+      - tags:
+          - no_assessors
+      - do: открыть https://yandex.ru/products/offer/yeJt5ScVjDY7PlsRSoyB3A
+      - assert: страница загрузилась
+      - tech: баобаб дерево, отправленное в blockstat, соответствует клиентскому дереву
+
+    Соответствие деревьев на клиенте и на сервере для страницы модели:
+      - tags:
+          - no_assessors
+      - do: открыть https://yandex.ru/products/product/1414858424
+      - assert: страница загрузилась
+      - tech: баобаб дерево, отправленное в blockstat, соответствует клиентскому дереву
+
+    Соответствие деревьев на клиенте и на сервере для страницы sku:
+      - tags:
+          - no_assessors
+      - do: открыть https://yandex.ru/products/product/558171067/sku/101116062742
+      - assert: страница загрузилась
+      - tech: баобаб дерево, отправленное в blockstat, соответствует клиентскому дереву
+
+    Логирование перехода по офферу на странице оффера:
+      - tags:
+          - no_assessors
+      - do: открыть https://yandex.ru/products/offer/yeJt5ScVjDY7PlsRSoyB3A
+      - assert: страница загрузилась
+      - do: нажать на оффер в списке офферов
+      - tech: сработал счетчик event "click" по пути $page.$main.card.shopList.listControls.shopItem.link
+
+    Логирование перехода по офферу на странице модели:
+      - tags:
+          - no_assessors
+      - do: открыть https://yandex.ru/products/product/1414858424
+      - assert: страница загрузилась
+      - do: нажать на оффер в списке офферов
+      - tech: сработал счетчик event "click" по пути $page.$main.card.shopList.listControls.shopItem.link
+
+    Логирование перехода по офферу на странице sku:
+      - tags:
+          - no_assessors
+      - do: открыть https://yandex.ru/products/product/558171067/sku/101116062742
+      - assert: страница загрузилась
+      - do: нажать на оффер в списке офферов
+      - tech: сработал счетчик event "click" по пути $page.$main.card.shopList.listControls.shopItem.link
+
+    Отправка parent-reqid в url-атрибуте $page на странице оффера:
+      - tags:
+          - no_assessors
+      - do: открыть https://yandex.ru/products/offer/HcUgV37NWyQ2ixFLRnL28g?parent-reqid=123
+      - assert: страница загрузилась
+      - tech: |
+          parent-reqid присутствует в url-атрибуте $page
+          parent-reqid удален из url страницы
+
+    Отправка parent-reqid в url-атрибуте $page на странице модели:
+      - tags:
+          - no_assessors
+      - do: открыть https://yandex.ru/products/product/1414858424?parent-reqid=123
+      - assert: страница загрузилась
+      - tech: |
+          parent-reqid присутствует в url-атрибуте $page
+          parent-reqid удален из url страницы
+
+    Отправка parent-reqid в url-атрибуте $page на странице sku:
+      - tags:
+          - no_assessors
+      - do: открыть https://yandex.ru/products/product/558171067/sku/101116062742?parent-reqid=123
+      - assert: страница загрузилась
+      - tech: |
+          parent-reqid присутствует в url-атрибуте $page
+          parent-reqid удален из url страницы
+
+    Логирование перехода по кнопке "В магазин" на странице оффера:
+      - tags:
+          - no_assessors
+      - do: открыть https://yandex.ru/products/offer/yeJt5ScVjDY7PlsRSoyB3A
+      - assert: страница загрузилась
+      - do: нажать на кнопку "В магазин"
+      - tech: сработал счетчик event "click" по пути $page.$main.card.externalShopLink
+
+  Пожаловаться:
+    Вид с кнопкой на странице оффера:
+      - tags:
+          - no_assessors
+      - do: открыть https://yandex.ru/products/offer/RYI0Y-D2hwebM5lgVzo7Bw
+      - screenshot: внешний вид блока с предложениями магазинов соответствует скриншоту [inactive-layout]
+      - tech: в baobab-дереве залогирован узел по пути '$page.$main.card.feedbackMode'
+      - do: кликнуть по "Пожаловаться"
+      - tech: сработал счетчик event "click" по пути '$page.$main.card.feedbackMode'
+      - screenshot: внешний вид блока с предложениями магазинов соответствует скриншоту [active-layout]
+      - assert: ссылка на первый в списке магазин имеет домен forms.yandex.ru и содержит cgi-параметр "offerId"
+      - screenshot: внешний вид первого пункта в списке предложений от магазинов соответствует скриншоту [active-shop-item]
+
+    Вид с кнопкой на странице модели:
+      - tags:
+          - no_assessors
+      - do: открыть https://yandex.ru/products/product/1414858424
+      - screenshot: внешний вид блока с предложениями магазинов соответствует скриншоту [inactive-layout]
+      - tech: в baobab-дереве залогирован узел по пути '$page.$main.card.feedbackMode'
+      - do: кликнуть по "Пожаловаться"
+      - tech: сработал счетчик event "click" по пути '$page.$main.card.feedbackMode'
+      - screenshot: внешний вид блока с предложениями магазинов соответствует скриншоту [active-layout]
+      - assert: ссылка на первый в списке магазин имеет домен forms.yandex.ru и содержит cgi-параметр "offerId"
+      - screenshot: внешний вид первого пункта в списке предложений от магазинов соответствует скриншоту [active-shop-item]
+
+    Вид с кнопкой на странице sku:
+      - tags:
+          - no_assessors
+      - do: открыть https://yandex.ru/products/product/10822064/sku/10822064
+      - screenshot: внешний вид блока с предложениями магазинов соответствует скриншоту [inactive-layout]
+      - tech: в baobab-дереве залогирован узел по пути '$page.$main.card.feedbackMode'
+      - do: кликнуть по "Пожаловаться"
+      - tech: сработал счетчик event "click" по пути '$page.$main.card.feedbackMode'
+      - screenshot: внешний вид блока с предложениями магазинов соответствует скриншоту [active-layout]
+      - assert: ссылка на первый в списке магазин имеет домен forms.yandex.ru и содержит cgi-параметр "offerId"
+      - screenshot: внешний вид первого пункта в списке предложений от магазинов соответствует скриншоту [active-shop-item]
+
+    Клик на странице оффера логируется один раз:
+      - tags:
+          - no_assessors
+      - do: открыть https://yandex.ru/products/offer/RYI0Y-D2hwebM5lgVzo7Bw
+      - do: кликнуть по "Пожаловаться"
+      - do: кликнуть по первому офферу в списке
+      - tech: в baobab-дереве залогирован только один клик по офферу
+
+    Клик на странице модели логируется один раз:
+      - tags:
+          - no_assessors
+      - do: открыть https://yandex.ru/products/product/1414858424
+      - do: кликнуть по "Пожаловаться"
+      - do: кликнуть по первому офферу в списке
+      - tech: в baobab-дереве залогирован только один клик по офферу
+
+    Клик на странице sku логируется один раз:
+      - tags:
+          - no_assessors
+      - do: открыть https://yandex.ru/products/product/10822064/sku/10822064
+      - do: кликнуть по "Пожаловаться"
+      - do: кликнуть по первому офферу в списке
+      - tech: в baobab-дереве залогирован только один клик по офферу
+
+v-team: goods
+
+files:
+    - src/pages/ProductPage/tests/ProductPage.common.hermione.ts

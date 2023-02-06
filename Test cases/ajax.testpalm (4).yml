@@ -1,0 +1,33 @@
+feature: Тестирование ajax запросов на турбо
+
+specs:
+  aliases:
+  - &Make-request
+    - do: выполнить в консоле команду `const url = new URL(window.location.href); url.searchParams.delete('exp_flags'); fetch(url.toString()).then(r => r.json()).then(r => console.log(r)).catch(err => console.log({ err }));`
+
+  Добавляется поле staticItems, если запрос задан с cgi-параметром ajax-with-static:
+    - tags: no_assessors
+    - do: открыть главную страницу Яндекса с параметром '/turbo?ajax=1&ajax-with-static=1'
+    - *Make-request
+    - assert: в консоле вывелся объект с полем `staticResources`, указывающим на объект. Объект имеет поля `mainBundle`, `reactBundle`, `reactUrl`
+
+  Возвращает только список статики, если передан cgi-параметр static-only:
+    - tags: no_assessors
+    - do: открыть главную страницу Яндекса с параметром '/turbo?static-only=1'
+    - *Make-request
+    - assert: в консоле вывелся объект. Он имеет поля `mainBundle`, `reactBundle`, `reactUrl`
+
+files:
+  - features/common/ajax.hermione.js
+
+browsers:
+  - chrome-desktop
+  - ios-safari-11-touch
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: olga0321
+
+tlds: none

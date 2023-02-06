@@ -1,0 +1,25 @@
+feature: Метка
+type: Страховые
+
+params:
+  foreverdata: '1697251825'
+
+specs:
+  Внешний вид в ландшафтной ориентации:
+    - do: получить выдачу по запросу 'foreverdata'
+    - screenshot: рекламный сниппет с меткой официальности присутствует на странице [plain]
+    - do: повернуть экран в ландшафтную ориентацию и кликнуть в метку
+    - screenshot: вид сниппета с меткой и тултипом в ландшафтной ориентации [landscape-hover]
+
+files:
+  - features/touch-phone/verified/__ssd/verified__ssd.hermione.js
+
+v-team: Distribution
+
+tags:
+  - reviewed
+  - skip_e2e_check
+  - adv
+
+tlds:
+  - ru

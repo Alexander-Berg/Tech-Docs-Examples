@@ -1,0 +1,15 @@
+feature: Сюжет Яндекс.Новостей
+
+specs:
+  с плашками:
+    - do: открыть страницу '/news/story/j--13b84380adc3bf0218f8a6d842bba168
+    - screenshot: внешний вид соответствует скриншоту [origin]
+
+files:
+  - features/news/StoryShield/StoryShield.phone.hermione.js
+
+tags:
+  - neo
+  - story
+
+manager: glushneva

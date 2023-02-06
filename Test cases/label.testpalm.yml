@@ -1,0 +1,18 @@
+feature: Расширенный сниппет
+
+specs:
+  Лейбл рекламы без переноса в гринурле:
+    - browsers:
+        - ie11
+    - params:
+        foreverdata: '1040144765'
+    - do: получить выдачу по запросу foreverdata
+    - assert: рекламный лейбл находится на одной строке с гринурлом
+    - screenshot: пример внешнего вида сниппета [plain]
+
+files:
+  - features/desktop/construct/label/label.hermione.js
+
+tlds: all
+
+v-team: Distribution

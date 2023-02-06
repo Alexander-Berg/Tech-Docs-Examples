@@ -1,0 +1,23 @@
+feature: Спец.размещение
+type: Факты об организации
+
+params:
+  foreverdata: '2466056905'
+
+specs:
+  Внешний вид:
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на выдаче присутствует рекламный сниппет с фактами об организации
+    - screenshot: внешний вид [plain]
+
+files:
+  - features/desktop/serp-adv-item/org-facts.hermione.js
+
+tags:
+  - reviewed
+  - skip_e2e_check
+  - adv
+
+tlds: ru
+
+v-team: Distribution

@@ -1,0 +1,44 @@
+feature: Просмотр информации о сервисе
+
+specs:
+  Внешний вид страницы сервиса:
+    (ru) Для юзера robot-abc-002:
+      - do: открыть страницу сервиса serviceforrobot003 (/services/serviceforrobot003/)
+      - screenshot: сервис [service-ru-for-robot-abc-002]
+
+    (ru) Для юзера robot-abc-003:
+      - do: открыть страницу сервиса serviceforrobot003 (/services/serviceforrobot003/)
+      - screenshot: сервис [service-ru-for-robot-abc-003]
+
+    (ru) Для юзера robot-abc-004:
+      - do: открыть страницу сервиса serviceforrobot003 (/services/serviceforrobot003/)
+      - screenshot: сервис [service-ru-for-robot-abc-004]
+
+    (en) Для юзера robot-abc-002:
+      - do: открыть страницу сервиса serviceforrobot003 на английском языке (/services/serviceforrobot003/?lang=en)
+      - screenshot: сервис [service-en-for-robot-abc-002]
+
+    (en) Для юзера robot-abc-003:
+      - do: открыть страницу сервиса serviceforrobot003 на английском языке (/services/serviceforrobot003/?lang=en)
+      - screenshot: сервис [service-en-for-robot-abc-003]
+
+    (en) Для юзера robot-abc-004:
+      - do: открыть страницу сервиса serviceforrobot003 на английском языке (/services/serviceforrobot003/?lang=en)
+      - screenshot: сервис [service-en-for-robot-abc-004]
+
+    (ru) Для юзера robot-abc-004 - 403 доступ запрещен:
+      - do: открыть страницу сервиса robotinternal003service (/services/robotinternal003service/)
+      - screenshot: сервис [error-ru-for-robot-abc-004]
+
+    (en) Для юзера robot-abc-004 - 403 доступ запрещен:
+      - do: открыть страницу сервиса robotinternal003service (/services/robotinternal003service/)
+      - screenshot: сервис [error-en-for-robot-abc-004]
+
+files:
+  - test/features/desktop/service/granular-view.hermione.js
+
+priority: blocker
+
+tags:
+  - reviewed
+  - no_assessors

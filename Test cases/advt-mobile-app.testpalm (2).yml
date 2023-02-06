@@ -1,0 +1,35 @@
+feature: Спец.размещение
+type: Реклама мобильных приложений в ПП
+
+specs:
+  Внешний вид:
+    - do: получить выдачу по запросу 'заказать такси'
+    - assert: реклама мобильного приложения присутствует на выдаче
+    - screenshot: пример внешнего вида [advertising-appearance]
+    - do: проверить ссылку в заголовке рекламы
+    - assert: ссылка в заголовке ведет на itunes или play.google в зависимости от девайса (iphone или android соответственно)
+    - tech: href ссылки содержит yabs.yandex.ru/count/
+    - do: проверить ссылку в картинке
+    - assert: ссылка в картинке ведет на itunes или play.google в зависимости от девайса (iphone или android соответственно)
+    - tech: href ссылки содержит yabs.yandex.ru/count/
+    - do: проверить ссылку в кнопке
+    - assert: ссылка в кнопке ведет на itunes или play.google в зависимости от девайса (iphone или android соответственно)
+    - tech: href ссылки содержит yabs.yandex.ru/count/
+    - do: повернуть устройство в ландшафтную ориентацию
+    - screenshot: пример внешнего вида [advertising-appearance-landscape]
+    - assertMetrics: "*"
+files:
+  - features/touch-phone/serp-adv-item/advt-mobile-app/searchapp-phone/advt-mobile-app.hermione.js
+
+v-team: RMP
+
+tags:
+  - reviewed
+  - adv
+
+priority: high
+
+tlds: [ru, by, ua, kz]
+
+browsers:
+  - searchapp-phone

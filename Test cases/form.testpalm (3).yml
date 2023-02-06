@@ -1,0 +1,53 @@
+feature: form
+
+specs:
+
+  Форма поиска preset=search:
+    afterEach:
+      - tech: не должно быть клиентских ошибок
+
+    replace-query:
+      Пустой поисковый запрос:
+        - do: открыть ссылку yandex.ru/turbo?stub=form/preset-search-replace-query.json
+        - do: кликнуть в поле ввода
+        - do: нажать кнопку "Enter" на клавиатуре
+        - assert: не произошло отправки формы
+        - screenshot: внешний вид аналогичен примеру [error]
+
+      Отправка формы:
+        - do: открыть ссылку yandex.ru/turbo?stub=form/preset-search-replace-query.json
+        - do: ввести "станция" в поле ввода
+        - do: нажать кнопку "Enter" на клавиатуре
+        - assert: открылась новая вкладка по адресу "https://www.mvideo.ru/product-list-page-cls?q=станция&region_id=1&limit=3"
+
+      Отправка формы с кодировкой windows-1251:
+        - do: открыть ссылку yandex.ru/turbo?stub=form/preset-search-replace-query-windows-1251.json
+        - do: ввести "плов" в поле поиска
+        - do: нажать кнопку "Enter" на клавиатуре
+        - assert: открылась новая вкладка сайта "www.povarenok.ru"
+        - assert: в поле поиска на сайте введена строка "Плов" (регистр букв не важен)
+
+    replace-action:
+      Пустой поисковый запрос:
+        - do: открыть ссылку yandex.ru/turbo?stub=form/preset-search-replace-action.json
+        - do: кликнуть в поле ввода
+        - do: нажать кнопку "Enter" на клавиатуре
+        - assert: не произошло отправки формы
+        - screenshot: внешний вид аналогичен примеру [error]
+
+      Отправка формы:
+        - do: открыть ссылку yandex.ru/turbo?stub=form/preset-search-replace-action.json
+        - do: ввести "search/touch" в поле ввода
+        - do: нажать кнопку "Enter" на клавиатуре
+        - assert: открылась новая вкладка по адресу "https://yandex.ru/search%2Ftouch/search?a=b&c=d"
+
+files:
+  - features/desktop/blocks/form/form.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: olga0321, dakhetov
+
+tlds: none

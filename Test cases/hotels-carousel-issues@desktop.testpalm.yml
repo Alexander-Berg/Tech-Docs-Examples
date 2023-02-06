@@ -1,0 +1,40 @@
+feature: Hotels / Карусель
+
+specs:
+  # SERP-76348: Колдунщик не обновляется при нажатии на кнопку "Найти"
+  Обновление карусели после перезапроса с тем же текстом:
+    - tags:
+        - carousel
+        - button
+        - map
+    - do: получить выдачу по запросу "отели во владивостоке"
+    - assert: над поисковой выдачей появилась карусель отелей во всю ширину экрана
+    - do: кликнуть в карточку с картой в карусели
+    - assert: появилась карта на месте карусели с отелями в виде пинов на ней
+    - do: нажать на кнопку "найти" в поисковой стрелке яндекса
+    - assert: карта закрылась, карусель вернулась в первоначальное состояние
+
+files:
+  - features/companies/hotels/hotels-carousel/hotels-carousel-issues@desktop.hermione.js
+
+tlds:
+  - ru
+  - by
+  - kz
+  - ua
+
+regions:
+  ru: 213
+  by: 157
+  kz: 163
+  ua: 143
+
+requests:
+  ru: отели в москве
+
+counter: /parallel/result/wiz/companies/travel_map/upper/tabs/list/showcase/scroll
+
+v-team: KotTeam
+
+tags:
+  - skip_e2e_check

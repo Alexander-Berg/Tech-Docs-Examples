@@ -1,0 +1,19 @@
+feature: Адаптер адреса
+type: Без адреса
+
+params:
+  foreverdata: '3174730013'
+
+specs:
+  Внешний вид:
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: |
+        на выдаче есть адресный сниппет с рейтингом
+        под рейтингом нет адреса организации и ссылки на карту
+
+files:
+  - features/touch-phone/adapter-adresa/adapter-adresa-without-address.hermione.js
+
+tlds: all
+
+v-team: Beauty

@@ -1,0 +1,16 @@
+feature: beruText
+
+specs:
+  Внешний вид блока:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=berutext/default.json)
+    - assert: должны быть видны разные вариации блока заголовка
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/components/BeruText/__tests__/beruText.hermione.js
+
+v-team: Beru
+
+manager: seoshnik
+
+tlds: none

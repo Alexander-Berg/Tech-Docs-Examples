@@ -1,0 +1,147 @@
+feature: Объектный ответ
+type: Карточка объекта
+counter: /$page/$main/$result[@wizard_type="entity_search"]
+
+specs-integration:
+  Проверка карточки персоны:
+    - tags:
+      - oo_hum
+      - pp_new_core
+    - counter: /$page/$main/$result[@wizard_type="entity_search"]/serp-title
+    - do: получить выдачу по запросу 'Мадонна'
+    - assert: появилась карточка объекта
+    - assert: в карточке присутствует непустой заголовок
+    - assert: в карточке присутствует непустой подзаголовок
+    - assert: в карточке присутствует ссылка 'Википедия'
+    - assert: в карточке присутствует непустое описание
+    - assert: в карточке присутствует хотя бы один непустой факт
+    - assert: в карточке присутствует объектные сайты (социальные сети и т.п.)
+    - assert: в карточке присутствует хотя бы один связанный список
+    - assert: списке есть непустой заголовок
+    - assert: связанном списке есть хотя бы одна тумба
+    - assert: в карточке присутствует футер
+
+specs:
+  Проверка ссылок:
+    beforeEach:
+      - do: получить выдачу по запросу 'Преступление и наказание' (альтернативные запросы 'белый клык', 'над пропастью во ржи')
+      - assert: появилась карточка объекта
+    Текстовое описание:
+      - tags:
+          - smoke_extended
+          - pp_new_core
+      - do: нажать на заголовок описания объекта 'Википедия'
+      - assert: открылась Википедия
+      - tech: проверить счётчик на заголовке описания
+      - do: вернуться назад с помощью браузера
+      - assert: произошел возврат к карточке
+      - tech: проверить счётчик на ссылке 'Читать дальше' в описании объекта
+      - do: нажать на ссылку 'Читать дальше' в описании объекта
+      - assert: появилась скрытая часть описания объекта
+      - assertMetrics:
+        - daily.total_session_count
+        - web.total_request_count
+        - web.total_click_count
+        - web.total_all_click
+        - web.abandonment
+        - web.tech_part_misc_click
+        - all.total_dynamic_click_count
+        - feature.web.wizards_common.entity_search_wizard_main.total.clicks
+      - browsers:
+          notFor:
+            - android-uc-browser-11-touch
+            - android-uc-browser-touch
+
+  Одиночная аватарка под сниппетом:
+    - tags: no_assessors
+    - do: получить выдачу по запросу 'Мастер и Маргарита'
+    - screenshot: пример внешнего вида [plain]
+    - assertMetrics:
+      - daily.total_session_count
+      - web.total_request_count
+      - web.total_click_count
+      - web.total_all_click
+      - web.abandonment
+      - web.tech_part_misc_click
+      - all.total_dynamic_click_count
+      - feature.web.wizards_common.entity_search_wizard_main.total.clicks
+
+  Логирование my_ugc:
+    - params:
+        foreverdata: '1065148710'
+    - tags: no_assessors
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на выдаче есть карточка объекта
+    - tech: сработал счетчик /$page[@tech@entity-ugc-empty=1]
+
+  Отсутствие разделителя у карточки фильма без описания:
+    - do: получить выдачу по запросу 'Современные киноманы'
+    - assert: |
+        на выдаче есть карточка объекта,
+        между табами и рейтингом отсутствует разделитель
+    - screenshot: пример внешнего вида [film-card-without-description]
+
+  Перенос в wizplaces:
+    - tags: no_assessors
+    - do: получить выдачу по запросу 'Анджелина Джоли образование' с параметром &ento=0oCglydXcxMzc2NjIYAoIBCWVkdWNhdGlvbluyVPM
+    - assert: на выдаче есть карточка объекта
+    - screenshot: примерный внешний вид [plain]
+
+  Табик по прямому запросу:
+    Фильмы:
+      - params:
+          foreverdata: '79384342'
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: появилась карточка объектного ответа
+      - screenshot: внешний вид карточки [plain]
+
+    Актеры:
+      - params:
+          foreverdata: '4169062226'
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: появилась карточка объектного ответа
+      - screenshot: внешний вид карточки [plain]
+
+    Треки:
+      - params:
+          foreverdata: '76946875'
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: появилась карточка объектного ответа
+      - screenshot: внешний вид карточки [plain]
+
+    Клипы:
+      - params:
+          foreverdata: '1609142364'
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: появилась карточка объектного ответа
+      - screenshot: внешний вид карточки [plain]
+
+  Без шапки:
+    Заголовок "Основная информация":
+      - tags: no_assessors
+      - do: получить выдачу по запросу "Константин"
+      - asseert: |
+          на выдаче есть карточка ОО без шапки
+          в карточке есть заголовок "Основная информация"
+      - screenshot: пример внешнего вида [plain]
+
+    Заголовок от внутреннего блока Бейджа:
+      - tags: no_assessors
+      - do: получить выдачу по запросу "Прюитт Тэйлор Винс"
+      - asseert: |
+          на выдаче есть карточка ОО без шапки
+          в карточке есть заголовок от блока с описанием
+      - screenshot: пример внешнего вида [plain]
+
+files:
+  - features/touch-phone/z-entity-search/card/card.hermione.js
+  - features/touch-phone/z-entity-search/card/card.hermione.e2e.js
+
+v-team: OO
+
+tlds: [ru, by, kz, ua, com.tr, com, uz]
+
+tags:
+  - reviewed
+  - hasE2E
+  - oo_card

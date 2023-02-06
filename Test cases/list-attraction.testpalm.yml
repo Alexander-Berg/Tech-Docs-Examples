@@ -1,0 +1,33 @@
+feature: Объектный ответ
+type: Список достопримечательностей
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу 'Москва'
+    - assert: на выдаче присутствует колдунщик ОО
+  Внешний вид:
+    - screenshot: внешний вид карусели достопримечательностей с рейтингами и отзывами в карточке объекта [carousel-travel]
+  Внешний вид кнопки Весь список:
+    - do: проскроллить карусель в карточке объекта ОО
+    - screenshot: внешний вид карусели достопримечательностей с рейтингами и отзывами в карточке объекта [carousel-travel-scroller]
+  Cсылка на карточке:
+    - do: нажать на первую карточку в карусели достопримечательностей
+    - assert: открылся сайдблок с соответствующей информацией
+    - tech: сработал счетчик /$page/$main/$result/list/showcase/item/thumb
+
+files:
+  - features/touch-phone/z-entity-search/list-attraction/list-attraction.hermione.js
+
+v-team: Freshness
+
+tags:
+  - reviewed
+  - skip_e2e_check
+
+tlds:
+  - ru
+  - ua
+  - by
+  - kz
+  - com
+  - com.tr

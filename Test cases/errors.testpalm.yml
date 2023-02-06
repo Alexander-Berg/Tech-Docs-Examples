@@ -1,0 +1,72 @@
+feature: Ошибки
+
+specs:
+  Проверка 404 ошибки [manual]:
+    - automation: VACANCIES-780
+    - do: открыть страницу /jobs/<набор символов, не формирующих адрес страницы>
+    - assert: в названии страницы присутствует название ошибки
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/alex-murashev/page_not_found_full_desktop.png]
+    - do: проверить ссылку текста 'нам'
+    - assert: ссылка содержит https://forms.yandex.ru/surveys/10031549.21a902f6166ba06f34f92596983bf7aa6e186bc4/
+    - do: проверить ссылку текста 'на главную'
+    - assert: ссылка содержит /jobs/
+    - do: открыть страницу /jobs/vacancies/<набор символов, не являющихся вакансией>
+    - assert: |
+          появилась 404 ошибка
+          активен таб 'Вакансии'
+    - do: открыть страницу /jobs/locations/<набор любых не кириллических символов, не являющихся городом>
+    - assert: |
+          появилась 404 ошибка
+          активен таб 'Города'
+    - do: открыть страницу /jobs/locations/<набор кириллических символов, не являющихся городом>
+    - assert: появилась 404 ошибка
+  Проверка ошибки загрузки на странице вакансий [manual]:
+    - automation: VACANCIES-780
+    - do: открыть страницу /jobs/vacancies
+    - do: дождаться прогрузки страницы
+    - do: отключить интернет
+    - do: проскроллить до конца страницы
+    - screenshot: пример внешнего вида ошибки относительно футера [https://jing.yandex-team.ru/files/alex-murashev/load_err_footer_desktop.png]
+    - do: проверить ссылку в слове 'поддержка'
+    - assert: ссылка содержит https://forms.yandex.ru/surveys/10031549.21a902f6166ba06f34f92596983bf7aa6e186bc4/
+  Проверка ошибки загрузки на странице города [manual]:
+    - automation: VACANCIES-780
+    - do: открыть страницу /jobs/locations/moscow
+    - do: дождаться прогрузки страницы
+    - do: отключить интернет
+    - do: проскроллить до конца страницы     
+    - screenshot: пример внешнего вида ошибки относительно футера [https://jing.yandex-team.ru/files/alex-murashev/load_err_loc_footer_desktop.png]
+    - do: проверить ссылку в слове 'поддержку'
+    - assert: ссылка содержит https://forms.yandex.ru/surveys/10031549.21a902f6166ba06f34f92596983bf7aa6e186bc4/
+  Проверка ошибки поиска на странице городов [manual]:
+    - automation: VACANCIES-780
+    - do: открыть страницу /jobs/locations
+    - do: ввести в поле поиска набор любых символов, не соответствующий городу
+    - screenshot: пример внешнего вида ошибки относительно поисковой строки [https://jing.yandex-team.ru/files/alex-murashev/nothing_found_err_search_desktop.png]
+  Проверка ошибки поиска на странице вакансий [manual]:
+    - automation: VACANCIES-780
+    - do: открыть страницу /jobs/vacancies/?text=<поисковой запрос, по которому не находятся вакансии>
+    - screenshot: пример внешнего вида ошибки, относительно строки поиска [https://jing.yandex-team.ru/files/alex-murashev/nothing_found_err_text_search.png]
+  Проверка ошибки поиска на странице конкретного города [manual]:
+    - automation: VACANCIES-780
+    - do: открыть страницу /jobs/locations/moscow/?text=<поисковой запрос, по которому не находятся вакансии>
+    - screenshot: пример внешнего вида ошибки относительно поисково строки [https://jing.yandex-team.ru/files/alex-murashev/nothing_found_err_search_locations_desktop.png]
+
+platform:
+  - desktop
+
+tlds:
+  - ru
+  - by
+  - ua
+
+priority: normal
+
+browsers:
+  - yandex-browser-desktop
+  - chrome-browser-desktop
+  - firefox-desktop
+  - safari-desktop
+  - opera-desktop
+  - edge-desktop
+  - msie-desktop

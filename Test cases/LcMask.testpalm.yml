@@ -1,0 +1,64 @@
+feature: LcMask
+
+tags: no_assessors
+
+specs:
+  Круг:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcmask/circle.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Квадрат:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcmask/square.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Треугольник:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcmask/triangle.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Параллелограмм:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcmask/parallelogram.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Ромб:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcmask/rhombus.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Пятиугольник:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcmask/pentagon.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Шестиугольник:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcmask/hexagon.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Восьмиугольник:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcmask/octagon.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Флаг налево:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcmask/flag-left.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Флаг направо:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcmask/flag-right.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Стрелка налево:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcmask/arrow-left.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Стрелка направо:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcmask/arrow-right.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Рамка:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcmask/frame.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Сообщение:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcmask/message.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Крест:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcmask/cross.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Нет:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcmask/none.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/components/LcMask/__tests__/LcMask.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: ratyulenev
+
+tlds: none

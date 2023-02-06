@@ -1,0 +1,38 @@
+feature: CheckboxGroup
+
+specs:
+  Внешний вид блока:
+    - do: открыть страницу https://yandex.ru/turbo?stub=checkboxgroup/default.json
+    - screenshot: внешний вид блока [plain]
+
+  Внешний вид блока (Кастомные стили):
+    - do: открыть страницу https://yandex.ru/turbo?stub=checkboxgroup/custom-theme.json
+    - screenshot: внешний вид блока [plain]
+
+  Внешний вид блока (landscape):
+    - do: открыть страницу https://yandex.ru/turbo?stub=checkboxgroup/default.json
+    - do: сменить ориентацию на горизонтальную
+    - screenshot: внешний вид блока [landscape]
+
+  Изменение чекбоксов:
+    - do: открыть страницу https://yandex.ru/turbo?stub=checkboxgroup/default.json
+    - do: нажать на кнопку «Показать все 16»
+    - screenshot: внешний вид развёрнутого блока [expand]
+    - do: выделить чекбокс «Nokia» кликом по самому чекбоксу
+    - do: выделить чекбокс «Samsung» кликом по надписи «Samsung»
+    - do: выделить чекбокс «Sony» кликом по надписи «Sony»
+    - do: нажать на кнопку «Применить» в конце страницы
+    - screenshot: внешний вид свёрнутого блока [collapse]
+    - do: снять чекбоксы «ASUS», «Nokia» и «Sony»
+    - screenshot: внешний вид свёрнутого блока со снятыми чекбоксами [collapse-unchecked]
+
+files:
+  - platform/components/CheckboxGroup/__tests__/CheckboxGroup.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: olga0321, dakhetov
+
+tlds: none

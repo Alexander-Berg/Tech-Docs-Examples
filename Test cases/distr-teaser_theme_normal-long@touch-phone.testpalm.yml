@@ -1,0 +1,32 @@
+feature: Дистрибуционный тизер
+type: Normal c длинным заголовоком
+
+params:
+  foreverdata: '2815564106'
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: появился дистрибуционный тизер на выдаче
+  Внешний вид normal-long horizontal:
+    - label: TeaserNL-{{SET_NAME}}
+    - screenshot: внешний вид [plain]
+    - do: повернуть устройство в ландшафтную (горизонтальную) ориентацию
+    - screenshot: пример внешнего вида в ландшафтной ориентации [horizontal]
+
+files:
+  - features/distr-teaser/distr-teaser_theme_normal-long@touch-phone.hermione.js
+
+v-team: Distribution
+
+tags:
+  - skip_e2e_check
+  - distribution
+
+tlds:
+  - ru
+  - by
+
+browsers:
+  notFor:
+    - searchapp-phone

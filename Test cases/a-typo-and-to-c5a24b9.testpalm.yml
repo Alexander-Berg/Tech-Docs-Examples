@@ -1,0 +1,36 @@
+feature: 'Опечатка и Ко'
+type: 'Быть может, вы искали'
+
+specs:
+  Обязательные проверки:
+    - do: получить выдачу по запросу 'корован'
+    - assert: на странице появилась фича опечаточник
+    - screenshot: примерный внешний вид [looking-for]
+  Основная функциональность [manual]:
+    - tags: smart_tv
+    - automation: SERP-74663
+    - do: получить выдачу по запросу 'шипито'
+    - assert: под шапкой появилось сообщение 'Быть может, вы искали «шапито»?' и кнопка 'Да'
+    - screenshot: примерный внешний вид [https://jing.yandex-team.ru/files/kseverina/iexplore_jk48DXMqHh.png]
+    - tech: проверить счетчик кнопки 'Да'
+    - do: кликнуть на кнопку 'Да'
+    - assert: |
+        выдача обновилась,
+        сообщение под шапкой исчезло,
+        запрос в поисковой строке изменился на 'шапито'
+
+files:
+  - features/desktop/a-typo-and-to/a-typo-and-to-c5a24b9.hermione.js
+
+priority: medium
+
+v-team: Suggest_Freshness
+
+tags:
+  - button
+  - meta
+  - wizard
+  - misspell
+  - reviewed
+
+tlds: none

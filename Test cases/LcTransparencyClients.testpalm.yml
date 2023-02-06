@@ -1,0 +1,22 @@
+feature: LcTransparencyClients
+
+tags: no_assessors
+
+specs:
+  Внешний вид блока:
+    - automation: TURBOUI-6926
+    - do: открыть страницу примера блока LcTransparencyClients (https://yandex.ru/turbo?stub=lctransparencyclients%2Fblock.json)
+    - assert: дождаться загрузки данных
+    - screenshot: внешний вид декстопа соответствует скриншоту [https://jing.yandex-team.ru/files/dpoponkin/table_desktop.png]
+    - screenshot: внешний вид мобильных устройств соответствует скриншоту [https://jing.yandex-team.ru/files/dpoponkin/table_mobile.png]
+    - do: ввести в поиске по рекламодателю "qwe asd zxc"
+    - screenshot: внешний вид десктопа соответствует скриншоту [https://jing.yandex-team.ru/files/dpoponkin/table_nothing_desktop.png]
+    - screenshot: внешний вид мобильных устройств соответствует скриншоту [https://jing.yandex-team.ru/files/dpoponkin/table_nothing_mobile.png]
+
+v-team: Turbo
+
+manager: nickpro
+
+qa-engineer: skurhansky
+
+tlds: none

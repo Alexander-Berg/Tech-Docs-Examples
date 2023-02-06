@@ -1,0 +1,147 @@
+feature: Колдунщик топонимов
+type: Конкретный адрес
+
+params:
+  rearr: EntitySearch_off
+  # колдунщик топонимов отключен на стороне данных, этот флаг возвращает колдун
+  srcparams: 'UPPER:rearr=scheme_Local/ToponymWizard/Enabled=1'
+
+specs-integration:
+  Наличие колдунщика:
+    - do: получить выдачу по запросу 'академика королёва 12'
+    - assert: появляется колдунщик с картой
+    - counter: /$page/$main/$result[@wizard_name="maps" and @subtype="house"]/title
+
+specs:
+  aliases:
+    - &CheckMetrics
+      - assertMetrics:
+          - feature.web.wizards_common.maps_wizard.total.shows
+          - feature.web.wizards_common.maps_wizard.total.external_clicks
+          - feature.web.wizards_common.maps_wizard.total.dynamic_clicks
+          - web.total_request_results_clicks
+          - web.total_request_results_ext_clicks
+          - web.total_request_results_dyn_clicks
+          - web.total_request_results_main_column_clicks
+          - web.total_request_results_main_column_ext_clicks
+          - web.total_request_results_main_column_dyn_clicks
+          - web.total_request_results_parallel_column_clicks
+          - web.total_request_results_parallel_column_ext_clicks
+          - web.total_request_results_parallel_column_dyn_clicks
+          - web.tech_part_misc_click
+          - web.total_request_count
+          - daily.total_session_count
+  beforeEach:
+    - do: получить выдачу по запросу 'академика королёва 12'
+  Проверить внешний вид, общие ссылки и счётчики колдунщика топонимов:
+    - tags:
+        - title
+        - greenurl
+        - maps
+    - screenshot: в результатах поиска появляется колдунщик топонимов, его внешний вид [plain]
+    - do: перейти по тайтлу
+    - assert: осуществился переход на Яндекс.Карты с поинтом на адресе из запроса
+    - *CheckMetrics
+  Карта на морде колдунщика:
+    Должны работать общие ссылки карты:
+      - tags:
+          - maps
+          - panorama
+      - do: нажать кнопку 'На большую карту'
+      - assert: открылась новая вкладка с Яндекс.Картами, где поинтом отмечен адрес из запроса
+      - do: вернуться назад и нажать кнопку 'Панорама'
+      - assert: открылась новая вкладка с панорамой улицы на Яндекс.Картах, где поинтом отмечен адрес из запроса
+      - *CheckMetrics
+    Должен меняться зум после клика в контролы зума:
+      - tags:
+          - maps
+          - zoom
+      - do: кликнуть по кнопке увеличения зума - '+'
+      - assert: масштаб увеличился
+      - do: кликнуть по кнопке уменьшения зума - '-'
+      - assert: масштаб уменьшился
+      - *CheckMetrics
+    Должна показаться метка 'Я' на карте после клика в кнопку геолокации:
+      - tags:
+          - maps
+          - location
+      - do: кликнуть по кнопке геолокации, разрешить браузеру сообщить местонахождение
+      - assert: в колдунщике появилась буква 'Я' в красном круге
+      - *CheckMetrics
+    Должен показаться попап с ошибкой, если геолокация запрещена:
+      - tags:
+          - maps
+          - location
+          - popup
+      - do: запретить браузеру сообщить местонахождение, кликнуть по кнопке геолокации
+      - assert: в колдунщике появилось всплывающее окно с сообщением о том, что определить местонахождение не удалось
+      - *CheckMetrics
+    Должен показаться попап с ошибкой, если не удалось точно определить местоположение:
+      - tags:
+          - maps
+          - location
+          - popup
+      - do: разрешить браузеру сообщить местонахождение, затем отключить интернет, затем кликнуть по кнопке геолокации
+      - assert: в колдунщике появилось всплывающее окно с сообщением о том, что определить точное местонахождение не удалось
+    Должен открыться балун после клика в пин:
+      - tags:
+          - maps
+          - popup
+      - do: кликнуть на пин на карте
+      - assert: появилось всплывающее окно с информацией
+      - do: перейти по ссылке 'на машине'
+      - assert: открылась вкладка с маршрутом поездки до точки
+      - do: вернуться на страницу выдачи результатов, нажать на пин и перейти по ссылке 'транспорт'
+      - assert: открылась вкладка с маршрутом поездки до точки
+      # Неверно логируются клики внутри балуна
+      # TODO SERP-72420
+      # - *CheckMetrics
+    Должны появляться входы в здание при зуме:
+      - tags:
+          - maps
+          - zoom
+      - do: кликнуть по кнопке увеличения зума - '+'
+      - assert: появилась точка входа в здания
+      - do: кликнуть по кнопке увеличения зума - '+'
+      - assert: появилась стрелочка указатель на точку входа в здание
+      - do: кликнуть по кнопке увеличения зума - '+'
+      - assert: точки и стрелки увеличились в размерах
+  Карточка про конкретный адрес и организации в этом месте:
+    Должны присутствовать и работать все элементы карточки:
+      - tags:
+          - maps
+          - route
+      - do: перейти по первой ссылке организации в этом доме
+      - assert: открылась новая вкладка с Яндекс.Картами, правильной точкой и описанием организации
+      - do: вернуться назад и перейти по ссылке 'все организации'
+      - assert: открылась новая вкладка Яндекс.Карт с результатами поиска и перечнем организаций
+      - do: вернуться на страницу выдачи результатов и перейти по ссылке 'на машине' в информации под картой
+      - assert: открылась вкладка с маршрутом поездки до точки, выбрано 'на машине'
+      - do: вернуться на страницу выдачи результатов и перейти по ссылке 'транспортом' в информации под картой
+      - assert: открылась вкладка с маршрутом поездки до точки, выбрано 'транспортом'
+      # Неверно логируются клики по ссылкам из параметров i18n
+      # TODO SERP-72420
+      # - *CheckMetrics
+
+files:
+  - features/adapter-maps/house@deskpad.hermione.js
+  - features/adapter-maps/house@deskpad.hermione.e2e.js
+
+tlds: all
+
+v-team: VanillaGeo
+
+regions:
+  ru: 213
+  by: 157
+  kz: 163
+  ua: 143
+
+requests:
+  ru: академика королёва 12
+
+counter: /$page/$main/$result[@wizard_name="maps" and @subtype="house"]/map/goto-map
+
+tags:
+  - reviewed
+  - hasE2E

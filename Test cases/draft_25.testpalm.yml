@@ -1,0 +1,15 @@
+feature:  Умный дом - розетка - включить
+
+specs:
+    Умный дом - розетка - включить:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/1853
+        - release_Smarthome
+        - smarthome_regress
+        - surface_station
+        - surface_loudspeaker
+        - iot_voice
+        - evo_automated
+    - do: "Preconditions На аккаунте есть розетка; ; **устройство**: розетка; **имя**: чайник; **возможности**: вкл/выкл; **группа**: без группы; **комната**: кухня"
+    - do: "`включи чайник`; `включи розетку`; `вруби розетку`"
+    - assert: "Розетка включается"

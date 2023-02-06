@@ -1,0 +1,66 @@
+feature: ЖД
+type: Выбор мест
+description: |-
+  Перейти на главную сервиса
+  Перейти на вкладку Ж/Д билеты
+specs:
+  'ЖД: Выбор мест в вагоне':
+    - do: >-
+        Открыть выдачу Москва - Санкт-Петербург через месяц с прописанным праметром
+        ?_ym_debug=1 и перейти на страницу выбора мест, кликнув по кнопке
+        покупки (кнопка может называться по разному, сейчас называется "Выбрать
+        место")
+
+        PS если что-то не сработало - попробуйте заменить "?" на "&"
+    - assert: >-
+        * Произошел переход на страницу выбора мест
+
+        * Каждой цене для каждого класса соответствует свой цвет, этими цветами
+        окрашены места в вагонах
+
+        ![image](https://jing.yandex-team.ru/files/shenfeld/Vybor_mest_v_poezde_072E_Sankt-Peterburg_Ekaterinburg_iz_Permi_v_Ekaterinburg_na_31_yanvarya__Yandeks.Puteshestviya_2019-01-17_13-02-32.png)
+
+        * В классах вагонов, где цена всего одна, места в вагонах белые
+
+        ![image](https://jing.yandex-team.ru/files/shenfeld/Vybor_mest_v_poezde_072E_Sankt-Peterburg_Ekaterinburg_iz_Permi_v_Ekaterinburg_na_31_yanvarya__Yandeks.Puteshestviya_2019-01-17_13-03-15.png)
+    - do: В блоке "Укажите количество билетов" установить трех взрослых
+    - do: В блоке “Выберите тип вагона” выбрать тип  вагона, где есть свободные места для всех категорий нижние, верхние, нижние боковые, верхние боковые
+    - do: Открыть консоль браузера
+    - do: На схеме кликнуть по нижнему месту
+    - assert: >-
+        * В консоли появилось событие в метрику: trains_place_selected
+
+        * Место, по которому кликали, стало желтым
+
+        * Цена, появившаяся в разделе "Стоимость билетов" для этого места равна
+        цене, указанной для этого цвета
+
+        * Места недоступные для выбора стали полупрозрачными и не кликабельными
+
+        ![image](https://jing.yandex-team.ru/files/shenfeld/Vybor_mest_v_poezde_072E_Sankt-Peterburg_Ekaterinburg_iz_Permi_v_Ekaterinburg_na_31_yanvarya__Yandeks.Puteshestviya_2019-01-17_12-55-28.png)
+    - do: Кликнуть по соседнему нижнему месту
+    - assert: >-
+        * Место, по которому кликали, стало желтым
+
+        * Места недоступные для выбора стали полупрозрачными и не
+        кликабельными:
+
+        ![image](https://jing.yandex-team.ru/files/shenfeld/Vybor_mest_v_poezde_072E_Sankt-Peterburg_Ekaterinburg_iz_Permi_v_Ekaterinburg_na_31_yanvarya__Yandeks.Puteshestviya_2019-01-17_12-59-18.png)
+    - do: Кликнуть по оставшемуся верхнему месту
+    - assert: >-
+        * Место, по которому кликали, стало желтым
+
+        * Все остальные места полупрозрачные и не кликабельные:
+
+        ![image](https://jing.yandex-team.ru/files/shenfeld/Vybor_mest_v_poezde_072E_Sankt-Peterburg_Ekaterinburg_iz_Permi_v_Ekaterinburg_na_31_yanvarya__Yandeks.Puteshestviya_2019-01-17_12-59-51.png)
+manual: true
+Функциональность: Схемы вагонов
+Устройство: Десктоп
+Страница: Выбор мест
+Сервис: ЖД
+Тестирование асессорами: Да
+Окружение:
+  - Production
+  - Testing
+Tag: Smoke
+Автор: shenfeld

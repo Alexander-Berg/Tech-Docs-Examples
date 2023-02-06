@@ -1,0 +1,145 @@
+feature: Колдунщик Авто.ру
+type: С витриной
+
+counter: /$page/$main/$result[@wizard_name="auto_2" and @subtype="model"]/more
+
+specs:
+  Вид с ценами:
+    Внешний вид:
+      - tags: smoke_extended
+      - params:
+          foreverdata: '1825085094'
+      - do: получить выдачу по запросу foreverdata
+      - screenshot: появился колдунщик Авто.ру с сайтлинками, витриной и ценами (размер изображений может отличаться) [plain]
+    Широкие десктопы:
+      - params:
+          foreverdata: '1825085094'
+      - do: |
+          сделать ширину браузера 1920px
+          получить выдачу по запросу foreverdata
+      - screenshot: появился колдунщик Авто.ру с сайтлинками, витриной и ценами [wide]
+    Внешний вид без сайтлинков:
+      - params:
+          foreverdata: '2559287519'
+      - do: получить выдачу по запросу foreverdata
+      - screenshot: появился колдунщик Авто.ру с витриной и ценами без сайтлинков (размер изображений может отличаться) [no-sitelinks]
+    Cсылки и скролл:
+      params:
+        foreverdata: '1825085094'
+      beforeEach:
+          - do: получить выдачу по запросу foreverdata
+          - assert: появился колдунщик Авто.ру с витриной и ценами
+      Заголовок:
+          - do: перейти по заголовку колдунщика
+          - assert: произошёл переход на страницу с объявлениями автомобиля Kia Rio
+          - tech: сработал счётчик path='/$page/$main/$result[@wizard_name="auto_2" and @subtype="model"]/title
+      Гринурл:
+          - do: перейти по гринурлу
+          - assert: произошёл переход на страницу с объявлениями автомобиля Kia Rio
+          - tech: сработал счётчик path='/$page/$main/$result[@wizard_name="auto_2" and @subtype="model"]/path/urlnav'
+      Ссылка на отзывы:
+          - do: перейти по первому сайтлинку
+          - assert: произошёл переход на страницу с отзывами автомобиля Kia Rio
+          - tech: сработал счётчик path='/$page/$main/$result[@wizard_name="auto_2" and @subtype="model"]/sitelinks/item'
+      Ссылка на характеристики:
+          - do: перейти по второму сайтлинку
+          - assert: произошёл переход на страницу автомобиля Kia Rio, открыта вкладка с техническими характеристиками
+          - tech: сработал счётчик path='/$page/$main/$result[@wizard_name="auto_2" and @subtype="model"]/sitelinks/item'
+      Ссылка на комплектации:
+          - do: перейти по третьему сайтлинку
+          - assert: произошёл переход на страницу автомобиля Kia Rio, открыта вкладка с вариантами комплектаций
+          - tech: сработал счётчик path='/$page/$main/$result[@wizard_name="auto_2" and @subtype="model"]/sitelinks/item'
+      Первая тумба витрины:
+        - do: перейти по картинке первой тумбы
+        - assert: произошёл переход на страницу с объявлениями автомобиля Kia Rio
+        - assert: первое объявление в списке соответствует фотографии в колдунщике
+        - tech: сработал счётчик jsredir -> path = '/$page/$main/$result[@wizard_name="auto_2" and @subtype="model"]/showcase/item/thumb'
+      Вторая тумба витрины:
+        - do: перейти по заголовку тумбы
+        - assert: произошёл переход на страницу с объявлениями автомобиля Kia Rio
+        - assert: первое объявление в списке соответствует фотографии в колдунщике
+        - tech: сработал счётчик jsredir -> path = '/$page/$main/$result[@wizard_name="auto_2" and @subtype="model"]/showcase/item/subtitle'
+      Третья тумба витрины:
+        - do: перейти по тексту с ценой
+        - assert: произошёл переход на страницу с объявлениями автомобиля Kia Rio
+        - assert: первое объявление в списке соответствует фотографии в колдунщике
+        - tech: сработал счётчик jsredir -> path = '/$page/$main/$result[@wizard_name="auto_2" and @subtype="model"]/showcase/item/text'
+      Кнопка 'Больше объявлений':
+        - do: проскроллить витрину справа налево до конца
+        - screenshot: на последнем элементе витрины - тумба со ссылкой 'Больше объявлений', внешний вид [scrolled]
+        - do: перейти по ссылке 'Больше объявлений'
+        - assert: произошёл переход на страницу с объявлениями автомобиля Kia Rio
+        - tech: сработал счётчик jsredir -> path = '/$page/$main/$result[@wizard_name="auto_2" and @subtype="model"]/more'
+  Вид без цен:
+    params:
+      foreverdata: '1330522542'
+    beforeEach:
+      - do: получить выдачу по запросу foreverdata
+    Заголовок:
+      - screenshot: появился колдунщик Авто.ру с витриной без цен, внешний вид (размер изображений может отличаться) [plain]
+      - do: перейти по заголовку колдунщика
+      - assert: |
+          произошёл переход на Авто.ру,
+          отобразился раздел объявлений,
+          выбрана марка BMW
+      - tech: сработал счётчик path='/$page/$main/$result[@wizard_name="auto_2" and @subtype="vendor"]/title'
+    Гринурл:
+      - assert: появился колдунщик Авто.ру
+      - do: перейти по гринурлу
+      - assert: |
+          произошёл переход на Авто.ру,
+          отобразился раздел объявлений,
+          выбрана марка BMW
+      - tech: сработал счётчик path='/$page/$main/$result[@wizard_name="auto_2" and @subtype="vendor"]/path/urlnav'
+    Ссылки в тумбах:
+      - assert: появился колдунщик Авто.ру с витриной без цен
+      - do: перейти по фотографии первой тумбы в витрине
+      - assert: |
+          произошёл переход на Авто.ру,
+          отобразился раздел объявлений,
+          выбрана марка BMW,
+          выбрана серия в соответствии с указанной в тумбе
+      - tech: сработал счётчик path='/$page/$main/$result[@wizard_name="auto_2" and @subtype="vendor"]/showcase/item/thumb'
+      - do: перейти по заголовку-ссылке первой тумбы в витрине
+      - assert: |
+          произошёл переход на Авто.ру,
+          отобразился раздел объявлений,
+          выбрана марка BMW,
+          выбрана серия в соответствии с указанной в тумбе
+      - tech: сработал счётчик path='/$page/$main/$result[@wizard_name="auto_2" and @subtype="vendor"]/showcase/subtitle'
+      - do: перейти по тексту первой тумбы в витрине
+      - assert: |
+          произошёл переход на Авто.ру,
+          отобразился раздел объявлений,
+          выбрана марка BMW,
+          выбрана серия в соответствии с указанной в тумбе
+      - tech: сработал счётчик path='/$page/$main/$result[@wizard_name="auto_2" and @subtype="vendor"]/showcase/text'
+    Кнопка Больше автомобилей:
+      - assert: появился колдунщик Авто.ру с витриной без цен
+      - do: прокрутить витрину до конца
+      - screenshot: внешний вид с кнопкой Больше автомобилей (размер изображений может отличаться) [scrolled]
+      - do: нажать кнопку Больше автомобилей
+      - assert: |
+          произошёл переход на Авто.ру,
+          отобразился раздел объявлений,
+          выбрана марка BMW
+      - tech: сработал счётчик path='/$page/$main/$result[@wizard_name="auto_2" and @subtype="vendor"]/showcase/more'
+  Многострочная витрина:
+    - params:
+        foreverdata: '2560760563'
+    - do: получить выдачу по запросу 'foreverdata'
+    - screenshot: внешний вид с многострочной витриной (размер изображений может отличаться) [multiline]
+
+files:
+  - src/features/AutoruThumbsPrice/AutoruThumbsPrice.test/AutoruThumbsPrice@desktop.hermione.js
+
+v-team: Vertical
+
+tags:
+  - skip_e2e_check
+
+tlds:
+ - ru
+
+regions:
+  ru: 213

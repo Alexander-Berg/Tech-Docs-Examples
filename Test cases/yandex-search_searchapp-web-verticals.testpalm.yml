@@ -1,0 +1,24 @@
+feature: Шапка
+experiment: Веб-вертикали в ПП
+
+specs:
+  Унификация списка вертикалей:
+    - tags: no_assessors
+    - params:
+        exp_flags:
+          - velocity_searchapp_web_verticals=1
+          - velocity_searchapp_web_verticals_default_order=1
+    - do: получить выдачу по запросу 'test'
+    - assert: на странице отображается шапка со списком сервисов
+    - do: перевернуть устройство в горизонтальную ориентацию
+    - assert: список сервисов в шапке соответствует скриншоту
+    - screenshot: список сервисов [menu]
+
+files:
+  - features/touch-phone/yandex-search/experiments/web-verticals/yandex-search_searchapp-web-verticals.hermione.js
+
+v-team: Velocity
+
+browsers: searchapp-phone
+
+tlds: all

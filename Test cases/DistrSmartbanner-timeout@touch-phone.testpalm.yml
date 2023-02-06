@@ -1,0 +1,36 @@
+feature: Смартбаннер React
+type: таймаут появления
+
+params:
+  foreverdata: '4071267478'
+  exp_flags:
+    - smartbanner_atom=1
+
+specs:
+  Появление смартбаннера через 5 секунд:
+    - do: удалить cookie
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на выдаче нет смартбаннера
+    - do: подождать 5 секунд
+    - assert: появился смартбаннер
+    - screenshot: Пример внешнего вида смартбаннера [smartbanner-timeout]
+    - tech: сработал счетчик /$page/distr-smartbanner/promofooter-show-timeout
+    - do: клик в кнопку 'Закрыть'
+    - tech: сработал счётчик /$page/distr-smartbanner/close
+    - assert: смартбаннер исчез
+
+files:
+  - src/features/DistrSmartbannerReact/DistrSmartbannerReact.test/distr-smartbanner-timeout/DistrSmartbanner-timeout@touch-phone.hermione.js
+
+tags:
+  - reviewed
+  - distribution
+  - smartbanner
+
+v-team: Distribution
+
+tlds: [ru, by]
+
+browsers:
+  notFor:
+    - searchapp-phone

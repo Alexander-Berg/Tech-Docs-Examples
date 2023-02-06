@@ -1,0 +1,74 @@
+feature: Офферы
+type: Рейтинг в офферах
+
+specs:
+  Без отзывов:
+    - params:
+        foreverdata: '3718718170'
+    - do: получить выдачу по запросу 'foreverdata'
+    - screenshot: пример внешнего вида рейтинга у экстралинков/кебаб-меню [no_reviews]
+    - do: кликнуть в экстралинки/кебаб-меню
+    - assert: |
+        открылось меню
+        в меню на последнем месте присутствует пункт "Оценка по мнению пользователей Яндекса"
+    - screenshot: пример внешнего вида меню [no_reviews_menu]
+
+  С отзывами:
+    - tags:
+        - smoke
+    - params:
+        foreverdata: '3695339678'
+    - do: получить выдачу по запросу 'foreverdata'
+    - screenshot: пример внешнего вида рейтинга у экстралинков/кебаб-меню [with_reviews]
+    - do: кликнуть в экстралинки/кебаб-меню
+    - assert: |
+        открылось меню
+        в меню на первом месте присутствует пункт "N отзывов", где N - целое число (например, 314)
+    - screenshot: пример внешнего вида меню [with_reviews_menu]
+    - do: кликнуть по пункту с количеством отзывов
+    - assert: в новой вкладке открылась страница с отзывами (на старых версиях браузера может появится сообщение 'Ваш браузер устарел' - не баг)
+    - tech: |
+        сработал счётчик path = '/$page/$main/$result/extralinks/extralinks-popup/reviews'
+        hostname у ссылки эквивалентен 'reviews.yandex.ru'
+
+  Первая позиция:
+    - params:
+        exp_flags:
+          - related-above-enable-for-testing=1
+        foreverdata: '3405999941'
+    - do: получить выдачу Поиска по запросу 'foreverdata'
+    - assert: у первого сниппета есть рейтинг у экстралинков
+    - screenshot: пример внешнего вида первого сниппета (текст и наличие элементов может отличаться - не баг) [before-related]
+    - do: |
+        проcкроллить вниз до конца первой страницы выдачи
+        проcкроллить обратно на самый верх
+    - assert: |
+        появились переформулировки над выдачей
+        позиция рейтинга у экстралинков не изменилась
+    - screenshot: пример внешнего вида первого сниппета с рейтингом у экстралинков [after-related]
+
+  Доступность:
+    - tags: a11y_serp
+    - params:
+        foreverdata: '3718718170'
+    - do: |
+        получить выдачу по запросу 'foreverdata'
+        включить скринридер и дойти до рейтинга
+    - assert: |
+        рейтинг озвучивается как 'Рейтинг: 2,8 из 5'
+
+files:
+  - src/features/OfferReviews/OfferReviews.test/OfferReviews@touch-phone.hermione.js
+
+browsers:
+    notFor:
+      - ios-safari-9-touch
+      - ios-safari-10-touch
+
+tags:
+  - skip_e2e_check
+  - dm_offer
+
+v-team: Distribution
+
+tlds: all

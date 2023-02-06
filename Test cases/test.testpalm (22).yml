@@ -1,0 +1,35 @@
+feature: Feature one
+
+params:
+  exp_flags: 'universe=42'
+  foreverdata: '1234'
+
+specs:
+  Describe in specs:
+    The first it case:
+      - params:
+          text:
+            - something
+          exp_flags:
+            - universe=42
+            - font-size=10
+      - do: something 1
+    The second it case:
+      - params:
+          text:
+            - something2
+          exp_flags:
+            - universe=42
+            - hideads=1
+            - font-size=10
+      - do: something 2
+    The last it case:
+      - params:
+          exp_flags:
+            - universe=42
+            - reviews=1
+            - url_font-size=20
+      - do: something 3
+
+files:
+  - test/fixtures/value-edit/test.hermione.js

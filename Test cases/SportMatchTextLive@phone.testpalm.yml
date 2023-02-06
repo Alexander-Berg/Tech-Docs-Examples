@@ -1,0 +1,20 @@
+feature: Текстовая трансляция
+
+specs:
+  Базовый вид блока:
+    - tags:
+      - sportauto
+    - do: открыть /turbo?stub=sportmatchtextlive/default.json
+    - assert: текстовая трансляция видна
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/components/SportMatchTextLive/__tests__/SportMatchTextLive@phone.hermione.js
+
+v-team: Sport
+
+qa-engineer: nightsonne
+
+manager: ismd
+
+tlds: none

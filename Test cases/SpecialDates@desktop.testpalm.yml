@@ -1,0 +1,81 @@
+feature: Сниппеты
+type: Метка свежести
+
+specs:
+  Проверка внешнего вида - с датой:
+    - params:
+        user_time: '20180910'
+        foreverdata: '1703155694'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: |
+        на выдаче есть сниппет с датой "2 мая"
+        дата пишется справа от гринурла в голубом овале
+    - screenshot: Внешний вид c датой [with-date]
+  Проверка внешнего вида - длинный текст:
+    - params:
+        user_time: '20180910'
+        foreverdata: '1175373586'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: |
+        на выдаче есть сниппет с датой "2 мая"
+        дата пишется справа от гринурла в голубом овале
+    - screenshot: Внешний вид c датой [long-text]
+  Проверка внешнего вида - с текстом:
+    - params:
+        user_time: '20170503'
+        foreverdata: '1703155694'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: |
+        на выдаче есть сниппет с текстом "вчера"
+        текст пишется справа от гринурла в голубом овале
+    - screenshot: Внешний вид c датой [with-text]
+  Проверка ссылок и счетчиков:
+    - params:
+        foreverdata: '2924813483'
+    - do: получить выдачу по запросу 'foreverdata'
+    - do: клик в тайтл
+    - assert: ссылка открылась в новой вкладке
+    - tech: сработал счетчик '/$page/$main/$result[@type="organic"]/title'
+    - do: вернуться на предыдущую страницу и клик в гринурл
+    - assert: ссылка открылась в новой вкладке
+    - tech: сработал счетчик '/web/item/urlnav/'
+    - assertMetrics: '*'
+  Расширенный сниппет с особой датой:
+    - params:
+        user_time: '20180910'
+        foreverdata: '1703155694'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на выдаче есть сниппет с меткой свежести в голубом овале и ссылкой 'читать еще'
+    - do: нажать на ссылку 'читать еще'
+    - tech: сработал счетчик '/$page/$main/$result/extended-text/more'
+    - assert: раскрылся подробный сниппет
+    - do: нажать на ссылку 'скрыть'
+    - tech: сработал счетчик '//$page/$main/$result/extended-text/close'
+    - assert: подробный сниппет закрылся
+    - assertMetrics: '*'
+
+files:
+  - src/features/SpecialDates/SpecialDates.test/SpecialDates@desktop.hermione.js
+
+v-team: Beauty
+
+tlds:
+  - ru
+  - by
+  - kz
+  - ua
+  - com.tr
+  - com
+  - uz
+
+tags:
+  - c_outside
+  - use_constr
+  - c_organic
+  - c_title
+  - c_text
+  - c_path
+  - reviewed
+  - skip_e2e_check #e2e на common уровне features/common/adapter-special-dates/adapter-special-dates.hermione.e2e.js
+
+counter: /snippet/special_dates/card

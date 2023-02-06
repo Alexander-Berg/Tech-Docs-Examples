@@ -1,0 +1,58 @@
+feature: product-page
+type: с кнопкой "купить в 1 клик" на инфраструктуре корзины
+
+params:
+  exp_flags:
+    - turboforms_endpoint=https://test-turbo-forms.common.yandex.ru/
+    - analytics-disabled=1
+
+browsers:
+  - ios-safari-12-touch
+  - ios-safari-11-touch
+  - ios-safari-10-touch
+  - ios-safari-9-touch
+
+specs:
+  На странице с корзиной:
+    - do: открыть страницу https://yandex.ru/turbo?stub=productpage/new-one-click-buy-with-cart.json
+    - do: открыть вкладку network в средствах разработчика
+    - assert: отображает кнопка "Купить в 1 клик"
+    - tech: выполнить в консоли `window.Ya.store.getState().cart.etag` и запомнить значение
+    - do: кликнуть на "Купить в 1 клик"
+    - tech: |
+        в network есть 2 запроса (options и post) к /submit/shopping-cart/
+        в post запросе есть 1 товар и sk, etag нет
+    - assert: открылось модальное окно с формой заказа
+    - tech: выполнить в консоли `window.Ya.store.getState().cart.etag` и срувнить значение - оно не изменилось
+    - do: заполнить форму
+    - do: нажать на кнопку отправки формы
+    - tech: отправляется 2 запроса option и post запрос на /submit/shopping-cart/final
+
+  На странице без корзины:
+    - do: открыть вкладку network в средствах разработчика
+    - do: открыть страницу https://yandex.ru/turbo?stub=productpage/new-one-click-buy-no-cart.json
+    - tech: после загрузки страницы отправилось 2 запроса (options и post) на /submit/shopping-cart/
+    - assert: отображает кнопка "Купить в 1 клик"
+    - do: кликнуть на "Купить в 1 клик"
+    - tech: |
+        в network есть 2 запроса (options и post) к /submit/shopping-cart/
+        в post запросе есть 1 товар и sk, etag нет
+    - assert: открылось модальное окно с формой
+    - do: заполнить форму
+    - do: нажать на кнопку отправки формы
+    - tech: отправляется 2 запроса option и post запрос на /submit/shopping-cart/final
+
+files:
+  - platform/components/ProductPage/__tests__/ProductPageOneClickAsCart@phone.hermione.js
+
+v-team: Turbo
+
+tags:
+  - e-commerce
+  - no_assessors # бекенд не в продакшене
+
+manager: tanzwuta
+
+qa-engineer: ianislav
+
+tlds: none

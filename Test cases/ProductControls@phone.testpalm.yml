@@ -1,0 +1,51 @@
+feature: ProductsControls
+
+params:
+  exp_flags:
+    - analytics-disabled=1
+
+browsers:
+  - ios-safari-12-touch
+  - ios-safari-11-touch
+  - ios-safari-10-touch
+  - ios-safari-9-touch
+
+specs:
+  Внешний вид:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=productspage/index.json
+    - screenshot: внешний вид фильтров [plain]
+  Проверка работы сортировки по возрастанию цены:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=productspage/index.json
+    - assert: на странице над листингом есть блок с фильтрами
+    - do: в контролле `По популярности` выбрать `Сначала дешевле`
+    - assert: открылась страница, в урле которой есть `stub=productspage/stub_sort_price.json`
+  Проверка работы сортировки по убыванию цены:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=productspage/index.json
+    - assert: на странице над листингом есть блок с фильтрами
+    - do: в контролле `По популярности` выбрать `Сначала дороже`
+    - assert: открылась страница, в урле которой есть `stub=productspage/stub_sort_-price.json`
+  Ссылка на фильтры:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=productspage/index.json
+    - assert: на странице над листингом есть блок с фильтрами
+    - do: кликнуть на `Фильтры`
+    - assert: открылась страница, в урле которой есть `stub=productfilterspage/default.json`
+  Ссылка на фильтры на красивом URL:
+    - tags:
+      - filters
+    - do: открыть ссылку https://yandex.ru/turbo/n/ymturbo.t-dir.com/yandexturbocatalog/
+    - assert: на странице над листингом есть блок с фильтрами
+    - do: кликнуть на `Фильтры`
+    - assert: открылась страница https://yandex.ru/turbo/n/ymturbo.t-dir.com/yandexturbocatalog/?page_type=filter
+
+tags:
+  - e-commerce
+  - no_assessors #раскатили новый дизайн на 100%
+
+files:
+  - platform/components/ProductsControls/__tests__/ProductsControls@phone.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+tlds: none

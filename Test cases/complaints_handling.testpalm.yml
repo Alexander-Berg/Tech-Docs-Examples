@@ -1,0 +1,47 @@
+feature: Задачи
+type: Модерация. Жалобы. Обработка
+
+specs:
+  beforeEach:
+    - do: открыть страницу жалоб /complaints/list/?moderator=
+    - assert: |
+        открылась страница жалоб
+        на каждой жалобе есть кнопки вынесения резолюции
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/klimovich-a/2019-09-18_11.16.20-ukvzf.png]
+  Вынесение резолюции 'Решено' [manual]:
+    - automation: FEMIDA-5084
+    - do: клик 'Решено' на жалобе
+    - assert: |
+        резолюция 'Решено' отобразилась в жалобе
+        кнопка 'Не будет исправлено' исчезла
+        кнопка 'Решено' исчезла
+        название жалобы зачеркнулось
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/klimovich-a/2019-09-18_11.27.47-xzaho.png]
+  Вынесение резолюции 'Не будет исправлено' [manual]:
+    - automation: FEMIDA-5084
+    - do: клик 'Не будет исправлено' на жалобе
+    - assert: |
+        резолюция 'Не будет исправлено' отобразилась в жалобе
+        кнопка 'Не будет исправлено' исчезла
+        кнопка 'Решено' исчезла
+        название жалобы зачеркнулось
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/klimovich-a/2019-09-18_11.35.49-v165n.png]
+  Вынесение резолюции 'Объединить' [manual]:
+    - automation: FEMIDA-5084
+    - do: в жалобе с названием 'Дубликат' клик на 'Объединить'
+    - assert: |
+        резолюция 'Объединено' отобразилась в жалобе
+        кнопка 'Не будет исправлено' исчезла
+        кнопка 'Объединить' исчезла
+        название жалобы зачеркнулось
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/klimovich-a/2019-09-18_12.22.57-6jifn.png]
+
+tags:
+  - reviewed
+
+priority: normal
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

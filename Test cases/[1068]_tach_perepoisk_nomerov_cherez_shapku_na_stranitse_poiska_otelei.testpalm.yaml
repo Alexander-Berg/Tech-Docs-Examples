@@ -1,0 +1,8 @@
+feature: Отели
+type: ''
+description: ''
+specs:
+  'Тач: Перепоиск номеров через шапку на странице поиска отелей':
+    - do: 'https://testpalm.yandex-team.ru/testcase/travel-935'
+manual: true
+Сервис: Отели

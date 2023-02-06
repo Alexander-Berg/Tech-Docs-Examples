@@ -1,0 +1,19 @@
+feature:  Умный дом - пуши в сценариях
+
+specs:
+    Умный дом - пуши в сценариях:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/4337
+        - release_Webview
+        - release_Smarthome
+        - smarthome_regress
+        - platform_common
+        - testid_546180
+        - webview_regress
+        - iot_scenario
+    - do: "Добавить сценарий с любым названием и фразой; Начать добавлять действие"
+    - assert: "Отображается пункт Пуш уведомление; <img src=`https://jing.yandex-team.ru/files/osennikovak/photo_2022-03-19%2016.11.27.jpeg` alt=`Скриншот` width=`300`/>"
+    - do: "Выбрать, сохранить; Запустить кнопкой `плей` со списка сценариев"
+    - assert: "Приходит пуш"
+    - do: "Открыть историю запуска сценариев - последним отображается запущенный сценарий; Открыть сценарий"
+    - assert: "Отображается пуш в пункте Что; <img src=`https://jing.yandex-team.ru/files/osennikovak/photo_2022-03-19%2016.14.38.jpeg` alt=`Скриншот` width=`300`/>"

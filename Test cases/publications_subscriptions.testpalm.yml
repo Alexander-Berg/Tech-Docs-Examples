@@ -1,0 +1,60 @@
+feature: Объявления о вакансиях
+type: Мои подписки
+
+specs:
+  Создание подписки [manual]:
+    - automation: FEMIDA-5150
+    - do: открыть страницу /vacancies/publications/?filter=yes
+    - assert: открылась страница объявлений
+    - do: заполнить все поля фильтра
+    - do: клик 'Подписаться'
+    - screenshot: появилась нотификация 'Фильтр успешно добавлен в "Мои подписки"!' [https://jing.yandex-team.ru/files/klimovich-a/browser_CdQJKcNa1P.png]
+    - do: клик на 'Мои подписки'
+    - assert: |
+        произошел переход на страницу подписок
+        подписка отображается на странице
+  Посмотреть подписку [manual]:
+    - automation: FEMIDA-5150
+    - do: открыть страницу /vacancies/publications/subscriptions/
+    - screenshot: открылась страница подписок [https://jing.yandex-team.ru/files/klimovich-a/browser_dwwAPPfkDG.png]
+    - do: клик на 'Посмотреть'
+    - assert: открылась страница объявлений с указанным фильтром
+    - do: клик на иконку фильтра в поисковой строке
+    - screenshot: фильтры совпадают с указанными ранее [https://jing.yandex-team.ru/files/klimovich-a/browser_MlDJYovNKN.png]
+  Отписаться от подписки [manual]:
+    - automation: FEMIDA-5150
+    - do: открыть страницу /vacancies/publications/subscriptions/
+    - screenshot: открылась страница подписок [https://jing.yandex-team.ru/files/klimovich-a/browser_dwwAPPfkDG.png]
+    - do: клик на 'Отписаться'
+    - assert: |
+        появилась нотификация 'Вы успешно отписаны'
+        кнопка 'Отписаться' исчезла
+        кнопка 'Посмотреть' исчезла
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/klimovich-a/browser_Yxf4nBXLjb.png]
+    - do: обновить страницу
+    - assert: удалённая подписка не отображается в списке
+  Проверка ссылки 'Отфильтруйте' [manual]:
+    - automation: FEMIDA-5150
+    - do: открыть страницу подписок /vacancies/publications/subscriptions/
+    - do: отписаться от всех подписок
+    - do: обновить страницу
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/klimovich-a/browser_jEXI1hAXRF.png]
+    - do: клик на 'Отфильтруйте'
+    - assert: открылась страница объявлений /vacancies/publications/?filter=yes
+  Проверка пагинации [manual]:
+    - automation: FEMIDA-5150
+    - do: открыть страницу /vacancies/publications/?filter=yes
+    - do: добавить больше 10-ти подписок
+    - do: клик на таб 'Мои подписки'
+    - assert: открылась страница подписок с пагинацией
+    - do: клик на любую страницу в пагинации
+    - screenshot: открылась выбранная страница [https://jing.yandex-team.ru/files/klimovich-a/browser_T73e4A7Dpn.png]
+tags:
+  - reviewed
+
+priority: minor
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

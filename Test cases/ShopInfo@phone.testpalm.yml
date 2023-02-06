@@ -1,0 +1,35 @@
+feature: ShopInfo
+
+specs:
+  Проверка информационного блока на главном экране:
+    - do: открыть страницу https://yandex.ru/turbo/pixel24.ru/n/yandexturbocatalog/main/?morda=1&ecommerce_main_page_preview=1
+    - screenshot: внешний вид информационного блока соответствует скриншоту [shop-info]
+    - do: нажать по ссылке с рейтингом магазина
+    - tech: отправилась цель 'shop-review-button-click' с параметром from=ShopInfo
+    - assert: |
+        открылась страница с отзывами о магазине
+        страница скроллится корректно
+    - do: вернуться назад, кликнув по ссылке "Главная" сверху
+    - do: нажать на телефон
+    - tech: отправилась цель 'shop-phone-link-click' с параметром from=ShopInfo
+    - assert: появилось окно для набора телефонного номера
+    - do: закрыть окно набора номера
+    - do: нажать на почту
+    - tech: отправилась цель 'shop-mail-link-click' с параметром from=ShopInfo
+    - do: нажать по ссылке "Подробнее"
+    - tech: отправилась цель 'shop-info-more-link' с параметром from=ShopInfo
+    - assert: открылась страница "О магазине"
+    - do: перейти назад в браузере
+    - do: нажать по ссылке "Проверен Яндекс.Маркетом"
+    - tech: отправилась цель 'click-market-check-link' с параметром from=ShopInfo
+    - assert: открылась страница с информацией о проверке магазина
+
+files:
+  - components/ShopInfo/__tests__/ShopInfo@phone.hermione.js
+
+tlds: ru
+
+v-team: Turbo
+
+tags:
+  - ecom-tap

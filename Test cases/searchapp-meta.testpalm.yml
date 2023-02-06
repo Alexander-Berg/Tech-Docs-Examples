@@ -1,0 +1,18 @@
+feature: Searchapp-meta для старых ПП на планшетах
+
+specs-integration:
+  Возвращает корректный json:
+    - do: получить выдачу по запросу 'Ляпис Трубецкой'
+    - do: сделать аякс-запрос на ручку /searchapp/meta
+    - tech: ответ ручки оканчивается на '--Asrf456BGe4h--'
+
+files:
+  - features/common/searchapp-meta/searchapp-meta.hermione.e2e.js
+
+v-team: Common
+
+tags: no_assessors
+
+browsers: chrome-phone
+
+tlds: none

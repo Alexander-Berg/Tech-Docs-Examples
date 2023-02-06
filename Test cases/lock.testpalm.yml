@@ -1,0 +1,61 @@
+feature: Блокировка и разблокировка сотрудников
+
+description: тестовые аккаунты организации, админ владелец организации(test5@test1.connect-test.tk), доменный сотрудник (test2t@test1.connect-test.tk), доменный админ (test3@test1.connect-test.tk), портальный сотрудник(test4t@yandex.ru), просьба не изменять настройки данной организации и не удалять пользователей
+
+aliases:
+  - &authorization
+    - do: авторизоваться под доменным админом(test3@test1.connect-test.tk)
+    - do: перейти по ссылке {{CONNECT_HOST}}/portal/admin/departments/1
+  - &lock
+    - do: |
+        нажать на "..."
+        в меню выбрать "Заблокировать пользователя"
+    - assert:  меню закрылось
+    - screenshot: карточка с красной плашкой "Пользователь заблокирован" [https://jing.yandex-team.ru/files/olyklimova/Alisa_Donnikova__Portal__Yandeks.Konnekt_20190716_102434.jpg]
+    - do: нажать на "..."
+    - assert: |
+            в меню появился пункт "Разблокировать пользователя"
+            в меню нет пункта "Заблокировать пользователя"
+    - do: нажать на "Разблокировать пользователя"
+    - assert: меню закрылось
+    - screenshot: карточка без красной плашки "Пользователь заблокирован" [https://jing.yandex-team.ru/files/olyklimova/Domennyi_Sotrudnik__Portal__Yandeks.Konnekt_20190723_165643.jpg]
+  - &no_lock
+    - do: нажать на "..."
+    - assert: |
+            в меню нет пункта "Заблокировать пользователя"
+
+specs:
+  Положительные:
+    1. Блокировка сотрудника:
+      - *authorization
+      - do: открыть карточку сотрудника "Сотрудник Доменный"(test2t@test1.connect-test.tk)
+      - *lock
+
+  Отрицательные:
+    1. Отсутствие блокировки админа владельца организации:
+      - *authorization
+      - do: открыть карточку сотрудника "Админ Владелец"(test5@test1.connect-test.tk)
+      - *no_lock
+    2. Отсутствие блокировки портального сотрудника:
+      - *authorization
+      - do: открыть карточку сотрудника "Сотрудник Портальный"(test4t@yandex.ru)
+      - *no_lock
+    3. Отсутствие блокировки самого себя:
+      - *authorization
+      - do: открыть карточку текущего сотрудника "Админ Доменный"(test3@test1.connect-test.tk)
+      - *no_lock
+
+priority: blocker
+
+files:
+  - tests/hermione/suites/user/lock.js
+
+tlds:
+ - ru
+ - com
+
+tags:
+  - smoke_test_assessors
+  - regression
+  - smoke_test
+  - reviewed

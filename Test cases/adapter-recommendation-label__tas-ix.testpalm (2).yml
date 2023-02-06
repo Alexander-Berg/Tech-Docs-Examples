@@ -1,0 +1,62 @@
+feature: Метка
+type: Персонализация ("Tas-ix для Узбекистана")
+
+params:
+  tld: 'uz'
+  lr: '10335'
+
+specs:
+  aliases:
+  - &CheckMetrics
+    - assertMetrics:
+      - web.total_request_count
+      - web.total_click_count
+      - web.total_dynamic_click_count
+      - web.abandonment
+      - web.total_all_click
+
+  В рекламе:
+    - params:
+        foreverdata: '3758157081'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: рекламный сниппет с меткой 'Tas-ix' присутствует на странице
+    - screenshot: внешний вид [plain]
+    - do: кликнуть в метку
+    - assert: появился тултип
+    - screenshot: вид сниппета с меткой и тултипом [hover]
+    - tech: сработал счетчик path = '/tech/web/item/tas-ix/tooltip/', vars='action=dynamic_click,-adapters=recommendation-label|favorite|extended-snippet,pos=p0,-source=web_misspell'
+    - *CheckMetrics
+
+  В рекламе вместе с другой ачивкой:
+    - params:
+        foreverdata: '2005950113'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: рекламный сниппет с меткой 'Tas-ix' присутствует на странице
+    - screenshot: внешний вид [plain]
+    - do: кликнуть в метку
+    - assert: появился тултип
+    - screenshot: вид сниппета с меткой и тултипом [hover-tas-ix]
+    - tech: сработал счетчик path = '/tech/web/item/tas-ix/tooltip/', vars='action=dynamic_click,-adapters=recommendation-label|favorite|extended-snippet,pos=p0,-source=web_misspell'
+    - *CheckMetrics
+
+  В органике:
+    - params:
+        foreverdata: '1142140074'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: рекламный сниппет с меткой 'Tas-ix' присутствует на странице
+    - screenshot: внешний вид [plain]
+    - do: кликнуть в метку
+    - assert: появился тултип
+    - screenshot: вид сниппета с меткой и тултипом [hover]
+    - tech: сработал счетчик path = '/tech/web/item/tas-ix/tooltip/', vars='action=dynamic_click,-adapters=recommendation-label|favorite|extended-snippet,pos=p0,-source=web_misspell'
+    - *CheckMetrics
+
+files:
+  - features/touch-phone/adapter-recommendation-label/__tas-ix/adapter-recommendation-label__tas-ix.hermione.js
+
+tags:
+  - reviewed
+
+v-team: Beauty
+
+tlds: uz

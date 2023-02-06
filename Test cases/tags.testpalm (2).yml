@@ -1,0 +1,18 @@
+feature: tags
+
+specs:
+  Теги - abbr, b, big, cite, del, em, i, ins, small, strong, sub, sup, u, code, pre:
+    - browsers:
+        notFor:
+          - ios-touch-group
+    - do: открыть страницу 'https://yandex.ru/turbo?stub=page/tags.json'
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - features/common/blocks/tags/tags.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+tlds: none

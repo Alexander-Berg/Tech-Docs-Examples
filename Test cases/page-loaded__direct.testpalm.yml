@@ -1,0 +1,37 @@
+feature: Счётчик загрузки страницы
+type: Количество рекламных блоков
+
+description: Динамический счетчик проверяем в Dev Tools в Network - фильтруем по зашифрованному path - 471.143.1007. Сооветствие количества рекламных сниппетов присутствующих на странице должно быть равно значению -visible-direct-cnt в секции vars счетчика.
+
+specs:
+  Количество рекламных сниппетов (обычная реклама):
+    - do: получить выдачу по запросу 'окна'
+    - tech: проверить формат динамического счетчик /serp/page/loaded
+    - tech: проверить в vars количество рекламных сниппетов -visible-direct-cnt=4
+    - do: сделать перезапрос с текстом 'окна пвх'
+    - tech: проверить формат динамического счетчик /serp/page/loaded
+    - tech: проверить в vars количество рекламных сниппетов -visible-direct-cnt=4
+  Количество рекламных сниппетов (замаскированная реклама):
+    - params:
+        exp_flags: 'hideads=1'
+    - do: получить выдачу по запросу 'окна'
+    - tech: проверить формат динамического счетчик /serp/page/loaded
+    - tech: проверить в vars количество рекламных сниппетов -visible-direct-cnt=4
+    - do: сделать перезапрос с текстом 'окна пвх'
+    - tech: проверить формат динамического счетчик /serp/page/loaded
+    - tech: проверить в vars количество рекламных сниппетов -visible-direct-cnt=4
+
+files:
+  - features/common/page-loaded/__direct/page-loaded__direct.hermione.js
+
+tags:
+  - no_assessors
+  - counters
+  - reviewed
+  - skip_e2e_check
+  - adv
+  - adblock
+
+v-team: Distribution
+
+tlds: [ru]

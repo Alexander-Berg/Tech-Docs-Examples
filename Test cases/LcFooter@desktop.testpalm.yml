@@ -1,0 +1,72 @@
+feature: LcFooter
+
+tags: no_assessors
+
+specs:
+  Внешний вид блока short:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcfooter/short.json)
+    - do: выставить ширину окна 960px
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Внешний вид блока default:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcfooter/default.json)
+    - do: выставить ширину окна 960px
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Внешний вид блока full:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcfooter/full.json)
+    - do: выставить ширину окна 960px
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Внешний вид блока full-big-menu:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcfooter/full-big-menu.json)
+    - do: выставить ширину окна 960px
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Внешний вид блока full-light:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcfooter/full-light.json)
+    - do: выставить ширину окна 960px
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Внешний вид блока full-light-flat-menu:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcfooter/full-light-flat-menu.json)
+    - do: выставить ширину окна 960px
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Внешний вид блока full-small-menu:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcfooter/full-small-menu.json)
+    - do: выставить ширину окна 960px
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Внешний вид блока minimal-light:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcfooter/minimal-light.json)
+    - do: выставить ширину окна 960px
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Внешний вид ссылок:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcfooter/full.json)
+    - do: навести курсор мыши на вторую ссылку в меню (Услуги)
+    - screenshot: внешний вид соответствует скриншоту [hover-menu]
+    - do: кликнуть на вторую ссылку в меню (Услуги)
+    - screenshot: внешний вид соответствует скриншоту [click-menu]
+    - do: навести курсор мыши на номер телефона в контактах
+    - screenshot: внешний вид соответствует скриншоту [hover-contacts]
+    - do: кликнуть на номер телефона в контактах
+    - screenshot: внешний вид соответствует скриншоту [click-contacts]
+
+  Внешний вид с LcPhone:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcfooter/with-lc-phone.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+    - do: клик на кнопку
+    - assert: модал открылся
+
+files:
+  - platform/components/LcFooter/__tests__/LcFooter.hermione.js
+  - platform/components/LcFooter/__tests__/LcFooter@desktop.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: olimiya, shinuta
+
+tlds: none

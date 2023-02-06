@@ -1,0 +1,53 @@
+feature: Колдунщик погоды кликабельный
+type: На выходные
+
+params:
+  foreverdata: '3570126027'
+
+specs:
+  Внешний вид:
+    beforeEach:
+      - params:
+          exp_flags: 'weather_clickable=1'
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: появился колдунщик погоды
+    Портретная ориентация:
+      - label: adapters/adapter-weather/weekend/plain-{{PLATFORM}}-{{BROWSER_TYPE}}
+      - screenshot: колдунщик погоды соответствует виду [plain]
+    Ландшафтная ориентация:
+      - label: adapters/adapter-weather/weekend/horizontal-{{PLATFORM}}-{{BROWSER_TYPE}}
+      - do: повернуть устройство в горизонтальную ориентацию
+      - screenshot: колдунщик погоды соответствует виду [horizontal]
+  Основная проверка:
+    beforeEach:
+      - params:
+          exp_flags: 'weather_clickable=1'
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: появился колдунщик погоды
+      - screenshot: колдунщик погоды соответствует виду [adapters/adapter-weather/weekend/plain-{{PLATFORM}}-{{BROWSER_TYPE}} >> plain]
+    Заголовок:
+      - do: кликнуть в тайтл
+      - tech: сработал счётчик path='/$page/$main/$result/title'
+      - assert: в новой вкладке открылась главная страница Яндекс.Погоды
+    Подробный прогноз:
+      - do: кликнуть в подробный прогноз
+      - tech: сработал счётчик path='/$page/$main/$result/detail'
+      - assert: в новой вкладке открылась главная страница Яндекс.Погоды
+    Кнопка:
+      - do: кликнуть по кнопке Подробный прогноз
+      - tech: сработал счётчик path='/$page/$main/$result/button'
+      - assert: в новой вкладке открылась главная страница Яндекс.Погоды
+
+files:
+  - features/touch-phone/adapter-weather/exp_clickable/adapter-weather_type_weekend.hermione.js
+
+v-team: Weather
+
+tlds:
+  - ru
+  - by
+  - ua
+  - kz
+  - com.tr
+
+counter: /$page/$main/$result[@wizard_name="weather"]

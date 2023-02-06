@@ -1,0 +1,19 @@
+feature: LcGrid2
+
+tags: no_assessors
+
+specs:
+  Секция LcGrid2:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcgrid2/default.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/components/LcGrid2/__tests__/LcGrid2.hermione.js
+
+v-team: Lc
+
+manager: hanky
+
+qa-engineer: kudyukova
+
+tlds: none

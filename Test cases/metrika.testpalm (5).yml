@@ -1,0 +1,34 @@
+feature: Счётчик Метрики
+
+specs:
+  Проверка пиксельного счётчика:
+    - automation: SERP-74695
+    - do: получить выдачу по запросу 'test'
+    - tech: в вёрстке должна присутствовать картинка с URL mc.yandex.ru/watch/42839234
+
+  Проверка пиксельного счётчика с синхронизацией куки:
+    - automation: SERP-74695
+    - do: получить выдачу по запросу 'test' в домене, отличном от ru
+    - tech: в вёрстке должна присутствовать картинка с URL mc.yandex.ru/watch/42839234
+    - tech: |
+        в вёрстке должна присутствовать картинка с URL mc.yandex.***/sync_cookie_image_check
+        (где *** - указанный домен)
+
+files: []
+
+v-team: Techno
+
+description: устройства с медленным соединением - 42839234, smart устройства - 43810134
+
+tags:
+  - smoke
+  - smoke_extended
+  - metrika
+  - cookie
+  - referer
+  - referrer
+  - no_assessors
+  - smart
+  - reviewed
+
+tlds: none

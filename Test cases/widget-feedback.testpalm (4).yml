@@ -1,0 +1,16 @@
+feature: widget-feedback
+
+specs:
+    widget feedback + залипающая реклама:
+    - do: открыть страницу https://yandex.ru/turbo?stub=widget-feedback%2Fsticky-with-advert.json
+    - do: проскролить вниз
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - features/touch-phone/blocks/widget-feedback/widget-feedback.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+tlds: none

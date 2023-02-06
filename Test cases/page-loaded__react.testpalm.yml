@@ -1,0 +1,26 @@
+feature: Счётчик загрузки страницы
+type: Высоты сниппетов
+
+description: Проверяем высоты сниппетов, в составе которых есть React-приложения
+
+specs:
+  Включая React-приложения:
+    - do: получить выдачу по запросу 'кот перевод'
+    - tech: проверить формат динамического счётчика /serp/page/loaded
+    - tech: проверить соответствие высот элементов выдачи и данных счётчика /serp/page/loaded
+    - tech: выполнить в консоли `BEM.blocks['serp-request'].navigateTo('?text=переводчик для котов')`
+    - tech: проверить формат динамического счётчика /serp/page/loaded
+    - tech: проверить соответствие высот элементов выдачи и данных счётчика /serp/page/loaded
+
+files:
+  - features/common/page-loaded/__react/page-loaded__react.hermione.js
+
+tags:
+  - no_assessors
+  - counters
+  - skip_e2e_check
+  - react
+
+v-team: Architecture
+
+tlds: all

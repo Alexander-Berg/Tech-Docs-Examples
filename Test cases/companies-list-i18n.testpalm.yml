@@ -1,0 +1,29 @@
+feature: Сети/Рубрики
+type: Локализация
+
+specs-integration:
+  Проверка наличия элементов:
+    - do: получить выдачу по запросу 'Cafe Istanbul' на домене yandex.com.tr
+    - assert: |
+        появился колдунщик сетей/рубрик,
+        в колдунщике есть тайл, карта, список организаций, минибейдж организации
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу 'Cafe Istanbul' на домене yandex.com.tr _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: должен появиться колдунщик сетей/рубрик
+  Внешний вид Сети/рубрики:
+    - screenshot: внешний вид [list-org]
+
+files:
+  - features/touch-phone/companies/companies-list-i18n.hermione.js
+  - features/touch-phone/companies/companies-list-i18n.hermione.e2e.js
+
+v-team: VanillaGeo
+
+counter: /snippet/companies/map/teaser
+
+tags:
+  - hasE2E
+
+tlds: com.tr

@@ -1,0 +1,44 @@
+feature: Социальный сниппет
+
+import-labels:
+  - features/common/social-snippet/social-snippet.testpalm.yml
+
+specs:
+  Обычный сниппет:
+    params:
+      text: 'test'
+      foreverdata: '1687867012'
+    beforeEach:
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: социальный сниппет присутствует на выдаче
+      - screenshot: внешний вид [social-snippet_default-{{PLATFORM}}-{{BROWSER_TYPE}} >> plain]
+    Клик по ачивке подтвержденного профиля:
+      - do: нажать на ачивку
+      - assert: под ачивкой всплыл тултип с надписью 'Подтвержденный профиль'
+      - screenshot: пример внешнего вида социального сниппета с тултипом [click]
+      - do: нажать на ачивку
+      - assert: тултип с надписью скрылся
+
+files:
+  - features/touch-phone/social-snippet/social-snippet.hermione.js
+
+tags:
+  - socialnetworks
+  - use_constr
+  - foreverdata
+  - reviewed
+  - popular
+  - skip_e2e_check #e2e тест написан на common уровне features/common/social-snippet/social-snippet.hermione.e2e.js
+
+tlds:
+  - ru
+  - by
+  - kz
+  - ua
+  - com.tr
+
+v-team: Beauty
+
+description: Наличие полей в тексте сниппета (про кол-во подписчиков, друзей, число публикаций и так далее), а так же кнопки "Читать еще" зависит от данных и может варьироваться. Это нормально и НЕ считается ошибкой.
+
+counter: /$page/$main/$result[@features has "social_snippet"]

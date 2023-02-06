@@ -1,0 +1,7 @@
+[
+  {
+    "statfaceReport": "Market/AnalyticsPlatform/CodeHealth/TestPalm%20Coverage",
+    "collectScript": "bash scripts/prepare_ci.sh && npm run analytics:testpalm:coverage",
+    "resultFile": "coverage/analytics_testpalm_stat.json"
+  }
+]

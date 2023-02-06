@@ -1,0 +1,49 @@
+feature: Задачи
+type: Каталог. Создание задачи
+
+specs:
+  beforeEach:
+    - do: открыть страницу /problems/create/
+    - screenshot: открылась страница создания новой задачи [https://jing.yandex-team.ru/files/grikyan91/Sozdanie_zadachi__Femida_2019-08-14_16-34-42.png]
+  Проверка обязательных полей [manual]:
+    - automation: FEMIDA-4982
+    - do: клик на 'Сохранить'
+    - screenshot: под полем 'Заголовок' выдало ошибку [https://jing.yandex-team.ru/files/grikyan91/Sozdanie_zadachi__Femida_2019-08-14_16-35-52.png]
+    - do: заполнить поле 'Заголовок'
+    - do: клик на 'Сохранить'
+    - screenshot: выдало ошибки под остальными обязательными полями [https://jing.yandex-team.ru/files/grikyan91/Sozdanie_zadachi__Femida_2019-08-14_16-37-21.png]
+  Новая задача [manual]:
+    - automation: FEMIDA-4982
+    - do: заполнить поле 'Заголовок'
+    - do: заполнить поле 'Описание' с применением различного форматирования
+    - do: клик на кнопку 'Предпросмотр' рядом с полем 'Описание'
+    - assert: |
+        открылся текст со всеми форматированиями
+        появилась кнопка 'Редактировать'
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/grikyan91/Sozdanie_zadachi__Femida_2019-08-14_16-43-50.png]
+    - do: клик на кнопку 'Редактировать'
+    - assert: появилось опять поле для ввода описания
+    - do: добавить еще текст в 'Описание'
+    - do: заполнить поле 'Что хотим услышать' с применением различного форматирования
+    - do: добавить несколько значений в поле 'Категории'
+    - do: клик на кнопку 'Отмена'
+    - assert: произошел переход на страницу /problems/
+    - do: клик на кнопку 'Создать'
+    - assert: |
+        вернулись на страницу /problems/create/
+        под полем 'Категории' появилось сообщение о возможности восстановления из черновика
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/grikyan91/Sozdanie_zadachi__Femida_2019-08-14_16-55-15.png]
+    - do: клик на 'восстановить'
+    - screenshot: все поля заполнились так же как было заполнено ранее [https://jing.yandex-team.ru/files/grikyan91/Sozdanie_zadachi__Femida_2019-08-14_16-56-26.png]
+    - do: клик на 'Сохранить'
+    - screenshot: открылась страница /problems/<id_задачи>/ [https://jing.yandex-team.ru/files/grikyan91/Testovaya_zadacha__Femida_2019-08-14_16-57-37.png]
+
+tags:
+  - reviewed
+
+priority: critical
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

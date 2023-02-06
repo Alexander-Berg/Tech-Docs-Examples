@@ -1,0 +1,18 @@
+feature: Description
+experiment: Реализация на react
+
+specs:
+  Внешний вид блока:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=description/react.json
+    - screenshot: внешний вид [plain]
+
+files:
+  - platform/components/Description/Description.tests/Description.hermione.js
+
+v-team: Turbo
+
+manager: sergey-kuldin
+
+qa-engineer: narbutovich
+
+tlds: none

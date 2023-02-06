@@ -1,0 +1,33 @@
+feature: Поиск по блогам
+
+specs:
+  Плюс не залезает на расширенный поиск:
+    - do: получить выдачу по запросу "journal:ru-auto" в режиме инкогнито
+    - assert: получена выдача по указанному запросу
+    - do: добавить в урл "blogs", чтобы получилось 'https://yandex.ru/blogs/search/'
+    - assert: получена выдача по блогам по запросу "journal:ru-auto"
+    - do: Поменять ширину экрана, она должна быть не шире 1100 пикселей
+    - assert: Промо Плюса не залезает на другие элементы шапки
+    - screenshot: Внешний вид [header]
+    - assertMetrics: '*'
+
+files:
+  - features/desktop/vertical-blog-search/vertical-blog-search.hermione.js
+
+v-team: Lego
+
+qa-engineer:
+  - likharad-m
+
+tags:
+  - header
+  - vertical
+  - reviewed
+  # временно выключаем для асессоров до рефакторинга, так как ямлы не были актуализированы при отключении аякса
+  - no_assessors
+
+tlds:
+  - ru
+  - by
+  - kz
+  - uz

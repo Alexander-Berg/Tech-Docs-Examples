@@ -1,0 +1,300 @@
+feature: Ecom-tap
+tags: no_assessors
+
+params:
+  exp_flags:
+    - turbo-app-cart-city-suggest=1
+    - turbo-app-cart-market-delivery=1
+    - turboforms_endpoint=https://test-turbo-forms.common.yandex.ru/
+
+specs:
+  Доставки по ajax:
+    Успешная загрузка:
+      - params:
+          exp_flags:
+            - turbo-app-cart-city-suggest=1
+            - turbo-app-cart-market-delivery=1
+            - turboforms_endpoint=https://test-turbo-forms.common.yandex.ru/
+            - analytics-disabled=0
+      - do: открыть страницу https://yandex.ru/turbo/markettoturbotwo.000webhostapp.com/n/yandexturbocart/
+      - assert: открылась страница корзины
+      - do: если в корзине есть товары - удалить
+      - do: перейти по https://yandex.ru/turbo?text=https%3A%2F%2Fmarkettoturbotwo.000webhostapp.com%2F2.html
+      - assert: открылся товар
+      - do: положить товар в корзину
+      - do: нажать `Перейти в корзину`
+      - assert: открылась страница корзины
+      - do: нажать `Оформить заказ`
+      - assert: открылась форма заказа
+      - assert: на первом месте в форме идет поле города
+      - do: в поле `Город доставки` выбрать Москва, если выбрано другое значение
+      - assert: способы доставки загрузились
+      - screenshot: внешний вид способов доставки [plain]
+      - do: заполнить форму, не меняя способ доставки
+      - do: нажать "Отправить"
+      - assert: показался экран успешного заказа
+      - tech: проверить, что в запросе в ручку `final` есть полные данные доставки из маркета и не пустой `sk`
+
+    Дефолтное значение пункта на карте из ls:
+      - do: открыть страницу https://yandex.ru/turbo/markettoturbotwo.000webhostapp.com/n/yandexturbocart/
+      - assert: открылась страница корзины
+      - do: если в корзине есть товары - удалить
+      - do: перейти по https://yandex.ru/turbo?text=https%3A%2F%2Fmarkettoturbotwo.000webhostapp.com%2F2.html
+      - assert: открылся товар
+      - do: положить товар в корзину
+      - do: нажать `Перейти в корзину`
+      - assert: открылась страница корзины
+      - do: нажать `Оформить заказ`
+      - assert: открылась форма заказа
+      - do: в поле `Город доставки` выбрать Москва, если выбрано другое значение
+      - assert: способы доставки загрузились
+      - do: заполняем форму, не меняя способ доставки
+      - do: выбираем третий сверху способ доставки, на карте выбрать любую точку и нажать "Подтвердить"
+      - assert: в форме отображается выбранный способ доставки
+      - screenshot: внешний вид, описание может отличаться [active]
+      - do: перезагрузить страницу
+      - assert: открылась страница корзины
+      - do: нажать `Оформить заказ`
+      - assert: поля формы заполнены теми же занчениями, что и до перезагрузки
+      - assert: доставки загрузились
+      - assert: отмечается выбранным ранее выбранный способ доставки
+      - do: нажать "Отправить"
+      - assert: показался экран успешного заказа
+      - tech: проверить, что в запросе в ручку `final` есть полные данные доставки из маркета
+
+    Внешний вид неактивного выбранного пункта выдачи:
+      - do: открыть страницу https://yandex.ru/turbo/markettoturbotwo.000webhostapp.com/n/yandexturbocart/
+      - assert: открылась страница корзины
+      - do: если в корзине есть товары - удалить
+      - do: перейти по https://yandex.ru/turbo?text=https%3A%2F%2Fmarkettoturbotwo.000webhostapp.com%2F2.html
+      - assert: открылся товар
+      - do: положить товар в корзину
+      - do: нажать `Перейти в корзину`
+      - assert: открылась страница корзины
+      - do: нажать `Оформить заказ`
+      - assert: открылась форма заказа
+      - do: в поле `Город доставки` выбрать Москва, если выбрано другое значение
+      - assert: способы доставки загрузились
+      - do: если не выбран способ доставки самовывозом - выбрать (на карте выбрать любой пункт, и нажать "Подтвердить")
+      - assert: выбранный пункт самовывоза отображается в форме
+      - do: поменять способ доставки на первый из списка
+      - assert: внешний вид ранее выбранного пункта доставки изменился
+      - screenshot: внешний вид [not-active]
+
+    Доставки только с картой:
+      - do: открыть страницу https://yandex.ru/turbo/markettoturbotwo.000webhostapp.com/n/yandexturbocart/
+      - assert: открылась страница корзины
+      - do: если в корзине есть товары - удалить
+      - do: перейти по https://yandex.ru/turbo?text=https%3A%2F%2Fmarkettoturbothree.000webhostapp.com%2F4.html
+      - assert: открылся товар
+      - do: положить товар в корзину
+      - do: нажать `Перейти в корзину`
+      - assert: открылась страница корзины
+      - do: нажать `Оформить заказ`
+      - assert: открылась форма заказа
+      - do: в поле `Город доставки` выбрать Москва, если выбрано другое значение
+      - assert: способы доставки загрузились
+      - assert: доступен один вид доставки - Самовывоз
+      - assert: в форме не видно поля "Адрес доставки"
+      - do: нажать "Отправить"
+      - assert: остались на форме заказа, форма не отправилась
+
+    Пустые доставки:
+      - do: открыть страницу https://yandex.ru/turbo/markettoturbotwo.000webhostapp.com/n/yandexturbocart/
+      - assert: открылась страница корзины
+      - do: если в корзине есть товары - удалить
+      - do: перейти по https://yandex.ru/turbo?text=https%3A%2F%2Fmarkettoturbofour.000webhostapp.com%2F4.html
+      - assert: открылся товар
+      - do: положить товар в корзину
+      - do: нажать `Перейти в корзину`
+      - assert: открылась страница корзины
+      - do: нажать `Оформить заказ`
+      - assert: открылась форма заказа
+      - do: в поле `Город доставки` выбрать `Тверь`
+      - assert: в разделе `Доставка` поавился спиннер
+      - assert: спиннер пропал вместе с блоком доставок
+      - assert: в поля выбора города появилось предупреждение, что в этот город нет способов доставки
+      - do: заполнить поля формы
+      - do: нажать `Отправить`
+      - assert: показался экран успешного заказа
+      - tech: проверить, что в запросе в ручку `final` нет поля `delivery`
+
+    Ошибка получения доставок (status 404):
+      - params:
+          exp_flags:
+            - turbo-app-cart-city-suggest=1
+            - turbo-app-cart-market-delivery=1
+            - analytics-disabled=0
+      - do: открыть страницу https://yandex.ru/turbo/markettoturbotwo.000webhostapp.com/n/yandexturbocart/
+      - assert: открылась страница корзины
+      - do: если в корзине есть товары - удалить
+      - do: перейти по https://yandex.ru/turbo?text=https%3A%2F%2Fmarkettoturboone.000webhostapp.com%2F2.html
+      - assert: открылся товар
+      - do: положить товар в корзину
+      - do: нажать `Перейти в корзину`
+      - do: нажать `Оформить заказ`
+      - assert: отобразились доставки из вебмастера
+      - screenshot: внешний вид [plain]
+      - tech: в метрику отправилась цель `checkout-delivery-market` с параметром `market_delivery_status` - `market_error`
+
+    Ошибка получения доставок (status 425):
+      - params:
+          exp_flags:
+            - turbo-app-designe=1
+            - turbo-app-cart-city-suggest=1
+            - turbo-app-cart-market-delivery=1
+            - analytics-disabled=0
+      - do: открыть страницу https://yandex.ru/turbo/markettoturbotwo.000webhostapp.com/n/yandexturbocart/
+      - assert: открылась страница корзины
+      - do: если в корзине есть товары - удалить
+      - do: перейти по https://yandex.ru/turbo?text=https%3A%2F%2Fmarkettoturboone.000webhostapp.com%2F2.html
+      - assert: открылся товар
+      - do: положить товар в корзину
+      - do: нажать `Перейти в корзину`
+      - do: нажать `Оформить заказ`
+      - tech: в метрику отправилась цель `checkout-delivery-market` с параметром `market_delivery_status` - `no_feed_id`
+
+    Отправляем цель для магазина, поддерживающего доставки, не под экспериментом:
+      - tags: no_assessors
+      - params:
+          exp_flags:
+            - analytics-disabled=0
+      - do: открыть страницу https://yandex.ru/turbo/markettoturbotwo.000webhostapp.com/n/yandexturbocart/
+      - assert: открылась страница корзины
+      - do: если в корзине есть товары - удалить
+      - do: перейти по https://yandex.ru/turbo?text=https%3A%2F%2Fmarkettoturbothree.000webhostapp.com%2F4.html
+      - assert: открылся товар
+      - do: положить товар в корзину
+      - do: нажать `Перейти в корзину`
+      - assert: открылась страница корзины
+      - do: нажать `Оформить заказ`
+      - assert: открылась форма заказа
+      - assert: в форме нет поля доставки
+      - tech: отправилась в метрику цель `market-delivery-candidate`
+
+    Предвыбираем пункт самовывоза - если он один:
+      - tags: no_assessors
+      - params:
+          exp_flags:
+            - turbo-app-designe=1
+            - turbo-app-cart-city-suggest=1
+            - turbo-app-cart-market-delivery=1
+            - turboforms_endpoint=/one-pickup-point/
+      - do: открыть локально страницу https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocart/&patch=withDynamicDeliverySupport
+      - assert: открылась страница корзины
+      - do: нажать `Оформить заказ`
+      - assert: открылась форма заказа
+      - do: в форме заказа загрузились доставки
+      - assert: |
+          в форме несколько способов доставки, среди них - самовывоз, но он не выбран
+          в самовывозе предвыбран пункт доставки
+      - screenshot: внешний вид [selected-point]
+      - do: выбрать этот способ доставки и заполнить форму
+      - do: нажать `Отправить`
+      - assert: показался экран успешного заказа
+      - tech: в данных в ручке `final` передаются правильные данные о способе доставки
+
+    Выбирать способом доставки самовывоз, если способ один и пункт один:
+      - tags: no_assessors
+      - params:
+          exp_flags:
+            - turbo-app-designe=1
+            - turbo-app-cart-city-suggest=1
+            - turbo-app-cart-market-delivery=1
+            - turboforms_endpoint=/only-one-pickup-point/
+      - do: открыть локально страницу https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocart/&patch=withDynamicDeliverySupport
+      - assert: открылась страница корзины
+      - do: нажать `Оформить заказ`
+      - assert: открылась форма заказа
+      - do: в форме заказа загрузились доставки
+      - assert: |
+          в форме только один способ доставки - самовывоз
+          в самовывозе выбран пункт
+      - screenshot: внешний вид [selected-point]
+      - do: заполнить форму
+      - do: нажать `Отправить`
+      - assert: показался экран успешного заказа
+      - tech: в данных в ручке `final` передаются правильные данные о способе доставки
+
+  Доставки на карте:
+    Карты, пины и описание пункта самовывоза:
+      - params:
+          exp_flags:
+            - turbo-app-designe=1
+            - turbo-app-cart-city-suggest=1
+            - turbo-app-cart-market-delivery=1
+            - turboforms_endpoint=https://test-turbo-forms.common.yandex.ru/
+            - analytics-disabled=0
+      - do: открыть страницу https://yandex.ru/turbo?text=markettoturbotwo.000webhostapp.com%2Fyandexturbocart%2F&_ym_debug=1
+      - assert: открылась страница корзины
+      - do: если в корзине есть товары - удалить
+      - do: перейти по https://yandex.ru/turbo?text=https%3A%2F%2Fmarkettoturbotwo.000webhostapp.com%2F2.html
+      - assert: открылся товар
+      - do: положить товар в корзину
+      - do: нажать `Перейти в корзину`
+      - assert: открылась страница корзины
+      - do: нажать `Оформить заказ`
+      - assert: открылась форма заказа
+      - assert: загрузились способы доставки
+      - do: кликнуть в выбор способа доставки на карте
+      - assert: открылась карта и на ней отобразились точки самовывоза
+      - screenshot: внешний вид [map]
+      - do: кликнуть в пункт самовывоза
+      - tech: в метрику отправилась цель `outlet-map-outlet-info-clicked`
+      - assert: открылась информация о пункте
+      - screenshot: внешний вид [selected-point]
+      - do: нажать `Привезти сюда`
+      - tech: в метрику отправилась цель `outlet-map-outlet-selected`
+      - assert: вернулись на форму, в форме отображается выбранный пункт самовывоза
+
+  Саджест выбора города:
+    Внешний вид:
+      - params:
+          exp_flags:
+            - turbo-app-cart-city-suggest=1
+            - turbo-app-cart-market-delivery=1
+            - turboforms_endpoint=https://test-turbo-forms.common.yandex.ru/
+      - do: открыть страницу https://yandex.ru/turbo?text=markettoturbotwo.000webhostapp.com%2Fyandexturbocart%2F&_ym_debug=1
+      - assert: открылась страница корзины
+      - do: если в корзине есть товары - удалить
+      - do: перейти по https://yandex.ru/turbo?text=https%3A%2F%2Fmarkettoturbotwo.000webhostapp.com%2F2.html
+      - assert: открылся товар
+      - do: положить товар в корзину
+      - do: нажать `Перейти в корзину`
+      - assert: открылась страница корзины
+      - do: нажать `Оформить заказ`
+      - assert: открылась форма заказа
+      - do: найти поле выбора города и поставить в него фокус
+      - assert: откроется саджест
+      - screenshot: внешний вид [suggest]
+
+    Цели:
+      - params:
+          exp_flags:
+            - turbo-app-designe=1
+            - turbo-app-cart-city-suggest=1
+            - turbo-app-cart-market-delivery=1
+            - turboforms_endpoint=https://test-turbo-forms.common.yandex.ru/
+            - analytics-disabled=0
+      - do: открыть страницу https://yandex.ru/turbo?text=markettoturbotwo.000webhostapp.com%2Fyandexturbocart%2F&_ym_debug=1
+      - assert: открылась страница корзины
+      - do: если в корзине есть товары - удалить
+      - do: перейти по https://yandex.ru/turbo?text=https%3A%2F%2Fmarkettoturbotwo.000webhostapp.com%2F2.html
+      - assert: открылся товар
+      - do: положить товар в корзину
+      - do: нажать `Перейти в корзину`
+      - assert: открылась страница корзины
+      - do: нажать `Оформить заказ`
+      - assert: открылась форма заказа
+      - assert: на первом месте в форме идет поле города
+      - do: кликнуть в поле выбора города
+      - tech: в метрику отправилась цель `suggest-city-focus-field`
+      - do: выбрать второй город из выпадающего списка
+      - tech: в метрику отправилась цель `suggest-city-selected`
+
+files:
+  - __tests__/deliveryFromUpdate@phone.hermione.js
+
+tlds: ru
+
+v-team: Turbo

@@ -1,0 +1,11 @@
+feature:  Умный дом - Экран "О приложении" отсутствует в ПП
+
+specs:
+    Умный дом - Экран "О приложении" отсутствует в ПП:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/3984
+        - release_Webview
+        - platform_ios
+        - platform_android
+    - do: "Перейти в **Устройства** -> **Настройки** -> **Помощь**"
+    - assert: "**Отсутствует** пункт меню `О приложении`"

@@ -1,0 +1,33 @@
+feature: Объектный ответ
+type: Карусель достопримечательностей
+experiment: Увеличение высоты после скролла
+
+specs:
+  Standalone карусель - увеличение на три строки:
+    params:
+      foreverdata: '598216143'
+    beforeEach:
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: на выдаче присутствует карусель достопримечательностей
+    Внешний вид:
+      - screenshot: внешний вид карусели достопримечательностей [carousel]
+      - do: свайпнуть карусель достопримечательностей вправо
+      - assert: высота карусели достопримечательностей увеличилась
+      - screenshot: внешний вид карусели достопримечательностей после свайпа [carousel-after-scroll]
+
+files:
+  - features/touch-phone/z-entity-search/travel_card_increase_on_scroll/travel_card_increase_on_scroll.hermione.js
+
+v-team: Freshness
+
+tags:
+  - reviewed
+  - skip_e2e_check
+
+tlds:
+  - ru
+  - ua
+  - by
+  - kz
+  - com
+  - com.tr

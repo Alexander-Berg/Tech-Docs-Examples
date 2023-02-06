@@ -1,0 +1,30 @@
+feature: Дежурства
+
+specs:
+  Положительные:
+    1. Просмотр блока текущих дежурных в сервисе, в котором настроено расписание дежурств:
+      - automation: ABC-10803
+      - tech: залогиниться под robot-abc-001
+      - do: открыть страницу сервиса "autotest-current-duty-officers" (/services/autotest-current-duty-officers/)
+      - screenshot: в правом углу есть блок "Дежурства" с указанием названия дежурства, текущих дежурных и дат смен, под блоком есть стрелочка, направленная вниз [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-05-24%2016-46-50.png]
+      - do: кликнуть на стрелочку под блоком с дежурствами
+      - screenshot: список дежурств развернулся, появились новые записи, стрелочка направлена вверх [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-05-24%2016-49-11.png]
+
+    2. Просмотр блока текущих дежурных в сервисе, в котором дежурств пока нет:
+      - automation: ABC-10803
+      - tech: залогиниться под robot-abc-001
+      - do: открыть страницу сервиса "autotest-no-dutys" (/services/autotest-no-dutys-1512/)
+      - screenshot: в правом углу есть блок "Дежурства" с надписью "Расписание дежурств пока не настроено" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-05-24%2016-52-04.png]
+
+    3. Просмотр блока текущих дежурных в сервисе с дежурством, где дежурный не назначен:
+      - automation: ABC-10803
+      - tech: залогиниться под robot-abc-001
+      - do: открыть страницу сервиса "autotest-no-duty-on-duty" (/services/autotest-no-duty-on-duty/)
+      - screenshot: в правом углу есть блок "Дежурства", в котором указано дежурство "Тестовое дежурство" и "дежурный не назначен" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-05-24%2016-57-32.png]
+
+files: []
+
+priority: normal
+
+tags:
+  - reviewed

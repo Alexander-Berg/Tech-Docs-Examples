@@ -1,0 +1,30 @@
+feature: Одна организация
+experiment: Скрытие блоков
+
+specs:
+  Скрытия аспектов в отзывах:
+    - params:
+        exp_flags: GEO_disable_blocks=aspects
+    - do: получить выдачу по запросу "кафе пушкин"
+    - assert: |
+        на странице присутствует карточка организации
+        в карточке организации не должно быть аспектов
+  Скрытие отзывов, фото, похожих, прайсов, соцсетей и фичей:
+    - params:
+        exp_flags: GEO_disable_blocks=reviews,photos,similar,prices,socials,features
+    - do: получить выдачу по запросу "кафе пушкин"
+    - assert: |
+        на странице присутствует карточка организации
+        в карточке организации не должно быть отзывов, фото, похожих, прайсов и фичей
+    - screenshot: внешний вид [plain]
+
+files:
+  - features/companies/experiments/GEO_disable_blocks/GEO_disable_blocks@touch-phone.hermione.js
+
+v-team: VanillaGeo
+
+tags:
+  - skip_e2e_check
+  - no_assessors
+
+tlds: all

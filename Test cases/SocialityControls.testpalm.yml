@@ -1,0 +1,34 @@
+feature: SocialityControls
+experiment: Альтернативные контролы социальности
+
+specs:
+  params:
+    exp_flags: alternative-sociality-controls=1
+
+  Проверка счётчиков:
+    - tags: no_assessors
+    - do: перейти на страницу https://yandex.ru/turbo?stub=socialitycontrols/article.json
+    - tech: |
+        в баобаб-дереве есть два узла по пути '$page.$main.$result.cover.description.sociality-controls.sociality-control'
+        с аттрибутами 'type: like' и 'type: comments'
+        и аттрибутами 'pos: 0' и 'pos: 1'
+    - do: кликнуть по кнопке лайка
+    - tech: |
+        отправляется событие клика с правильным baobab id для узла '$page.$main.$result.cover.description.sociality-controls.sociality-control'
+        с аттрибутами 'type: like' и 'pos: 0'
+    - do: кликнуть по кнопке комментария
+    - tech: |
+        отправляется событие клика с правильным baobab id для узла '$page.$main.$result.cover.description.sociality-controls.sociality-control'
+        с аттрибутами 'type: comments' и 'pos: 1'
+
+
+files:
+  - platform/components/SocialityControls/SocialityControls.tests/SocialityControls.hermione.js
+
+v-team: Turbo
+
+manager: sergey-kuldin
+
+qa-engineer: narbutovich
+
+tlds: none

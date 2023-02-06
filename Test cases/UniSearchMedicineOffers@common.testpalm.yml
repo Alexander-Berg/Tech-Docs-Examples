@@ -1,0 +1,22 @@
+feature: Универсальный колдунщик поиска врачей
+
+specs:
+  Блоки:
+    Список оферов:
+      Внешний вид:
+        - params:
+            foreverdata: '585070554'
+        - do: получить выдачу по запросу "foreverdata"
+        - assert: на странице присутствует блок "Записаться"
+        - screenshot: внешний вид [plain]
+
+files:
+  - src/features/UniSearch/UniSearch.features/UniSearchMedicine/UniSearchMedicine.features/Offers/UniSearchMedicineOffers.test/UniSearchMedicineOffers@common.hermione.js
+
+v-team: UniSearch
+
+tlds: [ru, by, ua, kz, uz]
+
+tags:
+  - react
+  - skip_e2e_check

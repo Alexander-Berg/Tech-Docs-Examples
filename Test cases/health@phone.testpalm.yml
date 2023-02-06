@@ -1,0 +1,22 @@
+feature: Яндекс.Здоровье
+
+specs:
+  Статья в горизонтальной ориентации:
+    - do: изменить ориентацию устройства на горизонтальное
+    - do: открыть страницу '/turbo?stub=health/article.json&brand=health'
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Список статей:
+    - do: открыть страницу '/turbo?stub=health/articles.json&brand=health&exp_flags=adv-disabled=0&hermione_advert=stub
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Страница "Не найдено":
+    - do: открыть страницу '/turbo?stub=health/not-found.json&brand=health&exp_flags=adv-disabled=0&hermione_advert=stub
+    - screenshot: внешний вид соответствует скриншоту [not-found]
+
+files:
+  - platform/applications/health/__tests__/health@phone.hermione.js
+
+v-team: Health
+
+tlds: ru

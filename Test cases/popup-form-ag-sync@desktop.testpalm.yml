@@ -1,0 +1,44 @@
+feature: Hotels / Колдунщик одной организации
+type: Стандартный вид
+
+import-labels:
+  - features/companies/hotels/hotels@desktop.testpalm.yml
+
+specs:
+  Синхронизация значений формы после сабмита в попапе:
+    beforeEach:
+      - do: получить выдачу по запросу "рэдиссон коллекшн москва"
+      - assert: показался отельный 1орг справа
+      - screenshot: внешний вид [geo-hotels-1org >> plain]
+      - do: кликнуть в заголовок формы поиска номеров
+      - assert: открылся отельный попап
+      - do: изменить даты и количество гостей
+      - do: нажать "Выбрать номер"
+      - assert: открылась вкладка "Номера"
+    Пробрасываются в форму на соседнем табе и в урл запроса номеров:
+      - assert: поля формы синхронизированы
+      - tech: выполнился запрос в /search/result с правильными параметрами ag_dynamic
+    Пробрасываются в похожие отели:
+      - do: проскроллить до блока "похожие отели"
+      - do: кликнуть в первый похожий отель
+      - assert: |
+          попап обновился
+          поля формы синхронизованы
+
+files:
+  - features/companies/hotels/form/popup-form-ag-sync@desktop.hermione.js
+
+counter: /parallel/result/snippet/companies/travel_company/form/submit
+
+v-team: KotTeam
+
+tags:
+  - skip_e2e_check
+  - 1org
+  - hotels-form
+  - datasync
+  - popup
+  - submit
+  - tabs
+
+tlds: none

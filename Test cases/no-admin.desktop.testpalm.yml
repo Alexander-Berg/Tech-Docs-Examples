@@ -1,0 +1,41 @@
+feature: Настройки для не-админов
+
+import-steps:
+    - tests/hermione/suites/desktop/shared-steps/backoffice.testpalm.steps.yml
+
+tlds: ru
+
+specs:
+
+    Проверка для неадминов:
+        - automation: YDO-6833
+        - tags: smoke
+        - do: зайти в админку по ссылке https://yandex.ru/chat/business с аккаунта без статуса администратора
+        - assert: в левом нижнем углу нет иконки с двумя человечками (управления сотрудниками)
+
+    Автораспределение чатов:
+        - automation: YDO-6833
+        - tags: smoke
+        - attach: Открытие настроек
+        - assert: нет тумблера автораспределения чатов
+
+    Окно настроек для оператора одной организации:
+        - automation: YDO-6833
+        - attach: Открытие настроек
+        - assert: нет списка организаций
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/shevchux/uhura_2019-08-30T11%3A23%3A53.066713.jpg]
+
+    Окно настроек для оператора 2 и более организаций:
+        - automation: YDO-6833
+        - attach: Открытие настроек
+        - assert: есть спискок организаций "Ваши организации"
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/shevchux/uhura_2019-08-30T11%3A28%3A01.354312.jpg]
+
+files: []
+
+v-team: Uslugi
+
+tags:
+    - no_assessors
+    - skip_manual_check
+    - floyd

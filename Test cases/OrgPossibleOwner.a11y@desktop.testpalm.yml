@@ -1,0 +1,42 @@
+feature: Одна организация
+type: Вы владелец
+
+import-labels:
+  - src/features/Companies/Companies.features/OrgPossibleOwner/OrgPossibleOwner.test/OrgPossibleOwner@desktop.testpalm.yml
+
+browsers: chrome-desktop
+
+params:
+  foreverdata: '2425475770'
+
+specs:
+  Доступность:
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: в правой колонке есть карточка одной организации
+    - assert: в карточке организации есть блок 'Вы владелец этой организации?'
+    - screenshot: внешний вид [companies-possible-owner-{{SET_NAME}} >> plain]
+    - tech: кнопка-крестик в правом верхнем углу блока содержит атрибут title='Закрыть'
+    - do: кликнуть по заголовку 'Вы владелец этой организации?'
+    - do: нажать клавишу 'Tab'
+    - assert: появился фокус в виде жёлтой рамки вокруг кнопки закрытия
+    - screenshot: фокус на кнопке закрытия [focus-close]
+    - do: нажать клавишу 'Tab'
+    - assert: появился фокус у кнопки 'Подтвердить права'
+    # TODO: фокус на желтой кнопке сломан, проверить после починки https://st.yandex-team.ru/SERP-106033
+    - screenshot: фокус на кнопке 'Подтвердить права' [focus-yes]
+    - do: нажать клавишу 'Tab'
+    - assert: появился фокус у кнопки 'Нет, я не владелец'
+    - screenshot: фокус на кнопке 'Нет, я не владелец' [focus-no]
+
+tlds: all
+
+v-team: VanillaGeo
+
+files:
+  - src/features/Companies/Companies.features/OrgPossibleOwner/OrgPossibleOwner.test/OrgPossibleOwner.a11y@desktop.hermione.js
+
+tags:
+  - A11y_serp
+  - skip_e2e_check
+  - no_assessors
+  - react

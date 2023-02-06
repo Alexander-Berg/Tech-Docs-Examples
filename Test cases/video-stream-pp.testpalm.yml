@@ -1,0 +1,16 @@
+feature: Камера
+type: в ПП
+
+tags: 
+    - release_Webview
+    - webview_regress
+    - platform_searchapp
+
+specs: 
+  Пульт управления [manual]:
+    - do: залогиниться аккаунтом yndx.quasar.test.2 в ПП
+    - do: найти камеру в списке устройств
+    - do: нажать на нее
+    - screenshot: откроется заглушка с кнопкой "Установить приложение" [camera-pp]
+    - assert: <img src=https://jing.yandex-team.ru/files/ollgeny/IMG_0045.0b50b55.png alt=Скриншот width=250>
+    - assert: нажатие на кнопку ведет на страницу https://ya.cc/iot_app

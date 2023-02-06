@@ -1,0 +1,21 @@
+feature: Онбординги
+
+specs:
+    Фича субтитров. Экран 1:
+        - do: перейти по адресу "onboardings/subs?background_color_exp=true&page=0"
+        - assert: |
+            открылась первая страница онбординга
+            единственное возможное направление навигации: вправо
+        - screenshot: внешний вид [main]
+
+    Фича субтитров. Экран 2:
+        - do: перейти по адресу "onboardings/subs?background_color_exp=true&page=0"
+        - assert: |
+            открылась вторая страница онбординга
+            единственное возможное направление навигации: влево
+        - screenshot: внешний вид [main]
+
+# v-team: your team
+
+files:
+    - tests/hermione/suites/onboardings/onboardings.hermione.js

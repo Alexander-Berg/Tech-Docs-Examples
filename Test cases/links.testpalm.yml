@@ -1,0 +1,30 @@
+feature: Футер
+type: Ссылки [B2B]
+
+specs:
+  Проверка ссылок [manual]:
+    - automation: ISEARCH-6638
+    - do: открыть страницу поиска /search
+    - screenshot: внизу страницы присутствуют ссылки [https://jing.yandex-team.ru/files/grikyan91/Poisk_po_Intranetu_nashlos_0_2020-05-07_12-34-07.png]
+    - do: проверить ссылку на 'Конфиденциально'
+    - assert: ссылка содержит https://wiki.yandex-team.ru/nda
+    - do: проверить ссылку на 'О сервисе'
+    - assert: ссылка содержит https://wiki.yandex-team.ru/IntranetPoisk
+    - do: клик на ссылку 'Обратная связь'
+    - assert: открылся попап для обратной связи
+    - do: клик на выпадушку 'Тип обращения'
+    - screenshot: открылись варианты обращения [https://jing.yandex-team.ru/files/grikyan91/Poisk_po_Intranetu_nashlos_0_2020-05-07_12-40-46.png]
+    - do: клик за пределы попапа
+    - assert: попап закрылся
+    - do: проверить ссылку на 'Яндекс'
+    - assert: ссылка содержит https://yandex.ru
+
+tags:
+  - reviewed
+
+priority: minor
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

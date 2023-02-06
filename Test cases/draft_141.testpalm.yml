@@ -1,0 +1,9 @@
+feature:  Умный дом - проверить вкладку мониторингов на диалогах
+
+specs:
+    Умный дом - проверить вкладку мониторингов на диалогах:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/2685
+        - release_Smarthome
+        - no_assessors
+    - do: "Description Не для асессоров"

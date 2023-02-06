@@ -1,0 +1,41 @@
+feature: EmcImage
+
+tags: no_assessors
+
+specs:
+  Обычное изображение:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emcimage/default.json)
+    - screenshot: внешний вид соответствует скриншоту [emcimage]
+  Изображение с фоном, отступами и фиксированной шириной:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emcimage/background-offsets.json)
+    - screenshot: внешний вид соответствует скриншоту [emcimage]
+  Обычное изображение (в колонке):
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emcimage/default-columns.json)
+    - screenshot: внешний вид соответствует скриншоту [emcimage]
+  Изображение с фоном, отступами и фиксированной шириной (в колонке):
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emcimage/background-offsets-columns.json)
+    - screenshot: внешний вид соответствует скриншоту [emcimage]
+
+  Изображение, выравненное по левому краю:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emcimage/left-aligned.json)
+    - screenshot: внешний вид соответствует скриншоту [emcimage]
+  Изображение, выравненное по левому краю (в колонке):
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emcimage/left-aligned-columns.json)
+    - screenshot: внешний вид соответствует скриншоту [emcimage]
+  Изображение, выравненное по правому краю:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emcimage/right-aligned.json)
+    - screenshot: внешний вид соответствует скриншоту [emcimage]
+  Изображение, выравненное по правому краю (в колонке):
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emcimage/right-aligned-columns.json)
+    - screenshot: внешний вид соответствует скриншоту [emcimage]
+
+files:
+  - platform/components/EmcImage/__tests__/EmcImage.hermione.js
+
+v-team: Lc
+
+manager: polyakovadi
+
+qa-engineer: pankov97
+
+tlds: none

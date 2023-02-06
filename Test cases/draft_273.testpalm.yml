@@ -1,0 +1,14 @@
+feature:  Умный дом - история запусков - нет запусков
+
+specs:
+    Умный дом - история запусков - нет запусков:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/3055
+        - release_Webview
+        - release_Smarthome
+        - platform_common
+        - webview_regress
+        - iot_scenario
+    - do: "Preconditions Аккаунт, на котором никогда не запускались расписания и таймеры"
+    - do: "Открыть список устройств - Сценарии - История"
+    - assert: "Отображается экран с текстом; ; `Здесь пока пусто; Поручите Алисе какие-нибудь дела на будущее. Здесь будет видно, как она с ними справилась.`; ; Кнопка Фильтры задизейблена; ; <img src=`https://jing.yandex-team.ru/files/rbol/IMG_8A25098F3C9F-1.jpeg` alt=`Скриншот` width=`300`/>"

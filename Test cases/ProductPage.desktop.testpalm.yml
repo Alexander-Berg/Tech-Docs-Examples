@@ -1,0 +1,93 @@
+feature: ProductPage
+
+specs:
+  Модальное окно:
+    Загрузка и ошибка:
+      - do: открыть https://yandex.ru/products/search?text=iphone
+      - assert: загрузилась поисковая выдача
+      - do: отключить интернет соединение
+      - do: нажать на товар из выдачи
+      - assert: открылось модальное окно
+      - assert: появился лоадер
+      - do: подождать окончания попыток загрузки
+      - assert: отобразилось сообщение об ошибке
+
+  Metrics:
+    Запросы:
+      - tags:
+          - no_assessors
+      - do: открыть https://yandex.ru/products/product/1414986413/sku/101446177753
+      - assert: открылась карточка товара
+      - do: кликнуть на крестик закрытия карточки товара
+      - tech: |
+          - метрика "products.all_requests" = 2
+          - метрика "products.sku_requests" = 1
+          - метрика "products.requests" = 1
+      - do: нажать на первую карточку товара
+      - assert: открылась страница с товаром
+      - tech: |
+          - метрика "products.all_requests" = 3
+          - метрика "products.sku_requests" = 2
+          - метрика "products.requests" = 1
+
+    Главная → Выдача → SKU → Внешний магазин:
+      - tags:
+          - no_assessors
+      - do: открыть https://yandex.ru/products/
+      - assert: открылась главная страница
+      - do: кликнуть на первую категорию товаров
+      - assert: открылась страница выдачи и дозагрузилась вторая страница товаров
+      - do: открыть первый SKU на выдаче
+      - assert: открылась страница SKU
+      - do: кликнуть по ссылке первого магазина
+      - tech: |
+          - метрика "products.requests" = 1
+          - метрика "products.product_card_sku_clicks" = 1
+          - метрика "products.product_card_clicks" = 1
+          - метрика "products.sku_requests" = 1
+          - метрика "products.sku_external_clicks" = 1
+          - метрика "products.sku_total_clicks" = 1
+          - метрика "products.total_clicks" = 1
+          - метрика "products.all_requests" = 2
+          - метрика "products.all_external_clicks" = 1
+
+    Выдача → Оффер → Внешний магазин:
+      - tags:
+          - no_assessors
+      - do: открыть https://yandex.ru/products/search?text=рубашка%20в%20полосочку
+      - assert: открылась страница выдачи и дозагрузилась вторая страница товаров
+      - do: открыть первый оффер на выдаче
+      - assert: открылась страница оффера
+      - do: кликнуть по ссылке первого магазина
+      - tech: |
+          - метрика "products.requests" = 1
+          - метрика "products.product_card_offer_clicks" = 1
+          - метрика "products.product_card_clicks" = 1
+          - метрика "products.offer_requests" = 1
+          - метрика "products.offer_external_clicks" = 1
+          - метрика "products.offer_total_clicks" = 1
+          - метрика "products.total_clicks" = 1
+          - метрика "products.all_requests" = 3
+          - метрика "products.all_external_clicks" = 1
+
+  Проверенный магазин:
+    params:
+      exp_flags:
+        - trusted_merchant_icon=1
+
+    Страница оффера:
+      - tags:
+          - no_assessors
+      - do: открыть https://yandex.ru/products/offer/vGHLX0Xlkk8XUXhqK1dvhQ
+      - screenshot: внешний вид блока с предложениями магазинов соответствует скриншоту [inactive-layout]
+      - tech: в baobab-дереве залогирован узел по пути '$page.$main.card.feedbackMode'
+      - do: навести на иконку "Проверенный магазин"
+      - assert: появился попап с описанием того, что означает иконка
+      - screenshot: внешний вид попапа соответствует скриншоту [active-layout]
+      - do: убрать курсор с иконки "Проверенный магазин"
+      - assert: попап исчез
+
+v-team: goods
+
+files:
+    - src/pages/ProductPage/tests/ProductPage.desktop.hermione.ts

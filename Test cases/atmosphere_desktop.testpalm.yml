@@ -1,0 +1,32 @@
+feature: Страницы
+type: Как все устроено
+
+import-steps:
+  - ../../steps/steps.testpalm.steps.yml
+
+specs:
+  Проверка страницы [manual]:
+    - do: открыть страницу /jobs/pages/atmosphere
+    - assert: |
+        название страницы содержит 'Как все устроено'
+        активен таб 'Работа в яндексе'
+    - attach: ["Общие проверки [manual]"]
+
+platform:
+  - desktop
+
+tlds:
+  - ru
+  - by
+  - ua
+
+priority: normal
+
+browsers:
+  - yandex-browser-desktop
+  - chrome-browser-desktop
+  - firefox-desktop
+  - safari-desktop
+  - opera-desktop
+  - edge-desktop
+  - msie-desktop

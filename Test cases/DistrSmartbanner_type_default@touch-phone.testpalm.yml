@@ -1,0 +1,54 @@
+feature: Смартбаннер React
+type: default
+
+params:
+  exp_flags:
+    - smartbanner_atom=1
+
+specs-integration:
+  Присутствует на странице:
+    - params:
+        banner-id: '72057605999494466'
+    - tags: no_assessors
+    - do: почистить куки
+    - do: получить выдачу по запросу txt
+    - assert: на выдаче присутствует смартбаннер
+    - assert: кнопки в колдунщике кликабельны
+
+specs:
+  Внешний вид смартбаннера с заголовком:
+    - tags:
+        - smoke
+    - params:
+        foreverdata: '34503094'
+    - do: получить выдачу по запросу 'foreverdata'
+    - tech: сработал серверный счётчик /$page/distr-smartbanner с атрибутами bannerid product layout
+    - assert: появился смартбаннер с заголовком
+    - screenshot: Пример внешнего вида смартбаннера [smartbanner-default-with-title]
+
+  Внешний вид смартбаннера с имитацией заголовка:
+    - params:
+        foreverdata: '78063548'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: появился смартбаннер с заголовком
+    - screenshot: Пример внешнего вида смартбаннера [smartbanner-default-title-like]
+
+  Внешний вид смартбаннера без кнопки закрыть:
+    - params:
+        foreverdata: '1011945489'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: появился смартбаннер с крестиком вместо кнопки закрыть
+    - screenshot: Пример внешнего вида смартбаннера [smartbanner-default-cross]
+
+files:
+  - src/features/DistrSmartbannerReact/DistrSmartbannerReact.test/distr-smartbanner_type_default/DistrSmartbanner_type_default@touch-phone.hermione.js
+  - src/features/DistrSmartbannerReact/DistrSmartbannerReact.test/distr-smartbanner_type_default/DistrSmartbanner_type_default@touch-phone.hermione.e2e.js
+
+tags:
+  - reviewed
+  - distribution
+  - smartbanner
+
+v-team: Distribution
+
+tlds: [ru, by]

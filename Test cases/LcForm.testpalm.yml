@@ -1,0 +1,112 @@
+feature: LcForm
+
+tags: no_assessors
+
+specs:
+  Внешний вид блока:
+    - do: Открыть страницу примера блока LcForm (https://yandex.ru/turbo?stub=lcform%2Flcformtests.json)
+    - assert: Форма должна корректно отображаться
+    - screenshot: Внешний вид соответствует скриншоту [plain]
+
+  Внешний вид блока c красным цветом текста:
+    - do: Открыть страницу примера блока LcForm (https://yandex.ru/turbo?stub=lcform%2Fwith-text-color.json)
+    - assert: Форма должна корректно отображаться и иметь два поля с красными заголовками и черным текстом
+    - screenshot: Внешний вид соответствует скриншоту [plain]
+
+  Должна убирать ошибку при начале печатания:
+    - do: Открыть страницу примера блока LcForm (https://yandex.ru/turbo?stub=lcform%2Flcformtests.json)
+    - assert: Форма должна отображаться корректно и без сообщений об ошибках
+    - do: Кликнуть на кнопку "Launch it"
+    - assert: Под обязательными полями появились сообщения об ошибке, поля выделились красной рамкой
+    - do: Ввести буквенное значение (abrakadabra) в поле "Phone input"
+    - assert: Красная рамка и сообщение об ошибке пропали
+
+  Должно не пропускать невалидную форму:
+    - do: Открыть страницу примера блока LcForm (https://yandex.ru/turbo?stub=lcform%2Flcformtests.json)
+    - assert: Форма должна отображаться корректно и без сообщений об ошибках
+    - do: Ввести любое невалидное значение (abrakadabra) в поле "Email input" и кликнуть на кнопку "Launch it"
+    - assert: Модал благодарности формы не возник
+    - screenshot: Внешний вид соответствует скриншоту [form-invalid]
+
+  Не должна пропускать пустую форму:
+    - do: Открыть страницу примера блока LcForm (https://yandex.ru/turbo?stub=lcform%2Flcformtests.json)
+    - assert: Форма должна отображаться корректно и без сообщений об ошибках
+    - do: Кликнуть на кнопку "Launch it"
+    - assert: Модал благодарности формы не возник
+    - screenshot: Внешний вид соответствует скриншоту [form-empty]
+
+  Должна отправляться и показывать модал благодарности у desktop:
+    - browsers:
+        - chrome-desktop
+        - firefox
+    - do: Открыть страницу примера блока LcForm (https://yandex.ru/turbo?stub=lcform%2Flcformtests.json)
+    - assert: Форма должна отображаться корректно и без сообщений об ошибках
+    - do: Ввести 79261234567 в поле "Phone input"
+    - do: Ввести email@gmail.com в поле "Email input"
+    - do: Выбрать вторую опцию в поле "Required select"
+    - assert: Нет сообщений об ошибках
+    - screenshot: Внешний вид соответствует скриншоту [filled-form-desktop]
+    - do: Кликнуть на кнопку "Launch it"
+    - assert: Появился модал благодарности
+    - screenshot: Внешний вид модала соответствует скриншоту [form-submitted-modal]
+    - do: Кликнуть на крестик в правом верхнем углу модала
+    - assert: Модал благодарности исчез
+
+  Должна отправляться и показывать модал благодарности у mobile:
+    - browsers:
+        notFor:
+          - chrome-desktop
+          - firefox
+    - do: Открыть страницу примера блока LcForm (https://yandex.ru/turbo?stub=lcform%2Flcformtests.json)
+    - assert: Форма должна отображаться корректно и без сообщений об ошибках
+    - do: Ввести 79261234567 в поле "Phone input"
+    - do: Ввести email@gmail.com в поле "Email input"
+    - do: Выбрать вторую опцию в поле "Required select"
+    - assert: Нет сообщений об ошибках
+    - screenshot: Внешний вид соответствует скриншоту [filled-form-mobile]
+    - do: Кликнуть на кнопку "Launch it"
+    - assert: Появился модал благодарности
+    - screenshot: Внешний вид модала соответствует скриншоту [form-submitted-modal]
+    - do: Кликнуть на крестик в правом верхнем углу модала
+    - assert: Модал благодарности исчез
+
+  Форма автозаполняется данными из паспорта:
+    - do: Открыть страницу примера блока LcForm (https://yandex.ru/turbo?stub=lcform%2Ffortest.json)
+    - assert: Поля формы должны быть заполнены данными
+    - screenshot: Внешний вид соответствует скриншоту [plain]
+
+  Ошибка и саджест пропадают после клика на саджест:
+    - do: Открыть страницу примера блока LcForm (https://yandex.ru/turbo?stub=lcform%2Ffortest.json)
+    - assert: Форма должна отображаться корректно, без сообщений об ошибках
+    - do: Кликнуть на кнопку "Очистить" поля "Phone input" (крестик в правой части поля)
+    - do: Кликнуть на саджест поля "Phone input" (ссылка с пунктирным подчеркиванием под полем ввода)
+    - assert: Поле "Phone input" заполнилось значением саджеста, пропало сообщение об ошибке
+    - screenshot: Внешний вид соответствует скриншоту [view]
+
+  Перенос длинных заголовков полей формы на новую строку:
+    - do: Открыть страницу примера блока LcForm (https://yandex.ru/turbo?stub=lcform%2Fwith-long-input-label.json)
+    - assert: Форма должна корректно отображаться, длинные залоговки переносятся на новую строку
+    - screenshot: Внешний вид соответствует скриншоту [plain]
+
+  Должны очищаться инпуты после успешной отправки:
+    - do: Открыть страницу примера блока LcForm (https://yandex.ru/turbo?stub=lcform%2Fshort.json)
+    - assert: Форма должна отображаться корректно и без сообщений об ошибках
+    - do: Ввести 79261234567 в поле "Phone input"
+    - do: Ввести email@gmail.com в поле "Email input"
+    - do: Кликнуть на кнопку "Launch it"
+    - assert: Появился модал благодарности
+    - do: Кликнуть на крестик в правом верхнем углу модала
+    - assert: Модал благодарности исчез
+    - screenshot: Внешний вид формы соответствует скриншоту [cleared-form]
+
+
+files:
+  - platform/components/LcForm/__tests__/LcForm.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: olimiya, shinuta
+
+tlds: none

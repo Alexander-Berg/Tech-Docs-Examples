@@ -1,0 +1,87 @@
+feature: Объектный ответ
+type: Новая карточка 
+
+specs:
+  Внешний вид трейлера:
+    - do: получить выдачу по запросу 'Красное уведомление' (альтернативные запросы 'Финч', 'Тор:Любовь и гром')
+    - assert: на выдаче присутствует объектный ответ с видео
+    - screenshot: пример внешнего вида (название в скрине может отличаться) [cols-12]
+    - do: навести курсор на видео
+    - assert: кнопка c трейлером увеличилась, блок с видео затемнился
+    - screenshot: пример внешнего вида (название в скрине может отличаться) [cols-12-hover]
+    - do: уменьшить разрешение экрана по ширине до 1250px
+    - assert: видео поджалось
+    - screenshot: пример внешнего вида (название в скрине может отличаться) [cols-10]
+    - do: навести курсор на видео
+    - assert: кнопка c трейлером увеличилась, блок с видео затемнился
+    - screenshot: пример внешнего вида (название в скрине может отличаться) [cols-10-hover]
+    - do: уменьшить разрешение экрана по ширине до 1150px
+    - assert: видео поджалось
+    - screenshot: пример внешнего вида (название в скрине может отличаться) [cols-8]
+    - do: навести курсор на видео
+    - assert: кнопка c трейлером увеличилась, блок с видео затемнился
+    - screenshot: пример внешнего вида (название в скрине может отличаться) [cols-8-hover]
+    - do: уменьшить разрешение экрана по ширине до 1050px
+    - assert: видео поджалось
+    - screenshot: пример внешнего вида (название в скрине может отличаться) [cols-6]
+    - do: навести курсор на видео
+    - assert: кнопка c трейлером увеличилась, блок с видео затемнился
+    - screenshot: пример внешнего вида (название в скрине может отличаться) [cols-6-hover]
+    - do: кликнуть по видео
+    - assert: появился плеер
+    - assertMetrics:
+        - daily.total_session_count
+        - web.total_request_count
+        - web.total_click_count
+        - web.total_all_click
+        - web.abandonment
+        - web.tech_part_misc_click
+        - all.total_dynamic_click_count
+        - feature.web.wizards_common.entity_search_wizard_parallel.total.clicks
+  Проверка в каталоге в правой колонке (трейлер):
+    - do: получить выдачу по запросу 'артемис фаул' (альтернативные запросы 'больше бена', 'жених напрокат', 'фея крестная')
+    - assert: в правой колонке есть карточка фильма и видео с трейлером
+    - screenshot: пример внешнего вида (название в скрине может отличаться) [in-catalog-right]
+    - do: навести курсор на видео
+    - assert: кнопка c трейлером увеличилась, блок с видео затемнился
+    - screenshot: пример внешнего вида (название в скрине может отличаться) [in-catalog-right-hover]
+    - assertMetrics:
+        - daily.total_session_count
+        - web.total_request_count
+        - web.total_click_count
+        - web.total_all_click
+        - web.abandonment
+        - web.tech_part_misc_click
+        - all.total_dynamic_click_count
+        - feature.web.wizards_common.entity_search_wizard_parallel.total.clicks
+  Проверка постера:
+    - do: получить выдачу по запросу 'Красное уведомление' (альтернативные запросы 'Финч', 'Тор:Любовь и гром')
+    - assert: |
+        на выдаче присутствует фильмомая карточка справа
+        в фильмовой карточке присутствует тумба с трейлером и постер фильма
+    - screenshot: пример внешнего вида постера [poster]
+    - do: навести курсор на постер
+    - assert: постер затемнился
+    - screenshot: пример внешнего вида [poster-hover]
+    - do: кликнуть на постер
+    - tech: проверить счётчик path='/$page/$parallel/$result/tabs/main/thumb'
+    - assertMetrics:
+        - daily.total_session_count
+        - web.total_request_count
+        - web.total_click_count
+        - web.total_all_click
+        - web.abandonment
+        - web.tech_part_misc_click
+        - all.total_dynamic_click_count
+        - feature.web.wizards_common.entity_search_wizard_parallel.total.clicks
+  Проверка заголовка на узком экране:
+    - do: получить выдачу по запросу 'Душа компании фильм 2018' с параметром &ento=0oCgpydXc2OTY1MTQxEjtsc3QucmVjQ2lNS0JIUmxlSFFTRzJsZmVXVmhjam95TURFNElDWW1JSE5mWjJWdWNtVTZabWxzYlE9PRgCQhHRhNC40LvRjNC80YsgMjAxOPuirCE
+    - assert: на выдаче присутствует объектный ответ с видео в левой колонке и постером фильма в правой колонке
+    - screenshot: пример внешнего вида [cols-6]
+
+files:
+  - features/desktop/z-entity-search/beautify-card/beautify-card.hermione.js
+
+v-team: Video
+
+tlds: [ru, ua, by, kz, com, com.tr]

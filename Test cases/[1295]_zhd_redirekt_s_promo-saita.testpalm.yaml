@@ -1,0 +1,21 @@
+feature: ЖД
+type: Главная
+description: ''
+specs:
+  'ЖД: Редирект с промо-сайта':
+    - do: 'Перейти на https://mir.trains.yandex.ru/'
+    - assert: '* Произошел редирект на https://travel.yandex.ru/trains/'
+    - do: 'Перейти по ссылке https://mir.trains.yandex.ru/robots.txt'
+    - assert: |-
+        * Редирект не происходит, открывается карта сайта:
+        User-agent: *
+        Disallow: /
+manual: true
+Устройство: Десктоп
+Страница: Главная
+Сервис: ЖД
+Тестирование асессорами: Да
+Окружение:
+  - Production
+  - Testing
+Автор: shenfeld

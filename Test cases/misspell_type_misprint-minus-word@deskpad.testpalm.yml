@@ -1,0 +1,49 @@
+feature: Опечатка и Ко
+type: Возможно вы хотели исключить слово
+
+specs:
+  Основные проверки:
+    - do: получить выдачу по запросу "серфинг -виндсерфинг доска"
+    - assert: на странице присутствует сообщение "Чтобы исключить слово «виндсерфинг» из результатов поиска, поставьте его в конце запроса со знаком минус"
+    - screenshot: Пример внешнего вида опечаточника [misprint-minus-word]
+    - assertMetrics: '*'
+
+specs-integration:
+  Базовое поведение:
+    - counter: /$page/$main/misspell/type_minuswords_obsolete
+    - do: получить выдачу по запросу "серфинг -виндсерфинг доска"
+    - assert: на выдаче присутствует опечаточник с сообщением "Чтобы исключить слово «виндсерфинг» из результатов поиска, поставьте его в конце запроса со знаком минус"
+
+files:
+  - features/misspell/misspell_type_misprint-minus-word@deskpad.hermione.js
+  - features/misspell/misspell_type_misprint-minus-word@deskpad.hermione.e2e.js
+
+v-team: Freshness
+
+tags:
+  - yaani
+  - searchapp
+  - wtp_button
+  - touch
+  - wtp_ajax
+  - ajax
+  - mgranny
+  - smart
+  - button
+  - granny
+  - meta
+  - spok_id
+  - wizard
+  - misprint
+  - reviewed
+
+selector: .misspell
+
+counter: /$page/$main/misspell/type_minuswords_obsolete
+
+tlds:
+  - ru
+  - by
+  - ua
+  - kz
+  - uz

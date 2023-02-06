@@ -1,0 +1,30 @@
+feature: Счетчик
+type: Метрика
+
+specs:
+  aliases:
+    - &checkMetrikaCounter
+      - do: получить выдачу по запросу 'test'
+      - tech: идентификатор Метрики должен присутствовать в вёрстке
+      - tech: счетчик должен быть проинициализирован (можно проверить с помощью команды yaCounter*** в консоли, где *** - идентификатор Метрики)
+
+  Инициализация счетчика 731962 для домена ru: *checkMetrikaCounter
+  Инициализация счетчика 731962 для домена kz: *checkMetrikaCounter
+  Инициализация счетчика 731962 для домена ua: *checkMetrikaCounter
+  Инициализация счетчика 731962 для домена by: *checkMetrikaCounter
+  Инициализация счетчика 11803342 для домена com: *checkMetrikaCounter
+  Инициализация счетчика 9927988 для домена com.tr: *checkMetrikaCounter
+
+files:
+  - features/desktop/metrika/metrika.hermione.js
+
+v-team: Distribution
+
+tags:
+  - reviewed
+  - metrika
+  - smoke_extended
+  - no_assessors
+  - skip_e2e_check
+
+tlds: all

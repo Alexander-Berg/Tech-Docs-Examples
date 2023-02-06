@@ -1,0 +1,37 @@
+feature: Одна организация
+type: Контакты и телефон
+
+specs:
+  Номер телефона:
+    - do: получить выдачу по запросу 'кафе пушкин'
+    - assert: в правой колонке есть колдунщик организации
+    - do: кликнуть в скрытый номер телефона
+    - assert: показался полный номер телефона
+    - tech: сработал счетчик Метрики mc.yandex.ru/watch с параметром 'call'
+  Длинный номер телефона:
+    - do: получить выдачу по запросу 'ателье лига джентльменов алтайский край'
+    - screenshot: примерный внешний вид [plain]
+  Скрытие телефона в попапе:
+    - do: получить выдачу по запросу 'кафе пушкин'
+    - assert: открылась карточка организации 1орг
+    - do: кликнуть первую похожую организацию в списке
+    - assert: |
+        открылся попап
+        открылся таб с информацией об организации,
+        в табе есть скрытый телефон
+    - screenshot: внешний вид [phone-covered]
+    - do: кликнуть на надпись "Показать"
+    - assert: телефон показан полностью, надпись "Показать" исчезла
+    - screenshot: внешний вид [phone-shown]
+    - assertMetrics: '-'
+
+files:
+  - src/features/Companies/Companies.features/OrgContacts/OrgContacts.test/Phone/Phone@desktop.hermione.js
+
+v-team: VanillaGeo
+
+counter: /$page/$parallel/$result[@wizard_name="companies" and @subtype="company"]/composite/tabs/about/contacts
+
+tags: skip_e2e_check
+
+tlds: all

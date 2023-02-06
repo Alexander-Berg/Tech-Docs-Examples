@@ -1,0 +1,86 @@
+feature: Система. Роли
+
+specs:
+  Система. Роли. Различная фильтрация:
+    - do: запустить в Runner сценарий "Система. Роли" (https://github.yandex-team.ru/pixel/idm-runner)
+    - do: отправить запрос "Система. Роли. Дефолтное состояние" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: ответ на запрос "Система. Роли. Дефолтное состояние" должен содержать поля [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-12%2020-31-54.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Система. Роли. Персональные роли" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: ответ на запрос "Система. Роли. Персональные роли" должен содержать поля "group"=null [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-12%2020-34-04.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Система. Роли. Групповые роли" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: ответ на запрос "Система. Роли. Групповые роли" должен содержать непустые поля "group" и поля "user" со значением "null" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-12%2020-35-13.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Система. Роли. Активные" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: ответ на запрос "Система. Роли. Активные" должен содержать поля "is_active" со значением "true" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-12%2020-36-06.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Система. Роли. Неактивные" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: ответ на запрос "Система. Роли. Неактивные" должен содержать поля "is_active" со значением "false" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-12%2020-37-13.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Система. Роли. Запрошенные" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: в ответе на запрос "Система. Роли. Запрошенные" поле "state" должно иметь значения "requested" или "awaiting" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-12%2020-39-00.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Система. Роли. Фильтр по состоянию" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: в ответе на запрос "Система. Роли. Фильтр по состоянию" поле "state" должно иметь значения "requested" или "depriving" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-12%2020-39-00.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Система. Роли. Фильтр по Стаффу" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: ответ на запрос "Система. Роли. Фильтр по Стаффу" должен содержать поля [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-12%2020-41-01.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Система. Роли. Фильтр по роли системы" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: ответ на запрос "Система. Роли. Фильтр по роли системы" должен содержать поля [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-12%2020-41-58.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Система. Роли. Фильтр по id роли" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: ответ на запрос "Система. Роли. Фильтр по id роли" должен содержать запись про роль с "id"=12838132 [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-12%2020-42-48.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Система. Роли. Фильтрация без результата" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: ответ на запрос "Система. Роли. Фильтрация без результата" должен содержать поля [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-12%2020-43-11.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+
+priority: critical
+
+files:
+  - idm/tests/api/frontend/test_role.py
+
+tags:
+  - fitcher:idm-www:test/auto/system/roles/**
+  - fitcher:idm-www:blocks/desktop/filters/**
+  - fitcher:idm-www:blocks/desktop/table/**
+  - fitcher:idm-www:blocks/desktop/roles-list/**
+  - fitcher:idm_backend_palmsync:idm/tests/api/frontend/test_role.py
+  - fitcher:idm_backend_palmsync:idm/api/exceptions.py
+  - fitcher:idm_backend_palmsync:idm/core/constants/role.py
+  - fitcher:idm_backend_palmsync:idm/core/constants/rolefield.py
+  - fitcher:idm_backend_palmsync:idm/core/models/role.py
+  - fitcher:idm_backend_palmsync:idm/core/models/rolerequest.py
+  - fitcher:idm_backend_palmsync:idm/tests/utils.py
+  - fitcher:idm_backend_palmsync:idm/users/constants/user.py
+  - fitcher:idm_backend_palmsync:idm/users/models.py
+  - fitcher:idm_backend_palmsync:idm/core/models/rolefield.py
+  - fitcher:idm_backend_palmsync:idm/core/models/rolenode.py
+  - fitcher:idm_backend_palmsync:idm/core/models/rolealias.py
+  - fitcher:idm_backend_palmsync:idm/core/models/approverequest.py
+  - fitcher:idm_backend_palmsync:idm/permissions/utils.py
+  - fitcher:idm_backend_palmsync:idm/users/constants/group.py

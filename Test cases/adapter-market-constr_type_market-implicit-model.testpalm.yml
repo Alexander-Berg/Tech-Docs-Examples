@@ -1,0 +1,34 @@
+feature: Маркет
+type: карточка неявной модели
+
+specs:
+  Обязательные проверки:
+    - do: Получить выдачу по запросу 'холодильник океан' и параметром foreverdata=2520238481
+    - screenshot: Колдунщик Маркета должнен присутствовать на странице [plain]
+    - do: тапнуть по заголовку
+    - assert: открылась страница сервиса Яндекс.Маркет
+    - tech: проверить счетчик в заголовке
+    - assert: проверить ссылку в гринурле
+    - tech: проверить счетчик в гринурле
+    - assert: проверить ссылку в сайтлинке
+    - tech: проверить счетчик в сайтлинке
+
+files:
+  - hermione/test-suites/touch-phone/adapters/adapter-market-constr/adapter-market-constr_type_market-implicit-model.hermione.js
+
+manager:
+  - dsasov
+
+v-team: Market
+
+tags:
+  - market
+  - meta
+  - rating
+  - wizard
+  - no_assessors
+  - reviewed
+
+counter: /$page/$main/$result[@wizard_name="market_constr" and @subtype="market_implicit_model"]/title
+
+tlds: none

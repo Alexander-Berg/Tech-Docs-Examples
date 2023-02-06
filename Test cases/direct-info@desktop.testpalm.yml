@@ -1,0 +1,26 @@
+feature: Страница всех объявлений
+type: Инфо блок на странице всех объявлений
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу 'окна'
+    - do: в адресной строке браузера добавить после 'search/' параметр 'direct' (чтобы получилось '/search/direct?'. обратите внимание - НЕ '/search/direct/?', слеш перед знаком вопроса не нужен), не удаляя остальные параметры, и нажать Enter
+  Внешний вид и счетчика:
+    - screenshot: инфо блок находится вверху выдачи [tooltip]
+    - tech: проверить счётчик показа блока /$page/$main/direct-info (&exp_flags=dump_counters=direct_page)
+  Ссылка на основной поиск в верхней подсказке:
+    - do: нажать на ссылку 'Все результаты поиска' в верхнем информационном сообщении над выдачей
+    - assert: в новой вкладке открылся поиск по текущему запросу
+    - tech: сработал счетчик '/$page/$main/direct-info/link'
+
+files:
+  - features/direct-info/direct-info@desktop.hermione.js
+
+tags:
+  - reviewed
+  - skip_e2e_check
+  - adv_vertical
+
+tlds: ru
+
+v-team: Freshness

@@ -1,0 +1,22 @@
+feature: ЖД
+type: ''
+description: ''
+specs:
+  'ЖД: Заказы со страховкой клирятся сразу':
+    - do: >-
+        Купить билет на 1 пассажира со страховкой
+
+        Найти заказ в бэкофисе https://train-backoffice.test.rasp.yandex.ru
+
+        Для оркестратора в админке
+        https://travel-orders-admin-testing.common.yandex-team.ru/
+    - assert: '* В логах в бэкофисе есть запись о том, что платеж заклирился'
+manual: true
+Функциональность: Только бэкенд
+Устройство: Десктоп
+Сервис: ЖД
+Тестирование асессорами: Нет
+Окружение:
+  - Production
+  - Testing
+Автор: shenfeld

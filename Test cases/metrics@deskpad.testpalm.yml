@@ -1,0 +1,36 @@
+feature: Метрики
+
+description: Проверка основных АБТ-метрик (https://wiki.yandex-team.ru/jandekspoisk/kachestvopoiska/abt/factors/)
+
+specs:
+  Один запрос и динамический клик:
+    - do: получить выдачу по запросу "Скрипали"
+    - do: кликнуть в правую стрелку карусели картинок
+    - tech: Значение метрики "web.total_click_count" == 0
+    - tech: Значение метрики "web.total_all_click" == 1
+    - tech: Значение метрики "traffic.video_wizard_ctr" == 0
+    - tech: Значение метрики "web.total_dynamic_click_count" == 1
+  Один запрос и клик в гринурл:
+    - do: получить выдачу по запросу "тест"
+    - do: кликнуть в гринурл первого сниппета
+    - tech: Значение метрики "web.total_click_count" == 1
+    - tech: Значение метрики "web.total_navurl_click" == 1
+  Один запрос и клик на вторую страницу:
+    - do: получить выдачу по запросу 'котики'
+    - tech: в пейджере есть ссылка на вторую страницу поисковой выдачи
+    - do: кликнуть в ссылку на вторую страницу поисковой выдачи
+    - tech: web.total_request_count = 2
+    - tech: web.total_click_count = 0
+    - tech: web.total_all_click = 1
+    - tech: web.tech_part_misc_click = 100
+
+files:
+  - features/metrics/metrics@deskpad.hermione.js
+
+v-team: Architecture
+
+tags:
+  - no_assessors
+  - skip_e2e_check
+
+tlds: none

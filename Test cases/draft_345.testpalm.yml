@@ -1,0 +1,20 @@
+feature:  Умный дом - Households - Создание дома без адреса
+
+specs:
+    Умный дом - Households - Создание дома без адреса:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/3230
+        - release_Webview
+        - platform_common
+        - webview_regress
+        - iot_households
+    - do: "На главном экране `устройства`: ; - Заголовок страницы `Мой дом` имеет контрол, показывающий на его `выпадучесть`; - При клике открывается выпадающее меню снизу со списком домов и пунктом `Добавить новый дом`.; "
+    - assert: "По тапу на контрол снизу экрана выпадает список домов:; ; <img src=`https://jing.yandex-team.ru/files/rbol/Spisok_ustroistv__Figma_2021-03-31_13-43-29.7d24aad.png` alt=`Скриншот` >"
+    - do: "- Ввести название дома; - Пропустить поле с адресом (ничего не вводить); ![](https://jing.yandex-team.ru/files/lawyard/Spisok_ustroistv__Figma_2021-04-21_13-55-46.png); - Нажать `Создать дом`"
+    - assert: "Отображается поп-ап с предупреждением:; ![](https://jing.yandex-team.ru/files/lawyard/Spisok_ustroistv__Figma_2021-04-21_13-56-12.png)"
+    - do: "Нажать `Указать адрес`; "
+    - assert: "Возвращаемся к редактированию адреса"
+    - do: "Ничего не вводить; Снова нажать `Создать дом`"
+    - assert: "Снова показывается поп-ап с предупреждением о добавлении адреса"
+    - do: "Нажать `Продолжить без адреса`"
+    - assert: "Создается дом без адреса; (напр.):; <img src=`https://jing.yandex-team.ru/files/rbol/IMG_A81EF24E9A0C-1.jpeg` alt=`Скриншот` width=`300`/>"

@@ -1,0 +1,57 @@
+feature: LikeLight
+
+specs:
+  Число лайков = 0:
+    Статус none:
+      - do: Открыть ссылку yandex.ru/turbo?stub=likelight/default.json
+      - screenshot: Внешний вид [default-none]
+      - assert: блок like со статусом none и нулевым числом лайков
+
+    Статус liked:
+      - do: Открыть ссылку yandex.ru/turbo?stub=likelight/default-liked.json
+      - screenshot: Внешний вид [default-liked]
+      - assert: блок like со статусом liked и нулевым числом лайков
+
+    Статус disliked:
+      - do: Открыть ссылку yandex.ru/turbo?stub=likelight/default-disliked.json
+      - screenshot: Внешний вид [default-disliked]
+      - assert: блок like со статусом disliked и нулевым числом лайков
+
+  Число лайков = 100:
+    Статус none:
+      - do: Открыть ссылку yandex.ru/turbo?stub=likelight/positive.json
+      - screenshot: Внешний вид [positive]
+      - assert: блок like со статусом none и число лайков = 100
+
+    Статус liked:
+      - do: Открыть ссылку yandex.ru/turbo?stub=likelight/positive-liked.json
+      - screenshot: Внешний вид [positive-liked]
+      - assert: блок like со статусом liked и число лайков = 100
+
+    Статус disliked:
+      - do: Открыть ссылку yandex.ru/turbo?stub=likelight/positive-disliked.json
+      - screenshot: Внешний вид [positive-disliked]
+      - assert: блок like со статусом disliked и число лайков = 100
+
+  Число лайков = -100:
+    Статус none:
+      - do: Открыть ссылку yandex.ru/turbo?stub=likelight/negative.json
+      - screenshot: Внешний вид [negative]
+      - assert: блок like со статусом none и число лайков = -100
+
+    Статус liked:
+      - do: Открыть ссылку yandex.ru/turbo?stub=likelight/negative-liked.json
+      - screenshot: Внешний вид [negative-liked]
+      - assert: блок like со статусом liked и число лайков = -100
+
+    Статус disliked:
+      - do: Открыть ссылку yandex.ru/turbo?stub=likelight/negative-disliked.json
+      - screenshot: Внешний вид [negative-disliked]
+      - assert: блок like со статусом disliked и число лайков = -100
+
+files:
+  - platform/components/LikeLight/__tests__/LikeLight.hermione.js
+
+v-team: Talk
+
+tlds: none

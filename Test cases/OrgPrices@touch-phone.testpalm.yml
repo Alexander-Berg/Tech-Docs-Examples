@@ -1,0 +1,62 @@
+feature: Одна организация
+type: Врезка с ценами
+
+specs-integration:
+  beforeEach:
+    - do: получить выдачу по запросу 'кафе пушкин' _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: на странице присутствует колдунщик организации
+  Наличие элементов:
+    - assert: |
+        в карточке организации есть врезка прайсов,
+        во врезке прайсов есть тайтл,
+        во врезке прайсов есть список цен,
+  Открытие оверлея организации:
+    - do: кликнуть на тайтл врезки цен
+    - assert: открылся оверлей с карточкой организации и табом прайсов
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу "кафе пушкин"
+    - assert: |
+        на странице присутствует колдунщик организации
+        в колдунщшике организации есть блок "Меню"
+  На выдаче:
+    Внешний вид:
+      - screenshot: внешний вид [plain]
+    Клик в заголовок открывает оверлей:
+      - do: нажать на заголовок блока "Меню"
+      - tech: сработал счётчик path="/$page/$main/$result/composite/prices/title"
+      - assert: открылся оверлей с активным табом "Меню"
+    Клик в ссылку "Смотреть меню полностью" открывает оверлей:
+      - do: нажать на ссылку "Смотреть меню полностью"
+      - tech: сработал счётчик path="/$page/$main/$result/composite/prices/more"
+      - assert: открылся оверлей с активным табом "Меню"
+  В оверлее:
+    Внешний вид:
+      - do: нажать на таб "Главное"
+      - assert: открылся оверлей
+      - info: подкскроллить к блоку "меню"
+      - screenshot: внешний вид [overlay]
+    Клик в заголовок открывает таб "Меню":
+      - do: нажать на таб "Главное"
+      - assert: открылся оверлей
+      - info: подкскроллить к блоку "меню"
+      - do: нажать на заголовок блока меню
+      - tech: сработал счётчик path="/$subresult/overlay-wrapper/content/tabs/controls/tabs/about/side-block-bcard/composite/prices/title"
+      - assert: открылся оверлей с активным табом "Меню"
+
+files:
+  - src/features/Companies/Companies.features/OrgPrices/OrgPrices.test/OrgPrices@touch-phone.hermione.e2e.js
+  - src/features/Companies/Companies.features/OrgPrices/OrgPrices.test/OrgPrices@touch-phone.hermione.js
+
+v-team: VanillaGeo
+
+tags:
+  - react
+  - hasE2E
+  - geo
+  - geo_one_org
+  - geo_one_org_prices
+
+tlds: all
+

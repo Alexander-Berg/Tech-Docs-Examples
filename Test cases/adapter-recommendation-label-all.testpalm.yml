@@ -1,0 +1,86 @@
+feature: Метка
+type: Набор всех меток
+
+specs-integration:
+  Метка "Навигационный ответ" присутствует в выдаче:
+    - counter: /$page/$main/$result/verified-list/verified/link
+    - do: получить выдачу по запросу 'википедия сайт' ('википедия на русском языке', 'википедия поиск')
+    - assert: метка "Навигационный ответ" присутствует в выдаче [https://jing.yandex-team.ru/files/kukuruku/official.png]
+  Метка "Mfo" присутствует на выдаче:
+    - counter: /$page/$main/$result/verified-list/verified/link
+    - do: получить выдачу по запросу 'микрокредит онлайн' (альтернативные запросы 'займы на карту', 'кредитная карта', 'ценные бумаги')
+    - assert: метка официальности присутствует на выдаче [https://jing.yandex-team.ru/files/olegnv/mfo.png]
+  Метка "Official dealer" присутствует на выдаче:
+    - counter: /$page/$main/$result/verified-list/verified
+    - do: получить выдачу по запросу 'bmw купить'
+    - assert: метка официальности присутствует на выдаче [https://jing.yandex-team.ru/files/olegnv/dealer.png]
+  Метка "Ssd" присутствует на выдаче:
+    - counter: /$page/$main/$result/bno/verified-list/verified/link
+    - do: получить выдачу по запросу 'ресо'
+    - assert: метка официальности присутствует на выдаче [https://jing.yandex-team.ru/files/olegnv/ssd.png]
+  Метка "Credit" присутствует на выдаче:
+    - counter: /$page/$main/$result/verified-list/verified
+    - do: получить выдачу по запросу 'сбербанк рф'
+    - assert: метка официальности присутствует на выдаче [https://jing.yandex-team.ru/files/olegnv/cb.png]
+
+specs:
+  aliases:
+    - &BaseActions
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: органический сниппет с метками присутствует на странице
+      - screenshot: вид сниппета с метками [plain]
+      - do: навести мышку на первую метку
+      - assert: появилась всплывающая подсказка с текстом (текст может отличаться) и ссылкой 'Подробнее о сайте'
+      - screenshot: вид сниппета с меткой и подсказкой [hover-official]
+      - tech: сработал счётчик показа тултипа c хвостом '/official/tooltip', vars='action=dynamic_click'
+      - do: навести мышку на вторую метку
+      - assert: появилась всплывающая подсказка с текстом (текст может отличаться) и ссылкой 'Подробнее о сайте'
+      - screenshot: вид сниппета с меткой и подсказкой [hover-green_trafic]
+      - tech: сработал счётчик показа тултипа c хвостом '/green_trafic/tooltip', vars='action=dynamic_click'
+      - do: кликнуть на ссылку 'Подробнее о сайте' в подсказке
+      - assert: произошел переход на страницу с информауией о сайте
+      - tech: сработал счётчик на клик c хвостом 'green_trafic/link'
+      - assertMetrics:
+          - web.total_request_count
+          - web.total_click_count
+          - web.total_dynamic_click_count
+          - web.abandonment
+          - web.total_all_click
+  В органике:
+    - params:
+        foreverdata: '1270476809'
+    - *BaseActions
+    - tech: значение метрики "web.total_request_count" == 1
+    - tech: значение метрики "web.total_click_count" == 1
+    - tech: значение метрики "web.total_dynamic_click_count" == 0
+    - tech: значение метрики "web.abandonment" == 0
+    - tech: значение метрики "web.total_all_click" == 1
+  В рекламе:
+    - tags:
+        - smoke
+    - params:
+        foreverdata: '1270476809'
+    - *BaseActions
+    - tech: значение метрики "web.total_request_count" == 1
+    - tech: значение метрики "web.total_click_count" == 0
+    - tech: значение метрики "web.total_dynamic_click_count" == 0
+    - tech: значение метрики "web.abandonment" == 100
+    - tech: значение метрики "web.total_all_click" == 0
+  Длинный гринурл:
+    - params:
+        foreverdata: '2435085004'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: органический сниппет с метками присутствует на странице
+    - assert: метки находятся в одной строке с гринурлом
+    - screenshot: вид сниппета с метками и длинным гринурлом [long-greenurl]
+
+files:
+  - features/desktop/adapter-recommendation-label/adapter-recommendation-label-all.hermione.js
+  - features/desktop/adapter-recommendation-label/adapter-recommendation-label-all.hermione.e2e.js
+
+tags:
+  - reviewed
+
+v-team: Beauty
+
+tlds: all

@@ -1,0 +1,55 @@
+feature: Колдунщик 1орг
+type: Кнопка написания отзыва под галереей
+
+specs:
+  Для залогинов:
+    На выдаче:
+      - do: залогиниться в Яндекс
+      - do: получить выдачу по запросу 'кафе пушкин'
+      - assert: в правой колонке есть карточка одной организации
+      - assert: под галереей есть кнопка 'Оставить отзыв'
+      - screenshot: пример внешнего вида [plain]
+      - do: кликнуть по кнопке
+      - assert: открылся попап отзывов
+      - tech: сработал счетчик /$page/$parallel/$result/composite/tabs/about/actions/reviews
+    В попапе:
+      - do: залогиниться в Яндекс
+      - do: получить выдачу по запросу 'кафе пушкин'
+      - assert: в правой колонке есть карточка одной организации
+      - do: кликнуть на первую похожую организацию в списке
+      - assert: открылся попап с активным табом 'Про организацию'
+      - assert: под галереей есть кнопка 'Оставить отзыв'
+      - screenshot: пример внешнего вида [modal]
+      - do: кликнуть по кнопке
+      - assert: открылся попап отзывов
+      - tech: сработал счетчик /$page/$parallel/$result/composite/tabs/about/actions/reviews
+  Для незалогинов:
+    На выдаче:
+      - do: получить выдачу по запросу 'кафе пушкин'
+      - assert: в правой колонке есть карточка одной организации
+      - assert: под галереей есть кнопка 'Оставить отзыв'
+      - do: кликнуть по кнопке
+      - assert: открылась страница Паспорта
+      - assert: в ссылке на Паспорт есть параметр origin=serp_geo_reviews_btn
+      - tech: сработал счетчик /$page/$parallel/$result/composite/tabs/about/actions/reviews
+    В попапе:
+      - do: получить выдачу по запросу 'кафе пушкин'
+      - assert: в правой колонке есть карточка одной организации
+      - do: кликнуть на первую похожую организацию
+      - assert: открылся попап с активным табом 'Про организацию'
+      - assert: под галереей есть кнопка 'Оставить отзыв'
+      - do: кликнуть по кнопке
+      - assert: открылась страница Паспорта
+      - assert: в ссылке на Паспорт есть параметр origin=serp_geo_reviews_btn
+      - tech: сработал счетчик /$page/$parallel/$result/composite/tabs/about/actions/reviews
+
+files:
+  - src/features/Companies/Companies.features/OrgActions/OrgActions.test/ReviewsButton/ReviewsButton@desktop.hermione.js
+
+v-team: VanillaGeo
+
+counter: /$page/$parallel/$result[@wizard_name="companies" and @subtype="company"]/composite/tabs/about/actions/reviews
+
+tags: skip_e2e_check
+
+tlds: all

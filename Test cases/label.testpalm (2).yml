@@ -1,0 +1,14 @@
+feature: Расширенный сниппет
+experiment: Переносим label рекламы в описание
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу окна пвх
+  Внешний вид метки рекламы в описании:
+    - params:
+        exp_flags: 'beauty_granny_adv_label=1'
+    - assert: на выдаче метка рекламы находится в блоке описания результата запроса
+    - screenshot: внешний вид [plain]
+files:
+  - features/touch-phone/construct/label.hermione.js
+tlds: all
+v-team: Beauty

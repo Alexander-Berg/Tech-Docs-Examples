@@ -1,0 +1,29 @@
+feature: Кандидат.Испытания
+
+specs:
+  Создание секции:
+    C добавлением пресета задач:
+      - do: открыть страницу кандидата с вкладкой 'Испытания' /candidates/<id_кандидата>/interviews/
+      - do: клик на кнопку 'Создать секцию'
+      - assert: открылся попап создания секции
+      - do: в поле 'Тип' выбрать значение 'HR скрининг'
+      - do: в поле 'Пресет задач' начать вводить название и выбрать из саджеста предложенные
+      - screenshot: пример вида заполненной формы [screening_form_filled]
+      - do: клик на кнопку 'Сохранить'
+      - screenshot: в список секций добавилась секция [screening_new_interview_appeared]
+      - do: открыть только что созданный HR скрининг
+      - screenshot: на вкладке 'Задачи в секции' присутствует список задач [assignments_in_list]
+
+tags:
+  - reviewed
+
+files:
+  - tests/hermione/suites/desktop/candidates/interviews/section_create/interview_with_preset.hermione.js
+
+
+priority: critical
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

@@ -1,0 +1,28 @@
+feature: Тыква
+params:
+  exp_flags:
+    - pumpkin=1
+
+specs:
+  Базовые проверки тачевой тыквы:
+    - do: получить выдачу 'яндекс директ'
+    - assert: в поисковой стрелке отсутствует крестик [https://jing.yandex-team.ru/files/karinatsay/2022-06-20T15%3A14%3A34Z.aa9fa6c.png]
+    - assert: в шапке страницы отсутствует кнопка 'Войти' [https://jing.yandex-team.ru/files/karinatsay/2022-06-20T15%3A15%3A34Z.2a1bbd3.png]
+    - assert: внизу страницы отсутствует кнопка 'Показать еще' [https://jing.yandex-team.ru/files/karinatsay/2022-06-20T15%3A16%3A30Z.040e94a.png]
+    - assert: внизу страницы есть футер [https://jing.yandex-team.ru/files/karinatsay/2022-06-20T15%3A17%3A34Z.91bc925.png]
+    - assert: в результатах выдачи отсутствуют сниппеты спецразмещения (с лейблом 'реклама')
+
+files:
+  - features/touch-phone/pumpkin/pumpkin.hermione.js
+
+tags:
+  - reviewed
+  - skip_e2e_check
+
+v-team: Architecture
+
+tlds: none
+
+browsers:
+  notFor:
+    - searchapp-phone

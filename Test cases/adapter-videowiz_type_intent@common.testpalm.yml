@@ -1,0 +1,26 @@
+feature: Колдунщик видео
+type: С похожими запросами
+
+tlds:
+  - ru
+  - ua
+  - by
+  - kz
+
+params:
+  foreverdata: '583407337'
+
+specs:
+  Проверка на наличие:
+    - do: получить выдачу по запросу "foreverdata"
+    - assert: появился видео колдунщик с похожими запросами
+    - screenshot: внешний вид [plain]
+
+files:
+  - features/adapter-videowiz/adapter-videowiz_type_intent@common.hermione.js
+
+v-team: Video
+
+priority: normal
+
+tags: [no_assessors] #скорее всего надо удалить ямл,  не будет такого колдунщика в проде при переходе на реакт

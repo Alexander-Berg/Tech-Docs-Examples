@@ -1,0 +1,21 @@
+feature: beruSpecs
+
+specs:
+  Внешний вид блока (mode = label):
+    - do: открыть страницу (https://yandex.ru/turbo?stub=beruspecs/label.json)
+    - assert: должна быть видна иконка с текстом "Характеристики"
+    - screenshot: внешний вид соответствует скриншоту [label]
+
+  Внешний вид блока (mode = preview):
+    - do: открыть страницу (https://yandex.ru/turbo?stub=beruspecs/preview.json)
+    - assert: должен быть виден блок "Характеристики и описание"
+    - screenshot: внешний вид соответствует скриншоту [preview]
+
+files:
+  - platform/components/BeruSpecs/__tests__/beruSpecs.hermione.js
+
+v-team: Beru
+
+manager: seoshnik
+
+tlds: none

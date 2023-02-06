@@ -1,0 +1,34 @@
+feature: Apple Clid Substitution
+
+# TODO: убрать после https://st.yandex-team.ru/FEI-7291
+specs: {}
+
+specs-integration:
+  aliases:
+    - &testSteps
+      beforeEach:
+        - do: получить выдачу по запросу 'matrix' с параметром clid=<clid_from>
+      Проверка ссылок на серп:
+        - tech: ссылок на серп с href*=<clid_from> не должно быть на странице
+        - tech: все ссылки на серп должны быть с href*=<clid_to>
+      Проверка подмены clid после перезапроса:
+        - do: ввести в поисковую стрелку 'test'
+        - do: нажать кнопку 'Найти'
+        - tech: хотя бы одно из значений параметра clid текущей страницы содержит <clid_to>
+        - tech: ни одно из значений параметра clid текущей страницы не содержит <clid_from>
+  Пара значений [clid_from = 1906591, clid_to = 2192578]: *testSteps
+  Пара значений [clid_from = 1906723, clid_to = 2192579]: *testSteps
+  Пара значений [clid_from = 1906724, clid_to = 2192593]: *testSteps
+  Пара значений [clid_from = 1906725, clid_to = 2192594]: *testSteps
+
+files:
+  - features/desktop/appleClid/appleClidSubstitution.hermione.e2e.js
+  - features/touch-phone/appleClid/appleClidSubstitution.hermione.e2e.js
+
+v-team: Distribution
+
+browsers:
+  notFor:
+    - searchapp-phone
+
+tlds: none

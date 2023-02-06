@@ -1,0 +1,14 @@
+feature: Авиа
+type: ''
+description: >-
+  Описание перехода на бронирование для команды:
+  https://testpalm.yandex-team.ru/testcase/travel-930
+
+  Описание перехода на бронирование для асессоров:
+  https://testpalm.yandex-team.ru/testcase/travel-931
+specs:
+  Проверка обработки изменение тарифа после отрпавки формы BOY:
+    - do: Пока не понятно как воспроизводить
+manual: true
+Функциональность: Бронирование
+Сервис: Авиа

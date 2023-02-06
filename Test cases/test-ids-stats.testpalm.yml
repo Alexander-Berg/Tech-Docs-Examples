@@ -1,0 +1,22 @@
+feature: Серверные счетчики
+type: Test-ids
+
+specs:
+  Записываются при открытии страницы:
+    - do: получить выдачу по запросу 'test' с query-параметром test-id=588289
+    - tech: должен записаться серверный счетчик /test-ids со значением value=588289
+
+files:
+  - features/common/test-ids-stats/test-ids-stats.hermione.js
+
+v-team: Architecture
+
+counter: /test-ids
+
+tags:
+  - no_assessors
+  - counters
+  - reviewed
+  - skip_e2e_check
+
+tlds: none

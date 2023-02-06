@@ -1,0 +1,51 @@
+feature: Колдунщик математики
+
+specs:
+  Определение:
+    - do: получить выдачу по запросу 'куб'
+    - assert: появился колдунщик математики
+    - screenshot: внешний вид [definitions]
+    - assertMetrics: '*'
+  Одна формула:
+    - do: получить выдачу по запросу 'объём усечённого конуса'
+    - assert: появился колдунщик математики
+    - screenshot: внешний вид [single]
+    - assertMetrics: '*'
+  Несколько формул:
+    - do: получить выдачу по запросу 'площадь треугольника'
+    - assert: появился колдунщик математики
+    - screenshot: внешний вид [multi]
+    - do: кликнуть в селект выбора формулы
+    - assert: появилось меню выбора формулы
+    - screenshot: внешний вид [multi/clicked]
+    - do: кликнуть на второй элемент в селекторе
+    - tech: проверить, что сработал стандартный счётчик на селекте /web/item/select
+    - assert: в факте изменилась формула
+    - screenshot: внешний вид [multi/selected]
+    - assertMetrics: '*'
+
+specs-integration:
+  Проверка показа блоков:
+    - do: получить выдачу по запросу 'объём усечённого конуса'
+    - assert: появился колдунщик математики
+    - counter: /$page/$main/$result[@wizard_name="math"]
+
+files:
+  - features/desktop/adapter-math/adapter-math.hermione.js
+  - features/adapter-math/adapter-math@common.hermione.e2e.js
+
+v-team: Facts
+
+counter: /$page/$main/$result[@wizard_name="math"]
+
+tags:
+  - reviewed
+
+tlds:
+  - ru
+  - by
+  - ua
+  - kz
+  - uz
+  - com.tr
+  - com

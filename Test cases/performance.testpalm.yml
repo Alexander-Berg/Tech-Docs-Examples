@@ -1,0 +1,64 @@
+feature: Performance
+
+params:
+  exp_flags:
+    - adv-disabled=0
+
+specs:
+  Страница должна делать preconnect:
+    - do: открыть главную страницу Яндекса с параметром '/turbo?text=test_news'
+    - assert: открывается турбо-страница в той же вкладке
+    - tech: в исходном коде страницы должен быть тэг <link> с атрибутами rel="preconnect" и href="https://an.yandex.ru/"
+    - tech: в исходном коде страницы должен быть тэг <link> с атрибутами rel="preconnect" и href="https://yastatic.net/"
+    - tech: в исходном коде страницы должен быть тэг <link> с атрибутами rel="preconnect" и href="https://avatars.mds.yandex.net/"
+  Страница должна делать preload рекламной статики 1:
+    - do: открыть главную страницу Яндекса с параметром '/turbo?stub=advert%2Fvideo.json'
+    - assert: открывается турбо-страница в той же вкладке
+    - tech: в исходном коде страницы должен быть тэг <link> с атрибутами rel="preload" и href="//yastatic.net/awaps-ad-sdk-js/1_0/adsdk.js"
+    - tech: в исходном коде страницы должен быть тэг <link> с атрибутами rel="preload" и href="//yastatic.net/pcode/adfox/loader.js"
+  Страница должна делать preload рекламной статики 2:
+    - do: открыть главную страницу Яндекса с параметром '/turbo?text=test_news'
+    - assert: открывается турбо-страница в той же вкладке
+    - tech: в исходном коде страницы должен быть тэг <link> с атрибутами rel="preload" и href="//yastatic.net/awaps-ad-sdk-js/1_0/adsdk.js"
+    - tech: в исходном коде страницы должен быть тэг <link> с атрибутами rel="preload" и href="//yastatic.net/pcode/adfox/loader.js"
+  Страница не должна делать preload рекламной статики на страницах без рекламы:
+    - params:
+        exp_flags:
+          - adv-disabled=1
+    - do: открыть главную страницу Яндекса с параметром '/turbo?text=test_news'
+    - assert: открывается турбо-страница в той же вкладке
+    - tech: в исходном коде страницы не должно быть тэгов <link> с атрибутом rel="preload"
+  Проверка отправки счётчика firstContentfulPaint:
+    - do: открыть главную страницу Яндекса с параметром '/turbo?text=test_news'
+    - assert: открывается турбо-страница в той же вкладке
+    - tech: проверить наличие счётчика 690.2096.207 (/tech/perf/time)
+    - tech: |
+        Со следующими наборами переменных
+        143(page)='28.2719.584'(/ru/turbo/touch), 1701(id)='2719.1926'(/turbo/paint)
+  Страница должна делать preload первого изображения на страницe:
+    - do: открыть главную страницу Яндекса с параметром '/turbo?text=test_news'
+    - assert: открывается турбо-страница в той же вкладке
+    - tech: в исходном коде страницы должен быть тэг <link> с атрибутами rel="preload" и href="//avatars.mds.yandex.net/get-ynews/49544/e49ae9b6e3e7e5e39b6a05f6fbad2cf2/406x219"
+  Страница должна логировать статистику исполнения бандлов:
+    - params:
+        exp_flags:
+          - collect-bundles-statistics=1
+    - do: открыть главную страницу Яндекса с параметром '/turbo?text=test_news'
+    - assert: открывается турбо-страница в той же вкладке
+    - tech: отправился счётчик с path=690.2096.207 (/tech/perf/time) с параметром 1701(id)='2960.2072' (/bundles/stats)
+    - tech: счётчик отправился только один раз
+    - tech: параметр -data является массивом
+    - tech: каждый элемент параметра -data является массивом из трёх элементов
+
+files:
+  - features/common/performance.hermione.js
+
+v-team: Turbo
+
+tags: no_assessors
+
+manager: gfranco
+
+qa-engineer: olga0321, dakhetov
+
+tlds: none

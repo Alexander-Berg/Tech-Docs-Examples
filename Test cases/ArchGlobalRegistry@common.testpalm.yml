@@ -1,0 +1,23 @@
+feature: Глобальный реестр
+    
+specs:
+  Только SSR:
+    - params:
+        foreverdata: '2305985620'
+    - do: получить выдачу
+    - screenshot: пример внешнего вида [plain]
+
+  С гидрацией на клиенте:
+    - params:
+        foreverdata: '281781522'
+    - do: получить выдачу
+    - screenshot: пример внешнего вида [plain]
+
+files:
+  - src/features/ArchGlobalRegistry/ArchGlobalRegistry.test/ArchGlobalRegistry@common.hermione.js
+
+v-team: Architecture
+
+tlds: all
+
+tags: no_assessors

@@ -1,0 +1,32 @@
+feature: PrettyCategory
+
+params:
+  exp_flags:
+    - analytics-disabled=1
+
+specs:
+  Внешний вид и переход в категорию:
+    - do: открыть страницу https://yandex.ru/turbo/tvoisadrus.ru/n/yandexturbocatalog/main/
+    - assert: открылась главная страница магазина
+    - screenshot: внешний вид блока популярной категории [plain]
+    - do: кликнуть в блок популярной категории
+    - assert: |
+        произошел переход на страницу категории
+        страница категории загрузилась
+
+  Внешний вид со скидкой и описанием:
+    - do: открыть страницу https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog/main/?patch=addPrettyCategory&prettyCategory=sales%2Cdescription
+    - assert: открылась главная страница магазина
+    - screenshot: внешний вид блока популярной категории [plain]
+
+files:
+  - components/PrettyCategory/__tests__/PrettyCategory@phone.hermione.js
+
+tlds:
+  - ru
+
+tags:
+  - ecom-tap
+  - no_assessors
+
+v-team: Turbo

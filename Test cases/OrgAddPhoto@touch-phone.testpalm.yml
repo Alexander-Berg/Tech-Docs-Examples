@@ -1,0 +1,21 @@
+feature: Одна организация
+type: Кнопка добавления фото
+
+specs:
+  При отсутствии фотографий:
+    - counter: /$page/$main/$result[@wizard_name = "companies" and @subtype = "company"]/composite/add-photo
+    - do: получить выдачу по запросу 'Территориальный участок 6202 по Захаровскому району Межрайонной ИФНС России № 5 по Рязанской области' _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: в колдунщике организации есть кнопка 'Добавить фото' под блоком с фотографиями
+    - screenshot: Кнопка добавления фотографии [plain]
+    - assert: кнопка ведёт на страницу добавления фото на организацию на Яндекс.Картах
+
+tlds: all
+
+v-team: UGC
+
+files:
+  - src/features/Companies/Companies.features/OrgAddPhoto/OrgAddPhoto.test/OrgAddPhoto@touch-phone.hermione.js
+
+tags:
+  - skip_e2e_check
+  - react

@@ -1,0 +1,55 @@
+feature: Адаптер рекламы
+type: Дисклеймер
+
+specs:
+  Проверка внешнего вида:
+    - browsers:
+        notFor:
+          - ie8
+          - ie9
+    - params:
+        exp_flags: 'yaplus=0'
+        foreverdata: '3488240904'
+    - do: получить выдачу запросу 'foreverdata'
+    - screenshot: пример вида по умолчанию [plain]
+  Корректная обработка пустой строки в дисклеймере:
+    - params:
+        foreverdata: '851922750'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: нет клиентских ошибок
+  Трансформация БНО-сайтлинков в обычные для БАД-ов:
+    - params:
+        foreverdata: '285179817'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: первый рекламный сниппет содержит сайтлинки
+    - screenshot: пример внешнего вида сниппета с сайтлинками [sitelinks]
+  Проверка внешнего вида сниппетов с предупреждениями:
+    - params:
+        foreverdata: '2550294555'
+    - do: получить выдачу по запросу 'foreverdata'
+    - screenshot: пример вида по умолчанию [warning]
+  Проверка внешнего вида сниппетов с предупреждениями и возрастными метками:
+    - params:
+        foreverdata: '2733905165'
+    - do: получить выдачу по запросу 'foreverdata'
+    - screenshot: пример вида по умолчанию [warning-and-age]
+  Проверка внешнего вида сниппетов с возрастными метками:
+    - params:
+        foreverdata: '2983328002'
+    - do: получить выдачу по запросу 'foreverdata'
+    - screenshot: пример вида по умолчанию [age]
+  Проверка внешнего вида сниппетов-аскетов с предупреждениями:
+    - params:
+        foreverdata: '1095298756'
+    - do: получить выдачу по запросу 'foreverdata'
+    - screenshot: пример вида по умолчанию [asket-warning]
+
+files:
+  - features/common/adapters/adapter-adv/__warning/adapter-adv__warning.hermione.js
+
+tags:
+  - skip_e2e_check
+
+v-team: Distribution
+
+tlds: [ru]

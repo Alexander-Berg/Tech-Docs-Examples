@@ -1,0 +1,14 @@
+feature: Колдунщик видео
+
+specs:
+  АнтиФАС:
+    Внешний вид:
+      - do: получить выдачу по запросу "arch enemy the eagle flies alone"
+      - screenshot: внешний вид колдунщика видео (колдунщик может быть без большой тумбы - это не баг) [fas_plain]
+
+files:
+  - features/touch-phone/adapter-videowiz/adapter-videowiz_fas.hermione.js
+
+v-team: Video
+
+tlds: all

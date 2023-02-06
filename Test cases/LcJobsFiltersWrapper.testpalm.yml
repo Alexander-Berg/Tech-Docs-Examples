@@ -1,0 +1,27 @@
+feature: LcJobsFiltersWrapper
+
+tags: no_assessors
+
+specs:
+  Базовый вид:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcjobsfilterswrapper/default.json)
+    - screenshot: внешний вид соответствует скриншоту [default]
+  Мобильный вид:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcjobsfilterswrapper/default.json)
+    - screenshot: внешний вид соответствует скриншоту [default]
+    - do: кликнуть на кнопку Фильтры
+    - screenshot: внешний вид соответствует скриншоту [open_filters]
+  Недостаточно данных:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcjobsfilterswrapper/with_error.json)
+    - screenshot: внешний вид соответствует скриншоту [no_data]
+
+files:
+  - platform/components/LcJobsFiltersWrapper/__tests__/LcJobsFiltersWrapper.hermione.js
+
+v-team: Backoffice
+
+manager: kiparis
+
+qa-engineer: grikyan
+
+tlds: none

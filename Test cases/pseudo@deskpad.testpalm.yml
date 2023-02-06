@@ -1,0 +1,32 @@
+feature: Псевдо
+type: Important
+
+specs:
+  Внешний вид:
+    - params:
+        foreverdata: '3048522353'
+    - do: получить выдачу по запросу 'foreverdata'
+    - screenshot: внешний вид [plain]
+    - assert: на выдаче присутствует колдунщик псевдо/important
+    - do: проверить ссылку в тайтле
+    - assert: ссылка ведёт на test.yandex.ru
+    - do: проверить ссылку в гринурле
+    - assert: ссылка ведёт на test.yandex.ru
+    - do: проверить ссылку 'test'
+    - assert: cсылка ведёт на выдачу по пустому запросу
+    - do: проверить ссылку в номере телефона
+    - assert: по ссылке открывается опция вызова номера телефона
+    - assertMetrics: '*'
+
+files:
+  - features/pseudo/pseudo@deskpad.hermione.js
+
+tags:
+  - no_assessors
+  - reviewed
+  - skip_e2e_check
+
+v-team: Freshness
+
+tlds:
+  - ru

@@ -1,0 +1,43 @@
+feature: Задачи
+type: Модерация. Жалобы. Фильтр
+
+specs:
+  Общие проверки [manual]:
+    - automation: FEMIDA-5085
+    - do: открыть страницу жалоб /complaints/list/
+    - assert: |
+        открылась страница жалоб
+        кнопка 'Я модератор' активна
+        отображаются ваши жалобы
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/klimovich-a/2019-09-18_12.52.07-dumll.png]
+    - do: клик в фильтре на кнопку 'Все'
+    - assert: |
+        отобразились все жалобы
+        кнопка 'Все' активна
+        появилась кнопка 'Сбросить'
+        количество найденных жалоб обновилось
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/klimovich-a/2019-09-18_10.22.45-nsdhk.png]
+    - do: выбрать категорию жалоб в выпадушке
+    - assert: |
+        отобразились жалобы с указанной категорией
+        кнопка 'Все' активна
+        количество найденных жалоб обновилось
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/klimovich-a/2019-09-18_10.25.35-y3my6.png]
+    - do: клик 'Сбросить'
+    - assert: |
+        страница жалоб обновилась
+        кнопка 'Я модератор' активна
+        отображаются ваши жалобы
+        количество найденных жалоб обновилось
+        в выпадушке 'Категория' выставлен прочерк
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/klimovich-a/2019-09-18_12.52.07-dumll.png]
+
+tags:
+  - reviewed
+
+priority: normal
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

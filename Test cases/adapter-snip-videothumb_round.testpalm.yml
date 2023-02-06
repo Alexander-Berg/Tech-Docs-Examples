@@ -1,0 +1,15 @@
+feature: Видеосниппет
+
+tlds: [ru, ua, by, kz, com, com.tr]
+
+specs:
+  Внешний вид:
+    - do: получить выдачу по запросу 'gta обзор'
+    - assert: в выдаче есть сниппеты с видео-постером
+    - screenshot: постер видеосниппета выглядит корректно [plain]
+
+
+files:
+  - features/touch-phone/adapter-snip-videothumb/adapter-snip-videothumb_round.hermione.js
+
+v-team: Video

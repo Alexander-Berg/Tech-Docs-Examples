@@ -1,0 +1,26 @@
+feature: Объявления о вакансиях
+type: Порекомендовать со страницы объявления
+
+specs:
+  Проверка рекомендации со страницы объявления:
+      - do: открыть страницу конкретного объявления, которое находится в активном статусе (Делаем оффер, В работе, Приостановлена) /vacancies/publications/<id_объявления>/
+      - screenshot: на странице есть ссылка 'Порекомендовать' [default_view]
+      - do: клик на 'Порекомендовать'
+      - assert: |
+          произошел переход на страницу /vacancies/publications/recommend/?publications=<id_объявления>
+          в поле 'Объявления' есть предзаполненное значение с названием выбранного объявления
+      - screenshot: пример внешнего вида [recommendation_form]
+
+tags:
+  - reviewed
+
+priority: critical
+
+
+files:
+  - tests/hermione/suites/desktop/vacancies/vacancies_publications/recommendation/recommendation_from_ads.hermione.js
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

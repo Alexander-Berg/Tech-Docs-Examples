@@ -1,0 +1,46 @@
+feature: Колдунщик крокодила
+
+counter: /$page/$main/$result[@wizard_name="crocodile_game"]
+
+params:
+  foreverdata: '496380820'
+
+specs:
+  Внешний вид:
+    - do: получить выдачу Поиска по запросу 'foreverdata'
+    - tech: сработал серверный счётчик /$page/$main/$result[@wizard_name="crocodile_game"]
+    - assert: на выдаче есть колдунщик крокодила
+    - screenshot: пример внешнего вида [initial]
+
+  Внешний вид в горизонтальной ориентации:
+    - do: получить выдачу Поиска по запросу 'foreverdata'
+    - assert: на выдаче есть колдунщик крокодила
+    - do: повернуть телефон в горизонтальную ориентацию
+    - assert: колдунщик перевернулся в горизонтальную ориентацию
+    - screenshot: пример внешнего вида [horizontal]
+
+  Смена слова:
+    - do: получить выдачу Поиска по запросу 'foreverdata'
+    - assert: на выдаче есть колдунщик крокодила
+    - do: нажать на кнопку "Играть"
+    - assert: отобразилось слово
+    - do: нажать на кнопку "Новое слово"
+    - assert: отобразилось новое слово
+
+  Шторка обратной связи:
+    - do: получить выдачу Поиска по запросу 'foreverdata'
+    - assert: на выдаче есть колдунщик крокодила
+    - do: кликнуть по ссылке "Сообщить об ошибке" под колдунщиком крокодила
+    - assert: открылась шторка для обратной связи
+    - screenshot: внешний вид шторки для обратной связи [feedback-drawer]
+
+files:
+  - src/features/CrocodileGame/CrocodileGame.test/CrocodileGame@touch-phone.hermione.js
+
+v-team: Facts
+
+tlds: ru
+
+tags:
+  - skip_e2e_check
+  - react

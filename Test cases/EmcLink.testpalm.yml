@@ -1,0 +1,19 @@
+feature: EmcLink
+
+tags: no_assessors
+
+specs:
+  Cсылка в письме:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emclink/default.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/components/EmcLink/__tests__/EmcLink.hermione.js
+
+v-team: Lc
+
+manager: polyakovadi
+
+qa-engineer: pankov97
+
+tlds: none

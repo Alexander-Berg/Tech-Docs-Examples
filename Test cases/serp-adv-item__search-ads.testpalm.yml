@@ -1,0 +1,48 @@
+feature: Страница всех объявлений
+type: Предупреждения на рекламной вертикали
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу 'окна пвх'
+    - do: |
+        в мобильном браузере в адресной строке браузера добавить после 'search/touch/' параметр 'direct' (т.е. .../search/touch/direct?...) и перейти
+        в поисковом приложении вставить в адресную строку "https://yandex.ru/search/touch/direct?lr=213&text=окна%20пвх&noredirect=1&appsearch_header=1" и перейти
+  Внешний вид в портретной ориентации:
+    - screenshot: внешний вид верхнего предупреждения [direct-info-top-portrait]
+    - screenshot: внешний вид нижнего предупреждения [direct-info-bottom-portrait]
+    - assert: над и под выдачей присутствует предупреждение "Показаны только рекламные предложения."
+  Внешний вид в ландшафтной ориентации:
+    - do: повернуть устройство в ландшафтную ориентацию
+    - screenshot: внешний вид верхнего предупреждения [direct-info-top-landscape]
+    - screenshot: внешний вид нижнего предупреждения [direct-info-bottom-landscape]
+    - assert: над и под выдачей присутствует предупреждение "Показаны только рекламные предложения."
+  Счетчик верхнего предупреждения:
+    - do: клик на ссылку в предупреждении сверху
+    - tech: проверить счетчик в ссылке /$page/$main/direct-info/link
+    - assert: переход на страницу поиска с тем же запросом 'окна пвх'
+    - assertMetrics: "*"
+  Счетчик нижнего предупреждения:
+    - do: клик на ссылку в предупреждении снизу
+    - tech: проверить счетчик в ссылке /$page/$main/direct-info/link
+    - assert: переход на страницу поиска с тем же запросом 'окна пвх'
+    - assertMetrics: "*"
+  Отсутствуют результаты выдачи:
+    - assert: должно присутствовать верхнее предупреждение
+    - screenshot: пример внешнего вида отсутствия результатов на странице всех объявлений [search-ads-empty-request]
+    - do: клик на ссылку в предупреждении сверху
+    - tech: проверить счетчик в ссылке /$page/$main/direct-info/link
+
+files:
+  - features/touch-phone/serp-adv-item/serp-adv-item__search-ads.hermione.js
+
+tags:
+  - skip_e2e_check
+  - adv_vertical
+
+v-team: Freshness
+
+browsers:
+  notFor:
+    - searchapp-phone-group
+
+tlds: [ru, by, kz]

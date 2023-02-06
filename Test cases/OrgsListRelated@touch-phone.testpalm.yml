@@ -1,0 +1,36 @@
+feature: Оргмн
+
+specs:
+  Похожие запросы под колдунщиком:
+    - tags: no_assessors
+    - params:
+        exp_flags: GEO_orgmn_discovery=after
+        srcparams: GEOV:rearr=scheme_Local/Geo/DiscoveryAspects/Enabled=true
+    - do: получить выдачу по запросу 'кафе в москве'
+    - assert: на странице присутствует колдунщик со списком организаций
+    - assert: код колдунщиком есть блок похожих запросв
+    - screenshot: внешних вид похожих запросов [after]
+    - do: кликнуть на первый похожий запрос
+    - assert: страница перезагрузилась по новому запросу
+    - tech: сработал счетчик /$page/$main/$result/composite/org-related/scroller/link[@id]
+  Похожие запросы под колдунщиком - ПП:
+    - tags: no_assessors
+    - params:
+        exp_flags:
+          - GEO_orgmn_discovery=after
+          - fake_yandex_apps_api=1
+        srcparams: GEOV:rearr=scheme_Local/Geo/DiscoveryAspects/Enabled=true
+    - do: кликнуть на первый похожий запрос
+    - assert: страница перезагрузилась по новому запросу
+    - tech: сработал метод API 'openRelatedQuery' с параметрами из ссылки
+
+files:
+  - src/features/Companies/Companies.features/OrgsListRelated/OrgsListRelated.test/OrgsListRelated@touch-phone.hermione.js
+
+tlds: all
+
+v-team: VanillaGeo
+
+tags:
+  - skip_e2e_check
+  - react

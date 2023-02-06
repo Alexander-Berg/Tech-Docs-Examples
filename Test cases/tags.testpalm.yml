@@ -1,0 +1,33 @@
+feature: Одна организация
+type: Отзывы и ключевые фразы
+
+import-labels:
+  - src/features/Reviews/Reviews.test/Reviews@touch-phone.testpalm.yml
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу 'мой друг оливье екатеринбург'
+    - assert: в правой колонке есть карточка одной организации
+  Таб отзывов в оверлее:
+    - do: кликнуть в таб 'N отзывов'
+    - assert: открылся оверлей организации на табе отзывов
+    - assert: загрузился список отзывов
+    - screenshot: пример внешнего вида таба с отзывами в оверлее [reviews-{{PLATFORM}}-{{BROWSER_TYPE}} >> reviews-cards.1org.overlay]
+    - screenshot: пример внешнего вида списка ключевых фраз [tags]
+    - do: кликнуть по первой ключевой фразе
+    - assert: первая ключевая фраза активировалась (стала темнее)
+    - screenshot: пример внешнего вида с активной ключевой фразой [tags-checked]
+    - assert: отзывы обновились в соответствии с выбранной ключевой фразой
+
+files:
+  - features/touch-phone/companies/reviews/tags/tags.hermione.js
+
+v-team: VanillaGeo
+
+# проверяем здесь features/touch-phone/companies/reviews/general/general.hermione.e2e.js
+tags:
+  - skip_e2e_check
+
+counter: /snippet/companies/company/sideblock/org/reviews/tags/phrase
+
+tlds: all

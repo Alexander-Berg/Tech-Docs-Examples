@@ -1,0 +1,31 @@
+feature: Задача
+type: Отображение вкладки ответов
+
+specs:
+  Внешний вид пустой вкладки ответов:
+    - do: открыть страницу задачи без ответов /problems/<id>/
+    - assert: открыта первая вкладка
+    - do: кликнуть на вкладку Ответы
+    - assert: открылась вкладка Ответы
+    - assert: открылась вкладка URL сменился на /problems/<id>/assignments/
+    - screenshot: пример внешнего вида пустой вкладки ответов [problem_assignments]
+  Внешний вид одностраничной вкладки ответов:
+    - do: открыть страницу задачи с количеством ответов до 20 /problems/<id>/assignments/
+    - assert: открылась вкладка Ответы
+    - screenshot: пример внешнего вида одной страницы вкладки ответов [problem_assignments]
+  Внешний вид вкладки ответов с пагинацией:
+    - do: открыть страницу задачи с количеством ответов больше 20 /problems/<id>/assignments/
+    - assert: открылась вкладка Ответы
+    - do: нажать на 2 страницу в пагинаторе
+    - assert: открылась 2 страница
+    - screenshot: пример внешнего вида второй страницы вкладки ответов [problem_assignments]
+
+files:
+  - tests/hermione/suites/desktop/problem/assignments/problem_assignments.hermione.js
+
+priority: normal
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

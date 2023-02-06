@@ -1,0 +1,50 @@
+feature: Дежурства/Смена
+
+specs:
+  aliases:
+    _testCases: &testCases
+      Не подтверждена:
+        - do: открыть страницу дежурств (/services/duty_test/duty?interval=P1M&date=27052020&lang=${lang})
+        - screenshot: первая неподтвержденная [simple]
+        - do: навести курсор на первую неподтвержденную смену
+        - screenshot: первая неподтвержденная смена [hovered]
+        - screenshot: первая неподтвержденная смена [duty-shift-details-popup]
+
+      Подтверждена:
+        - do: открыть страницу дежурств (/services/duty_test/duty?interval=P1M&date=12102020&lang=${lang})
+        - screenshot: первая подтвержденная смена [simple]
+        - do: навести курсор на первую подтвержденную смену
+        - screenshot: первая подтвержденная смена [hovered]
+        - screenshot: первая подтвержденная смена [duty-shift-details-popup]
+
+      Подтверждена за другим разработчиком:
+        - do: открыть страницу дежурств (/services/duty_test/duty?interval=P1M&date=07022021&lang=${lang})
+        - screenshot: первая подтвержденная смена в третьем расписании [simple]
+        - do: навести курсор на первую подтвержденную смену
+        - screenshot: первая подтвержденная смена [hovered]
+        - screenshot: первая подтвержденная смена [duty-shift-details-popup]
+
+      Форма редактирования смены:
+        - do: открыть страницу дежурств (/services/duty_test/duty?interval=P1M&date=27052020&lang=${lang})
+        - do: кликнуть по первой неподтвержденной смене
+        - screenshot: модальное окно редактирования смены [duty-shift-edit-modal]
+
+  Внешний вид (ru):
+    params:
+        lang: ru
+    <<: *testCases
+
+  Внешний вид (en):
+    params:
+      lang: en
+    <<: *testCases
+
+
+files:
+  - test/features/desktop/duty/shift.hermione.js
+
+priority: critical
+
+tags:
+  - reviewed
+  - no_assessors

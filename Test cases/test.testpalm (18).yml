@@ -1,0 +1,15 @@
+feature: Feature name
+experiment: Some experiment
+
+specs:
+  New specs:
+    Describe in specs:
+      The first it case:
+        - do: something 1
+      Renamed it:
+        - do: something 2
+      The last it case:
+        - do: something 3
+
+files:
+  - test/fixtures/specs-nested-input/test.hermione.js

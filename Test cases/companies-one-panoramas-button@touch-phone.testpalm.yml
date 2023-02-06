@@ -1,0 +1,65 @@
+feature: Hotels / Колдунщик одной организации
+type: Кнопка-диплинк на панорамы в расширенной карточке
+
+specs-integration:
+  Проверка наличия элементов:
+    - counter: /$subresult/overlay-wrapper/content/tabs/controls/tabs/about/side-block-bcard/composite/panoramas
+    - do: получить выдачу по запросу 'Radisson Collection Hotel'
+    - assert: должен появиться колдунщик 1орг
+    - do: кликнуть в таб 'Про отель'
+    - assert: |
+        должен открыться сайдблок с расширенной карточкой организации
+        на карточке присутствует кнопка 'Посмотреть на панораме'
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу 'Radisson Collection Hotel'
+    - assert: должен появиться колдунщик 1орг
+    - do: кликнуть в таб 'Про отель'
+    - assert: должен открыться сайдблок с расширенной карточкой организации
+  Базовые проверки:
+    - tags:
+        - panorama
+        - button
+    - tech: проверить счетчик на кнопке 'Посмотреть на панораме'
+    - assertMetrics: '*'
+  Проверка ссылки на аппметрику (ios):
+    - browsers: ios-touch-group
+    - tags:
+        - panorama
+        - button
+        - appmetrica
+    - assert: проверить ссылку на кнопке 'Посмотреть на панораме'
+    - assertMetrics: '*'
+  Проверка ссылки на аппметрику (android):
+    - browsers:
+        notFor:
+          - ios-touch-group
+          - searchapp-phone
+          - android-uc-browser-touch
+    - tags:
+        - panorama
+        - button
+        - appmetrica
+    - assert: проверить ссылку на кнопке 'Посмотреть на панораме'
+    - assertMetrics: '*'
+
+files:
+  - features/companies/panoramas-button/companies-one-panoramas-button@touch-phone.hermione.js
+  - features/companies/panoramas-button/companies-one-panoramas-button@touch-phone.hermione.e2e.js
+
+v-team: KotTeam
+
+tags:
+  - title
+  - overlay
+  - ajax
+  - hasE2E
+
+counter: /$subresult/overlay-wrapper/content/tabs/controls/tabs/about/side-block-bcard/composite/panoramas
+
+tlds: all
+
+browsers:
+  notFor:
+    - searchapp-phone

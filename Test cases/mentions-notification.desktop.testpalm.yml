@@ -1,0 +1,48 @@
+feature: Уведомления от меншенов
+
+import-steps:
+    - tests/hermione/suites/messenger/shared-steps/open-messenger.testpalm.steps.yml
+
+specs:
+  Проверки уведомлений:
+    beforeEach:
+      - attach: Открытие чата q
+      - do: нажать на шестеренку настроек чата справа от поиска над списком чатов
+      - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/ismateush/uhura_2019-06-11T14:03:56.jpg]
+      - do: в открывшемся диалоге включить "Получать уведомления"
+      - do: перейти по ссылке https://latest.release.messenger.dev.yandex-team.ru/#/join/e3142eac-5735-46b9-b9c0-7a45d5db73d4
+      - do: нажать на кнопку "присоединиться"
+      - do: в другом браузере авторизоваться Маратом Январевым на passport.yandex-team.ru (логин, пароль на wiki)
+      - do: перейти по ссылке https://latest.release.messenger.dev.yandex-team.ru/#/join/e3142eac-5735-46b9-b9c0-7a45d5db73d4
+      - do: нажать на кнопку "присоединиться"
+
+    Проверка уведомлений от меншенов[manual]:
+      - automation: MSSNGRFRONT-3824
+      - do: отправить от имени Марата в чат меншен @ваше имя
+      - assert: из первого браузера прилетает уведомление
+      - do: кликнуть на уведомление
+      - assert: открывается чат, курсор мигает в поле ввода
+
+    Уведомление от меншена работает, если чат замьючен[manual]:
+      - automation: MSSNGRFRONT-3824
+      - do: в шапке чата кликнуть на троеточие и в выпадающем меню выбрать "выключить уведомления"
+      - do: отправить от имени Марата в чат меншен @ваше имя
+      - assert: из первого браузера прилетает уведомление
+      - do: кликнуть на уведомление
+      - assert: открывается чат, курсор мигает в поле ввода
+
+files: []
+
+v-team: Chat
+
+tags:
+  - release
+  - q
+  - notifications
+  - no_assessors
+
+tlds: ru
+
+browsers:
+  notFor:
+    - ie11

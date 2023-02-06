@@ -1,0 +1,32 @@
+feature: Редизайн key value
+
+description: |
+  Убираем болд у key.
+  Делаем две выборки: выделяем серым (#656b7e) key либо value.
+
+specs:
+  react:
+    Серый ключ:
+      - params:
+          foreverdata: '2944813093'
+          exp_flags: beauty_key_value_redesign=key
+      - do: получить выдачу по запросу "foreverdata"
+      - assert: на странице присутствует Дзен сниппет
+      - screenshot: внешний вид [ZenChannel]
+    Серое значение:
+      - params:
+          foreverdata: '2944813093'
+          exp_flags: beauty_key_value_redesign=value
+      - do: получить выдачу по запросу "foreverdata"
+      - assert: на странице присутствует Дзен сниппет
+      - screenshot: внешний вид [ZenChannel]
+
+files:
+  - features/beauty_key_value_redesign/beauty_key_value_redesign@touch-phone.hermione.js
+
+tlds: all
+
+v-team: Beauty
+
+tags:
+  - skip_e2e_check

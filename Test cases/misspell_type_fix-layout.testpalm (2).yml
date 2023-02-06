@@ -1,0 +1,29 @@
+feature: 'Опечатка и Ко'
+type: 'Восстановление раскладки клавиатуры'
+
+specs:
+  Длинные слова в сообщении опечаточника:
+    - do: получить выдачу по запросу 'rheitybtrheitybt самолета ghghjhgjhghjfhjgghghghghghghhghgghghjhgjhghjfhjgghghghghghghhghghghghg'
+    - assert: под шапкой появился опечаточник с сообщением 'Исправлена раскладка клавиатуры'
+    - assert: кнопка опечаточника помещается на экран
+    - screenshot: примерный внешний вид [longwords]
+
+files:
+  - features/touch-phone/misspell/misspell_type_fix-layout.hermione.js
+
+priority: medium
+
+v-team: Suggest_Freshness
+
+tags:
+  - button
+  - meta
+  - wizard
+  - misspell
+  - smoke
+  - smoke_extended
+  - reviewed
+  - smart_tv
+
+tlds: [ru, by, ua, kz, uz]
+

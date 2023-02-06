@@ -1,0 +1,19 @@
+feature: 'Объектный ответ'
+type: 'Карточка личности'
+
+specs:
+  Стандартный вид:
+    - do: получить выдачу по запросу 'чернышенко'
+    - assert: появилась карточка объекта
+    - screenshot: пример внешнего вида [default]
+    - assertMetrics: '-'
+
+files:
+  - features/touch-phone/z-entity-search/hum-card/hum-card.hermione.js
+
+v-team: OO
+
+tags:
+  - skip_e2e_check
+
+tlds: all

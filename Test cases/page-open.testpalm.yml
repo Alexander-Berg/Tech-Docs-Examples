@@ -1,0 +1,23 @@
+feature: Счётчик открытия страницы
+
+description: Динамический счетчик проверяем в Dev Tools в Network - фильтруем по зашифрованному path - 471.143.842.
+
+specs:
+  Проверка динамического счётчика открытия страницы:
+    - do: получить выдачу по запросу 'мадонна'
+    - tech: проверить формат динамического счетчика /serp/page/open
+
+files:
+  - features/common/page-open/page-open.hermione.js
+
+v-team: Architecture
+
+counter: /serp/page/open
+
+tags:
+  - counters
+  - reviewed
+  - no_assessors
+  - skip_e2e_check
+
+tlds: none

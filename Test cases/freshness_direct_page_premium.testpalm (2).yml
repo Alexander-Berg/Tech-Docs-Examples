@@ -1,0 +1,26 @@
+feature: Страница всех объявлений
+experiment: Премиум
+
+specs:
+  Премиум-реклама есть на выдаче:
+    - params:
+        exp_flags: freshness_direct_page_premium=1
+        foreverdata: '1420593328'
+    - do: |
+        получить выдачу по запросу 'foreverdata'
+        в мобильном браузере: в адресной строке браузера добавить после 'search/touch/' параметр 'direct' (т.е. .../search/touch/direct?...) и перейти
+        в поисковом приложении: вставить в адресную строку "https://yandex.ru/search/touch/direct?lr=213&text=Объявлени&noredirect=1&appsearch_header=1&foreverdata=1420593328" и перейти
+        на планшете: в адресной строке браузера добавить после 'search/pad/' 'direct' (т.е. .../search/pad/direct?...) и перейти
+    - assert: получена непустая выдача
+    - screenshot: внешний вид первого элемента выдачи [premium-first]
+
+files:
+  - features/touch/search-ads/freshness_direct_page_premium/freshness_direct_page_premium.hermione.js
+
+tags:
+  - skip_e2e_check
+
+tlds:
+  - ru
+
+v-team: Freshness

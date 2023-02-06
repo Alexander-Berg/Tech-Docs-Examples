@@ -1,0 +1,35 @@
+feature: EmcButton
+
+tags: no_assessors
+
+specs:
+  Обычная кнопка:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emcbutton/default.json)
+    - screenshot: внешний вид соответствует скриншоту [emcbutton]
+
+  Кнопка с белым контуром размера m:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emcbutton/border-white-m.json)
+    - screenshot: внешний вид соответствует скриншоту [emcbutton]
+
+  Кнопка с черным контуром размера l:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emcbutton/border-black-l.json)
+    - screenshot: внешний вид соответствует скриншоту [emcbutton]
+
+  Кнопка с глобальной темой размера xs:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emcbutton/base-xs.json)
+    - screenshot: внешний вид соответствует скриншоту [emcbutton]
+
+  Жёлтая кнопка размера xl:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emcbutton/action-xl.json)
+    - screenshot: внешний вид соответствует скриншоту [emcbutton]
+
+files:
+  - platform/components/EmcButton/__tests__/EmcButton.hermione.js
+
+v-team: Lc
+
+manager: polyakovadi
+
+qa-engineer: pankov97
+
+tlds: none

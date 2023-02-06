@@ -1,0 +1,24 @@
+feature: Одна организация
+type: Ссылки на внешние сервисы
+
+specs:
+  Без данных:
+    - params:
+        exp_flags: GEO_1org_externals=1
+    - do: получить выдачу по запросу 'кафе пушкин'
+    - assert: под контактами организации есть ссылки на 2gis, Яндекс.Карты и Zoon
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  С данными:
+    - params:
+        exp_flags: GEO_1org_externals=1
+        srcparams: GEOV:experimental=add_snippet=flinks/1.x
+    - do: получить выдачу по запросу 'кафе пушкин'
+    - assert: под контактами организации есть ссылки на 2gis, Яндекс.Карты и Zoon
+
+files:
+  - src/features/Companies/Companies.features/OrgExternalLinks/OrgExternalLinks.test/OrgExternalLinks@touch-phone.hermione.js
+
+v-team: VanillaGeo
+
+tlds: all
+

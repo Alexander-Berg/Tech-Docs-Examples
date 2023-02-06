@@ -1,0 +1,39 @@
+feature: EmcText
+
+tags: no_assessors
+
+specs:
+  Обычный текст:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emctext/default.json)
+    - screenshot: внешний вид соответствует скриншоту [emctext]
+
+  Текст, выровненный по центру:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emctext/center.json)
+    - screenshot: внешний вид соответствует скриншоту [emctext]
+
+  Текст, выровненный по правому краю, с отступами и фоном секции:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emctext/right.json)
+    - screenshot: внешний вид соответствует скриншоту [emctext]
+
+  Текст с заголовком и описанием. В описании присутствует html вёрстка:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emctext/title-description-html.json)
+    - screenshot: внешний вид соответствует скриншоту [emctext]
+
+  Обычный текст (в колонке):
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emctext/default-columns.json)
+    - screenshot: внешний вид соответствует скриншоту [emctext]
+
+  Текст, выровненный по правому краю, с отступами и фоном секции (в колонке):
+    - do: открыть страницу (https://yandex.ru/turbo?stub=emctext/right-columns.json)
+    - screenshot: внешний вид соответствует скриншоту [emctext]
+
+files:
+  - platform/components/EmcText/__tests__/EmcText.hermione.js
+
+v-team: Lc
+
+manager: polyakovadi
+
+qa-engineer: pankov97
+
+tlds: none

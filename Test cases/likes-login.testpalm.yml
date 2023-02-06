@@ -1,0 +1,30 @@
+feature: Одна организация
+type: Отзывы и лайки для залогина
+
+import-labels:
+  - src/features/Reviews/Reviews.test/Reviews@touch-phone.testpalm.yml
+
+specs:
+  beforeEach:
+    - do: залогиниться в Яндекс
+    - do: открыть поисковую выдачу по запросу 'кафе пушкин'
+    - assert: отобразилась карточка одной организации
+  Таб отзывов в оверлее:
+    - do: кликнуть в таб 'N отзывов'
+    - assert: открылся оверлей организации на табе отзывов
+    - assert: загрузился список отзывов
+    - screenshot: пример внешнего вида таба с отзывами в оверлее [reviews-{{PLATFORM}}-{{BROWSER_TYPE}} >> reviews-cards.1org.overlay]
+    - do: кликнуть на лайк первого отзыва
+    - assert: счётчик лайков увеличился
+    - screenshot: пример внешнего вида отзыва с поставленным лайком [review-item-like]
+
+files:
+  - features/touch-phone/companies/reviews/likes-login/likes-login.hermione.js
+
+v-team: VanillaGeo
+
+# проверяем здесь features/touch-phone/companies/reviews/general/general.hermione.e2e.js
+tags:
+  - skip_e2e_check
+
+tlds: all

@@ -1,0 +1,50 @@
+feature: ЖД
+type: Главная
+description: >-
+  Чтобы просмотреть файл роботс, нужно добавить к урлу главной страницы сервиса
+  /robots.txt
+
+  Например для прода: https://travel.yandex.ru/robots.txt
+specs:
+  'ЖД: Карта сайта':
+    - do: Перейти в роботс для нужного окружения
+    - assert: |-
+        * Внизу списка есть 2 урла на карты сайта, выглядят так:
+        Sitemap: https://travel.yandex.ru/sitemaps/trains/sitemap.xml.gz
+        Sitemap: https://travel.yandex.ru/sitemaps/hotels/sitemap.xml.gz
+    - do: >-
+        Открыть карту сайта для trains (если нужно посмотреть для тестинга,
+        заменить домен, например
+        https://travel-test.yandex.ru/sitemaps/trains/sitemap.xml.gz
+
+        Для асессоров
+        https://travel.crowdtest.yandex.ru/sitemaps/trains/sitemap.xml.gz)
+    - assert: '* Произойдет скачивание xml файла'
+    - do: Открыть скачавшийся xml
+    - assert: >-
+        * В карте лежат xml-ки:
+
+        https://travel.yandex.ru/sitemaps/travel.yandex.ru/search_all_days_1.xml.gz
+        (поиск на все дни побит на несколько xml файлов)
+
+        https://travel.yandex.ru/sitemaps/travel.yandex.ru/hotels.xml.gz
+
+        https://travel.yandex.ru/sitemaps/travel.yandex.ru/trains.xml.gz
+    - do: >-
+        * Скопировать путь к одной из xml с поиском на все дни (если нужно
+        посмотреть для тестинга, заменить домен)
+
+        * Открыть файл
+    - assert: >-
+        * В файле лежат урлы поисков на все дни вида
+
+        </url>![image](https://jing.yandex-team.ru/files/shenfeld/2020-01-22_16.26.31-bp9ab.png)
+manual: true
+Устройство: Десктоп
+Страница: Главная
+Сервис: ЖД
+Тестирование асессорами: Да
+Окружение:
+  - Production
+  - Testing
+Автор: shenfeld

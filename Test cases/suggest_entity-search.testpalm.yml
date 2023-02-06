@@ -1,0 +1,42 @@
+feature: Саджест
+experiment: Объектный ответ
+
+params:
+  exp_flags:
+    - suggest_entity-search=true
+    - suggest_front_params=rich_html=1
+
+specs:
+  Базовый тест:
+    - do: открыть поиск по запросу "тест" и кликнуть на крестик в поисковой строке
+    - assert: открылся саджест, поле ввода пустое
+    - do: ввести запрос "мадонна"
+    - assert: под пословными подсказками появился релевантный объектный ответ
+    - screenshot: примерный внешний вид [plain]
+
+files:
+  - features/touch-phone/suggest/suggest_entity-search/suggest_entity-search.hermione.js
+
+v-team: Suggest
+
+qa-engineer:
+  - etestova
+
+manager:
+  - eugeshko
+
+tags:
+  - suggest
+  - oo_suggest
+  - input
+  # Добавлен тег, так как фича пока еще под флагом
+  - skip_e2e_check
+  # Эксперимент пока исследовательский, тестировать на ассесорах рано
+  - no_assessors
+
+# на время экспериментов, делаем только в России
+tlds: ru
+
+browsers:
+  notFor:
+    - searchapp-phone

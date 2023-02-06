@@ -1,0 +1,37 @@
+feature: Саджест
+experiment: Настройки истории
+
+params:
+  exp_flags: suggest_history_tune=1
+
+specs:
+  Внешний вид:
+    - do: получить выдачу по запросу "тест"
+    - do: кликнуть в инпут
+    - assert: видны подсказки
+    - do: кликнуть по первой подсказке
+    - do: дождаться перезагрузки страницы
+    - do: кликнуть на крестик в инпуте
+    - assert: в саджесте отображается историческая подсказка "тест"
+    - assert: в саджесте отображается кнопка "Настройки истории"
+    - screenshot: пример внешнего вида [plain]
+    - assert: ссылка в кнопке ведет в /tune/search
+
+files:
+  - features/desktop/suggest/suggest_history-tune/suggest_history-tune.hermione.js
+
+v-team: Suggest
+
+manager:
+  - eugeshko
+
+tags:
+  - suggest
+  - skip_e2e_check
+  - no_assessors
+
+tlds: ru
+
+browsers:
+  notFor:
+    - searchapp-phone

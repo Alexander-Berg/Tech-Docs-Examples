@@ -1,0 +1,50 @@
+feature: PriceRange
+
+specs:
+  afterEach:
+    - tech: нет клиентских ошибок
+
+  Базовый вид:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=pricerange/empty.json&l10n=en
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Базовый вид в горизонтальной ориентации:
+    - do: |
+        открыть ссылку https://yandex.ru/turbo?stub=pricerange/empty.json
+        повернуть устройство в горизонтальную ориентацию
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Базовый вид с заполненными значениями:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=pricerange/with-values.json
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Нельзя ввести больше 15 символов и не натуральные числа:
+    - do: |
+        открыть ссылку https://yandex.ru/turbo?stub=pricerange/empty.json
+        ввести в инпут значение "010a3g+45-6789.012,34567"
+    - assert: в инпуте значение равно "103456789"
+
+  Правильное значение при удалении символов:
+    - do: |
+        открыть ссылку https://yandex.ru/turbo?stub=pricerange/empty.json
+        ввести в инпут значение "1004"
+        поставить курсор на третью позицию, вот так: "10|04"
+        нажать "backspace" на клавиатуре
+    - assert: |
+        в инпуте значение равно "104"
+        курсор стоит на второй позации, вот так: "1|04"
+    - do: нажать "backspace" на клавиатуре
+    - assert: |
+        в инпуте значение равно "4"
+        курсор стоит на первой позации, вот так: "|4"
+
+files:
+  - platform/components/PriceRange/__tests__/PriceRange@phone.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: olga0321, dakhetov
+
+tlds: none

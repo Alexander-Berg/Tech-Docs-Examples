@@ -1,0 +1,56 @@
+feature: Опечатка и Ко
+type: Автозамена исправлена опечатка
+
+specs:
+  Поиск по опечатке:
+    - tags:
+        - smoke
+        - smoke_extended
+    - tlds: fr
+    - do: получить выдачу по запросу "купеть сабаку"
+    - assert: получена поисковая выдача
+    - assert: на странице присутствует сообщение "Исправлена опечатка «купеть сабаку»" и кнопка "Отменить"
+    - assert: в поисковой стрелке указан запрос "купить собаку"
+    - screenshot: Пример внешнего вида опечаточника [fix-typo]
+    - do: кликнуть в кнопку "Отменить"
+    - assert: выдача обновилась ajax-ом, без полной перезагрузки страницы
+    - assert: получена выдача по запросу "купеть сабаку"
+    - tech: сработал счетчик '/$page/$main/misspell/type_reask/misspell_count', vars 'pos=top'
+    - assertMetrics: '*'
+  Поиск по опечатке - сокращенный запрос:
+    - params:
+        foreverdata: '340180411'
+    - do: получить выдачу по запросу "foreverdata"
+    - assert: на странице присутствует сообщение "Исправлена опечатка в слове «сабаку»"
+    - assert: справа от сообщения присутствует кнопка "Отменить"
+    - assertMetrics: '-'
+
+specs-integration:
+  Базовое поведение:
+    - counter: /$page/$main/misspell/type_reask/misspell_count
+    - do: получить выдачу по запросу "купить сабаку"
+    - assert: на выдаче присутствует опечаточник с сообщением "Исправлена опечатка в слове «сабаку»"
+    - assert: справа от сообщения присутствует кнопка "Отменить"
+    - do: нажать кнопку "Отменить"
+    - assert: выдача обновлена
+    - assert: на выдаче отсутствует сообщение "Исправлена опечатка в слове «сабаку»"
+    - assert: в url'e страницы в адресной строке присутствует параметр &noreask=1
+    - tech: сработал счетчик '/$page/$main/misspell/type_reask/misspell_count', vars 'pos=top'
+
+files:
+  - features/misspell/misspell_type_fix-typo@deskpad.hermione.js
+  - features/misspell/misspell_type_fix-typo@deskpad.hermione.e2e.js
+
+v-team: Freshness
+
+tags:
+  - reviewed
+
+counter: /$page/$main/misspell/type_reask/misspell_count
+
+tlds:
+  - ru
+  - by
+  - ua
+  - kz
+  - uz

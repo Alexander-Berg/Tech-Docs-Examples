@@ -1,0 +1,30 @@
+feature: Объектный ответ
+type: Карусель достопримечательностей
+
+counter: /$page/$main/$result[@wizard_name="entity_search"]/carousel
+
+specs:
+  params:
+    foreverdata: '3210297084'
+  beforeEach:
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на выдаче есть карусель с достопримечательностями
+  Внешний вид:
+    - screenshot: внешний вид [plain]
+  Внешний вид элемента "Еще на сайте":
+    - do: проскроллить карусель в конец
+    - screenshot: внешний вид [scrolled]
+  Ссылка и счетчик на карточке:
+    - do: нажать на первую карточку
+    - assert: открывается оверлей
+    - tech: сработал счетчик '/$page/$main/$result/carousel/showcase/item/topic[@behaviour@type="dynamic"]'
+
+files:
+  - features/touch-phone/z-entity-search/carousel/attraction/carousel.hermione.js
+
+v-team: Freshness
+
+tags:
+  - skip_e2e_check
+
+tlds: [ru, by, kz, ua, com.tr, com, fr]

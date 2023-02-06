@@ -1,0 +1,57 @@
+feature: Колдунщик погоды горнолыжный (летний)
+
+specs:
+  3 точки с наукастом:
+    - params:
+        foreverdata: '390197181'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: появился колдунщик погоды с указанием погоды в трёх точках в горах, картой осадков и прогнозом по дням
+    - screenshot: колдунщик погоды соответствует виду [weather-ski-3points-nowcast_summer]
+  3 точки без наукаста:
+    - params:
+        foreverdata: '2195223608'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: появился колдунщик погоды с указанием погоды в трёх точках в горах и прогнозом по дням
+    - screenshot: колдунщик погоды соответствует виду [weather-ski-3points_summer]
+  2 точки с наукастом:
+    - params:
+        foreverdata: '183708173'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: появился колдунщик погоды с указанием погоды в двух точках в горах, картой осадков и прогнозом по дням
+    - screenshot: колдунщик погоды соответствует виду [weather-ski-2points-nowcast_summer]
+  2 точки без наукаста:
+    - params:
+        foreverdata: '1501774730'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: появился колдунщик погоды с указанием погоды в двух точках в горах и прогнозом по дням
+    - screenshot: колдунщик погоды соответствует виду [weather-ski-2points_summer]
+  2 точки без алерта горнолыжки:
+    - params:
+        foreverdata: '933201811'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: появился колдунщик погоды с указанием погоды в двух точках в горах без текста слева от температуры в горах, картой осадков и прогнозом по дням
+    - screenshot: колдунщик погоды соответствует виду [weather-ski-2points-without-alert_summer]
+  курорт без точек с наукастом:
+    - params:
+        foreverdata: '192887249'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: появился колдунщик погоды с указанием текущей погоды, картой осадков и прогнозом по дням, без горнолыжки
+    - screenshot: колдунщик погоды соответствует виду [weather-ski-empty-nowcast_summer]
+  курорт без точек и без наукаста:
+    - params:
+        foreverdata: '2565786148'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: появился колдунщик погоды с указанием текущей погоды и прогнозом по дням, без горнолыжки
+    - screenshot: колдунщик погоды соответствует виду [weather-ski-empty_summer]
+
+files:
+  - features/touch-phone/adapter-weather/ski_resort/weather-ski-resort_summer.hermione.js
+
+v-team: Weather
+
+manager:
+  - podnebesnaya
+
+tlds: [ru, by, ua, kz, com.tr]
+
+counter: /$page/$main/$result[@wizard_name="weather"]

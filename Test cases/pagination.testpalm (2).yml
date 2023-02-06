@@ -1,0 +1,53 @@
+feature: Футер
+type: Пагинация
+
+specs:
+  beforeEach:
+    - do: открыть страницу поиска /search?text=тестирование
+    - assert: |
+        внизу выдачи присутвует список страниц поисковой выдачи
+        активна первая страница из списка
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/alenka-deni/2020-04-20_16.53.50-a6xx9.png]
+  Отсутствие пагинации [manual]:
+    - automation: ISEARCH-6444
+    - do: очистить поисковый запрос
+    - do: клик кнопку 'Найти'
+    - screenshot: на странице нет пагинации [https://jing.yandex-team.ru/files/alenka-deni/2020-04-17_19.02.07-fd6sg.png]
+  Выбор страниц [manual]:
+    - automation: ISEARCH-6444
+    - do: произвести клик по номеру страницы в списке
+    - assert: |
+        поискова выдача обновилась
+        в поисковой строке сохранен введенный запрос
+        в футере присутвует список страниц поисковой выдачи
+        активна выбранная страница ранее
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/grikyan91/testirovanie__Poisk_po_Intranetu_nashlos_1434_2020-05-06_18-11-50.png]
+  По ссылкам следующая/предыдущая [manual]:
+    - automation: ISEARCH-6444
+    - do: нажать на ссылку 'следующая' в списке страниц
+    - assert: |
+        поискова выдача обновилась
+        активна вторая страница
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/grikyan91/testirovanie__Poisk_po_Intranetu_nashlos_1434_2020-05-06_18-28-34.png]
+    - do: нажать на ссылку 'предыдущая' в списке страниц
+    - assert: |
+        поискова выдача обновилась
+        активна снова первая страница
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/grikyan91/testirovanie__Poisk_po_Intranetu_nashlos_1434_2020-05-06_18-31-27.png]
+  Троеточие [manual]:
+    - automation: ISEARCH-6444
+    - do: клик на '...' в списке страниц
+    - assert: |
+        поискова выдача обновилась
+        отобразился следующий набор страниц
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/grikyan91/testirovanie__Poisk_po_Intranetu_nashlos_1434_2020-05-06_18-34-14.png]
+
+tags:
+  - reviewed
+
+priority: critical
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

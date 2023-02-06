@@ -1,0 +1,86 @@
+feature: Афиша события (deskpad)
+experiment: Колдунщик на реакте
+counter: /$page/$main/$result[@wizard_name="afisha_event"]/afisha_event/title
+
+specs:
+  params:
+    lr: '213'
+    exp_flags:
+      - geo_afisha=1
+      - ask_afisha_event_fts_saas=1
+    srcrwr: 'UPPER:mclay:12778'
+
+  beforeEach:
+    - do: получить выдачу по запросу 'ghostmane концерт в москве'
+    - assert: в результатах выдачи появился колдунщик афиши
+
+  Продажа билетов:
+    beforeEach:
+      - do: получить выдачу по запросу 'концерт muse в москве'
+      - assert: в результатах выдачи появился колдунщик афиши
+      - screenshot: пример внешнего вида [afisha-event-ticket-sell-{{SET_NAME}} >> concert]
+    Внешний вид и проверка заголовка:
+      - label: afisha-event-ticket-sell-{{SET_NAME}}
+      - screenshot: внешний вид [concert]
+      - do: кликнуть по тайтлу
+      - assert: открылся сервис Яндекс.Афиша с информацией про концерт
+      - tech: сработал счетчик path='/$page/$main/$result[@wizard_name="afisha_event"]/afisha_event/title'
+    Гринурл:
+      - do: кликнуть по первой части гринурла
+      - do: кликнуть по второй части гринурла
+      - assert: в обоих случаях открылся сервис Яндекс.Афиша с информацией про концерт
+      - tech: сработал счетчик path='/$page/$main/$result[@wizard_name="afisha_event"]/afisha_event/path/urlnav'
+    Тумба и кнопка:
+      - do: кликнуть по картинке
+      - assert: открылся сервис Яндекс.Афиша с информацией про концерт
+      - tech: сработал счетчик path='/$page/$main/$result[@wizard_name="afisha_event"]/afisha_event/thumb'
+      - do: кликнуть по кнопке "Билеты от ..."
+      - assert: осуществился переход на страницу https://widget.afisha.yandex.ru
+      - tech: сработал счетчик path='/$page/$main/$result[@wizard_name="afisha_event"]/afisha_event/button'
+
+  Внешний вид (продажа билетов - театр):
+    - do: получить выдачу по запросу 'балет щелкунчик в москве'
+    - screenshot: внешний вид [theatre]
+
+  Внешний вид и проверка счётчиков (билетов нет):
+    - do: получить выдачу по запросу 'всероссийский понифорум в москве'
+    - assert: в результатах выдачи появился колдунщик афиши
+    - screenshot: внешний вид [no_tickets]
+    - do: кликнуть по тайтлу
+    - assert: открылся сервис Яндекс.Афиша с информацией про событие
+    - tech: сработал счетчик path='/$page/$main/$result[@wizard_name="afisha_event"]/afisha_event/title'
+    - do: кликнуть по любой части гринурла
+    - assert: открылся сервис Яндекс.Афиша с информацией про событие
+    - tech: сработал счетчик path='/$page/$main/$result[@wizard_name="afisha_event"]/afisha_event/path/urlnav'
+    - do: кликнуть по картинке
+    - assert: открылся сервис Яндекс.Афиша с информацией про событие
+    - tech: сработал счетчик path='/$page/$main/$result[@wizard_name="afisha_event"]/afisha_event/thumb'
+    - do: кликнуть по кнопке "Расписание"
+    - assert: открылся сервис Яндекс.Афиша с информацией про событие
+    - tech: сработал счетчик path='/$page/$main/$result[@wizard_name="afisha_event"]/afisha_event/button'
+    - assertMetrics:
+        - web.total_request_count
+        - web.total_click_count
+        - web.total_all_click
+
+  Внешний вид (билетов нет - концерт):
+    - do: получить выдачу по запросу 'концерт haleo в москве'
+    - screenshot: внешний вид [no_tickets_concert]
+
+  Внешний вид (билетов нет - театр):
+    - do: получить выдачу по запросу 'вакханки в москве'
+    - screenshot: внешний вид [no_tickets_theatre]
+
+  Внешний вид (бесплатно):
+    - do: получить выдачу по запросу 'Allora & Calzadilla в москве'
+    - screenshot: внешний вид [free]
+
+tags:
+  - skip_e2e_check
+  - react
+  - no_assessors
+v-team: VanillaGeo
+files:
+  - src/features/AfishaEvent/AfishaEvent.test/AfishaEvent@desktop.hermione.js
+
+tlds: all

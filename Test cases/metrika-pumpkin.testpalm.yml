@@ -1,0 +1,22 @@
+feature: Тыква
+type: Счетчик метрики
+params:
+  exp_flags: pumpkin=1
+
+specs:
+  Проверка инициализации счетчика 25201802 в Тыкве:
+    - do: получить выдачу по запросу 'test'
+    - tech: счетчик должен быть проинициализирован (можно проверить с помощью команды yaCounter*** в консоли, где *** - идентификатор Метрики 25201802)
+
+files:
+  - features/desktop/metrika/metrika-pumpkin.hermione.js
+
+v-team: Distribution
+
+tags:
+  - metrika
+  - no_assessors
+  - reviewed
+  - skip_e2e_check
+
+tlds: [ru]

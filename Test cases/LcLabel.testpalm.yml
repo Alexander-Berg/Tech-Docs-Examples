@@ -1,0 +1,22 @@
+feature: LcLabel
+
+tags: no_assessors
+
+specs:
+  Обычный лейбл:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lclabel%2Fdefault.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Required лейбл:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lclabel%2Frequired.json)
+    - screenshot: внешний вид соответствует скриншоту [required]
+
+files:
+  - platform/components/LcLabel/__tests__/LcLabel.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: olimiya, shinuta
+
+tlds: none

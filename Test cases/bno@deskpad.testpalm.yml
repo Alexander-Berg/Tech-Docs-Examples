@@ -1,0 +1,63 @@
+feature: БНО
+
+specs:
+  Проверка заголовка и гринурла:
+    - do: получить выдачу по запросу 'ламода' _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: появился сниппет с БНО
+    - screenshot: пример БНО с сайтлинками (от 2 до 8 сайтлинков) [plain]
+    - assertMetrics: '*'
+    - do: кликнуть по заголовку
+    - assert: в новой вкладке открылся сайт
+    - tech: проверить счётчик в заголовке
+    - assert: в новой вкладке открылся сайт
+    - tech: проверить счётчик в гринурле
+    - assertMetrics: '*'
+  Проверка сайтлинков:
+    - do: получить выдачу по запросу 'ламода' _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: появился сниппет с БНО
+    - do: кликнуть в первый сайтлинк
+    - assert: в новой вкладке открылся сайт
+    - tech: проверить счётчик на первом сайтлинке
+    - assertMetrics: '*'
+  Должны быть видны все сайтлинки:
+    - do: получить выдачу по запросу 'ламода' _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: |
+        появился сниппет с БНО
+        на сниппете видно от 2 до 8 сайтлинков
+        видно описание у всех сайтлинков
+    - assertMetrics: '-'
+  Пустые аннотации:
+    - do: получить выдачу по запросу 'avatan plus'
+    - assert: появился сниппет с БНО (количество сайтлинков может быть от 2 до 8)
+    - screenshot: внешний вид с пустыми аннотациями [empty-annotation]
+    - assertMetrics: '-'
+  Показ тултипа маркета:
+    - do: получить выдачу по запросу 'леруа мерлен'
+    - assert: появился сниппет с БНО и значком маркета
+    - do: навести курсор на значок маркета
+    - assert: появился тултип маркета
+
+specs-integration:
+  Присутствует на странице:
+    - do: получить выдачу по запросу 'ламода' _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: появился сниппет с БНО
+    - counter: /$page/$main/$result/bno/sitelinks/item
+
+files:
+  - features/bno/bno.hermione/bno@deskpad.hermione.js
+  - features/bno/bno.hermione/bno@deskpad.hermione.e2e.js
+
+v-team: Beauty
+
+counter: /$page/$main/$result/bno
+
+tlds:
+  - ru
+  - by
+  - ua
+  - kz
+  - uz
+  - com.tr
+  - com
+
+priority: high

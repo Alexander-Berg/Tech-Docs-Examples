@@ -1,0 +1,20 @@
+feature: Спец.размещение
+experiment: Сниппеты дистрофики
+
+specs:
+  Основные проверки внешнего вида и счетчиков:
+    - params:
+        foreverdata: '1800455040'
+    - do: получить выдачу c запросом 'foreverdata'
+    - assert: реклама присутствует на выдаче
+    - screenshot: пример внешнего вида [thin_adv_snippet]
+
+files:
+  - features/touch-phone/adv/adapter-adv_direct_touch_thin_snippet/adapter-adv_direct_touch_thin_snippet.hermione.js
+
+v-team: Distribution
+
+tags:
+  - skip_e2e_check
+
+tlds: [ru, by, ua, kz, uz]

@@ -1,0 +1,26 @@
+feature: Спец.размещение
+experiment: Трафареты с БНО
+
+specs:
+  Проверка внешного вида:
+    - params:
+        foreverdata: '500502289'
+    - do: получить выдачу по запросу 'foreverdata'
+    - screenshot: пример внешнего вида рекламного сниппета с БНО [plain]
+    - assert: на выдаче присутствует рекламный сниппет с БНО
+  Проверка отображения БНО при trafaret_serp_data.Bno = undefined и search_prefs.bno = 1:
+    - params:
+        foreverdata: '3472835581'
+    - do: получить выдачу по запросу 'foreverdata'
+    - screenshot: пример внешнего вида рекламного сниппета с БНО [plain]
+    - assert: на выдаче присутствует рекламный сниппет с БНО
+
+files:
+  - features/common/serp-adv/__with-trafaret/serp-adv__with-trafaret.hermione.js
+
+v-team: Distribution
+
+tlds: [ru, by]
+
+tags:
+  - no_assessors

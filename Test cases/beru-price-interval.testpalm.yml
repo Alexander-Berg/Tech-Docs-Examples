@@ -1,0 +1,16 @@
+feature: beru-price-interval
+
+specs:
+  Внешний вид блока:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=berupriceinterval/default.json)
+    - assert: должны быть видны разные вариации блока цены
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/components/BeruPriceInterval/__tests__/beru-price-interval.hermione.js
+
+v-team: Beru
+
+manager: seoshnik
+
+tlds: none

@@ -1,0 +1,24 @@
+feature: Feature-name
+experiment: Exp-name
+
+params:
+  exp_flags: flag-name=1
+  rearr: '1'
+
+specs:
+  Second describe:
+    beforeEach:
+      - do: something
+    Should check experimental:
+      - do: получить выдачу по запросу 'an interesting text'
+      - screenshot: на странице появился элемент, пример внешнего вида [ex_plain]
+  New describe:
+    Should check something new:
+      - params:
+          exp_flags:
+            - flag-name=1
+      - screenshot: на странице появился элемент, пример внешнего вида [plain]
+
+tlds: all
+
+v-team: '2'

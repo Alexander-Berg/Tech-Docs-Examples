@@ -1,0 +1,26 @@
+feature:  no_assessors Умный дом - проверить консоль на диалогах
+
+specs:
+    no_assessors Умный дом - проверить консоль на диалогах:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/2662
+        - release_Webview
+        - release_Smarthome
+        - no_assessors
+        - platform_searchapp
+        - platform_common
+        - webview_regress
+    - do: "Description Не для асессоров"
+    - do: "Preconditions Открыть любой навык на приёмке от которого есть аккаунт; 1) Элари https://priemka.dialogs.alice.yandex.ru/developer/skills/43606352-ee3f-4ec8-a131-2c754551b4d2/test; 2) Сяоми https://priemka.dialogs.alice.yandex.ru/developer/skills/ad26f8c2-fc31-4928-a653-d829fda7e6c2/test от него есть логин yndx-smart-home1 и пароль тут https://yav.yandex-team.ru/secret/sec-01da6mr54y6dvb5cmha5nkvc8y/explore/versions; ; Нажать правой кнопкой мыши на вьюху УД -> Исследовать элемент -> найти урл [вебвью](https://jing.yandex-team.ru/files/osennikovak/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202020-07-27%20%D0%B2%2015.43.23.44aaae4.png) -> дважды кликнуть на него и он станет редактируемым -> заменить на релизный [урл](https://rctemplates-shared.hamster.yandex.ru/quasar?srcrwr=QUASAR_HOST%3Aquasar.yandex.ru&srcrwr=BILLING_HOST%3Aquasar.yandex.ru&srcrwr=IOT_HOST%3Aiot.quasar.yandex.ru&srcrwr=RENDERER_SHARED:SHARED__RENDERER_SHARED_RC)  вот [так](https://jing.yandex-team.ru/files/osennikovak/2020-07-27T12:46:34Z.0ee9f84.png) -> нажать enter, чтобы он сохранился"
+    - do: "Нажать + -> Другое устройство -> Объединить аккаунты"
+    - assert: "Открылась новая вкладка с вводом логина и пароля"
+    - do: "Залогиниться любым доступным аккаунтом (например, yndx-smart-home1)"
+    - assert: "Залогин прошёл успешно"
+    - do: "Обновить список устройств"
+    - assert: "Отображаются устройства"
+    - do: "Нажать контроллы любых доступных устройств"
+    - assert: "Реагируют корректно (если устройство онлайн - оно включается/выключается/реагирует на команды), если оффлайн - корректная ошибка; Желательно проверит хоть одно `настоящее` устройство онлайн "
+    - do: "Создать и выполнить обычный сценарий и расписание"
+    - assert: "Устройства реагируют корректно"
+    - do: "Проверить логи в консоли"
+    - assert: "Приходят логи со следующих событий:; ; 1. Получение состояния устройства (Открытие и нахождение на странице устройства) ; 2. Отправка действия на устройство (Действие на странице устройства); 3. Отправка действия в группу (Действие на странице группы); 4. Отправка действия в сценарий (Действие на странице сценария); 5. Получение устройств из навыка (Кнопка Обновить список устройств) "

@@ -1,0 +1,25 @@
+feature: LcHeader
+
+tags: no_assessors
+
+specs:
+  Внешний вид блока с полупрозрачным фоном:
+    - do: открыть страницу ('https://yandex.ru/turbo?stub=lcheader/custom-background.json')
+    - screenshot: внешний вид соответствует скриншоту [plain]
+    - do: нажать на кнопку "Сделать заказ"
+    - assert: открылась пустая корзина товаров
+    - screenshot: внешний вид соответствует скриншоту [cart-opened]
+    - do: нажать на иконку "бургер"
+    - assert: открылось боковое меню
+    - screenshot: внешний вид соответствует скриншоту [modal-opened]
+
+files:
+  - platform/components/LcHeader/__tests__/LcHeader@phone.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: olimiya, shinuta
+
+tlds: none

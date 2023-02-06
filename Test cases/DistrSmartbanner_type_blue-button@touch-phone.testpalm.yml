@@ -1,0 +1,50 @@
+feature: Смартбаннер React
+type: blue-button
+
+params:
+  exp_flags:
+    - smartbanner_atom=1
+
+specs-integration:
+  Присутствует на странице:
+    - params:
+        banner-id: '72057605999494468'
+    - tags: no_assessors
+    - do: почистить куки
+    - do: получить выдачу по запросу txt
+    - assert: на выдаче присутствует смартбаннер
+    - assert: кнопки в колдунщике кликабельны
+
+specs:
+  Внешний вид и закрытие смартбаннера:
+    - params:
+        foreverdata: '1544808643'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: |
+        появился смартбаннер с предложением установить Яндекс.Браузер
+        в тексте смартбаннера есть возрастная метка "0+"
+    - screenshot: Пример внешнего вида смартбаннера [smartbanner-blue-button]
+    - do: нажать кнопку "Нет, спасибо"
+    - assert: смартбаннер закрылся
+    - tech: сработал счётчик /$page/distr-smartbanner/close[@layout="blue-button"]
+
+  Клик в ссылку в смартбаннере:
+    - params:
+        foreverdata: '1544808643'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: появился смартбаннер с предложением установить Яндекс.Браузер
+    - do: нажать кнопку "Скачать"
+    - assert: произошёл переход на другую страницу
+    - tech: сработал счётчик на переход /$page/distr-smartbanner/ok[@layout="blue-button"]
+
+files:
+  - src/features/DistrSmartbannerReact/DistrSmartbannerReact.test/distr-smartbanner_type_blue-button/DistrSmartbanner_type_blue-button@touch-phone.hermione.js
+  - src/features/DistrSmartbannerReact/DistrSmartbannerReact.test/distr-smartbanner_type_blue-button/DistrSmartbanner_type_blue-button@touch-phone.hermione.e2e.js
+
+tags:
+  - distribution
+  - smartbanner
+
+v-team: Distribution
+
+tlds: all

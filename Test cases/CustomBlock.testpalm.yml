@@ -1,0 +1,23 @@
+feature: 'CustomBlocks'
+
+specs:
+  Базовый вид блока:
+    - tags: no_assessors
+    - do: открыть страницу примера кастомного блока (/turbo?stub=customblock/default.json)
+    - assert: на странице должен появиться тестовый кастомный блок [plain]
+
+  Проверка наличия отступов вокруг блока:
+    - tags: no_assessors
+    - do: открыть страницу примера кастомного блока (/turbo?stub=customblock/between-paragraphs.json)
+    - assert: тестовый кастомный блок имеет отступы сверху и снизу [plain]
+
+files:
+  - platform/components/CustomBlock/__tests__/CustomBlock.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: olga0321, dakhetov
+
+tlds: none

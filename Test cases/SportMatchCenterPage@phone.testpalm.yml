@@ -1,0 +1,17 @@
+feature: Страница тачевого спортивного календаря
+
+specs:
+  Базовый вид блока:
+    - tags:
+      - sportauto
+    - do: открыть мок /turbo?stub=sportmatchcenterpage/default.json
+    - assert: страница спортивного календаря видна
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/components/SportMatchCenterPage/__tests__/SportMatchCenterPage@phone.hermione.js
+
+v-team: Sport
+manager: mrwhite
+
+tlds: none

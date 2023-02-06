@@ -1,0 +1,12 @@
+feature:  Умный дом - версия (дубль)
+
+specs:
+    Умный дом - версия (дубль):
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/2763
+        - release_Webview
+        - release_Smarthome
+        - platform_ios
+        - platform_android
+    - do: "Открыть страницу устройств ПП -> Устройства -> Настройки -> проскроллить в самый низ; ![](https://jing.yandex-team.ru/files/osennikovak/2021-02-25T08:30:54Z.01e9e74.png); "
+    - assert: "Проверить номер версии; Если номер отображается -- кейс скипаем + обязательно приложить скриншот с версией; Если номер не отображается -- поставить кейсу Fail и завести баг, что номер не отображается"

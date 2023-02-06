@@ -1,0 +1,63 @@
+feature: beruSelect
+
+specs:
+  Проверка функциональности блока:
+    - do: открыть ссылку https://yandex.ru/turbo?/turbo?stub=beruselect/default.json
+    - do: кликнуть по кнопке
+    - assert: должен появится дропдаун
+    - assert: опции в дропдауне должны быть не выбраны
+    - do: кликнуть по первой опции в списке
+    - assert: дропдаун должен закрыться, текст на кнопке измениться на текст выбранной опции
+    - do: кликнуть по кнопке
+    - assert: дропдаун должен показаться и первая опция должна быть выбрана
+  Внешний вид в свернутом состоянии с не выбранной опцией:
+    - do: открыть ссылку https://yandex.ru/turbo?/turbo?stub=beruselect/default.json
+    - assert: должна быть видна кнопка с текстом "выберите опцию"
+    - screenshot: внешний вид соответствует скриншоту [no-selected]
+  Внешний вид в развернутом состоянии с не выбранной опцией:
+    - do: открыть ссылку https://yandex.ru/turbo?/turbo?stub=beruselect/default.json
+    - do: кликнуть по кнопке
+    - assert: должен повится дропдаун
+    - assert: ни одна опция в дропдауне не должна быть выбрана
+    - screenshot: внешний вид соответствует скриншоту[popup-no-selected-option]
+  Опция может быть ссылкой и должна быть кликабельна:
+    - do: открыть ссылку https://yandex.ru/turbo?/turbo?stub=beruselect/default.json
+    - do: кликнуть по кнопке
+    - assert: должен появится дропдаун
+    - do: кликнуть по второй опции
+    - assert: должна открыться страница https://yandex.ru/turbo?stub=beruheader/default.json
+  Внешний вид в свернутом состоянии с выбранной опцией:
+    - do: открыть ссылку https://yandex.ru/turbo?/turbo?stub=beruselect/preselected.json
+    - assert: должна быть видна кнопка с текстом "c самой высокой ценой"
+    - screenshot: внешний вид соответствует скриншоту [pre-selected]
+  Внешний вид в развернутом состоянии с выбранной опцией:
+    - do: открыть ссылку https://yandex.ru/turbo?/turbo?stub=beruselect/preselected.json
+    - do: нажать на кнопку
+    - assert: должен показаться дропдаун
+    - assert: должна быть выбрана третья опция
+    - screenshot: внешний вид соответствует скриншоту [popup-pre-selected-option]
+  Дропдаун должен показываться над кнопкой если места показаться с низу не хватает:
+    - do: открыть ссылку https://yandex.ru/turbo?/turbo?stub=beruselect/preselected.json
+    - do: нажать на кнопку
+    - assert: дропдаун должен отобразиться над кнопкой
+    - screenshot: внешний вид соответствует скриншоту [open-up]
+  Должен корректно отображаться в iframe:
+    - params:
+        foreverdata: '1011277325'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок первого сниппета (начинается с "Тестовая страница для BeruSelect iframe render check ")
+    - assert: открывается турбо-страница
+    - assert: внизу страницы должна отображаться кнопка
+    - do: нажать на кнопку
+    - assert: дропдаун должен отобразиться над кнопкой
+    - screenshot: внешний вид соответствует скриншоту [iframe-render]
+
+
+
+files:
+  - platform/components/BeruSelect/__tests__/BeruSelect@phone.hermione.js
+
+v-team: Beru
+
+manager: seoshnik
+
+tlds: none

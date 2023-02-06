@@ -1,0 +1,137 @@
+feature: Колдунщик погоды кликабельный
+
+specs:
+  Внешний вид:
+    - tags: smoke_extended
+    - params:
+        foreverdata: '3478844138'
+        exp_flags: 'weather_clickable=1'
+    - do: получить выдачу по запросу "foreverdata"
+    - assert: получена выдача по указанному запросу
+    - assert: на выдаче присутствует колдунщик погоды
+    - screenshot: примерный внешний вид [ plain ]
+  Сайтлинки:
+    - params:
+        foreverdata: '3478844138'
+        exp_flags: 'weather_clickable=1'
+    - do: получить выдачу по запросу "foreverdata"
+    - assert: под тайтлом колдунщика присутствуют сайтлинки "По часам", "На 10 дней", "На месяц", "Осадки на карте"
+  Сайтлинки без nowcast:
+    - params:
+        foreverdata: '2130309574'
+        exp_flags: 'weather_clickable=1'
+    - do: получить выдачу по запросу "foreverdata" без блока nowcast в данных
+    - assert: под тайтлом колдунщика присутствуют сайтлинки "По часам", "На 10 дней", "На месяц" и нет блока "Осадки на карте"
+  Переходы и счетчики:
+    beforeEach:
+      - do: получить выдачу по запросу "foreverdata"
+      - assert: получена выдача по указанному запросу
+      - assert: на выдаче присутствует колдунщик погоды
+    По тайтлу колдунщика:
+      - params:
+          foreverdata: '3478844138'
+          exp_flags: 'weather_clickable=1'
+      - do: кликнуть в тайтл колдунщика погоды
+      - assert: в новой вкладке открылся сервис "Яндекс Погода"
+      - tech: сработал счетчик '/$page/$main/$result[@wizard_name="weather"]/title'
+    По гринурлу колдунщика:
+      - params:
+          foreverdata: '3478844138'
+          exp_flags: 'weather_clickable=1'
+      - do: кликнуть в гринурл колдунщика погоды
+      - assert: в новой вкладке открылся сервис "Яндекс Погода"
+      - tech: сработал счетчик '/$page/$main/$result[@wizard_name="weather"]/path/urlnav'
+    По сайтлинкам:
+      По часам:
+        - params:
+            foreverdata: '3478844138'
+            exp_flags: 'weather_clickable=1'
+        - do: кликнуть в сайтлинк "По часам"
+        - assert: в новой вкладке открылся сервис "Яндекс Погода"
+        - tech: сработал счетчик '/$page/$main/$result[@wizard_name="weather"]/sitelinks/hours'
+      На 10 дней:
+        - params:
+            foreverdata: '3478844138'
+            exp_flags: 'weather_clickable=1'
+        - do: кликнуть в сайтлинк "На 10 дней"
+        - assert: в новой вкладке открылся сервис "Яндекс Погода" с прогнозом на 10 дней
+        - tech: сработал счетчик '/$page/$main/$result[@wizard_name="weather"]/sitelinks/details'
+      На месяц:
+        - params:
+            foreverdata: '3478844138'
+            exp_flags: 'weather_clickable=1'
+        - do: кликнуть в сайтлинк "На месяц"
+        - assert: в новой вкладке открылся сервис "Яндекс Погода" с прогнозом на месяц
+        - tech: сработал счетчик '/$page/$main/$result[@wizard_name="weather"]/sitelinks/months'
+      Осадки на карте:
+        - params:
+            foreverdata: '3478844138'
+            exp_flags: 'weather_clickable=1'
+        - do: кликнуть в сайтлинк "Осадки на карте"
+        - assert: в новой вкладке открылся сервис "Яндекс Погода" с погодной картой
+        - tech: сработал счетчик '/$page/$main/$result[@wizard_name="weather"]/sitelinks/nowcast'
+    По подробному прогнозу на сегодня:
+      - params:
+          foreverdata: '3478844138'
+          exp_flags: 'weather_clickable=1'
+      - do: кликнуть в блок подробного прогноза
+      - assert: в новой вкладке открылся сервис "Яндекс Погода"
+      - tech: сработал счетчик '/$page/$main/$result[@wizard_name="weather"]/today'
+    По подробному прогнозу на конкретный день:
+      - params:
+          foreverdata: '4190290050'
+          exp_flags: 'weather_clickable=1'
+      - do: кликнуть в блок подробного прогноза
+      - assert: в новой вкладке открылся сервис "Яндекс Погода" с прогнозом на 10 дней
+      - tech: сработал счетчик '/$page/$main/$result[@wizard_name="weather"]/current'
+    По дням:
+      Первый день:
+        - params:
+            foreverdata: '3478844138'
+            exp_flags: 'weather_clickable=1'
+        - do: кликнуть в первый день блока прогноза по дням
+        - assert: в новой вкладке открылся сервис "Яндекс Погода" с прогнозом на 10 дней
+        - tech: сработал счетчик '/$page/$main/$result[@wizard_name="weather"]/day[@pos=0]'
+      Второй день:
+        - params:
+            foreverdata: '3478844138'
+            exp_flags: 'weather_clickable=1'
+        - do: кликнуть во второй день блока прогноза по дням
+        - assert: в новой вкладке открылся сервис "Яндекс Погода" с прогнозом на 10 дней
+        - tech: сработал счетчик '/$page/$main/$result[@wizard_name="weather"]/day[@pos=1]'
+      Третий день:
+        - params:
+            foreverdata: '3478844138'
+            exp_flags: 'weather_clickable=1'
+        - do: кликнуть в третий день блока прогноза по дням
+        - assert: в новой вкладке открылся сервис "Яндекс Погода" с прогнозом на 10 дней
+        - tech: сработал счетчик '/$page/$main/$result[@wizard_name="weather"]/day[@pos=2]'
+      Четвертый день:
+        - params:
+            foreverdata: '3478844138'
+            exp_flags: 'weather_clickable=1'
+        - do: кликнуть в четвертый день блока прогноза по дням
+        - assert: в новой вкладке открылся сервис "Яндекс Погода" с прогнозом на 10 дней
+        - tech: сработал счетчик '/$page/$main/$result[@wizard_name="weather"]/day[@pos=3]'
+      Прогноз на 10 дней:
+        - params:
+            foreverdata: '3478844138'
+            exp_flags: 'weather_clickable=1'
+        - do: кликнуть в последний элемент блока прогноза по дням
+        - assert: в новой вкладке открылся сервис "Яндекс Погода"
+        - tech: сработал счетчик '/$page/$main/$result[@wizard_name="weather"]/week'
+
+files:
+  - features/adapter-weather/exp_clickable/weather_desktop_sitelinks@deskpad.hermione.js
+
+v-team: Weather
+
+manager:
+  - podnebesnaya
+
+tlds:
+  - ru
+  - by
+  - uz
+  - kz
+  - ua

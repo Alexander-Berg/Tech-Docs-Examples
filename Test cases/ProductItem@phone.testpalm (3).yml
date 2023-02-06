@@ -1,0 +1,83 @@
+feature: product-item
+
+params:
+  exp_flags:
+    - analytics-disabled=1
+
+browsers:
+  - ios-safari-12-touch
+  - ios-safari-11-touch
+  - ios-safari-10-touch
+  - ios-safari-9-touch
+
+specs:
+  Внешний вид:
+    Карточка list-type default:
+      - do: открыть страницу https://yandex.ru/turbo?stub=productitem/default.json
+      - assert: на странице есть список товаров
+      - assert: среди прочих имеется товар(ы) с меткой "Под заказ"
+      - screenshot: внешний вид [plain]
+
+    Карточка list-type list:
+      - do: открыть страницу https://yandex.ru/turbo?stub=productitem/type-list.json
+      - assert: на странице есть список товаров
+      - screenshot: внешний вид [plain]
+
+    Карточка list-type big-list:
+      - do: открыть страницу https://yandex.ru/turbo?stub=productitem/type-big-list.json
+      - assert: на странице есть список товаров
+      - screenshot: внешний вид [plain]
+
+  Функциональность:
+    Карточка list-type default:
+      - do: открыть страницу https://yandex.ru/turbo?stub=productitem/default.json
+      - assert: |
+          на странице есть список товаров
+          кликается вся область любой карточки товара
+
+    Карточка list-type list:
+      - do: открыть страницу https://yandex.ru/turbo?stub=productitem/type-list.json
+      - assert: |
+          на странице есть список товаров
+          кликается вся область любой карточки товара
+
+    Карточка list-type big-list:
+      - do: открыть страницу https://yandex.ru/turbo?stub=productitem/type-big-list.json
+      - assert: |
+          на странице есть список товаров
+          кликается вся область любой карточки товара
+
+  С прокрашенным текстом в названии:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=productitem/with-format-in-desc.json
+    - assert: |
+        на странице есть карточка товара
+        часть текста в названии выделена определенным цветом
+    - screenshot: внешний вид карточки [plain]
+
+  С разным количеством опций:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=productitem/with-different-options-count.json
+    - assert: на странице есть карточки товара с кнопками
+    - screenshot: внешний вид карточек [plain]
+
+  С "В корзину" для внешней корзины:
+    - params:
+        exp_flags:
+          - analytics-disabled=0
+    - do: открыть страницу https://yandex.ru/turbo?stub=productitem/default.json&_ym_debug=1
+    - assert: на странице есть карточки товара
+    - do: кликнуть по "В корзину" у первой карточки
+    - assert: открылась ссылка в новой вкладке
+    - tech: в метрике с номером `11111111` сработала цель `add-to-cart`
+
+files:
+  - platform/components/ProductItem/__tests__/ProductItem@phone.hermione.js
+
+tags: e-commerce
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: spv, dakhetov
+
+tlds: none

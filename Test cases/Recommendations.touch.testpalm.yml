@@ -1,0 +1,21 @@
+feature: ProductPage
+experiment: Рекомендации
+
+specs:
+  Проверка кол-ва офферов:
+    - params:
+      flags:
+        - goods_recommender_enabled=1
+    - do: открыть https://yandex.ru/products/product/186853207/sku/101612053795
+    - assert: |
+        отобразилась страница с товаром
+        в открывшейся карточке с товаром находится блок "Рекомендации"
+    - do: |
+        нажать на первый товар в блоке "Рекомендации"
+        обновить страницу
+    - assert: колличество предложений у товаров в блоке "Рекомендации" не изменилось
+
+v-team: goods
+
+files:
+  - src/pages/ProductPage/tests/Recommendations/Recommendations.touch.hermione.ts

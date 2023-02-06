@@ -1,0 +1,20 @@
+feature: Кандидат.Испытания
+type: Архивное рассмотрение
+
+specs:
+    Внешний вид секций где все рассмотрения архивные:
+        - do: открыть кандидата с архивом без испытаний /candidates/<id_кандидата>/interviews/
+        - screenshot: пример внешнего вида [archived_consideration_type_interview]
+
+files:
+  - tests/hermione/suites/desktop/candidates/interviews/archival_interview_without_active_consideration/archival_interview_without_active_consideration.hermione.js
+
+tags:
+  - reviewed
+
+priority: blocker
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

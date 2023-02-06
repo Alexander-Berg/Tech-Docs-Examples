@@ -1,0 +1,47 @@
+feature: 'Одна организация'
+type: 'Горнолыжный курорт сценарий туриста'
+
+specs:
+  Расхлопы и ссылки – внешний вид:
+    - params:
+        foreverdata: '3974341951'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на выдаче есть врезка с расхлопом горнолыжной инфформации
+    - screenshot: внешний вид [OrgSkiListPP]
+  Расхлопы и ссылки – расхлопы раскрываются по клику:
+    - params:
+        foreverdata: '3974341951'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на выдаче есть врезка с расхлопом горнолыжной инфформации
+    - do: кликнуть в первый элемент 'Трассы' (может быть развернут изначально)
+    - do: кликнуть в третий элемент 'Ski-Pass'
+    - do: кликнуть в четвертый элемент 'О курорте'
+    - assert: открылся (или закрылся в случае развернутых трасс) расхлоп с информацией о трассах курорта, о Ski-Pass и о самом курорте
+  Расхлопы и ссылки – счётчики:
+    - params:
+        foreverdata: '3974341951'
+    - do: кликнуть в первый элемент 'Трассы'
+    - tech: сработал счётчик /$page/$main/$result/composite/ski-collapser[@type="routes"]/label
+  Расхлопы и ссылки – номер телефона:
+    - params:
+        foreverdata: '3320167860'
+    - do: кликнуть на "Ещё" возле поля "Телефон"
+    - assert: появилось несколько мобильных номеров
+    - tech: сработал счетчик '/$page/$main/$result/composite/ski-features/key-value/phones/more'
+
+  Расхлопы и ссылки – ссылка "Цены на ски-пасс":
+    - params:
+        foreverdata: '3974341951'
+    - do: кликнуть в третий элемент 'Ski-Pass'
+    - do: кликнуть по ссылке "Цены на ski-pass"
+    - assert: ссылка открылась в новой вкладке
+    - tech: сработал счетчик '/$page/$main/$result/composite/ski-collapser/ski-pass/buy-link'
+
+files:
+  - src/features/Companies/Companies.features/OrgSkiListPP/OrgSkiListPP.test/OrgSkiListPP@touch-phone.hermione.js
+
+tags:
+  - skip_e2e_check
+
+v-team: Freshness
+tlds: ru

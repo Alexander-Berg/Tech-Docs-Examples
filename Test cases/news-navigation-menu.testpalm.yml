@@ -1,0 +1,21 @@
+feature: Меню с тегами
+
+specs:
+  Внешний вид меню с тегами:
+    - do: открыть страницу https://yandex.ru/turbo?stub=newsnavigationmenu/subrubric.json
+    - assert: появилось меню
+    - do: ресайзим 1800х770
+    - screenshot: внешний вид соответствует скриншоту [layout-1800]
+    - do: ресайзим 1000х770
+    - screenshot: внешний вид соответствует скриншоту [layout-1000]
+    - do: ресайзим 700х770
+    - screenshot: внешний вид соответствует скриншоту [layout-700]
+
+files:
+  - platform/components/NewsNavigationMenu/__tests__/news-navigation-menu.hermione.js
+
+v-team: News
+
+manager: glushneva
+
+tlds: none

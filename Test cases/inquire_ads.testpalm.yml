@@ -1,0 +1,28 @@
+feature: Определение наличия блокировщика рекламы
+
+specs:
+  Отправка счётчика (Элементы вырезаны при включенной маскировке):
+    - params:
+        adblocker: adguard
+        foreverdata: '3450195293'
+    - do: получить выдачу по запросу ‘foreverdata’
+    - tech: |
+        скрыть рекламные сниппеты, выполнив в консоли команды
+        "[1, 2, 3, 14, 15, 16, 17].forEach(index => { document.querySelector('.serp-item:nth-of-type(' + index + ')').setAttribute('style', 'display:none;'); });
+        $('.inquire').bem('inquire').delMod('js');
+        $('.inquire').bem('inquire').setMod('js', 'inited');"
+    - tech: сработал клиентский счетчик вырезания path='/tech/direct/antiblock/fail', vars='direct_premium_hidden:"hidden", direct_halfpremium_hidden:"hidden"'
+
+files:
+  - features/desktop/inquire/inquire_ads.hermione.js
+
+v-team: Distribution
+
+tags:
+  - skip_e2e_check
+  - no_assessors
+  - adv
+  - adblock
+
+tlds:
+  - ru

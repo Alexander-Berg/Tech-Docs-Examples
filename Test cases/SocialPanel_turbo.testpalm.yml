@@ -1,0 +1,78 @@
+feature: SocialPanel
+experiment: Со скроллом к виджету комментатора
+
+specs:
+    Экспериментальная плашка комментатора с условиями:
+        - params:
+              exp_flags:
+                  - commentator-button=conditional
+        - do: авторизоваться на yandex.ru
+        - do: открыть ссылку https://yandex.ru/turbo?stub=socialpanel/article.json
+        - assert: плашка отсутствует
+        - do: проскроллить немного страницу
+        - assert: плашка должна появиться (внизу окна)
+        - screenshot: внешний вид соответствует скриншоту [top-scroll]
+        - do: сделать клик по плашке
+        - assert: плашка пропала, виден блок Комментатора
+
+    Экспериментальная плашка комментатора всегда:
+        - params:
+              exp_flags:
+                  - commentator-button=forever
+        - do: открыть ссылку https://yandex.ru/turbo?stub=socialpanel/article.json
+        - assert: появилась плашка внизу окна (может быть задержка в 1-2 секунды)
+        - screenshot: внешний вид соответствует скриншоту [with-start]
+
+    Кнопка копирования ссылки:
+      При нажатии в буфер помещается текущий адрес страницы с добавленным utm_source=stick_link_button:
+          - params:
+                exp_flags:
+                    - commentator-button=forever
+          - browsers:
+            - chrome-phone
+            - iphone
+            - searchapp
+          - do: открыть ссылку https://yandex.ru/turbo?stub=socialpanel/article.json
+          - assert: появилась плашка внизу окна (может быть задержка в 1-2 секунды)
+          - do: нажать на кнопку с цепочкой на плашке внизу окна
+          - assert: Появился pop-up с текстом "Ссылка скопирована"
+          - assert: в буфере обмена находится ссылка текущей открытой страницы с добавленным параметром utm_source=stick_link_button
+          - assert: pop-up с текстом "Ссылка скопирована" пропал через 2 секунды после клика
+
+      По нажатию отправляется статистика:
+          - tags: no_assessors
+          - params:
+              exp_flags:
+                  - commentator-button=forever
+          - browsers:
+            - chrome-phone
+            - iphone
+            - searchapp
+          - do: открыть ссылку https://yandex.ru/turbo?stub=socialpanel/article.json
+          - assert: появилась плашка внизу окна (может быть задержка в 1-2 секунды)
+          - do: нажать на кнопку с цепочкой на плашке внизу окна
+          - assert: сработал баобаб-счетчик "stick-link-button-click"
+    Проверка работы лайков:
+      Лайк с реакцией пользователя:
+          - params:
+              exp_flags:
+                  - sticky-sociality=1
+                  - commentator-button=forever
+          - do: перейти по адресу https://yandex.ru/turbo?stub=socialpanel/likes-true.json
+          - screenshot: страница соответствует скриншоту [like-true]
+          - assert: на широких экранах в полле ввода указано "Написать комментарий"
+      Лайк без реакции пользователя:
+          - params:
+              exp_flags:
+                  - sticky-sociality=1
+                  - commentator-button=forever
+          - do: перейти по адресу https://yandex.ru/turbo?stub=socialpanel/article.json
+          - screenshot: страница соответствует скриншоту [like-false]
+          - assert: на широких экранах в полле ввода указано "Написать комментарий"
+
+files:
+    - platform/components/SocialPanel/__tests__/SocialPanel_turbo.hermione.js
+
+v-team: Turbo
+
+tlds: none

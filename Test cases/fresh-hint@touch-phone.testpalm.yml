@@ -1,0 +1,36 @@
+feature: Метка свежести
+
+specs:
+  Основные проверки:
+    - params:
+        user_time: '20180910'
+        foreverdata: '4106926816'
+    - do: получить выдачу по запросу "foreverdata"
+    - assert: у сниппета на выдаче голубая метка свежести
+    - screenshot: внешний вид [plain]
+    - assertMetrics: '*'
+
+specs-integration:
+  Основные проверки:
+    - do: получить выдачу по запросу 'авария сегодня' ('законопроект сегодня', 'заседание сегодня')
+    - assert: появились сниппеты с голубыми метками свежести (если их нет на первой странице, перейти на следующую страницу с помощью кнопки 'Показать ещё' и последующие страницы, пока сниппеты не будут найдены)
+    - assert: метка свежести содержит текст
+
+files:
+  - features/fresh-hint/fresh-hint@touch-phone.hermione.e2e.js
+  - features/fresh-hint/fresh-hint@touch-phone.hermione.js
+
+qa-engineer: likharad-m
+
+tags:
+  - reviewed
+
+tlds:
+  - ru
+  - by
+  - kz
+  - ua
+  - com.tr
+  - com
+
+v-team: Beauty

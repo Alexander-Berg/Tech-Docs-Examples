@@ -1,0 +1,16 @@
+feature: Спец.размещение
+params:
+  foreverdata: '3472835581'
+
+specs:
+  Проверка отображения БНО при trafaret_serp_data.Bno = undefined и search_prefs.bno = 1:
+    - do: получить выдачу по запросу 'foreverdata'
+    - screenshot: пример внешнего вида рекламного сниппета с БНО [plain]
+    - assert: на выдаче присутствует рекламный сниппет с БНО
+
+files:
+  - features/desktop/serp-adv-item/premium/premium.hermione.js
+
+v-team: Distribution
+
+tlds: [ru, by, kz, ua, uz]

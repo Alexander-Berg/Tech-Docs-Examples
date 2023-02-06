@@ -1,0 +1,41 @@
+feature: Стихолюб
+counter: /$page/$main/$result[@wizard_name="poetry_lover"]
+
+specs:
+  Проверка внешнего вида:
+    - counter: /$page/$main/$result[@wizard_name="poetry_lover"]/more
+    - do: получить выдачу Поиска по запросу 'есенин не жалею не зову' _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: на выдаче есть стихолюб
+    - screenshot: внешний вид [poetry]
+    - do: кликнуть/тапнуть по кнопке 'Показать ещё'
+    - tech: сработал счётчик /$page/$main/$result/more
+    - assert: появился полный текст колдунщика
+    - screenshot: полный стих [poetry-expanded]
+    - do: кликнуть/тапнуть на кнопку 'Свернуть'
+    - tech: сработал счётчик /$page/$main/$result/less
+    - assert: полный текст колдунщика скрылся
+    - do: кликнуть/тапнуть по первой ссылке в разделе 'Где почитать'
+    - tech: сработал счётчик /$page/$main/$result/key-value/url[@pos=0]
+    - assert: в новой вкладке открылся сайт-источник
+
+  Проверка внешнего вида для коротких стихов:
+    - do: получить выдачу Поиска по запросу 'да охранюся я от мушек' _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: на выдаче есть стихолюб
+    - screenshot: внешний вид [poetry]
+
+files:
+  - src/features/Lyrics/Lyrics.test/Lyrics@common.hermione.js
+
+v-team: Facts
+
+tlds:
+  - ru
+  - by
+  - ua
+  - kz
+  - uz
+  - com.tr
+  - com
+
+tags:
+  - react

@@ -1,0 +1,31 @@
+feature: Коллауты
+type: Сниппеты реклама
+experiment: Обратный флаг для коллаутов
+
+specs:
+  Контроль на первые 3 коллаута:
+    - params:
+        foreverdata: '1193310802'
+    - do: получить выдачу по запросу 'foreverdata'
+    - screenshot: вид выдачи [collaut]
+  Флаг direct_callouts_all_granny_reverse делает видимыми коллауты только у 1СР:
+    - params:
+        foreverdata: '1193310802'
+        exp_flags: direct_callouts_all_granny_reverse=1
+    - do: получить выдачу по запросу 'foreverdata'
+    - screenshot: вид выдачи [collaut-flag]
+  Выжирнение в коллаутах:
+    - params:
+        foreverdata: '2739112276'
+    - do: получить выдачу по запросу 'foreverdata'
+    - screenshot: вид выдачи [collaut-bold]
+
+files:
+  - features/common/adapters/adapter-adv/__meta/adapter-adv__meta.hermione.js
+
+v-team: Distribution
+
+tags:
+  - no_assessors
+
+tlds: [ru]

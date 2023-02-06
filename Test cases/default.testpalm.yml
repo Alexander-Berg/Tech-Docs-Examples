@@ -1,0 +1,22 @@
+feature: Страница новостей
+
+specs:
+  Вставляет favicon паблишера:
+    - do: получить выдачу по запросу 'ren tv'
+    - do: открыть турбо-страницу в новой вкладке
+    - assert: Во вкладках браузера отображается favicon идентичный оригиналу
+
+  Вставляет favicon по умолчанию:
+    - do: перейти по ардесу 'https://yandex.ru/turbo?stub=page/default-favicon.json'
+    - assert: Во вкладках браузера отображается favicon со значком Яндекс
+
+files:
+  - features/common/pages/default/default.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: dakhetov
+
+tlds: none

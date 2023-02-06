@@ -1,0 +1,30 @@
+feature: Колдунщик 1орг
+experiment: Фотографии в прайсах
+
+specs:
+  Основные проверки:
+    - do: получить выдачу по запросу 'duo pizza and wine екатеринбург'
+    - assert: показалась карточка организации
+    - assert: в карточке есть блок прайсов без фото
+    - screenshot: пример внешнего вида [short]
+    - do: кликнуть титул блока прайсов
+    - assert: открылся оверлей с табом "Меню" и прайсами с фото
+    - do: нажать таб Главное
+    - assert: открылся таб главное в оверлее
+    - assert: в табе есть блок прайсов с фото
+    - screenshot: пример внешнего вида [overlay-plain]
+    - assertMetrics: '*'
+
+files:
+  - features/companies/prices/photos/photos@touch-phone.hermione.js
+
+counter: /snippet/companies/company/sideblock/price-list
+
+v-team: VanillaGeo
+
+tags:
+  - skip_e2e_check
+
+tlds: all
+
+priority: high

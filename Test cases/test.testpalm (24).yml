@@ -1,0 +1,28 @@
+feature: Feature one
+
+params:
+  foreverdata: '1234'
+
+specs:
+  Describe in specs:
+    The first it case:
+      - params:
+          text:
+            - something
+      - do: something 1
+    The second it case:
+      - params:
+          text:
+            - something2
+          exp_flags:
+            - hideads=1
+      - do: something 2
+    The last it case:
+      - params:
+          exp_flags:
+            - reviews=1
+            - url_font-size=20
+      - do: something 3
+
+files:
+  - test/fixtures/value-edit/test.hermione.js

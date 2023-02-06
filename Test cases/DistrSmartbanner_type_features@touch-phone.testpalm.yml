@@ -1,0 +1,68 @@
+feature: Смартбаннер React
+type: со списком фич
+
+description: |
+  Везде, кроме Яндекс Поискового приложения, проходить кейсы в режиме инкогнито
+
+params:
+  foreverdata: '2162081419'
+  exp_flags:
+    - smartbanner_atom=1
+
+specs-integration:
+  Присутствует на странице:
+    - params:
+        banner-id: '72057605999494467'
+    - tags: no_assessors
+    - do: почистить куки
+    - do: получить выдачу по запросу txt
+    - assert: на выдаче присутствует смартбаннер
+    - assert: кнопки в колдунщике кликабельны
+
+specs:
+  Внешний вид смартбаннера без кнопки закрыть:
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: смартбаннер появился на выдаче
+    - screenshot: Пример внешнего вида смартбаннера [smartbanner-features-cross]
+    - tech: проверить счётчик в крестике /$page/distr-smartbanner/close
+    - do: клик в "Закрыть"
+    - assert: смартбаннер исчез
+  beforeEach:
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: смартбаннер появился на выдаче
+  Внешний вид:
+    - tags:
+        - smoke
+    - screenshot: Пример внешнего вида смартбаннера [features]
+  По клику на кнопку 'Скачать' смартбаннер должен скрываться:
+    - tech: проверить счётчик в кнопке 'Скачать' /$page/distr-smartbanner/ok
+    - do: клик в кнопку 'Скачать'
+    - assert: смартбаннер исчез
+  По клику на кнопку 'Скачать' ссылка открывается в текущей вкладке:
+    - do: клик в кнопку 'Скачать'
+    - assert: |
+        ссылка открылась в текущем табе
+        ссылка открывает маркет для скачивания приложения
+  По клику на кнопку 'Закрыть' смартбаннер должен скрываться:
+    - tech: проверить счётчик в кнопке 'Закрыть' /$page/distr-smartbanner/close
+    - do: клик в кнопку 'Закрыть'
+    - assert: смартбаннер исчез
+
+files:
+  - src/features/DistrSmartbannerReact/DistrSmartbannerReact.test/distr-smartbanner_type_features/DistrSmartbanner_type_features@touch-phone.hermione.js
+  - src/features/DistrSmartbannerReact/DistrSmartbannerReact.test/distr-smartbanner_type_features/DistrSmartbanner_type_features@touch-phone.hermione.e2e.js
+
+tlds:
+    - ru
+    - by
+    - kz
+    - ua
+
+counter: /$page/distr-smartbanner/ok
+
+tags:
+  - reviewed
+  - distribution
+  - smartbanner
+
+v-team: Distribution

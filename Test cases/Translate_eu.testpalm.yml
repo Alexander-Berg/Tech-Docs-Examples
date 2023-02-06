@@ -1,0 +1,42 @@
+feature: Кейсы Переводчика для EU
+type: Смоук на домене eu
+
+specs:
+    Гринурл:
+      - automation: SERPTEST-549
+      - do: получить выдачу по запросу 'szerelem translate'
+      - assert: отображается ко-к переводов
+      - do: кликнуть по гринурлу переводчика
+      - assert: открылась страница translate.yandex.com
+
+    Пустой ко-к:
+      - automation: SERPTEST-549
+      - do: получить выдачу по запросу 'translate'
+      - assert: |
+          отображается колдунщик переводов
+          локализация элементов к-ка en
+
+    Заполненный ко-к:
+      - automation: SERPTEST-549
+      - do: получить выдачу по запросу 'szerelem translate'
+      - assert: |
+          отображается ко-к переводов
+          в к-ке отображается корректный перевод
+          локализация элементов к-ка en
+
+langs:
+  - en
+
+tlds:
+  - eu
+
+priority: normal
+
+files: []
+
+v-team: Translations_misspell
+
+tags:
+  - not automated
+  - skip_e2e_check
+  - skip_manual_check

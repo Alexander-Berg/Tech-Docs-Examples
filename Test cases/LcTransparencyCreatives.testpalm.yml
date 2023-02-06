@@ -1,0 +1,46 @@
+feature: LcTransparencyCreatives
+
+tags: no_assessors
+
+specs:
+  Внешний вид блока:
+    - automation: TURBOUI-6926
+    - do: открыть страницу примера блока LcTransparencyCreatives (https://yandex.ru/turbo?stub=lctransparencycreatives%2Fblock.json)
+    - assert: дождаться загрузки данных
+    - screenshot: внешний вид десктопа соответствует скриншоту [https://jing.yandex-team.ru/files/dpoponkin/creatives-1.png]
+    - screenshot: внешний вид мобильного устройства соответствует скриншоту [https://jing.yandex-team.ru/files/dpoponkin/creatives_mobile-1.png]
+    - assert: в select "Размещено" при нажатии предоставляется выбор из пунктов "Весь период" и месяцев в формате "Месяц Год" (например "Февраль 2021")
+    - do: в select выбрать "Февраль 2021"
+    - assert: объявления перезагрузились
+    - do: ввести в поле ввода названия рекламодателя "qwe asd zxc"
+    - assert: ни одного рекламодателя не найдено
+    - screenshot: внешний вид десктопа соответствует скриншоту [https://jing.yandex-team.ru/files/dpoponkin/search_desktop.png]
+    - screenshot: внешний вид мобильного устройства соответствует скриншоту [https://jing.yandex-team.ru/files/dpoponkin/search_mobile.png]
+  
+  Предпросмотр html5-объявления:
+    - automation: TURBOUI-6926
+    - do: открыть страницу примера блока LcTransparencyCreatives (https://yandex.ru/turbo?stub=lctransparencycreatives%2Fblock.json)
+    - assert: дождаться загрузки данных
+    - do: кликнуть по превью первого объявления, что не имеет кнопки "play"
+    - assert: открылась модалка с превью объявления
+    - do: закрыть модалку по крестику
+  
+  Предпросмотр video-объявления:
+    - automation: TURBOUI-6926
+    - do: открыть страницу примера блока LcTransparencyCreatives (https://yandex.ru/turbo?stub=lctransparencycreatives%2Fblock.json)
+    - assert: дождаться загрузки данных
+    - do: кликнуть по превью первого объявления с кнопкой "play"
+    - assert: открылась модалка с видео, что автоматически воспроизвелось
+    - do: дождаться конца рекламы
+    - assert: появилась кнопка повтора
+    - do: нажать на кнопку повтора
+    - assert: видео рекламы играет с начала
+    - do: закрыть модалку по крестику
+
+v-team: Turbo
+
+manager: nickpro
+
+qa-engineer: skurhansky
+
+tlds: none

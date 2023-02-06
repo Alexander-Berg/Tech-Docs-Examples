@@ -1,0 +1,22 @@
+feature: sportRaceResult
+
+specs:
+  Внешний вид блока:
+    - tags:
+      - sportauto
+    - do: открыть /turbo?stub=sportraceresult/default.json
+    - assert: виджет отображается
+    - screenshot: внешний вид соответствует скриншоту [plain]
+    - assert: проскроллить правую часть до конца
+    - screenshot: внешний вид соответствует скриншоту [plain-scroll]
+
+files:
+  - platform/components/SportRaceResult/__tests__/SportRaceResult@phone.hermione.js
+
+v-team: Sport
+
+qa-engineer: nightsonne
+
+manager: skhovaev
+
+tlds: none

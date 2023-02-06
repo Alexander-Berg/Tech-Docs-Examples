@@ -1,0 +1,29 @@
+feature: EcomArrowLink
+
+params:
+  exp_flags:
+    - analytics-disabled=1
+
+browsers:
+  - ios-safari-12-touch
+  - ios-safari-11-touch
+  - ios-safari-10-touch
+  - ios-safari-9-touch
+
+specs:
+  Внешний вид блока:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=ecomarrowlink/default.json
+    - screenshot: внешний вид [plain]
+
+files:
+  - platform/components/EcomArrowLink/EcomArrowLink.tests/EcomArrowLink@phone.hermione.js
+
+tags:
+  - e-commerce
+  - no_assessors #раскатили новый дизайн на 100%
+
+v-team: Turbo
+
+manager: nickpro
+
+tlds: none

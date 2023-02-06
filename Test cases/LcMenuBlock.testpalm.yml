@@ -1,0 +1,43 @@
+feature: LcMenuBlock
+
+tags: no_assessors
+
+specs:
+  Отображаются разделители и стрелки:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcmenublock/default.json)
+    - screenshot: внешний вид соответствует скриншоту [default]
+  Количество колонок:
+    одна:
+      - do: открыть страницу (https://yandex.ru/turbo?stub=lcmenublock/columns-1.json)
+      - screenshot: внешний вид соответствует скриншоту [columns-1]
+    две:
+      - do: открыть страницу (https://yandex.ru/turbo?stub=lcmenublock/columns-2.json)
+      - screenshot: внешний вид соответствует скриншоту [columns-2]
+    три:
+      - do: открыть страницу (https://yandex.ru/turbo?stub=lcmenublock/columns-3.json)
+      - screenshot: внешний вид соответствует скриншоту [columns-3]
+    четыре:
+      - do: открыть страницу (https://yandex.ru/turbo?stub=lcmenublock/columns-4.json)
+      - screenshot: внешний вид соответствует скриншоту [columns-4]
+  Шрифт YS Display:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcmenublock/with-display-font.json)
+    - screenshot: внешний вид соответствует скриншоту [with-display-font]
+  Ссылка с пункта меню:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcmenublock/with-link.json)
+    - screenshot: внешний вид соответствует скриншоту [with-link]
+    - do: кликнуть по единственному пункту меню
+    - assert: открылась страница https://yandex.ru в той же вкладке
+  Без иконок:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcmenublock/empty-icon.json)
+    - screenshot: внешний вид соответствует скриншоту [empty-icon]
+
+files:
+  - platform/components/LcMenuBlock/__tests__/LcMenuBlock.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: ratyulenev
+
+tlds: none

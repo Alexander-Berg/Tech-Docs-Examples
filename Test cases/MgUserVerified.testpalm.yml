@@ -1,0 +1,17 @@
+feature: MgUserVerified
+
+specs:
+  Внешний вид:
+    - do: открыть страницу https://yandex.ru/turbo?stub=mguserverified/default.json
+    - assert: оба размера иконки верификации отображаются нормально
+    - screenshot: внешний вид соответствует скриншоту [plain]
+files:
+    - platform/components/MgUserVerified/MgUserVerified.tests/MgUserVerified.hermione.js
+
+v-team: District
+
+manager: gorelikiss
+
+qa-engineer: vulpes, kudyukova
+
+tlds: none

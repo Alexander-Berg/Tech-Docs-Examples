@@ -1,0 +1,21 @@
+feature: Переводный поиск
+type: Промо переводного поиска
+
+specs:
+  Внешний вид и счётчики:
+    - params:
+        exp_flags:
+          - translated_promo=translated
+    - do: получить выдачу по запросу 'киану ривз'
+    - assert: на выдаче присутствует сниппет с переводом
+    - assert: под сниппетом с переводом присутствует промоплашка со ссылкой перехода на переводную вертикаль
+    - tech: проверить серверный счетчик c path='/$page/$main/$result/translated-promo'
+    - screenshot: внешний вид соответствует скриншоту [plain]
+    - assert: ссылка на переводную вертикаль содержит параметр yatr=1
+
+files:
+  - src/features/TranslatedPromo/TranslatedPromo.test/TranslatedPromo@common.hermione.js
+
+v-team: Translations_misspell
+
+tlds: [ru]

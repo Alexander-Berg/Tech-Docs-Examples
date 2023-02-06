@@ -1,0 +1,72 @@
+feature: Модальная дистрибуция на СЕРПе
+type: C промо для скачивания Я.Бро
+
+specs:
+  Проверки неотрисовки:
+    Выключение попапа под флагом:
+      - params:
+          foreverdata: '3799963721'
+          exp_flags:
+              - distr_popup_disable=1
+      - do: получить выдачу по запросу "foreverdata"
+      - assert: на странице отсутствует модальное окно дистрибуции
+    Общее выключение попапов:
+      - params:
+          foreverdata: '3799963721'
+          exp_flags:
+              - hide-popups=1
+      - do: получить выдачу по запросу "foreverdata"
+      - assert: на странице отсутствует модальное окно дистрибуции
+    Неподдерживаемый тип (download):
+      - params:
+          foreverdata: '222360420'
+      - do: получить выдачу по запросу "foreverdata"
+      - assert: на странице отсутствует модальное окно дистрибуции
+  Проверки отрисовки:
+    Внешний вид:
+      - params:
+          foreverdata: '3799963721'
+      - do: очистить куки
+      - do: получить выдачу по запросу "foreverdata"
+      - assert: на странице открылось модальное окно дистрибуции
+      - screenshot: внешний вид [plain]
+    Проверка счетчика видимости:
+      - tags:
+          - no_assessors
+      - params:
+          foreverdata: '3799963721'
+      - do: очистить куки
+      - do: получить выдачу по запросу "foreverdata"
+      - assert: на странице открылось модальное окно дистрибуции
+      - tech: сработал счётчик path="/$page/distr-splashscreen"
+    Проверка кнопки закрыть:
+      - params:
+          foreverdata: '3799963721'
+      - do: очистить куки
+      - do: получить выдачу по запросу "foreverdata"
+      - assert: на странице открылось модальное окно дистрибуции
+      - do: нажать крестик закрытия окна
+      - tech: сработал счётчик path="/$page/distr-splashscreen/close[@tags@close=1 and @behaviour@type="dynamic"]"
+      - assert: модальное окно закрылось
+    Проверка кнопки установить:
+      - params:
+          foreverdata: '3799963721'
+      - do: очистить куки
+      - do: получить выдачу по запросу "foreverdata"
+      - assert: на странице присутствует модальное окно дистрибуции
+      - assert: ссылка кнопки «Скачать» ведёт на yabs.yandex.ru
+      - do: нажать на кнопку скачивания
+      - tech: сработал счётчик path="/$page/distr-splashscreen/install"
+      - assert: модальное окно закрылось, началось скачивание файла
+
+files:
+  - features/desktop/distr-splashscreen/DistrSplashscreen@desktop.hermione.js
+
+tags:
+  - distribution
+  - splashscreen
+  - no_assessors # убрать после https://st.yandex-team.ru/SERPTEST-2384
+
+v-team: Distribution
+
+tlds: [ru]

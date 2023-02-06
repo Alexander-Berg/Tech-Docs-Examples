@@ -1,0 +1,79 @@
+feature: EcomFooter
+
+params:
+  exp_flags:
+    - analytics-disabled=1
+
+browsers:
+  - ios-safari-12-touch
+  - ios-safari-11-touch
+  - ios-safari-10-touch
+  - ios-safari-9-touch
+
+specs:
+  Внешний вид:
+    С данными:
+      - do: открыть страницу https://yandex.ru/turbo?stub=ecomfooter/default.json
+      - assert: футер отображается на странице
+      - screenshot: внешний вид футера соответствует скриншоту [plain]
+    Без данных:
+      - do: открыть страницу https://yandex.ru/turbo?stub=ecomfooter/empty.json
+      - assert: футер отображается на странице
+      - screenshot: внешний вид футера соответствует скриншоту [plain]
+    Только с контактами:
+      - do: открыть страницу https://yandex.ru/turbo?stub=ecomfooter/only-contacts.json
+      - assert: футер отображается на странице
+      - screenshot: внешний вид футера соответствует скриншоту [plain]
+    Только с названием и аккордеоном:
+      - do: открыть страницу https://yandex.ru/turbo?stub=ecomfooter/only-name-with-accordion.json
+      - assert: футер отображается на странице
+      - screenshot: внешний вид футера соответствует скриншоту [plain]
+    Только с названием и ссылками:
+      - do: открыть страницу https://yandex.ru/turbo?stub=ecomfooter/only-name-with-links.json
+      - assert: футер отображается на странице
+      - screenshot: внешний вид футера соответствует скриншоту [plain]
+    Только с названием:
+      - do: открыть страницу https://yandex.ru/turbo?stub=ecomfooter/only-name.json
+      - assert: футер отображается на странице
+      - screenshot: внешний вид футера соответствует скриншоту [plain]
+
+  Проверка общих ссылок:
+    - do: открыть страницу https://yandex.ru/turbo?stub=ecomfooter/default.json
+    - assert: футер отображается на странице
+    - do: тапнуть по рейтингу на Яндекс.Маркете
+    - tech: сработал счетчик с path $page.$main.$result.ecom-footer.link-market
+    - assert: в новой вкладке откроется страница market.yandex.ru
+    - do: вернуться на турбо-версию страницы
+    - assert: футер отображается на странице
+    - do: тапнуть по ссылке "Оригинальный сайт"
+    - tech: сработал счетчик с path $page.$main.$result.ecom-footer.link-full
+    - assert: в новой вкладке откроется страница yandex.ru
+    - do: вернуться на турбо-версию страницы
+    - assert: футер отображается на странице
+    - do: тапнуть по ссылке "Пожаловаться"
+    - tech: сработал счетчик с path $page.$main.$result.ecom-footer.link-support
+    - assert: в новой вкладке откроется страница https://yandex.ru/support/abuse/troubleshooting/turbo/list.html
+
+  Проверка ссылок контактов:
+    - do: открыть страницу https://yandex.ru/turbo?stub=ecomfooter/only-contacts.json
+    - assert: футер отображается на странице
+    - do: тапнуть по первому контакту "8 800 123-12-12"
+    - tech: сработал счетчик с path $page.$main.$result.ecom-footer.link-contact
+    - assert: появилось диалоговое окно с предложением позвонить по номеру "88001231212"
+    - do: отменить звонок
+    - do: тапнуть по контакту "Почта"
+    - tech: сработал счетчик с path $page.$main.$result.ecom-footer.link-contact
+    - assert: открылось меню с предложением выбрать приложение, либо приложение электронной почты
+
+files:
+  - platform/components/EcomFooter/__tests__/EcomFooter@phone.hermione.js
+
+v-team: Turbo
+
+tags: 
+  - e-commerce
+  - no_assessors #раскатили новый дизайн на 100%
+
+manager: tanzwuta
+
+tlds: none

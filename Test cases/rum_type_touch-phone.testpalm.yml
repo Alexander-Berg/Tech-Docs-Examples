@@ -1,0 +1,39 @@
+feature: Счётчики скорости
+type: Touch-phone
+
+description: |
+  Счётчики отправляются батчем с помощью POST-запроса. В логи пишутся как обычно,
+  найти в браузере можно, если посмотреть на POST-запросы на ручку clck
+
+specs:
+    Информация о сети:
+        - do: получить выдачу по запросу 'Rammstein'
+        - tech: проверить наличие счётчика 690.1033 (/tech/timing), он должен быть единственным
+        - tech: |
+            проверить наличие переменных 2437 (connection_type), 2439 (downlink_max)
+            их значения не должны быть пустыми, null или undefined
+
+    Счётчик скорости после нажатия на кнопку "Показать ещё":
+        - do: получить выдачу по запросу 'Rammstein'
+        - do: нажать на кнопку "Показать ещё"
+        - tech: проверить наличие счётчика 690.1201 (/tech/ajax), он должен быть единственным
+        - tech: |
+            проверить наличие счётчиков 690.2096.207 (/tech/perf/time), где есть переменная
+            1701=1201.2295 (id=ajax.bem-inited),
+            1701=2616.1201.2876.1928 (id=raf_metric.ajax.hero_element.last),
+            этот ID должен встречаться только один раз
+
+files:
+    - features/touch-phone/rum/rum_type_touch-phone.hermione.js
+
+v-team: Velocity
+
+tags:
+    - counters
+    - rum
+    - clck
+    - reviewed
+    - no_assessors
+    - skip_e2e_check
+
+tlds: none

@@ -1,0 +1,28 @@
+feature: Hotels / Карусель
+type: Доступность базовых сценариев
+
+params:
+  srcparams:
+    - GEOV:experimental=middle_yandex_travel_RespMode=RM_MultiHotel
+  rearr:
+    - scheme_Local/OrgWizard/ForceCarousel=1
+
+specs:
+  Получение информации об отеле:
+    - automation: SERP-149175
+    - do: получить выдачу по запросу "Отели в Сочи"
+    - do: найти колдунщик отелей
+    - do: найти любой пятизвёздочный отель
+    - do: узнать адрес, доступные услуги и цену за ночь найденного отеля
+    - assert: информация об адресе, услугах и ценах выбраного отеля получена полностью
+
+files: []
+
+tags:
+  - a11y_scenario
+  - a11y_scenario_smoke
+  - skip_manual_check
+
+v-team: KotTeam
+
+tlds: all

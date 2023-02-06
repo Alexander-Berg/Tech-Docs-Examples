@@ -1,0 +1,37 @@
+feature: Выделение текста сообщений
+
+import-steps:
+    - tests/hermione/suites/messenger/shared-steps/open-messenger.testpalm.steps.yml
+
+tlds: ru
+
+specs:
+
+    Выделение части сообщения[manual]:
+        - automation: MSSNGRFRONT-2148
+        - attach: Открытие чата
+        - do: отправить произвольное сообщение в чат
+        - do: выделить часть отправленного сообщения с помощью мыши
+        - assert: сообщение выделилось
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/joshuan/Messenger_2019-02-01_14-14-54.png]
+
+    Выделение текста нескольких сообщения[manual]:
+        - browsers:
+            notFor:
+                - ie11
+        - automation: MSSNGRFRONT-2148
+        - attach: Открытие чата с эхо-ботом
+        - do: отправить произвольное сообщение в чат
+        - do: дождаться сообщения от бота
+        - do: выделить текст полученного и отправленного сообщения с помощью мыши
+        - assert: текст выделился
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/joshuan/Messenger_2019-02-01_14-28-49.png]
+
+files: []
+
+v-team: Chat
+
+tags:
+    - chamb
+    - yamb #TODO: заменить ссылки
+    - y-team #TODO: заменить ссылки

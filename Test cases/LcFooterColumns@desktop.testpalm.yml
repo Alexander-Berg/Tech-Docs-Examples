@@ -1,0 +1,31 @@
+feature: LcFooterColumns
+
+tags: no_assessors
+
+specs:
+  С двумя уровнями:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lccolumnsfooter/default.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Без нижнего уровня:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcfootercolumns/no-bottom-level.json)
+    - screenshot: внешний вид соответствует скриншоту [no-bottom-level]
+  Без верхнего уровня:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcfootercolumns/no-top-level.json)
+    - screenshot: внешний вид соответствует скриншоту [no-top-level]
+  Без заголовка в первой колонке:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcfootercolumns/no-header-in-first-column.json)
+    - screenshot: внешний вид соответствует скриншоту [no-header-in-first-column]
+  С шириной заданной вручную:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcfootercolumns/with-manual-width.json)
+    - screenshot: внешний вид соответствует скриншоту [with-manual-width]
+
+files:
+  - platform/components/LcFooterColumns/__tests__/LcFooterColumns@desktop.hermione.js
+
+v-team: Lc
+
+manager: hanky
+
+qa-engineer: ratyulenev
+
+tlds: none

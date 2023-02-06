@@ -1,0 +1,87 @@
+feature: Колдунщик видео
+experiment: Тултипы фрагмента на маленьких тумбах
+
+params:
+  foreverdata: '2460011809'
+
+tlds: ['ru']
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу "foreverdata"
+    - do: прокрутить до колдунщика видео и дождаться старта видео-превью в тумбе
+
+  Внешний вид:
+    - params:
+        exp_flags:
+          - video_wizard_fragment_small=first
+    - screenshot: внешний вид [plain]
+
+  Только на 1 тумбе:
+    - params:
+        exp_flags:
+          - video_wizard_fragment_small=first
+    - assert: тултип фрагмента появился только 1 тумбе, после окончания первью он остался
+
+  На всех тумбах:
+    - params:
+        exp_flags:
+          - video_wizard_fragment_small=all
+    - assert: тултип фрагмента появляется на нескольких тумбах
+
+  Проверка ссылок и счетчиков на сниппетах, когда фрагмент только на 1 тумбе:
+    - params:
+        exp_flags:
+          - video_wizard_fragment_small=first
+    - do: нажать на тумбу первого сниппета
+    - assert: |
+        произошел переход на Яндекс.Видео
+        в урле присутствуют параметры &t=80&source=fragment
+    - tech: сработал счетчик '/$page/$main/$result/showcase/item/thumb' (attrs='fragment=1')
+    - do: нажать на заголовок первого сниппета
+    - assert: |
+        произошел переход на Яндекс.Видео
+        в урле присутствуют параметры &t=80&source=fragment
+    - tech: сработал счетчик '/$page/$main/$result/showcase/item/descr' (attrs='fragment=1')
+    - do: нажать на тумбу второго сниппета
+    - assert: |
+        произошел переход на Яндекс.Видео
+        в урле отсутствуют параметры &t=80&source=fragment
+    - tech: сработал счетчик '/$page/$main/$result/showcase/item/thumb'
+    - do: нажать на заголовок второго сниппета
+    - assert: |
+        произошел переход на Яндекс.Видео
+        в урле отсутствуют параметры &t=80&source=fragment
+    - tech: сработал счетчик '/$page/$main/$result/showcase/item/descr'
+
+  Проверка ссылок и счетчиков на сниппетах, когда фрагмент может быть в любом сниппете:
+    - params:
+        exp_flags:
+          - video_wizard_fragment_small=all
+    - do: нажать на тумбу первого сниппета
+    - assert: |
+        произошел переход на Яндекс.Видео
+        в урле присутствуют параметры &t=80&source=fragment
+    - tech: сработал счетчик '/$page/$main/$result/showcase/item/thumb' (attrs='fragment=1')
+    - do: нажать на заголовок первого сниппета
+    - assert: |
+        произошел переход на Яндекс.Видео
+        в урле присутствуют параметры &t=80&source=fragment
+    - tech: сработал счетчик '/$page/$main/$result/showcase/item/descr' (attrs='fragment=1')
+    - do: нажать на тумбу второго сниппета
+    - assert: |
+        произошел переход на Яндекс.Видео
+        в урле присутствуют параметры &t=129&source=fragment
+    - tech: сработал счетчик '/$page/$main/$result/showcase/item/thumb' (attrs='fragment=1')
+    - do: нажать на заголовок второго сниппета
+    - assert: |
+        произошел переход на Яндекс.Видео
+        в урле присутствуют параметры &t=129&source=fragment
+    - tech: сработал счетчик '/$page/$main/$result/showcase/item/descr' (attrs='fragment=1')
+
+files:
+  - features/touch-phone/adapter-videowiz/exp/adapter-videowiz-small-thumb-fragment.hermione.js
+
+v-team: Video
+
+priority: normal

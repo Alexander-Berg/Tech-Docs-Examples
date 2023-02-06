@@ -1,0 +1,21 @@
+feature:  Zigbee - добавление через навыки - тултип
+
+specs:
+    Zigbee - добавление через навыки - тултип:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/4333
+        - release_Webview
+        - platform_ios
+        - platform_android
+        - testid_464873
+        - webview_regress
+        - iot_connection
+    - do: "Preconditions На аккаунте 1 мидик"
+    - do: "Тапнуть на + - Устройство умного дома - выбрать навык Aqara"
+    - assert: "Открывается экран выбора Связки аккаунтов/Зигби; ; <img src=`https://jing.yandex-team.ru/files/osennikovak/photo_2022-03-19%2015.18.06.jpeg` alt=`Скриншот` width=`300`/>; ; "
+    - do: "Выбрать Зигби"
+    - assert: "Открывается экран добавления устройств"
+    - do: "Тапнуть на знак вопроса; ; "
+    - assert: "Открывается сообщение; <img src=`https://jing.yandex-team.ru/files/osennikovak/photo_2022-03-19%2015.30.30.jpeg` alt=`Скриншот` width=`300`/>; "
+    - do: "Тапнуть на Понятно"
+    - assert: "Сообщение закрывается"

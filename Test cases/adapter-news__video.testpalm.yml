@@ -1,0 +1,94 @@
+feature: Колдунщик новостей
+type: Видеохостинг
+
+specs:
+  Эксперимент с переносом видео наверх:
+    Список видео:
+      - params:
+          foreverdata: '1059543605'
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: на странице есть новостной колдунщик
+      - screenshot: пример внешнего вида блока видео-новостей [newsListRight]
+      - assert: над записями с новостями есть карусель с видео (видео с названиями и метками времени)
+      - assertMetrics: '-'
+
+    Одно видео:
+      - params:
+          foreverdata: '985944605'
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: на странице есть новостной колдунщик
+      - screenshot: пример внешнего вида блока видео-новостей [newsListRight]
+      - assert: над записями с новостями есть 1 тумба с видео, названием видео и меткой времени
+      - assertMetrics: '-'
+
+    Два видео:
+      - params:
+          foreverdata: '3514637140'
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: на странице есть новостной колдунщик
+      - screenshot: пример внешнего вида блока видео-новостей [newsListRight]
+      - assert: над записями с новостями есть 2 тумбы с видео, названием видео и меткой времени
+      - assertMetrics: '-'
+
+  Видео в рубричном колдунщике:
+    Список видео:
+      - params:
+          foreverdata: '1209745582'
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: на странице есть новостной колдунщик
+      - screenshot: пример внешнего вида блока видео-новостей [newsRubric]
+      - assertMetrics: '-'
+
+    Одно видео:
+      - params:
+          foreverdata: '4180194985'
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: на странице есть новостной колдунщик
+      - screenshot: пример внешнего вида блока видео-новостей [newsRubric]
+      - assertMetrics: '-'
+
+    Два видео:
+      - params:
+          foreverdata: '4064470907'
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: на странице есть новостной колдунщик
+      - screenshot: пример внешнего вида блока видео-новостей [newsRubric]
+      - assertMetrics: '-'
+
+    Три видео:
+      - params:
+          foreverdata: '869561143'
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: на странице есть новостной колдунщик
+      - screenshot: пример внешнего вида блока видео-новостей [newsRubric]
+      - assertMetrics: '-'
+    Видео сверху:
+      Несколько видео:
+        - tags: smoke
+        - params:
+            foreverdata: '3816197874'
+        - do: получить выдачу по запросу 'foreverdata'
+        - assert: на странице есть новостной колдунщик
+        - screenshot: примерный внешний вид [newsRubricWithVideosOnTop]
+        - assertMetrics: '-'
+      Одно видео:
+        - params:
+            foreverdata: '383970607'
+        - do: получить выдачу по запросу 'foreverdata'
+        - assert: на странице есть новостной колдунщик
+        - screenshot: примерный внешний вид [newsRubricWithOneVideoOnTop]
+        - assertMetrics: '-'
+
+files:
+  - features/common/news/__video/adapter-news__video.hermione.js
+
+tags:
+  - skip_e2e_check #фича скрыта за параметром данных news_list_right_video_top и ее нет в проде
+  - reviewed
+  - news
+
+v-team: Freshness
+
+counter: /$page/$main/$result[@wizard_name="news"]
+
+tlds: ru

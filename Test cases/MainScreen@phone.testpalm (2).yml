@@ -1,0 +1,136 @@
+feature: Ecom-tap
+
+params:
+  exp_flags:
+    - turbo-app-any-ua=1
+    - analytics-disabled=1
+
+specs:
+  beforeEach:
+    - do: при дальнейшей проверке указанных ожидаемых результатов обращайте внимание на любые некорректные на ваш взгляд поведения, основываясь на свой опыт использования web-приложений (например, сохранение позиции при переходах туда-обратно кнопками на устройстве, пустые экраны при переходах, кривая верстка, скачкИ элементов, плавность скролла, неработающая функциональность и т.п.)
+
+  Внешний вид главной страницы:
+    - do: открыть страницу https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog/main/?morda=1&ecommerce_main_page_preview=1
+    - screenshot: внешний вид соответствует скриншоту [page]
+
+  Наличие бесконечной ленты на главной странице:
+    - params:
+        exp_flags:
+          - turbo-app-morda-redesign=1
+    - do: открыть страницу https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog/main/?morda=1&ecommerce_main_page_preview=1
+    - assert: открылась страница с блоком "Все товары"
+
+  Внешний вид шапки с длинным текстом:
+    - tags:
+        - no_assessors # в тесте используется патч
+    - do: открыть страницу https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog/main/?morda=1&ecommerce_main_page_preview=1
+    - screenshot: внешний вид соответствует скриншоту [page]
+
+  Внешний вид главной страницы после перехода с каталога:
+    - do: открыть страницу https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog/
+    - do: кликнуть по кнопке "главная" в нижнем левом углу
+    - screenshot: внешний вид соответствует скриншоту [page]
+
+  При клике в баннер открывается в той же вкладке:
+    - do: открыть страницу https://yandex.ru/turbo/zymbo.ru/n/yandexturbocatalog/main/?stub=ecom-tap%2Finternal-zymbo.json
+    - do: кликнуть по банеру [https://jing.yandex-team.ru/files/werreour/2020-05-06T12%3A39%3A51Z.png]
+    - assert: открылась страница в той же вкладке (yandex.ru/turbo?text=https://zymbo.ru/dlya-doma/aerator-ekonomitel.html)
+
+  При клике в баннер открывается в другой вкладке:
+    - do: открыть страницу http://yandex.ru/turbo?stub=ecom-tap%2Fexternal-zymbo.json&text=zymbo.ru%2Fyandexturbocatalog%2F&page_type=main
+    - do: открыть страницу https://yandex.ru/turbo/zymbo.ru/n/yandexturbocatalog/main/?stub=ecom-tap%2Fexternal-zymbo.json
+    - do: кликнуть по банеру [https://jing.yandex-team.ru/files/werreour/2020-05-06T12%3A39%3A51Z.png]
+    - assert: открылась страница в новой вкладке (yandex.ru/search/touch)
+
+  Плавно скроллится:
+    - automation: TURBOUI-3912
+    - do: получить выдачу по запросу 'site:fulmar.ru' (альтернативные запросы - site:kupicase.ru каталог, 'site:super01.ru')
+    - assert: на выдаче присутствует турбо-сниппет(ы) с серой иконкой ракеты справа от гринурла
+    - do: кликнуть по любой ссылке турбо-сниппета для перехода на страницу магазина
+    - assert: открылась страница магазина с активной кнопкой Каталог на нижней панели
+    - assert: цветовое оформление может отличаться в зависимости от магазина [https://jing.yandex-team.ru/files/skurhanski/chrome_Gw9upIcJ8I.png]
+    - do: кликнуть по пиктограмме Главная на нижней панели
+    - do: проскроллить вниз
+    - assert: сраница скроллится плавно без задержек
+    - do: проскроллить вверх до конца
+    - assert: сраница скроллится плавно без задержек
+    - assert: отображается логотип магазина
+
+  Варианты товаров в карусели:
+    - automation: TURBOUI-5851
+    - do: перейти по ссылке https://yandex.ru/turbo/super01.ru/n/yandexturbocatalog/main/?morda=1&ecommerce_main_page_preview=1
+    - assert: открылась страница магазина с активной кнопкой Главная на нижней панели
+    - assert: как минимум в одной карусели товаров есть карточки с кнопкой 'N вариантов' [https://jing.yandex-team.ru/files/skurhanski/EyTyzUcTkk.png]
+    - do: кликнуть по кнопке 'N вариантов'
+    - assert: открылась карточка товара
+
+  Проверка внешнего вида коллеций на главной странице:
+    Перенос названия коллекции:
+      - do: открыть страницу https://yandex.ru/turbo/petdog.ru/n/yandexturbocatalog/main/?morda=1&ecommerce_main_page_preview=1
+      - assert: внешний вид блока коллекций (Товары со скидкой) соответствует скриншоту [collections-title]
+
+    Обрезание длинного поля количества товаров:
+      - do: открыть страницу https://yandex.ru/turbo/petdog.ru/n/yandexturbocatalog/main/?morda=1&ecommerce_main_page_preview=1
+      - assert: внешний вид блока коллекций (Товары со скидкой) соответствует скриншоту [collections-count]
+
+  Сохранение скролла в блоке рекомендаций на Главной:
+    - do: перейти по ссылке https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog/main/?morda=1&ecommerce_main_page_preview=1
+    - do: пролистать до первого блока рекомендаций товаров (блок с популярными или выгодными товарами)
+    - do: проскроллить блок рекомендаций до конца
+    - do: нажать на последнюю карточку товара
+    - assert: открылась страница товара
+    - do: перейти по истории назад
+    - assert: блок рекомендаций проскроллен до конца
+
+  Скрытие кол-ва товаров в категориях и коллекциях на главной:
+    - params:
+        exp_flags:
+          - turbo-app-hide-category-count=1
+    - do: открыть страницу https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog/main/?morda=1&ecommerce_main_page_preview=1
+    - screenshot: список категорий не содержит кол-во товаров [categories]
+    - screenshot: товары со скидками не содержат кол-во товаров [collection]
+
+  Рекомендации на главной странице:
+    - tags: no_assessors # используется патч
+    - do: перейти по ссылке https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog/main/?morda=1&ecommerce_main_page_preview=1&_ym_debug=1
+    - do: доскроллить до рекомендаций
+    - assert: рекомендации есть на странице
+    - do: доскролить так, чтобы первый товар в карусели был внутри viewport
+    - assert: |
+        проверить, что отправилась цель метрики в счетчик 53911873
+        с названием "product-carousel-seen" и параметрами
+        ecom_spa: 1,
+        host: 'spideradio.github.io',
+        metrikaIds: \['65243191'\],
+        place: 'mainPage',
+        recommendationType: 'personal',
+        reqid: '1611135338710778-1076811384583772757300104-hamster-app-host-vla-web-yp-1',
+        turbo_app_enabled: 1.
+        reqid будет отличаться по значению, но по структуре должен совпадать.
+    - assert: |
+        проверить, что отправилась цель метрики в счетчик 53911873
+        с названием "product-item-seen" и параметрами
+        host: 'spideradio.github.io',
+        metrikaIds: \['65243191'\],
+        offerId: '127',
+        originalUrl: 'https://spideradio.github.io/rnd/2lum7hf3',
+        place: 'mainPage',
+        productUrl: 'https://yandex.ru/turbo/spideradio.github.io/s/?pcgi=rnd%3Djy7b4qqsed',
+        reqid: '1611135338710778-1076811384583772757300104-hamster-app-host-vla-web-yp-1',
+        recommendationType: 'personal',
+        turbo_app_enabled: 1.
+        offerId, reqid и productUrl будут отличаться по значению, но по структуре должны совпадать.
+    - do: нажать кнопку "В корзину"
+    - assert: отправилась цель с теми же параметрами, что и "product-item-seen", но с названием "product-item-click-add-to-cart"
+    - do: нажать на картинку товара
+    - assert: отправилась цель с теми же параметрами, что и "product-item-seen", но с названием "product-item-click"
+
+files:
+    - screens/MainScreen/__tests__/MainScreen@phone.hermione.js
+
+tlds: ru
+
+tags:
+  - ecom-tap
+
+v-team: Turbo

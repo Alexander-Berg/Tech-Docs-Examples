@@ -1,0 +1,59 @@
+feature: Запрос роли
+
+specs:
+  beforeEach:
+    - do: проверить, что в персональном воркфлоу Тестовой системы указан правильный код для роли "group-92" (/system/testsystem/workflow)
+    - screenshot: правильные настройки персонального воркфлоу Тестовой системы [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-03%2012-15-44.png]
+    - do: проверить, что в групповом воркфлоу Тестовой системы указан правильный код для роли "group-92" (/system/testsystem/workflow)
+    - screenshot: правильные настройки группового воркфлоу Тестовой системы [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-03%2012-19-27.png]
+    - do: запустить в Runner сценарий "Запрос роли, когда необязательный подтверждающий уволен" (https://github.yandex-team.ru/pixel/idm-runner)
+
+  Запрос персональной бессрочной роли, когда необязательный подтверждающий уволен:
+    - automation: IDM-9634
+    - do: отправить запрос "Запрос персональной бессрочной роли. Среди необязательных подтверждающих есть уволенные" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "201"
+    - screenshot: ответ на запрос "Запрос персональной бессрочной роли. Среди необязательных подтверждающих есть уволенные" должен содержать поля [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-03%2012-17-59.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Отзыв роли через api. Для тестовых данных" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "204"
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+
+  Запрос групповой бессрочной роли, когда необязательный подтверждающий уволен:
+    - automation: IDM-9636
+    - do: отправить запрос "Запрос групповой роли. Среди необязательных подтверждающих есть уволенные" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "201"
+    - screenshot: ответ на запрос "Запрос групповой роли. Среди необязательных подтверждающих есть уволенные" должен содержать поля [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-03%2012-20-51.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Отзыв роли через api. Для тестовых данных" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "204"
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+
+priority: blocker
+
+files: []
+
+tags:
+  - reviewed
+  - no_assessors
+  - postman_automation
+  - fitcher:idm-www:blocks/desktop/card/__controls/**
+  - fitcher:idm-www:blocks/desktop/idm-form-island/**
+  - fitcher:idm-www:blocks/desktop/modal/**
+  - fitcher:idm-www:blocks/desktop/role-request-form/**
+  - fitcher:idm-www:blocks/desktop/cards/**
+  - fitcher:idm-www:blocks/desktop/table/__check-panel/**
+  - fitcher:idm-www:test/auto/01-roles/01-request/**
+  - fitcher:idm_backend_palmsync:idm/tests/request_role/test_group_role.py
+  - fitcher:idm_backend_palmsync:idm/core/constants/**
+  - fitcher:idm_backend_palmsync:idm/core/models/role.py
+  - fitcher:idm_backend_palmsync:idm/core/models/rolenode.py
+  - fitcher:idm_backend_palmsync:idm/core/models/approverequest.py
+  - fitcher:idm_backend_palmsync:idm/core/models/transfer.py
+  - fitcher:idm_backend_palmsync:idm/core/models/rolefield.py
+  - fitcher:idm_backend_palmsync:idm/core/plugins/errors.py
+  - fitcher:idm_backend_palmsync:idm/users/models.py
+  - fitcher:idm_backend_palmsync:idm/utils/b2b.py

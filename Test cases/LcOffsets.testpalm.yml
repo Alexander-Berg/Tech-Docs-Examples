@@ -1,0 +1,38 @@
+feature: LcOffsets
+
+tags: no_assessors
+
+specs:
+  Размер XS:
+    - do: открыть страницу примера блока lcOffsets (yandex.ru/turbo?stub=lcoffsets/size-xs.json)
+    - assert: виден текст 'Size XS'
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Размер S:
+    - do: открыть страницу примера блока lcOffsets (yandex.ru/turbo?stub=lcoffsets/size-s.json)
+    - assert: виден текст 'Size S'
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Размер M:
+    - do: открыть страницу примера блока lcOffsets (yandex.ru/turbo?stub=lcoffsets/size-m.json)
+    - assert: должен быть видет текст 'Size M'
+    - assert: виден текст 'Size M'
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Размер L:
+    - do: открыть страницу примера блока lcOffsets (yandex.ru/turbo?stub=lcoffsets/size-l.json)
+    - assert: должен быть видет текст 'Size L'
+    - assert: виден текст 'Size L'
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Размер XL:
+    - do: открыть страницу примера блока lcOffsets (yandex.ru/turbo?stub=lcoffsets/size-xl.json)
+    - assert: виден текст 'Size XL'
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+    - platform/components/LcOffsets/__tests__/LcOffsets.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: olimiya, shinuta
+
+tlds: none

@@ -1,0 +1,30 @@
+feature: Задачи
+type: Каталог. Пожаловаться
+
+specs:
+  Сообщить об ошибке [manual]:
+    - automation: FEMIDA-4983
+    - do: открыть страницу /problems/<id_задачи>
+    - assert: |
+        открылась страница задачи
+        на уровне заголовка есть иконка жука
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/grikyan91/Test__Femida_2019-08-15_17-16-42.png]
+    - do: клик на иконку жука
+    - screenshot: открылся попап 'Пожаловаться' [https://jing.yandex-team.ru/files/grikyan91/Test__Femida_2019-08-15_17-17-19.png]
+    - do: выбрать значение в поле 'Тип'
+    - do: заполнить поле 'Комментарий', если тип дубликат, то еще заполнить поле 'Оригинал'
+    - do: клик на 'Сохранить'
+    - assert: |
+        попап закрылся
+        жалоба отобразилась на табе 'Жалобы'
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/grikyan91/Test__Femida_2019-08-15_17-20-33.png]
+
+tags:
+  - reviewed
+
+priority: normal
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

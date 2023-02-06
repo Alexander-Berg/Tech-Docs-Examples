@@ -1,0 +1,58 @@
+feature: Кастомный CSS minor-hosts
+
+specs:
+  kp.ru статья:
+    Загрузка страницы:
+    - tags: no_assessors #убрать тег после расскипывания https://st.yandex-team.ru/TURBOUI-6808
+    - params:
+        foreverdata: '2612317396'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок первого сниппета (название заголовка Тестовая cтраница для kp.ru статья — турбо)
+    - screenshot: внешний вид [plain]
+
+    Меню:
+    - params:
+        foreverdata: '2612317396'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок первого сниппета (название заголовка Тестовая cтраница для kp.ru статья — турбо)
+    - do: открыть меню
+    - screenshot: внешний вид [menu]
+
+  lamobile.ru товар:
+    tags: no_assessors #старого екома нет в проде
+    Загрузка страницы:
+    - params:
+        foreverdata: '973652075'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок первого сниппета (название заголовка Тестовая cтраница для lamobile.ru — турбо)
+    - screenshot: внешний вид [plain]
+
+    Меню:
+    - params:
+        foreverdata: '973652075'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок первого сниппета (название заголовка Тестовая cтраница для lamobile.ru — турбо)
+    - do: открыть меню
+    - screenshot: пример внешнего вида (кол-во категорий может отличаться) [menu]
+
+  remont-f.ru статья:
+    tags: no_assessors
+    Загрузка страницы:
+    - params:
+        foreverdata: '273762267'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок первого сниппета (название заголовка Тестовая cтраница для remont-f.ru — турбо)
+    - screenshot: внешний вид [plain]
+
+    Меню:
+    - params:
+        foreverdata: '273762267'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок первого сниппета (название заголовка Тестовая cтраница для remont-f.ru — турбо)
+    - do: открыть меню
+    - screenshot: внешний вид [menu]
+
+files:
+  - features/touch-phone/custom-css/minor-hosts.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: olga0321, klimovaksyu
+
+tlds: none

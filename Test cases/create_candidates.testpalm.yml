@@ -1,0 +1,43 @@
+feature: Кандидат
+type: Создание
+
+specs:
+  beforeEach:
+    - do: открыть страницу /candidates/create/
+    - screenshot: открылась форма создания нового кандидата [candidat_create_form_empty]
+  Проверка обязательных полей:
+      - do: клик на кнопку 'Сохранить'
+      - screenshot: выдали ошибки обязательные поля [candidate_create_form_validation]
+  Новый кандидат:
+      - do: заполнить поле 'Фамилия'
+      - do: заполнить поле 'Имя'
+      - do: заполнить поле 'Дата рождения'
+      - do: выбрать значение в поле 'Пол'
+      - do: заполнить поле 'Страна'
+      - do: заполнить поле 'Город рассмотрения'
+      - do: выбрать человека в поле 'Рекрутеры'
+      - do: выбрать значение в поле 'Источник'
+      - do: заполнить поле 'Основной email'
+      - screenshot: пример внешнего вида заполненной формы [candidate_form_filled]
+      - do: кликнуть 'Сохранить'
+      - assert: |
+          средиректило на созданную страницу кандидата /candidates/<id_кандидата>/
+          статус у кандидата 'В работе'
+          в шапке есть кнопка '...'
+          есть сообщение 'Сейчас не рассматривается на вакансии'
+          в шапке есть кнопка 'Добавить на вакансию'
+          выбран таб 'Профиль' с заполненной информацией о кандидате
+      - screenshot: пример внешнего вида [candidate_page]
+
+tags:
+    - reviewed
+
+files:
+    - tests/hermione/suites/desktop/candidates/create_candidates/create_candidates.hermione.js
+
+priority: blocker
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

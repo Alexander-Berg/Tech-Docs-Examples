@@ -1,0 +1,35 @@
+feature: Антиробот
+description: Проверка работы капчи для ajax
+
+specs:
+    Страница задачи:
+        beforeEach:
+            - do: перейти по адресу /subject/problem/?problem_id=T979
+            - do: кликнуть в кнопку "Проверить ответ"
+            - assert: открылся попап с капчей
+        Внешний вид:
+            - tags: no_assessors
+            - screenshot: внешний вид модального окна с капчей [captcha]
+        Удачный ввод капчи:
+            - tags: no_assessors
+            - do: ввести в поле текст с картинки
+            - assert: границы поля ввода ответа подсвечены красным
+            - assert: справа от номера задания присутствует крестик и текст "Задание было решено неверно"
+        Неудачный ввод капчи:
+            - tags: no_assessors
+            - do: ввести в поле текст несовпадающее с текстом с картинки
+            - assert: модальное окно появилось снова с новой картинкой
+
+v-team: Younglings
+
+qa-engineer:
+    - helm
+
+tags:
+    - edu-front
+
+platform:
+    - common
+
+files:
+    - tests/hermione/suites/common/antirobot/antirobot.hermione.js

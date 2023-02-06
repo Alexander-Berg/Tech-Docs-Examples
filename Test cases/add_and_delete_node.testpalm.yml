@@ -1,0 +1,47 @@
+feature: Дерево ролей
+
+specs:
+  Дерево ролей. Добавление и удаление ноды в Public API:
+    - automation: IDM-10936
+    - do: запустить в Runner сценарий "Дерево ролей. Добавление и удаление ноды в Public API" (https://github.yandex-team.ru/pixel/idm-runner)
+    - do: отправить запрос "Добавление ноды в дерево" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "201", в теле пришло "null"
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Проверяем, что нода добавлена" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: запрос "Проверяем, что нода добавлена" должен содержать поле "slug" со значением "autotest" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-12%2018-21-20.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Изменяем название ноды" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "204" и без тела
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Проверяем, что изменилось название ноды" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: запрос "Проверяем, что изменилось название ноды" должен содержать поле "human_short" со значением "changed_name" [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-12%2018-22-35.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Удаляем ноду" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "204" и без тела
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Несуществующую ноду удалить нельзя" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "404"
+    - screenshot: запрос "Несуществующую ноду удалить нельзя" должен содержать поля [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-12%2018-23-19.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Проверяем, что нода удалилась" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: запрос "Проверяем, что нода удалилась" должен содержать поля [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-02-12%2018-23-43.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+
+priority: blocker
+
+files: []
+
+tags:
+  - reviewed
+  - no_assessors
+  - postman_automation

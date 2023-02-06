@@ -1,0 +1,14 @@
+feature: Факт
+
+specs:
+  Проверка ссылок на десктопе:
+    - do: получить выдачу по запросу '1 gallon сколько литров'
+    - assert: есть ссылка в заголовке
+    - assert: есть ссылка в гринурле
+
+files:
+  - features/desktop/construct/fact/fact.hermione.js
+
+tlds: [ru, by, ua, kz, uz, com.tr, com]
+
+v-team: Facts

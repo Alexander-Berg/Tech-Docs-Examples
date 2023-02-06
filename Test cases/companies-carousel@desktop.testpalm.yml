@@ -1,0 +1,92 @@
+feature: Гео
+type: Карусель
+
+counter: /$page/$top/$result[@wizard_name="companies"]/companies-map-list/switch
+
+specs:
+  Проверить внешний вид:
+    - do: получить выдачу по запросу 'кафе' _ALTERNATIVE_SEARCH_QUERIES_
+    - label: companies-carousel-{{SET_NAME}}
+    - assert: на выдаче есть карусель
+    - screenshot: пример внешнего вида [plain]
+  Проверить ссылки и счетчики при клике в тумбу:
+    - do: получить выдачу по запросу 'кафе' _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: на выдаче есть карусель
+    - screenshot: пример внешнего вида [companies-carousel-{{SET_NAME}} >> plain]
+    - tags:
+        - thumb
+        - showcase
+        - ajax
+    - tech: сработал счетчик path='/$page/$top/$result/companies-map-list/carousel/showcase/item/topic'
+    - assertMetrics: '*'
+  Проверить ссылки и счетчики при кликах по стрелкам:
+    - do: получить выдачу по запросу 'кафе' _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: на выдаче есть карусель
+    - screenshot: пример внешнего вида [companies-carousel-{{SET_NAME}} >> plain]
+    - tags:
+        - scroll
+        - showcase
+    - do: нажать на стрелку 'вправо'
+    - assert: карусель скроллится вправо
+    - tech: сработал счетчик path='/$page/$top/$result/companies-map-list/carousel/showcase/scroll_right'
+    - do: нажать на стрелку 'влево'
+    - assert: карусель скроллится влево
+    - tech: сработал счетчик path='/$page/$top/$result/companies-map-list/carousel/showcase/scroll_left'
+    - assertMetrics: '*'
+  Выделение активного элемента:
+    - do: получить выдачу по запросу 'кафе' _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: на выдаче есть карусель
+    - screenshot: пример внешнего вида [companies-carousel-{{SET_NAME}} >> plain]
+    - tags:
+        - thumb
+        - showcase
+        - ajax
+    - do: кликнуть в нерекламную карточку
+    - assert: элемент становится активным
+    - assertMetrics: '*'
+  Дозагрузка элементов в карусели:
+    - do: получить выдачу по запросу 'кафе' _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: на выдаче есть карусель
+    - screenshot: пример внешнего вида [companies-carousel-{{SET_NAME}} >> plain]
+    - tags:
+        - showcase
+        - ajax
+    - do: пролистать карусель вправо, чтобы загрузилась новая партия карточек
+    - assert: в карусель подгрузилась следующая партия элементов
+    - tech: проверить параметр main-reqid в ajax-запросе
+    - do: пролистать карусель до конца
+    - screenshot: внешний вид карусели соответствует скриншоту [scrolled]
+    - tech: проверить параметр main-reqid в ajax-запросе
+    - assertMetrics: '*'
+  Условия подключения:
+    - do: получить выдачу по запросу 'кафе' _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: на странице присутствует карусель
+    - do: нажать на ссылку "Условия подключения" в футере карусели
+    - assert: открылась ссылка в новой вкладке
+    - tech: сработал счётчик path="/$page/$top/$result/companies-map-list/carousel/link"
+  Дозагрузка элементов в карусели с 1орг в центре:
+    - do: получить выдачу по запросу "рестораны в москве"
+    - assert: на странице присутствует карусель и карточка организации
+    - do: проскроллить карусель до конца
+    - assert: дозагрузились еще организации
+
+files:
+  - features/companies/companies-carousel@desktop.hermione.js
+
+v-team: VanillaGeo
+
+tags:
+  - skip_e2e_check
+
+tlds: all
+
+regions:
+  ru: 213
+  by: 157
+  kz: 163
+  ua: 143
+
+requests:
+  ru: отели в Москве
+
+# уже есть features/desktop/companies/bk_list/companies-list.hermione.e2e.js

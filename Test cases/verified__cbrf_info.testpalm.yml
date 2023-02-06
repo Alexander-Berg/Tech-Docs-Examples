@@ -1,0 +1,45 @@
+feature: Метка
+type: Cbrf_info
+
+specs:
+  В рекламе:
+    - params:
+        foreverdata: '2708663950'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: рекламный сниппет с меткой 'ЦБ РФ' присутствует на странице
+    - screenshot: вид сниппета с меткой [plain]
+    - do: кликнуть в метку (если задание выполняется на десктопе - навести мышку на метку)
+    - assert: появился тултип
+    - tech: сработал счётчик показа тултипа path='/$page/$main/$result[@type="adv"]/listing'
+    - screenshot: вид сниппета с меткой и тултипом [hover]
+    - do: проверить первую ссылку внутри тултипа
+    - assert: ссылка открывает сайт ЦБ РФ в новой вкладке
+    - tech: на ссылке есть счетчик path='/$page/$main/$result[@type="adv"]/listing/link'
+    - do: проверить вторую ссылку внутри тултипа
+    - assert: ссылка открывает сайт ЦБ РФ в новой вкладке
+    - tech: на ссылке есть счетчик path='/$page/$main/$result[@type="adv"]/listing/link'
+  В органике:
+    - params:
+        foreverdata: '248753894'
+    - do: получить выдачу спо запросу 'foreverdata'
+    - assert: органический сниппет с меткой 'ЦБ РФ' присутствует на странице
+    - screenshot: вид сниппета с меткой [plain]
+    - do: кликнуть в метку (если задание выполняется на десктопе - навести мышку на метку)
+    - assert: появился тултип
+    - tech: сработал счётчик показа тултипа path='/$page/$main/$result[@type="organic"]/listing'
+    - screenshot: вид сниппета с меткой и тултипом [hover]
+    - do: проверить ссылку внутри тултипа
+    - assert: ссылка открывает сайт ЦБ РФ в новой вкладке
+    - tech: на ссылке есть счетчик path='/$page/$main/$result[@type="organic"]/listing/link'
+
+files:
+  - features/common/verified/__cbrf_info/verified__cbrf_info.hermione.js
+
+tags:
+  - reviewed
+  - skip_e2e_check
+
+v-team: Beauty
+
+tlds:
+  - ru

@@ -1,0 +1,30 @@
+feature: Универсальный колдунщик поиска игр
+
+specs:
+  Внешний вид:
+    - tags: no_assessors
+    - do: получить выдачу по запросу 'игры онлайн'
+    - assert: на выдаче есть универсальный колдунщик поиска игр
+    - screenshot: внешний вид [plain]
+
+  Баобаб-разметка айтемов:
+    - tags: no_assessors
+    - do: получить выдачу по запросу 'игры онлайн'
+    - assert: на выдаче есть универсальный колдунщик поиска игр
+    - tech: |
+        в баобаб дереве присутствет узел по пути "/$page/$main/$result/unisearch_games/view/scroller/item"
+        и атрибутами url, title
+    - tech: |
+        в баобаб дереве присутствет узел по пути "/$page/$main/$result/unisearch_games/partnership-link"
+        и атрибутом url
+
+files:
+  - src/features/UniSearch/UniSearch.features/UniSearchGames/UniSearchGames.test/UniSearchGames@common.hermione.js
+
+v-team: UniSearch
+
+tlds: [ru, by, ua, kz, uz]
+
+tags:
+  - react
+  - skip_e2e_check

@@ -1,0 +1,31 @@
+feature: beruInputField
+
+specs:
+  Внешний вид блока:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=beruinputfield/default.json
+    - screenshot: внешний вид [plain]
+  Очищение поля ввода по кнопке:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=beruinputfield/functionality.json
+    - do: Нажать в любое место поле ввода
+    - assert: поле ввода должно быть в фокусе
+    - do: ввести значение "тест"
+    - assert: должна появится копка очистки поля ввода
+    - do: нажать на кнопку очистки поля ввода
+    - assert: поле ввода должно быть пустым
+    - assert: поле ввода должно остаться в фокусе
+  Фокус должен убираться с поля ввода при клике снаружи:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=beruinputfield/functionality.json
+    - do: Нажать в любое место поле ввода
+    - assert: поле ввода должно быть в фокусе
+    - do: нажать в любом месте снаружи поля ввода
+    - assert: поле ввода должно быть не в фокусе
+
+
+files:
+  - platform/components/BeruInputField/BeruInputField.tests/BeruInputField@phone.hermione.js
+
+v-team: Beru
+
+manager: seoshnik
+
+tlds: none

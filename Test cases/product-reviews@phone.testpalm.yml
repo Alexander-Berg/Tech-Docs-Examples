@@ -1,0 +1,168 @@
+feature: Ecom-tap
+
+params:
+  exp_flags:
+    - analytics-disabled=1
+
+specs:
+  Отзывы на товары:
+    turbo-app-product-reviews:
+      browsers:
+        notFor:
+          - ios-safari-9-touch
+          - ios-safari-10-touch
+          - ios-safari-11-touch
+      На странице товара есть рейтинг и отзывы:
+        - tags: no_assessors # Используются патчи
+        - do: открыть страницу https://yandex.ru/turbo/spideradio.github.io/s/?exp_flags=turbo-app-product-reviews=1&product_id=192&pcgi=rnd=w76c1jt&patch=setProductReviews&productReviews=100,4.5
+        - assert: на картинке товара есть рейтинг
+        - assert: на странице есть блок с отзывами и рейтингом
+
+      На странице товара есть отзывы, но нет рейтинга, если он меньше значения флага:
+        - tags: no_assessors # Используются патчи
+        - do: открыть страницу https://yandex.ru/turbo/spideradio.github.io/s/?exp_flags=turbo-app-product-reviews=42&product_id=192&pcgi=rnd=w76c1jt&patch=setProductReviews&productReviews=100,3.5
+        - assert: на картинке товара нет рейтинга
+        - assert: на странице есть блок с отзывами
+        - assert: в блоке отзывов нет рейтинга
+
+    turbo-app-listing-reviews:
+        На странице каталога есть рейтинг товаров:
+          - tags: no_assessors # Используются патчи
+          - do: открыть страницу https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog/?exp_flags=turbo-app-listing-reviews=1&patch=setProductReviews&productReviews=100,3.5
+          - assert: на странице есть товары с рейтингами
+
+        На странице каталога нет рейтингов товара ниже значения, переданного в флаг:
+          - tags: no_assessors # Используются патчи
+          - do: открыть страницу https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog/?exp_flags=turbo-app-listing-reviews=42&patch=setProductReviews&productReviews=100,3.5
+          - assert: на странице есть товары с рейтингами
+          - assert: на странице нет товаров с рейтингом меньше 4.2
+
+    turbo-app-read-only-reviews:
+        browsers:
+          notFor:
+            - ios-safari-9-touch
+            - ios-safari-10-touch
+            - ios-safari-11-touch
+        На странице товара есть кнопка читать отзывы:
+          - tags: no_assessors # Используются патчи
+          - do: открыть страницу https://yandex.ru/turbo/spideradio.github.io/s/?exp_flags=turbo-app-product-reviews=1&product_id=192&pcgi=rnd=w76c1jt&patch=setProductReviews&productReviews=100,3.5&exp_flags=turbo-app-read-only-reviews=1
+          - assert: на странице есть блока с отзывами и рейтингом
+
+        На странице товара нет кнопки оставить отзыв:
+          - tags: no_assessors # Используются патчи
+          - do: открыть страницу https://yandex.ru/turbo/spideradio.github.io/s/?exp_flags=turbo-app-product-reviews=42&product_id=192&pcgi=rnd=w76c1jt&patch=setProductReviews&productReviews=0,3.5&exp_flags=turbo-app-read-only-reviews=1
+          - assert: на странице нет блока "Отзывов нет"
+
+    Просмотр:
+      beforeEach:
+        - do: получить выдачу по запросу 'site:super01.ru каталог'
+        - assert: на выдаче присутствует сниппет(ы) с галереей карточек товаров [https://jing.yandex-team.ru/files/skurhanski/chrome_ziIi8LshqE.png]
+        - do: при дальнейшей проверке обращайте внимание на любые некорректные на ваш взгляд поведения, основываясь на свой опыт использования web-приложений (например, сохранение позиции при переходах туда-обратно кнопками на устройстве, пустые экраны при переходах, кривая верстка, скачкИ элементов, плавность скролла, неработающая функциональность и т.п.)
+        - do: кликнуть по любой ссылке сниппета для перехода на страницу магазина
+        - assert: открылась страница магазина
+      В каталоге:
+        - automation: TURBOUI-5011
+        - do: перейти в раздел Каталог, кликнув по соответствующей пиктограмме на нижней панели
+        - assert: открылся раздел Каталог
+        - assert: среди прочих товаров присутствуют карточки с рейтингом [https://jing.yandex-team.ru/files/skurhanski/1qvDonbW3R.png]
+        - assert: цвет бейджа зависит от рейтинга [https://jing.yandex-team.ru/files/skurhanski/browser_NmrkR8KRYg.png]
+      В карточке товара:
+        - automation: TURBOUI-5011
+        - do: перейти в раздел Каталог, кликнув по соответствующей пиктограмме на нижней панели
+        - assert: открылся раздел Каталог
+        - assert: среди прочих товаров присутствуют карточки с рейтингом
+        - do: кликнуть по карточке с рейтингом
+        - assert: открылась карточка товара с рейтингом и блоком отзывов [https://jing.yandex-team.ru/files/skurhanski/XMSjjYJHVF.png] (если в карточке товара отсутствует блок с отзывами, вернитесь в каталог и выберете другую карточку с рейтингом)
+        - assert: цвет бейджа зависит от рейтинга [https://jing.yandex-team.ru/files/skurhanski/browser_NmrkR8KRYg.png]
+      Страница с отзывами:
+        - automation: TURBOUI-5011
+        - browsers:
+            notFor:
+              - android-browser-4.4-touch
+              - ios-safari-11-touch
+              - ios-safari-10-touch
+              - ios-safari-9-touch
+        - do: перейти в раздел Каталог, кликнув по соответствующей пиктограмме на нижней панели
+        - assert: открылся раздел Каталог
+        - assert: среди прочих товаров присутствуют карточки с рейтингом
+        - do: кликнуть по карточке с рейтингом
+        - assert: открылась карточка товара с рейтингом и блоком отзывов [https://jing.yandex-team.ru/files/skurhanski/XMSjjYJHVF.png] (если в карточке товара отсутствует блок с отзывами, вернитесь в каталог и выберете другую карточку с рейтингом, пока не откроется нужная карточка товара)
+        - do: кликнуть по блоку с отзывами
+        - assert: с анимацией справа налево выехала страница отзывов
+        - assert: если пользователь ранее оценивал данный товар, то отображается оценка и есть кнопка для оставления отзыва [https://jing.yandex-team.ru/files/skurhanski/chrome_TepARVFbdK.png]
+        - assert: если пользователь ранее не оценивал товар, то звезды будут пустыми [https://jing.yandex-team.ru/files/skurhanski/chrome_UDIltm8rpq.png]
+        - do: поскроллить страницу отзывов (при наличии достаточного количества отзывов)
+        - assert: страница скроллится корректно
+        - do: проверить работу сортировки отзывов
+        - assert: сортировка работает и отзывы отображаются корректно
+        - do: проверить работу разворачивания отзыва, скрытия текста, ссылок на именах пользвателей (при наличии данных элементов)
+        - assert: разворачивание отзыва, скрытие текста и ссылки на именах пользвателей работают корректно
+        - do: кликнуть Назад вверху страницы
+        - assert: вернулись обратно на карточку товара
+  Отправка отзыва:
+    - automation: TURBOUI-5011
+    - browsers:
+        notFor:
+          - android-browser-4.4-touch
+          - ios-safari-11-touch
+          - ios-safari-10-touch
+          - ios-safari-9-touch
+    - do: залогиниться в Яндексе
+    - do: при дальнейшей проверке обращайте внимание на любые некорректные на ваш взгляд поведения, основываясь на свой опыт использования web-приложений (например, сохранение позиции при переходах туда-обратно кнопками на устройстве, пустые экраны при переходах, кривая верстка, скачкИ элементов, плавность скролла, неработающая функциональность и т.п.)
+    - do: перейти по ссылке https://yandex.ru/turbo/super01.ru/n/yandexturbocatalog/
+    - assert: открылась страница магазина
+    - do: кликнуть по карточке товара с рейтингом, на который вы ранее не оставляли отзыв
+    - assert: открылась карточка товара с рейтингом и блоком отзывов [https://jing.yandex-team.ru/files/skurhanski/XMSjjYJHVF.png] (если в карточке товара отсутствует блок с отзывами, вернитесь в каталог и выберете другую карточку с рейтингом, пока не откроется карточка с отзывами)
+    - do: кликнуть по блоку с отзывами
+    - assert: открылась страница оставления отзыва
+    - do: кликнуть по одной из серых звезд
+    - assert: рейтинг выставился и появилась кнопка оставления отзыва [https://jing.yandex-team.ru/files/skurhanski/chrome_fu9Evu2nbA.png]
+    - do: кликнуть по кнопке оставления отзыва
+    - assert: появилось поле для ввода текста
+    - do: ввести произвольный текст и отправить отзыв
+    - assert: отзыв отображается на странице (статус - На проверке) [https://jing.yandex-team.ru/files/skurhanski/chrome_TuOaOi2WAO.png]
+    - do: кликнуть Назад вверху страницы
+    - assert: открылась карточка товара
+    - do: снова кликнуть по блоку оставления отзыва
+    - assert: открылась страница, на которой отображается ранее оставленный отзыв (статус - На проверке) [https://jing.yandex-team.ru/files/skurhanski/chrome_TuOaOi2WAO.png]
+    - do: перейти в личный кабинет пользователя по ссылке https://reviews.yandex.ru/ugcpub/cabinet?main_tab=reviews&reviews_tab=offer и удалить только что оставленный отзыв
+    - assert: отзыв удалился
+
+  Залогин:
+    - automation: TURBOUI-5011
+    - browsers:
+        notFor:
+          - android-browser-4.4-touch
+          - ios-safari-11-touch
+          - ios-safari-10-touch
+          - ios-safari-9-touch
+    - do: разлогиниться в Яндексе, если есть залогиненные пользователи
+    - do: получить выдачу по запросу 'site:super01.ru каталог'
+    - assert: на выдаче присутствует сниппет(ы) с галереей карточек товаров [https://jing.yandex-team.ru/files/skurhanski/chrome_ziIi8LshqE.png]
+    - do: при дальнейшей проверке обращайте внимание на любые некорректные на ваш взгляд поведения, основываясь на свой опыт использования web-приложений (например, сохранение позиции при переходах туда-обратно кнопками на устройстве, пустые экраны при переходах, кривая верстка, скачкИ элементов, плавность скролла, неработающая функциональность и т.п.)
+    - do: кликнуть по любой ссылке сниппета для перехода на страницу магазина
+    - assert: открылась страница магазина
+    - do: перейти в раздел Каталог, кликнув по соответствующей пиктограмме на нижней панели
+    - assert: открылся раздел Каталог
+    - assert: среди прочих товаров присутствуют карточки с рейтингом [https://jing.yandex-team.ru/files/skurhanski/1qvDonbW3R.png]
+    - assert: цвет бейджа зависит от рейтинга [https://jing.yandex-team.ru/files/skurhanski/browser_NmrkR8KRYg.png]
+    - do: кликнуть по карточке с рейтингом
+    - assert: открылась карточка товара с рейтингом и блоком отзывов [https://jing.yandex-team.ru/files/skurhanski/XMSjjYJHVF.png] (если в карточке товара отсутствует блок с отзывами, вернитесь в каталог и выберете другую карточку с рейтингом)
+    - do: кликнуть по блоку с отзывами
+    - assert: с анимацией справа налево выехала страница отзывов [https://jing.yandex-team.ru/files/skurhanski/chrome_iw4m3hgHDF.png]
+    - do: кликнуть по любой из серых звезд
+    - assert: появилась страница (или попап) для ввода имени пользователя
+    - do: залогиниться
+    - assert: пользователь после залогина оказался на странице отзывов
+    - assert: на нижней навигационной панели появилось имя пользователя (и аватарка, если она установлена у пользователя)
+
+v-team: Turbo
+
+files:
+  - __tests__/product-reviews@phone.hermione.js
+
+tlds: ru
+
+tags:
+  - ecom-tap
+  - reviews

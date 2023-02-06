@@ -1,0 +1,60 @@
+feature: Спорт
+type: Дзен в спорте
+
+specs:
+  Новости и видео:
+    Карточки с изображениями:
+      params:
+        foreverdata: '1372781680'
+      beforeEach:
+        - do: получить выдачу по запросу 'foreverdata'
+        - assert: получена выдача по указанному запросу
+        - assert: на выдаче присутствует колдунщик баскетбольного матча
+      Внешний вид:
+        Весь колдунщик:
+          - screenshot: примерный внешний вид [cards]
+        Карточка с картинкой и с иконкой:
+           - screenshot: примерный внешний вид первой карточки [card-pic-with-icon]
+        Карточка с картинкой без иконки:
+          - do: проскроллить влево до второй карточки
+          - screenshot: примерный внешний вид второй карточки [card-pic]
+        Карточка с логотипом канала и с иконкой:
+          - do: проскроллить влево до третьей карточки
+          - screenshot: примерный внешний вид третьей карточки [card-logo-with-icon]
+        Карточка с логотипом канала без иконки:
+          - do: проскроллить влево до четвертой карточки
+          - screenshot: примерный внешний вид четвертой карточки [card-logo]
+      Клики:
+        Карточка c иконкой:
+          - do: кликнуть в картинку в первой карточке в карусели новостей и рекомендаций
+          - assert: в новой вкладке открылся пост на сервисе Яндекс.Дзен
+          - tech: сработал счетчик "/$page/$main/$result[@wizard_name="sport/livescore" and @subtype="basketball_match"]/scroller/link"
+          - do: кликнуть в текст в первой карточке в карусели новостей и рекомендаций
+          - assert: в новой вкладке открылся пост на сервисе Яндекс.Дзен
+          - tech: сработал счетчик "/$page/$main/$result[@wizard_name="sport/livescore" and @subtype="basketball_match"]/scroller/link"
+        Карточка без иконки:
+          - do: кликнуть в картинку во второй карточке в карусели новостей и рекомендаций
+          - assert: в новой вкладке открылся сайт sportbox.ru
+          - tech: сработал счетчик "/$page/$main/$result[@wizard_name="sport/livescore" and @subtype="basketball_match"]/scroller/link"
+          - do: кликнуть в текст во второй карточке в карусели новостей и рекомендаций
+          - assert: в новой вкладке открылся сайт sportbox.ru
+          - tech: сработал счетчик "/$page/$main/$result[@wizard_name="sport/livescore" and @subtype="basketball_match"]/scroller/link"
+
+tlds:
+  - ru
+  - by
+  - uz
+  - kz
+  - uz
+
+tags:
+  - sport
+  - reviewed
+  - skip_e2e_check # эксперимент
+
+files:
+  - features/common/sport/livescore/zen/sport-livescore_zen.hermione.js
+
+counter: /$page/$main/$result[@wizard_name="sport/livescore" and @subtype="basketball_match"]/tabs/tab_news
+
+v-team: Sport

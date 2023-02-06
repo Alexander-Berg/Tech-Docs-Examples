@@ -1,0 +1,44 @@
+feature: Кандидат.Испытания
+type: Отправка секции на ревью
+
+description: |
+  у кандидата есть секция на вакансию на разработку
+
+specs:
+  Проверка обязательных полей:
+    - do: открыть страницу кандидата на вкладке 'Испытания'
+    - assert: на секции в списке есть кнопка 'Отправить на ревью'
+    - screenshot: пример внешнего вида [interview]
+    - do: кликнуть на вкладку 'Отправить на ревью'
+    - assert: открылась форма отправки секции на ревью
+    - screenshot: пример внешнего вида [review_form]
+    - do: кликнуть на кнопку 'Отправить'
+    - assert: появилась ошибка отправки формы
+    - screenshot: пример внешнего вида [form_error]
+  Отправка секции на ревью:
+    - do: открыть страницу кандидата на вкладке 'Испытания'
+    - assert: на секции в списке есть кнопка 'Отправить на ревью'
+    - screenshot: пример внешнего вида [interview]
+    - do: кликнуть на вкладку 'Отправить на ревью'
+    - assert: открылась форма отправки секции на ревью
+    - screenshot: пример внешнего вида [review_form]
+    - do: заполнить поле комментарий
+    - screenshot: пример внешнего вида [review_form_filled]
+    - do: кликнуть на кнопку 'Отправить'
+    - assert: скрылась форма отправки секции на ревью
+    - assert: на секции появился тикет на ревью секции
+    - assert: на секции обновился список комментариев к секции
+    - screenshot: пример внешнего вида [interview_updated]
+
+tags:
+  - reviewed
+
+priority: normal
+
+files:
+  - tests/hermione/suites/desktop/candidates/interviews/send_for_review/send_for_review.hermione.js
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

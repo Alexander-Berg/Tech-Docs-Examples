@@ -1,0 +1,32 @@
+feature: 'Одна организация'
+type: 'Горнолыжный курорт сценарий туриста'
+
+specs:
+  Ссылка на телеграм:
+    params:
+      foreverdata: '2557900837'
+    beforeEach:
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: на выдаче присутствует карточка организации
+    Внешний вид:
+      - screenshot: внешний вид [telegram-link]
+    Имеет правильный href:
+      - assert: ссылка равна 'https://t.me/RosaOnlineBot'
+  Ссылка на телеграм с наименованием канала:
+    params:
+      foreverdata: '4163947475'
+    beforeEach:
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: на выдаче присутствует карточка организации
+    Внешний вид:
+      - screenshot: внешний вид [with-channel-name]
+tlds: all
+
+v-team: Freshness
+
+files:
+  - src/features/Companies/Companies.features/OrgSkiLinks/OrgSkiLinks.test/OrgSkiLinks@touch-phone.hermione.js
+
+tags:
+  - skip_e2e_check
+  - react

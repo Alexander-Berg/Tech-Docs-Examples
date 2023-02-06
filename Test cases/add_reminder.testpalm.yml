@@ -1,0 +1,41 @@
+feature: Заметка
+type: Напоминание
+
+
+specs:
+    Добавление напоминания к заметке [manual]:
+        - automation: FEMIDA-4977
+        - do: открыть страницу /candidates/<id_кандидата>/notes/#comment-<id_заметки>
+        - screenshot: на странице есть заметка с иконкой колокольчика [https://jing.yandex-team.ru/files/grikyan91/testovoe_testovaya_familiya__Femida_2019-08-15_15-50-53.png]
+        - do: клик на иконку колокольчика
+        - screenshot: открылся попап для создания напоминания [https://jing.yandex-team.ru/files/grikyan91/testovoe_testovaya_familiya__Femida_2019-08-15_15-54-09.png]
+        - do: выбрать дату и время напоминания
+        - do: клик на 'Сохранить'
+        - assert: |
+            попап закрылся
+            рядом с колокольчиком указаны дата и время напоминания
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/grikyan91/testovoe_testovaya_familiya__Femida_2019-08-15_15-56-55.png]
+        - do: клик на иконку колокольчика
+        - screenshot: открылся попап для редактирования напоминания [https://jing.yandex-team.ru/files/grikyan91/testovoe_testovaya_familiya__Femida_2019-08-15_15-57-41.png]
+        - do: отредактировать дату и время напоминания
+        - do: клик на 'Сохранить'
+        - assert: |
+            попап закрылся
+            рядом с колокольчиком указаны новая дата и время напоминания
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/grikyan91/Irina_Horoshenkaya__Femida_2019-08-19_11-14-47.png]
+        - do: клик на иконку колокольчика
+        - do: клик на кнопку удаления в попапе
+        - assert: |
+            попап закрылся
+            дата и время напоминания удалились
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/grikyan91/testovoe_testovaya_familiya__Femida_2019-08-15_15-59-05.png]
+
+tags:
+  - reviewed
+
+priority: normal
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

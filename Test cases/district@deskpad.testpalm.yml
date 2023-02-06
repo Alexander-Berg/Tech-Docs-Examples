@@ -1,0 +1,121 @@
+feature: Колдунщик топонимов
+type: Район
+
+params:
+  rearr: EntitySearch_off
+  # колдунщик топонимов отключен на стороне данных, этот флаг возвращает колдун
+  srcparams: 'UPPER:rearr=scheme_Local/ToponymWizard/Enabled=1'
+
+specs-integration:
+  Наличие колдунщика:
+    - do: получить выдачу по запросу 'хамовники район москвы'
+    - assert: появляется колдунщик с картой
+    - counter: /$page/$main/$result[@wizard_name="maps" and @subtype="district"]/title
+
+specs:
+  aliases:
+    - &CheckMetrics
+      - assertMetrics:
+          - feature.web.wizards_common.maps_wizard.total.shows
+          - feature.web.wizards_common.maps_wizard.total.external_clicks
+          - feature.web.wizards_common.maps_wizard.total.dynamic_clicks
+          - web.total_request_results_clicks
+          - web.total_request_results_ext_clicks
+          - web.total_request_results_dyn_clicks
+          - web.total_request_results_main_column_clicks
+          - web.total_request_results_main_column_ext_clicks
+          - web.total_request_results_main_column_dyn_clicks
+          - web.total_request_results_parallel_column_clicks
+          - web.total_request_results_parallel_column_ext_clicks
+          - web.total_request_results_parallel_column_dyn_clicks
+          - web.tech_part_misc_click
+          - web.total_request_count
+          - daily.total_session_count
+  beforeEach:
+    - do: получить выдачу по запросу 'район хамовники на карте москвы'
+  Проверить внешний вид, общие ссылки и счётчики колдунщика топонимов:
+    - tags:
+        - title
+        - greenurl
+        - maps
+    - screenshot: на странице появился колдунщик топонимов, пример внешнего вида [plain]
+    - do: перейти по ссылке в тайтле
+    - assert: осуществился переход на сервис Яндекс.Карты на котором указан район из поискового запроса
+    - *CheckMetrics
+  Карта на морде колдунщика:
+    Должны работать общие ссылки карты:
+      - tags:
+          - maps
+          - panorama
+      - do: нажать кнопку 'На большую карту'
+      - assert: открылась новая вкладка с Яндекс.Картами, где поинтом отмечен адрес из запроса
+      - do: вернуться назад и нажать кнопку 'Панорама'
+      - assert: открылась новая вкладка с панорамой улицы на Яндекс.Картах, где поинтом отмечен адрес из запроса
+      - *CheckMetrics
+    Должен меняться зум после клика в контролы зума:
+      - tags:
+          - maps
+          - zoom
+      - do: кликнуть по кнопке увеличения зума - '+'
+      - assert: масштаб увеличился
+      - do: кликнуть по кнопке уменьшения зума - '-'
+      - assert: масштаб уменьшился
+      - *CheckMetrics
+    Должна показаться метка 'Я' на карте после клика в кнопку геолокации:
+      - tags:
+          - maps
+          - location
+      - do: кликнуть по кнопке геолокации, разрешить браузеру сообщить местонахождение
+      - assert: в колдунщике появилась буква 'Я' в красном круге
+      - *CheckMetrics
+    Должен показаться попап с ошибкой, если геолокация запрещена:
+      - tags:
+          - maps
+          - location
+          - popup
+      - do: запретить браузеру сообщить местонахождение, кликнуть по кнопке геолокации
+      - assert: в колдунщике появилось всплывающее окно с сообщением о том, что определить точное местонахождение не удалось
+      - *CheckMetrics
+    Должен показаться попап с ошибкой, если не удалось точно определить местоположение:
+      - tags:
+          - maps
+          - location
+          - popup
+      - do: разрешить браузеру сообщить местонахождение, затем отключить интернет, затем кликнуть по кнопке геолокации
+      - assert: в колдунщике появилось всплывающее окно с сообщением о том, что определить точное местонахождение не удалось
+    Должен открыться балун после клика в пин:
+      - tags:
+          - maps
+          - popup
+      - do: кликнуть на пин на карте
+      - assert: появилось всплывающее окно с информацией
+      - do: перейти по ссылке 'на машине'
+      - assert: открылась вкладка с маршрутом поездки до точки
+      - do: вернуться на страницу выдачи результатов, нажать на пин и перейти по ссылке 'транспорт'
+      - assert: открылась вкладка с маршрутом поездки до точки
+      # - *CheckMetrics
+
+files:
+  - features/adapter-maps/district@deskpad.hermione.js
+  - features/adapter-maps/district@deskpad.hermione.e2e.js
+
+tlds: all
+
+v-team: VanillaGeo
+
+regions:
+  ru: 213
+  by: 157
+  kz: 163
+  ua: 143
+
+requests:
+  ru: хамовники район москвы
+  by: хамовники раён масквы
+  ua: хамовники район москви
+
+counter: /$page/$main/$result[@wizard_name="maps" and @subtype="district"]/map/goto-map
+
+tags:
+  - reviewed
+  - hasE2E

@@ -1,0 +1,26 @@
+feature: Матч-центр (гонка)
+
+specs:
+  Базовый вид блока:
+    - tags:
+      - sportauto
+    - do: открыть https://yandex.ru/turbo?stub=sportmatchcenterrace/default.json
+    - assert: матч-центр виден
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/components/SportMatchCenterRace/__tests__/SportMatchCenterRace.hermione.js
+
+v-team: Sport
+
+qa-engineer: nightsonne
+
+manager: skhovaev
+
+tlds:
+  - ru
+  - by
+  - kz
+  - uz
+  - ua
+  - com

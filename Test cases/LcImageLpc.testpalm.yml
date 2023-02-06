@@ -1,0 +1,22 @@
+feature: LcImageLpc
+
+tags: no_assessors
+
+specs:
+    Обычное изображение:
+        - do: открыть страницу (https://yandex.ru/turbo?stub=lcimagelpc/default.json)
+        - screenshot: внешний вид соответствует скриншоту [plain]
+    Изображение с кастомной шириной:
+        - do: открыть страницу (https://yandex.ru/turbo?stub=lcimagelpc/custom-width.json)
+        - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+    - platform/components/LcImageLpc/__tests__/LcImageLpc.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: ratyulenev
+
+tlds: none

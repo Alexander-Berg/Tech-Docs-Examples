@@ -1,0 +1,11 @@
+feature: Ссылка несуществующего проекта
+
+specs:
+  Открывается страница:
+    - do: перейти по адресу /exps/bas
+    - assert: страница открылась
+
+# v-team: your team
+
+files:
+    - tests/hermione/suites/touch/home/home.hermione.ts

@@ -1,0 +1,33 @@
+feature: Саджест
+type: Реклама мобильных приложений
+
+specs:
+  Проверка внешнего вида и ссылки:
+    - do: открыть поиск по запросу "скачать delivery club"
+    - do: кликнуть в поле ввода
+    - assert: открылся саджест, в саджесте присутствует подсказка с кнопкой Установить
+    - screenshot: примерный внешний вид [suggest/app_ad/opened]
+    - do: кликнуть в подсказку
+    - assert: открылся магазин приложений с приложением из подсказки
+
+files:
+  - features/touch-phone/suggest/suggest-native-apps.hermione.js
+
+v-team: Suggest
+
+qa-engineer:
+  - etestova
+
+manager:
+  - eugeshko
+
+tags:
+  - suggest
+  - input
+  - skip_e2e_check
+
+tlds: [ru, by, kz, ua]
+
+browsers:
+  notFor:
+    - searchapp-phone

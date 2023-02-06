@@ -1,0 +1,49 @@
+feature: Объектный ответ
+type: Блок туристических ссылок
+
+specs:
+  Авиабилеты и отели:
+    params:
+      foreverdata: '3873548297'
+    beforeEach:
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: открылся колдунщик ОО
+    Cсылки авиабилетов:
+      - do: проверить ссылку авиабилетов
+      - screenshot: примерный внешний вид [avia]
+      - assert: открылась ссылка в той же вкладке с запросом про авиабилеты
+      - tech: сработал счетчик /$page/$main/$result/object-badge/avia
+    Cсылка отелей с 3 звездами:
+      - do: проверить ссылку отелей
+      - screenshot: примерный внешний вид [three-stars-hotels]
+      - assert: открылась ссылка в той же вкладке с запросом про отели
+      - tech: сработал счетчик /$page/$main/$result/object-badge/three-stars-hotels
+  Дополнительные ссылки:
+    params:
+      foreverdata: '1946479909'
+    beforeEach:
+      - do: получить выдачу по запросу 'foreverdata'
+      - assert: открылся колдунщик ОО
+    Внешний вид:
+      - screenshot: примерный внешний вид элемента badge с блоком "Запланировать поездку" [badge-with-plan-a-trip]
+    Ссылка и счетчик:
+      - do: нажать на ссылку 'Найти место в хостеле'
+      - assert: ссылка ведёт на страницу тревела
+      - tech: сработал счетчик /$page/$main/$result/object-badge/bed
+
+files:
+  - features/touch-phone/z-entity-search/travel-plan-trip/travel-plan-trip.hermione.js
+
+v-team: Freshness
+
+tags:
+  - reviewed
+  - skip_e2e_check
+
+tlds:
+  - ru
+  - ua
+  - by
+  - kz
+  - com
+  - com.tr

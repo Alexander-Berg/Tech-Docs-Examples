@@ -1,0 +1,36 @@
+feature: Вакансия
+
+specs:
+  Проверка страницы [manual]:
+    - automation: VACANCIES-780
+    - do: открыть страницу /jobs/vacancies/<архивная вакансия>
+    - screenshot: внешний вид блока тегов [https://jing.yandex-team.ru/files/alex-murashev/tags_touch-pad.png]
+  Проверка формы [manual]:
+    - automation: VACANCIES-780
+    - do: открыть страницу вакансии - /jobs/vacancies/<действующая вакансия с кнопками выбора типа резюме>
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/alex-murashev/form_url_desktop.png]
+    - do: заполнить требуемые поля формы
+    - do: нажать кнопку "Отправить"
+    - assert: |
+        форма пропала
+        появляется блок, благодарящий за отправку отклика
+  Проверка обязательных полей формы [manual]:
+    - automation: VACANCIES-780
+    - do: открыть страницу вакансии - /jobs/vacancies/<действующая вакансия>
+    - do: нажать кнопку "Отправить"
+    - screenshot: появились ошибки у обязательных к заполнению полей [https://jing.yandex-team.ru/files/alex-murashev/form_error_url_desktop.png]
+
+platform:
+  - touch-pad
+
+tlds:
+  - ru
+  - by
+  - ua
+
+priority: blocker
+
+browsers:
+  - android-yandex-browser-touch
+  - android-browser-touch
+  - ios-safari-touch

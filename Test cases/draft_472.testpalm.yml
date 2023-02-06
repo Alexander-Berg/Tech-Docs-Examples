@@ -1,0 +1,14 @@
+feature:  Эквалайзер. Ручное изменение частот
+
+specs:
+    Эквалайзер. Ручное изменение частот:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/4145
+        - release_Webview
+        - app_regress
+        - surface_station
+        - platform_common
+        - webview_regress
+    - do: "Preconditions Добавить в корень конфига флаг; ; ``equalizer`: {;     `enabled`: true,;     `type`: `android`;   }`"
+    - do: "Включить музыку на колонке; Поочерёдно изменять значение каждого ползунка эквалайзера от **-6** до **6**"
+    - assert: "- Изменение звука соответствует изменяемой частоте"

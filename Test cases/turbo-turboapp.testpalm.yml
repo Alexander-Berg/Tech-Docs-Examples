@@ -1,0 +1,48 @@
+feature: Турбо
+experiment: Турбоаппы
+
+specs:
+  Открываются в новой вкладке (обычная страница):
+    - tags: no_assessors
+    - params:
+        foreverdata: '1721071845'
+    - do: получить выдачу по запросу 'test', настроив юзерагент, чтобы он включал в себя TA/7.1
+    - assert: сниппет с турбо появился на выдаче
+    - do: кликнуть на сниппет
+    - assert: турбо-страница открылась в новой вкладке
+    - assert: в адресной строке url 'https://yandex.ru/turbo/zymbo.ru?text=https://zymbo.ru/hi-tech-tovary/naushniki-s-ushkami-axent-wear-cat-ear.html'
+
+  Открываются в новой вкладке (листинг):
+    - tags: no_assessors
+    - params:
+        foreverdata: '3391097672'
+    - do: получить выдачу по запросу 'test', настроив юзерагент, чтобы он включал в себя TA/7.1
+    - assert: сниппет с турбо появился на выдаче
+    - do: кликнуть на сниппет
+    - assert: турбо-страница открылась в новой вкладке
+    - assert: в адресной строке url 'https://yandex.ru/turbo/zymbo.ru?text=listinghttps://zymbo.ru/avtovladelcam/'
+
+  Открываются в новой вкладке (каталог):
+    - tags: no_assessors
+    - params:
+        foreverdata: '3374778249'
+    - do: получить выдачу по запросу 'test', настроив юзерагент, чтобы он включал в себя TA/7.1
+    - assert: сниппет с турбо появился на выдаче
+    - do: кликнуть на сниппет
+    - assert: турбо-страница открылась в новой вкладке
+    - assert: в адресной строке url 'https://yandex.ru/turbo/zymbo.ru?text=zymbo.ru/yandexturbocatalog/'
+
+files:
+  - features/touch-phone/turbo/turbo-turboapp.hermione.js
+
+tags:
+  - turbo
+
+v-team: Turbo
+
+priority: normal
+
+tlds: all
+
+browsers:
+  - android-yandex-browser-17-touch

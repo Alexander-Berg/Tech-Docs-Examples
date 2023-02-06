@@ -1,0 +1,16 @@
+feature: beruTumbler
+
+specs:
+  Внешний вид блока:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=berutumbler/default.json
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+
+files:
+  - platform/components/BeruTumbler/BeruTumbler.tests/BeruTumbler@phone.hermione.js
+
+v-team: Beru
+
+manager: seoshnik
+
+tlds: none

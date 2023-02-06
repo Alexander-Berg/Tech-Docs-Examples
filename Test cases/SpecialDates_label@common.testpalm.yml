@@ -1,0 +1,29 @@
+feature: Сниппеты
+type: Лейбл метки свежести и отступ
+
+specs:
+  Проверка внешнего вида - с текстом:
+    - params:
+        foreverdata: '497091340'
+        user_time: '20190610'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: |
+        на выдаче есть сниппет с текстом "вчера"
+        текст пишется справа от гринурла и снипетов в голубом овале
+        между предыдущими снипетами и меткой свежести небольшой отступ
+    - screenshot: Внешний вид c другими снипетами [freshnessSnipetLabel]
+
+specs-integration:
+  Базовая проверка:
+    - do: получить выдачу по запросу 'путин' с ограничением на сутки ( устанавливается через расширенный поиск)
+    - assert: появились сниппеты с голубыми метками свежести
+    - assert: метка свежести содержит текст
+
+files:
+  - src/features/SpecialDates/SpecialDates.test/SpecialDates_label@common.hermione.js
+  - src/features/SpecialDates/SpecialDates.test/SpecialDates_label@common.hermione.e2e.js
+
+v-team: Beauty
+
+tlds:
+  - uz

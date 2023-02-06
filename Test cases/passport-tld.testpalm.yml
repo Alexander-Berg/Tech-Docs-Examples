@@ -1,0 +1,25 @@
+feature: Урлы паспорта для доменов не КУБРа
+
+specs-integration:
+  Урл кнопки войти в шапке на домене ee:
+    - do: получить выдачу поиска по запросу 'cats'
+    - assert: ссылка в шапке на кнопке "Войти" ведет на https://passport.yandex.ee/...
+
+  Урл кнопки войти в шапке на домене com.tr:
+    - do: получить выдачу поиска по запросу 'cats'
+    - assert: ссылка в шапке на кнопке "Войти" ведет на https://passport.yandex.com.tr/...
+
+  Урл кнопки войти в шапке на домене com:
+    - do: получить выдачу поиска по запросу 'cats'
+    - assert: ссылка в шапке на кнопке "Войти" ведет на https://passport.yandex.com/...
+
+files:
+  - features/desktop/passport-tld/passport-tld.hermione.e2e.js
+
+tags:
+  - zalogin
+  - serp_header
+
+v-team: Distribution
+
+tlds: [com.tr, ee, com]

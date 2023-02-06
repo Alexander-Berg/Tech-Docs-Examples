@@ -1,0 +1,22 @@
+feature: beru-header
+
+specs:
+  Внешний вид блока по умолчанию:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=beruheader/default.json)
+    - assert: должен быть виден блок
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Проверка кликабельности логотипа и корзины:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=beruheader/default.json)
+    - do: кликнуть по логотипу
+    - assert: должна открыться страница в новой вкладке
+    - do: кликнуть по корзине
+    - assert: должна открыться страница в новой вкладке
+files:
+    - platform/components/BeruHeader/__tests__/BeruHeader@phone.hermione.js
+
+v-team: Beru
+
+manager: seoshnik
+
+tlds: none

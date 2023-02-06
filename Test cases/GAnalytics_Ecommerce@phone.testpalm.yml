@@ -1,0 +1,94 @@
+feature: GAnalytics Ecommerce
+
+params:
+  exp_flags:
+    - turboforms_endpoint=https://test-turbo-forms.common.yandex.ru/
+    - analytics-disabled=1
+
+browsers:
+  - ios-safari-12-touch
+  - ios-safari-11-touch
+  - ios-safari-10-touch
+  - ios-safari-9-touch
+
+specs:
+  Отправка информации для инициализации:
+    - do: перейти на  https://yandex.ru/turbo?stub=productspage%2Findex-server-for-screens.json
+    - tech: в GA отправилось событие инициализации провайдера
+
+  Отправка трека просмотра списков товаров:
+    - do: перейти на  https://yandex.ru/turbo?stub=productspage%2Findex-server-for-screens.json
+    - assert: загрузился список товаров
+    - tech: в GA отправилось событие просмотра списка товаров
+    - do: нажать на какой-нибудь товар
+    - tech: в GA отправилось событие клика на товар
+
+  Отправка трека перехода в карточку товара по кнопке "Выбрать":
+    - do: перейти на  https://yandex.ru/turbo?stub=productspage%2Findex-server-for-screens.json
+    - assert: загрузился список товаров
+    - do: нажать на кнопку "Выбрать"
+    - tech: в GA отправилось событие клика на товар
+
+  Отправка трека add при переходе во внешнюю корзину со списка товаров:
+    - do: перейти на https://yandex.ru/turbo?text=mytoys.ru%2Fyandexturbocatalog%2F&category_id=26073
+    - do: нажать на кнопку "В корзину"
+    - tech: в GA отправилось событие добавления товара в корзину
+
+  Отправка трека просмотра списка товаров при догрузке страниц:
+    - do: перейти на https://yandex.ru/turbo?text=kupicase.ru%2Fyandexturbocatalog%2F&srcrwr=SAAS%3Aman1-1464.search.yandex.net%3A17002%3A10000&patch=setTestingGAnalytics
+    - assert: загрузился список товаров
+    - tech: в GA отправилось событие просмотра списка товаров
+    - do: проскроллить к низу страницы
+    - assert: загрузилась вторая страница с товарами
+    - tech: в GA отправилось событие просмотра списка догруженных товаров
+
+  Отправка трека со страницы информации о товаре:
+    - do: перейти на https://yandex.ru/turbo?stub=productpage/product-2.json
+    - tech: в GA отправилось событие просмотра информации о товаре
+    - do: нажать на кнопку добавления в корзину
+    - tech: в GA отправилось событие добавления товара в корзину
+
+  Отправка трека add при автоматическом добавлении товара в корзину:
+    - do: перейти на https://yandex.ru/turbo?stub=productpage/product-2.json&patch=setTestingGAnalytics&autoadd=norelocate
+    - assert: продукт автоматически добавился в корзину
+    - tech: в GA отправилось событие добавления товара в корзину
+
+  Отправка трека add при переходе во внешнюю корзину со страницы информации о товаре:
+    - do: перейти на https://yandex.ru/turbo?text=https://mytoys.ru/product/7319979
+    - do: нажать на кнопку добавления во внешнюю корзину
+    - tech: в GA отправилось событие добавления товара в корзину
+
+  Отправка треков чекаута:
+    - do: перейти на https://yandex.ru/turbo?stub=ecomcartpage/default.json
+    - tech: в GA отправилось событие чекаунта с шагом 1
+    - do: нажать на кнопку оформления заказа
+    - assert: открылась форма офорления заказа
+    - tech: в GA отправилось событие чекаунта с шагом 2
+    - do: заполнить данные формы и нажать на кнопку оплаты
+    - assert: появилось окно об успешном формировании заказа
+    - tech: в GA отправилось событие о совершенной покупке
+
+  Отправка треков при удалении товара из корзины:
+    - do: перейти на https://yandex.ru/turbo?stub=ecomcartpage/default.json
+    - do: нажать на удаление товара из корзины
+    - tech: в GA отправилось событие удаления товара из корзины
+
+  Отправка треков изменения количества товаров:
+    - do: перейти на https://yandex.ru/turbo?stub=ecomcartpage/default.json
+    - do: нажать на кнопку увеличения количества товара
+    - tech: в GA отправилось событие добавления товара в корзину
+    - do: нажать на кнопку уменьшения количества товара
+    - tech: в GA отправилось событие удаления товара из корзины
+
+files:
+  - platform/components/GAnalytics/__tests__/GAnalytics_Ecommerce@phone.hermione.js
+
+tags:
+  - no_assessors
+  - e-commerce
+
+v-team: Turbo
+
+manager: tanzwuta
+
+tlds: none

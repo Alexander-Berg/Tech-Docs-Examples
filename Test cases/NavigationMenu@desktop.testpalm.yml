@@ -1,0 +1,14 @@
+feature: Панель навигации
+
+specs:
+  Базовый вид блока:
+    - do: перейти по ссылке /turbo?stub=navigationmenu/default.json
+    - screenshot: внешний вид панели навигации соответствует скриншоту [plain]
+
+files:
+  - platform/components/NavigationMenu/__tests__/NavigationMenu@desktop.hermione.js
+
+v-team: News
+manager: glushneva
+
+tlds: none

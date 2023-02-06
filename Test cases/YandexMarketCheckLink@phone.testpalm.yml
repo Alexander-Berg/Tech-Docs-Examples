@@ -1,0 +1,36 @@
+feature: YandexMarketCheckLink
+
+specs:
+  Внешний вид:
+    - params:
+        exp_flags:
+          - turbo-app-any-ua=1
+          - turbo-app-tested-by-market=1
+    - do: перейти по ссылке https://yandex.ru/turbo/spideradio.github.io/s/rnd/fwj3pt
+    - screenshot: внешний вид cсылки соответствует скриншоту [plain]
+
+  Наличие на странице "О Магазине":
+    - params:
+        exp_flags:
+          - turbo-app-any-ua=1
+          - turbo-app-tested-by-market=1
+    - do: перейти по ссылке https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog/about/
+    - assert: на странице присутствует ссылка "Магазин проверен Яндекс.Маркетом"
+
+  Клик по ссылке:
+    - params:
+        exp_flags:
+          - turbo-app-any-ua=1
+          - turbo-app-tested-by-market=1
+    - do: перейти по ссылке https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog/about/
+    - do: нажать на ссылку "Магазин проверен Яндекс.Маркетом"
+    - assert: открылась страница с информацией "Магазин проверен Яндекс.Маркетом"
+
+files:
+  - experiments/turbo-app-tested-by-market/components/YandexMarketCheckLink/__tests__/YandexMarketCheckLink@phone.hermione.js
+
+tags: ecom-tap
+
+tlds: ru
+
+v-team: Turbo

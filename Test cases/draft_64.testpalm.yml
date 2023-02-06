@@ -1,0 +1,12 @@
+feature:  Умный дом - переключатели на списке устройств
+
+specs:
+    Умный дом - переключатели на списке устройств:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/1947
+        - release_Webview
+        - release_Smarthome
+        - platform_common
+    - do: "Preconditions Открыта страница со списком устройств Мой дом, настроено несколько устройств"
+    - do: "Включать/выключать тумблеры на устройствах"
+    - assert: "Устройства включаются/выключаются"

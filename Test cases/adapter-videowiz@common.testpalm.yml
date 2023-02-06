@@ -1,0 +1,52 @@
+feature: Колдунщик видео
+
+tlds:
+  - ru
+  - ua
+  - by
+  - kz
+
+tags: no_assessors
+
+specs-integration:
+  Проверка наличия:
+    - counter: /$page/$main/$result[@wizard_name="video-unisearch"]/showcase/item/thumb
+    - do: получить выдачу по запросу "котики видео" _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: |
+        на странице есть колдунщик видео,
+        в колдунщике есть тайтл и видео-тумбы
+
+specs:
+  Проверка на наличие:
+    - tags:
+        - smoke
+    - params:
+        foreverdata: '3556267449'
+    - label: adapter-videowiz_type_v4thumbs-{{PLATFORM}}-{{BROWSER_TYPE}}
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: появился видеоколдунщик
+    - screenshot: примерный внешний вид [plain]
+  Внешний вид с меткой свежести:
+    - params:
+        within: '77'
+    - do: получить выдачу по запросу 'видео'
+    - assert: появился видеоколдунщик
+    - screenshot: примерный внешний вид [recent]
+  Не загружает видеопревью при включенном системном флаге video_wizard_disable_preview:
+    - params:
+        exp_flags:
+          - video_wizard_disable_preview=1
+    - do: получить выдачу по запросу 'котики'
+    - assert: в колдунщике отсутствует элемент thumb-preview (не проигрываются карды при наведении мышки/удержании пальца на сниппете)
+  Не загружает видеопревью в сериалах при включенном системном флаге video_wizard_disable_preview:
+    - params:
+        exp_flags:
+          - video_wizard_disable_preview=1
+    - do: получить выдачу по запросу 'видео симпсоны' ('чужестранка сериал видео', 'сериал ганнибал видео')
+    - assert: в колдунщике отсутствует элемент thumb-preview (не проигрываются карды при наведении мышки/удержании пальца на сниппете)
+
+files:
+  - features/adapter-videowiz/adapter-videowiz@common.hermione.js
+  - features/adapter-videowiz/adapter-videowiz@common.hermione.e2e.js
+
+v-team: Video

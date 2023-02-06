@@ -1,0 +1,58 @@
+feature: Объектный ответ
+type: Верифицированный аккаунт пользователя
+
+specs:
+  Внешний вид:
+    - do: получить выдачу по запросу 'Тутта Ларсен'
+    - assert: появилась карточка персоны с аватаром и заботливой галкой
+    - screenshot: внешний вид [verified]
+    - do: уменьшить размер экрана до 1185px по ширине
+    - assert: аватар и имя пользователя уменьшились
+    - screenshot: внешний вид [verified-6rows]
+    - assertMetrics:
+      - daily.total_session_count
+      - web.total_request_count
+      - web.total_click_count
+      - web.total_all_click
+      - web.abandonment
+      - web.tech_part_misc_click
+      - all.total_dynamic_click_count
+      - feature.web.wizards_common.entity_search_wizard_parallel.total.clicks
+  Скрывается одинокая тумба:
+    - params:
+        foreverdata: '2976643717'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: появилась карточка персоны с аватаром и заботливой галкой, но без тумбы
+    - screenshot: внешний вид [hide-solo-thumb]
+    - assertMetrics:
+      - daily.total_session_count
+      - web.total_request_count
+      - web.total_click_count
+      - web.total_all_click
+      - web.abandonment
+      - web.tech_part_misc_click
+      - all.total_dynamic_click_count
+      - feature.web.wizards_common.entity_search_wizard_parallel.total.clicks
+  Видеоблогеры:
+    - do: получить выдачу по запросу 'Wylsacom'
+    - assert: появилась карточка персоны с аватаром и заботливой галкой
+    - screenshot: внешний вид [vlog-verified]
+    - do: уменьшить размер экрана до 1185px по ширине
+    - assert: аватар и имя пользователя уменьшились
+    - screenshot: внешний вид [vlog-verified-6rows]
+    - assertMetrics:
+      - daily.total_session_count
+      - web.total_request_count
+      - web.total_click_count
+      - web.total_all_click
+      - web.abandonment
+      - web.tech_part_misc_click
+      - all.total_dynamic_click_count
+      - feature.web.wizards_common.entity_search_wizard_parallel.total.clicks
+
+files:
+  - features/desktop/z-entity-search/verified-acc/verified-acc.hermione.js
+
+v-team: OO
+
+tlds: all

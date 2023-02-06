@@ -1,0 +1,37 @@
+feature: Объектный ответ
+type: Карусель стран куда можно улететь
+
+counter: /$page/$main/$result[@wizard_name="entity_search"]/carousel
+
+specs:
+  params:
+    foreverdata: '1029184962'
+  beforeEach:
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на выдаче есть карусель со списком стран
+    - assert: над каруселью есть кнопки-фильтры
+    - assert: под каруселью есть футер со ссылкой на источник
+  Внешний вид:
+    - screenshot: внешний вид [where-to-fly]
+  Ссылка и счетчик на кнопке-фильтре:
+    - do: нажать на первую кнопку-фильтр
+    - assert: выдача обновилась в той же вкладке
+    - tech: сработал счетчик '/$page/$main/$result/carousel/controls-carousel/avia'
+  Ссылка и счетчик на карточке:
+    - do: нажать на первую карточку
+    - assert: выдача обновилась в той же вкладке
+    - tech: сработал счетчик '/$page/$main/$result/carousel/showcase/item/thumb'
+  Ссылка и счетчик на футере:
+    - do: нажать на первую ссылку в футере
+    - assert: открылась ссылка в новой вкладке
+    - tech: сработал счетчик '/$page/$main/$result/carousel/carousel-footer'
+    
+files:
+  - features/touch-phone/z-entity-search/carousel/travel_where_to_fly/carousel.hermione.js
+
+v-team: Freshness
+
+tags:
+  - skip_e2e_check # выключили в проде
+
+tlds: [ru, by, kz, ua, com.tr, com, fr]

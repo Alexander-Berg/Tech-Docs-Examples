@@ -1,0 +1,31 @@
+feature: 'Опечатка и Ко'
+type: 'Поиск с кавычками'
+
+specs:
+  Обработка запроса в кавычках-елочках:
+    - params:
+        foreverdata: '4284258006'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на выдаче присутствует опечаточник
+    - assert: текст опечасточника "Точного совпадения с «сколько можно использовать одни и те же запросы» не нашлось. Показаны результаты по запросу без кавычек."
+    - screenshot: внешний вид [unquote]
+
+files:
+  - features/touch-phone/misspell/misspell_type_unquotes.hermione.js
+
+priority: medium
+
+v-team: Suggest_Freshness
+
+tags:
+  - button
+  - quote
+  - meta
+  - wizard
+  - misspell
+  - smoke
+  - smoke_extended
+  - reviewed
+
+tlds: [ru, by, ua, kz, uz]
+

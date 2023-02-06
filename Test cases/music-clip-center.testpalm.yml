@@ -1,0 +1,52 @@
+feature: Объектный ответ
+type: Музыкальный клип в центре
+
+params:
+  rearr:
+    - entsearch_experiment=enable-recordings
+    - entsearch_experiment=online_music_clips
+    - entsearch_experiment=music_clips_to_wiki_snippet
+    - scheme_Local/EntitySearch/IsTrackToCenterMovingEnabled=1
+    - scheme_blender/commands/after_calculate_intent_weight/entity_search_desktop_track_center={Cmd:"make_intent_insert_request",If:"!rearr.is_mobile && UPPER.EntitySearch.Accept && UPPER.EntitySearch.IsTrackDataOkForMovingToCenter && (UPPER.EntitySearch.ListSize || UPPER.EntitySearch.IsSticky)",IntentName:"ENTITY_SEARCH",UtilityExpr:"20.01",Main:{Mode:"allow_all",PosExpr:"0",ViewType:"track_center"}, SpKey:"insert_request_ENTITY_SEARCH_track_center"}
+  srcrwr: UPPER:tavern.sas.yp-c.yandex.net:9081:100000
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу 'amy macdonald down by the water'
+    - assert: на выдаче есть карточка объекта
+  Показ плеера:
+    - assert: в центре виден плеер музыкального клипа
+    - screenshot: пример плеера музыкального клипа в центре [music-clip-center]
+  Нажатие на кнопку-ссылки на трек клипа:
+    - assert: в карточке есть кнопка-ссылка на Яндекс.Музыку
+    - do: кликнуть по кнопке-ссылке
+    - assert: |
+        в новой вкладке открылся сервис Яндекс.Музыки
+        в урле есть параметр from=serp_autoplay
+    - tech: сработал счетчик /snippet/entity_search/music/track/button
+  Отправка счётчика исполнителя клипа:
+    - assert: в карточке есть ссылка на исполнителя
+    - do: кликнуть по ссылке исполнителя
+    - assert: произошел перезапрос и открылся серп с исполнителем
+    - tech: сработал счетчик /snippet/entity_search/music/artist/link
+  Отправка счётчика альбома клипа:
+    - assert: в карточке есть ссылка на название альбома
+    - do: кликнуть по ссылке названия альбома
+    - assert: произошел перезапрос и открылся серп с названием альбома
+    - tech: сработал счетчик /snippet/entity_search/music/album/link
+
+files:
+  - features/desktop/z-entity-search/music-clip-center/music-clip-center.hermione.js
+
+v-team: OO
+
+tags: [no_assessors, oo_music_clips]
+
+tlds:
+  - ru
+  - ua
+  - by
+  - kz
+  - com
+  - com.tr
+  - fr

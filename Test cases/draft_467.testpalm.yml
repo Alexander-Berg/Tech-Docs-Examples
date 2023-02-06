@@ -1,0 +1,15 @@
+feature:  Умный дом - скрываем «Скоро сработают», если запуск сработал
+
+specs:
+    Умный дом - скрываем «Скоро сработают», если запуск сработал:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/4109
+        - release_Webview
+        - platform_common
+        - webview_regress
+        - iot_scenario
+    - do: "Preconditions На аккаунте есть ближайшие запуски-таймеры (если нет - создать таймер, `выключи свет через 5 минут`)"
+    - do: "Открыть экран сценариев"
+    - assert: "Есть какой-либо запуск по таймеру; ; <img src=`https://jing.yandex-team.ru/files/levkovskayama/IMG_3395.22ed342.PNG` alt=`Скриншот` width=`300`/>"
+    - do: "Дождаться выполнения"
+    - assert: "Запуск исчезает из `Скоро сработают`; Блок со `Скоро сработают` скрывается, подскролливаясь вверх ; ; <img src=`https://jing.yandex-team.ru/files/levkovskayama/IMG_3398.84dfc70.PNG` alt=`Скриншот` width=`300`/>; "

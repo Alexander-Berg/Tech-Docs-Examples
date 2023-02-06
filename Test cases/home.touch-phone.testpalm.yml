@@ -1,0 +1,42 @@
+feature: Чаты на морде тачи
+
+description: Чаты на Андроид 5 версии и выше
+
+tlds: ru
+
+specs:
+
+    Чаты на морде тачи[manual]:
+        - automation:
+        - do: выйти из сервисов яндекса и перейти на https://yandex.ru
+        - do: открыть боковое меню и выбрать чаты
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/ismateush/uhura_2019-07-22T18:02:16.jpg]
+        - assert: открылось окно чатов с заглушкой
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/ismateush/uhura_2019-07-22T18:02:18.jpg]
+        - do: проскроллить страницу
+        - assert: страница под чатом не скроллится
+        - do: перезагрузить страницу
+        - assert: окно чатов закрылось
+        - do: авторизоваться и открыть https://yandex.ru/chat?build=chamb&botId=f7bcae1d-a85d-4073-a3bc-4a10175623cf
+        - do: вернуться на https://yandex.ru
+        - assert: в шапке отображается иконка чатов
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/ismateush/uhura_2019-07-22T18:15:16.jpg]
+        - do: кликнуть по иконке чатов
+        - assert: |
+            открылось окно чатов
+            в списке есть чат с Mock providermock
+        - do: написать любое сообщение в чат с Mock providermock
+        - assert: |
+            сообщение отправилось
+            от бота пришел ответ
+        - do: кликнуть на закрыть
+        - assert: окно чатов закрылось
+
+files: []
+
+v-team: Chat
+
+tags:
+    - home
+    - yamb
+    - no_assessors

@@ -1,0 +1,40 @@
+feature: Hotels / Колдунщик многих организаций
+type: Стандартный вид
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу 'отели в ялте'
+    - assert: появился колдунщик отелей
+    - do: тапнуть в карту
+    - assert: открылся сайдблок с картой
+  Внешний вид пинов на карте:
+    - screenshot: примерный внешний вид карты с пинами [hotels-pins-feature-cut]
+    - assertMetrics: '*'
+  Внешний вид активного пина с фичекатом после клика:
+    - do: тапнуть по одному из пинов
+    - assert: открылась информация об отеле
+    - screenshot: примерный внешний вид активного пина [hotels-pins-feature-cut-active]
+    - assertMetrics: '*'
+
+files:
+  - features/companies/hotels/pins_feature_cut/hotels_pins_feature_cut@touch-phone.hermione.js
+
+counter: /snippet/companies/travel_map
+
+tlds:
+  - ru
+  - by
+  - kz
+  - ua
+
+tags:
+  - skip_e2e_check
+  - orgmn
+  - ajax
+  - sideblock
+  - map
+  - pin
+  - switch
+  - pp_new_core
+
+v-team: KotTeam

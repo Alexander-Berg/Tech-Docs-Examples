@@ -1,0 +1,26 @@
+feature: LcGoodGallery
+
+tags: no_assessors
+
+specs:
+  Внешний вид блока. Одно изображение, phone:
+    - do: открыть страницу https://yandex.ru/turbo?stub=lcgoodgallery/phoneOneImage.json
+    - screenshot: внешний вид соответствует скриншоту [phoneOneImage]
+  Внешний вид блока. Много изображений, phone:
+    - do: открыть страницу https://yandex.ru/turbo?stub=lcgoodgallery/phoneManyImages.json
+    - screenshot: внешний вид соответствует скриншоту [phoneManyImages]
+  Переключение изображения. Много изображений, phone:
+    - do: открыть страницу https://yandex.ru/turbo?stub=lcgoodgallery/phoneManyImages.json
+    - do: кликнуть по второму буллету
+    - screenshot: внешний вид соответствует скриншоту [phoneManyImagesWithBulletClick]
+
+files:
+  - platform/components/LcGoodGallery/__tests__/LcGoodGallery@phone.hermione.js
+
+v-team: Lc
+
+tlds: none
+
+manager: nuyakshin, polyakovadi
+
+qa-engineer: pankov97, vovichek62

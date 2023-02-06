@@ -1,0 +1,29 @@
+feature: Hotels / Карусель
+
+description: Тест на починку бага https://st.yandex-team.ru/SERP-78529
+
+specs:
+  Клавиатурное управление:
+    Управление стрелками вниз-вверх:
+      - tags:
+          - carousel
+          - popup
+      - do: получить выдачу по запросу 'отели в москве'
+      - assert: над поисковой выдачей появилась карусель отелей во всю ширину экарана
+      - do: кликнуть в первый отель в карусели
+      - assert: показался попап, в который загрузилась подробная информация о выбранном отеле
+      - do: нажать на клавишу 'стрелка вниз'
+      - assert: попап проскроллился вниз
+      - do: нажать на клавишу 'стрелка вверх'
+      - assert: попап проскроллился вверх
+
+tags:
+  - popup
+  - keyboard
+
+v-team: KotTeam
+
+files:
+  - features/companies/popup/companies-popup-keyboard@desktop.hermione.js
+
+tlds: none

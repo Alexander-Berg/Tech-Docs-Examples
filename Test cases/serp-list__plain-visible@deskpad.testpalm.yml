@@ -1,0 +1,21 @@
+feature: Счётчики скорости
+experiment: просто в html
+
+specs:
+  Счетчик bk848484 должен быть на странице:
+    - params:
+        prefetch: '1'
+    - do: получить выдачу по запросу 'Простой запрос'
+    - tech: на сервере сработал счетчик /tech/prefetch/visibility/html/valid с vars-ами
+    - assert: на странице есть текст bk848484(https://...) в одном скрытом блоке
+
+files:
+  - features/serp-list/serp-list__plain-visible@deskpad.hermione.js
+
+tags:
+  - no_assessors
+  - skip_e2e_check
+
+v-team: Velocity
+
+tlds: none

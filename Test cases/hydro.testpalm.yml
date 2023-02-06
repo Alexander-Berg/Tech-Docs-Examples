@@ -1,0 +1,49 @@
+feature: Колдунщик топонимов
+type: Геообъекты
+
+params:
+  # колдунщик топонимов отключен на стороне данных, этот флаг возвращает колдун
+  srcparams: 'UPPER:rearr=scheme_Local/ToponymWizard/Enabled=1'
+
+specs-integration:
+  Проверка показа колдунщика и ссылки:
+    - do: получить выдачу по запросу 'река ока'
+    - assert: на выдаче есть колдунщик, отображается карта с искомым объектом
+    - do: тапнуть по карте
+    - assert: в браузере открылся сервис Яндекс.Карты с искомым объектом
+    - counter: /$page/$main/$result[@wizard_name="maps" and @subtype="hydro"]/title
+
+specs:
+  params:
+    rearr: EntitySearch_off
+  beforeEach:
+    - do: получить выдачу по запросу 'река ока'
+    - assert: в результатах поиска есть колдунщик топонимов с картой
+  Проверить внешний вид колдунщика:
+    - screenshot: Внешний вид колдунщика топонимов [plain]
+  Проверить ссылку и счётчик в тайтле:
+    - tags:
+        - title
+        - maps
+    - do: перейти по ссылке в тайтле
+    - assert: в браузере открылся сервис Яндекс.Карты с искомым объектом
+    - assertMetrics: '*'
+  Проверяем кнопку расхлопа:
+    - tags:
+        - maps
+    - do: кликнуть по кнопке в верхнем правом углу карты
+    - assert: в браузере открылся сервис Яндекс.Карты с искомым объектом
+    - assertMetrics: '*'
+
+files:
+  - features/touch-phone/adapter-maps/hydro.hermione.js
+  - features/touch-phone/adapter-maps/hydro.hermione.e2e.js
+
+tlds: all
+
+v-team: VanillaGeo
+
+counter: /$page/$main/$result[@wizard_name="maps" and @subtype="hydro"]/title
+
+tags:
+  - hasE2E

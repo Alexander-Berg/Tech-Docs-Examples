@@ -1,0 +1,7 @@
+[
+  {
+    "statfaceReport": "Market_Vendors/CodeHealth/TestPalmCoverage",
+    "collectScript": "make configure && make bootstrap && npm run testpalm:coverage",
+    "resultFile": "coverage/testpalm_stat.json"
+  }
+]

@@ -1,0 +1,17 @@
+feature: Fixed
+
+specs:
+  Внешний вид:
+    - do: открыть страницу https://yandex.ru/turbo?stub=fixed/default.json
+    - screenshot: внешний вид блока соответствует скриншоту [plain]
+
+files:
+  - features/common/blocks/fixed/fixed.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: olga0321, dakhetov
+
+tlds: none

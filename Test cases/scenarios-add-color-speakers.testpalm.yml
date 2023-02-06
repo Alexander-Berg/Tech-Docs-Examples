@@ -1,0 +1,16 @@
+feature: Сценарии
+
+files:
+  - tests/hermione/suites/touch/legacy/scenarios/scenarios-add-color-speakers.hermione.js
+
+specs:
+  'Создание':
+    'Цветные колонки':
+      'Станция Макс':
+        - automation: TODO
+      'Лайт':
+        - automation: TODO
+      'Мини 2':
+        - automation: TODO
+      'Миди':
+        - automation: TODO

@@ -1,0 +1,20 @@
+feature: SocialInfo
+
+specs:
+  Внешний вид блока:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=socialinfo/default.json
+    - screenshot: внешний вид [plain]
+  Внешний вид даты на автомордах:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=socialinfo/autoface.json
+    - screenshot: внешний вид [plain]
+
+files:
+  - platform/components/SocialInfo/SocialInfo.tests/SocialInfo.hermione.js
+
+v-team: Turbo
+
+manager: sergey-kuldin
+
+qa-engineer: spv
+
+tlds: none

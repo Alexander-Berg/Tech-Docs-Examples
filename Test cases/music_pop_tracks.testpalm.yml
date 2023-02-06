@@ -1,0 +1,24 @@
+feature: Колдунщик ОО
+type: Музыка
+
+specs:
+  Популярные треки:
+    Общие проверки:
+      - label: music-pop-tracks-{{SET_NAME}}
+      - do: получить выдачу по запросу 'muse'
+      - assert: |
+          появился колдунщик ОО
+          в колдунщике присутствует список популярных треков
+      - screenshot: пример внешнего вида [plain]
+      - do: нажать на ссылку тайтл 'Популярные треки'
+      - assert: произошел перезапрос и появилась тёмная карусель с популярными треками
+
+files:
+  - features/deskpad/z-entity-search/music/music_pop_tracks.hermione.js
+
+tags:
+  - skip_e2e_check
+
+v-team: OO
+
+tlds: ['ru', 'ua', 'by', 'kz']

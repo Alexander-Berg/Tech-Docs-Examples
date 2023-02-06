@@ -1,0 +1,47 @@
+feature: Рекламный лэйбл
+type: В виде картинки (запасной)
+
+params:
+  foreverdata: '1860945185'
+
+specs:
+  Рандомный png с включенным флагом:
+    - params:
+        exp_flags:
+          - direct-label-image-reserve=1
+          - hideads=1
+          - direct_naked_label=null
+    - do: получить выдачу по запросу 'foreverdata'
+    - screenshot: внешний вид сниппета с лэйблом png [label-random-png]
+  Рандомный jpg с включенным флагом:
+    - params:
+        exp_flags:
+          - direct-label-image-reserve=11
+          - hideads=1
+          - direct_naked_label=null
+    - do: получить выдачу по запросу 'foreverdata'
+    - screenshot: внешний вид сниппета с лэйблом jpg [label-random-jpg]
+  Рандомный png с обратным флагом:
+    - params:
+        exp_flags:
+          - direct-label-image-reserve-off=1
+          - hideads=1
+          - direct_naked_label=null
+    - do: получить выдачу по запросу 'foreverdata'
+    - screenshot: внешний вид сниппета [label-random-png-off]
+
+files:
+  - features/direct-label-image-reserve/direct-label-image-reserve@desktop.hermione.js
+
+tags:
+  - skip_e2e_check
+  - adv
+  - adblock
+  - adv_label
+  - no_assessors
+
+v-team: Distribution
+
+tlds:
+  - ru
+  - by

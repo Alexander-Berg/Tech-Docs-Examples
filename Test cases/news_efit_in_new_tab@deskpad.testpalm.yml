@@ -1,0 +1,29 @@
+feature: Колдунщик новостей
+
+specs:
+  Отключение фрейма:
+    - params:
+        foreverdata: '3234179438'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на выдаче есть колдунщик новостей
+    - do: кликнуть в видео в карусели внизу колдунщика
+    - assert: в новой вкладке открылся Яндекс.Эфир (само видео может быть недоступно, важно, что сервис открывается в новой вкладке)
+    - tech: сработал счетик '/$page/$main/$result/video-block/showcase/item/thumb'
+
+files:
+  - features/news/news_efir_in_new_tab/news_efit_in_new_tab@deskpad.hermione.js
+
+tags:
+  - reviewed
+  - news
+
+v-team: Freshness
+
+counter: /$page/$main/$result[@wizard_name="news"]
+
+tlds:
+  - ru
+  - by
+  - ua
+  - kz
+  - uz

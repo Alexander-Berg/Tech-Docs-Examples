@@ -1,0 +1,29 @@
+feature: Страница всех объявлений
+experiment: Новые текстовки в информационных плашках
+
+params:
+  exp_flags: 'freshness_direct_page_new_texts=1'
+
+specs:
+  Внешний вид верхней подсказки:
+    - do: получить выдачу по запросу 'пластиковые окна'
+    - do: в адресной строке браузера добавить после 'search/touch/' параметр 'direct' и нажать Enter (для ПП - перейти на таб "Реклама" через меню в шапке)
+    - assert: выдача обновилась
+    - screenshot: внешний вид информационного сообщения над выдачей [direct-info]
+  Текст верхней подсказки при пустой выдаче:
+    - do: получить выдачу по запросу 'asdfghjklasdfghasdfghjklasdfgh'
+    - do: в адресной строке браузера добавить после 'search/touch/' параметр 'direct' и нажать Enter (для ПП - перейти на таб "Реклама" через меню в шапке)
+    - assert: выдача обновилась
+    - assert: информационное сообщение на странице содержит текст 'По вашему запросу не нашлось коммерческих предложений'
+
+
+files:
+  - features/touch-phone/search-ads/freshness_direct_page_new_texts/freshness_direct_page_new_texts.hermione.js
+
+tags:
+  - skip_e2e_check
+
+tlds:
+  - ru
+
+v-team: Freshness

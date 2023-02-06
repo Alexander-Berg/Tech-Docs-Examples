@@ -1,0 +1,30 @@
+feature: Состояние кнопки на десктопах
+
+specs:
+  before:
+    - do: открыть тестовый стенд с виджетом
+
+  Состояния кнопки корректно отображаются на десктопах:
+    - do: выставить параметр конструктора collapsedDesktop=never
+    - screenshot: кнопка виджета развернута [collapsed-never-no-hover]
+    - do: навести указатель мыши на кнопку виджета
+    - screenshot: кнопка виджета развернута [collapsed-never-hover]
+    - do: выставить параметр конструктора collapsedDesktop=always
+    - screenshot: кнопка виджета свернута [collapsed-always-no-hover]
+    - do: навести указатель мыши на кнопку виджета
+    - screenshot: кнопка виджета свернута [collapsed-always-hover]
+    - do: выставить параметр конструктора collapsedDesktop=hover
+    - screenshot: кнопка виджета свернута [collapsed-hover-no-hover]
+    - do: навести указатель мыши на кнопку виджета
+    - screenshot: кнопка виджета развернута [collapsed-hover-hover]
+
+files:
+  - tests/hermione/suites/widget/collapsed/collapsed.desktop.hermione.js
+
+v-team: Chat
+
+tags:
+    - no_assessors
+    - widget
+
+tlds: all

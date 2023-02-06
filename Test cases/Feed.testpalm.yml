@@ -1,0 +1,25 @@
+feature: Feed
+
+specs:
+  Внешний вид:
+    - do: открыть страницу https://yandex.ru/turbo?stub=feed%2Fplain.json
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Внешний вид без эскиза:
+    - do: открыть страницу https://yandex.ru/turbo?stub=feed%2Fno-thumb.json
+    - screenshot: внешний вид соответствует скриншоту [no-thumb]
+  Проверка счётчиков:
+    - tags: no_assessors
+    - do: открыть страницу https://yandex.ru/turbo?stub=feed%2Fplain.json
+    - do: кликнуть в первую новость
+    - tech: сработал baobab-счётчик path='$page.$main.$result.feed.link'
+
+files:
+  - platform/components/Feed/__tests__/Feed.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: dakhetov, ianislav, spv
+
+tlds: none

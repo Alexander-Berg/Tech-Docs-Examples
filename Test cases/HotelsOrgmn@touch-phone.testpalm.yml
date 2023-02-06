@@ -1,0 +1,89 @@
+feature: Hotels / Колдунщик многих организаций
+type: Стандартный вид
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу "отели в москве"
+    - assert: на странице присутствует результат со списком отелей
+    - screenshot: примерный внешний вид [travel-map-{{BROWSER_TYPE}} >> plain]
+  Внешний вид:
+    - tags:
+        - no_assessors
+        - orgmn
+        - high_priority
+    - label: travel-map-{{BROWSER_TYPE}}
+    - screenshot: внешний вид [plain]
+  Заголовок открывает список в оверлее:
+    - do: нажать на заголовок над картой
+    - tech: сработал счётчик path="/$page/$main/$result/hotels-orgmn/title"
+    - assert: открылся оверлей со списком отелей
+  Ссылки в блоке extralinks:
+    - assert: после текста в заголовке отображается иконка 3 точек
+    - do: кликнуть в иконку 3 точек после заголовка
+    - tech: сработал счётчик path="/$page/$main/$result/hotels-orgmn/extralinks"
+    - assert: появился попап с кнопками
+    - do: кликнуть в кнопку "Пожаловаться"
+    - assert: открылся попап подачи жалобы
+  Клик в карту на выдаче открывает карту в оверлее:
+    - do: нажать на карту над списком отелей
+    - tech: сработал счётчик path="/$page/$main/$result/hotels-orgmn/map/teaser"
+    - assert: открылся оверлей с картой и пинами
+  Клик в кнопку разворачивания карты на выдаче открывает карту в оверлее:
+    - do: нажать на кнопку разворачивания карты
+    - tech: сработал счётчик path="/$page/$main/$result/hotels-orgmn/map/open"
+    - assert: открылся оверлей с картой и пинами
+  Контрол выбора гостей перезагружает отели:
+    - tags:
+        - hotels-form
+        - orgmn
+        - button
+        - datasync
+        - submit
+    - do: изменить количество гостей в отельной форме
+    - assert: отели на выдаче перезагрузились
+    - tech: в параметре ag_dynamic ajax-запроса должны быть выбранные даты
+  Контрол выбора дат перезагружает отели:
+    - tags:
+        - hotels-form
+        - orgmn
+        - calendar
+        - button
+        - datasync
+        - submit
+    - do: изменить даты в отельной форме
+    - assert: отели на выдаче перезагрузились
+    - tech: в параметре ag_dynamic ajax-запроса должны быть выбранные даты
+  Значения формы пробрасываются в оверлей:
+    - tags:
+        - orgmn
+        - popup
+        - button
+        - progress-bar
+        - datasync
+        - sideblock
+        - hotels-form
+        - high_priority
+        - smoke
+        - pp_new_core
+    - do: изменить количество гостей в отельной форме
+    - assert: отели на выдаче перезагрузились
+    - do: изменить даты в отельной форме
+    - assert: отели на выдаче перезагрузились
+    - do: запомнить выбранные даты и количество гостей
+    - do: нажать на кнопку "Все отели"
+    - assert: открылся оверлей со списком отелей
+    - do: нажать на первую карточку отеля
+    - assert: открылся оверлей с информацией об отеле
+    - assert: даты и количество гостей соответствует выбранным ранее
+  Клик в оффер на выдаче открывает оверлей отеля:
+    - tech: проверить ссылку в карточке отеля
+    - do: нажать на карточку первого отеля
+    - tech: сработал счётчик path="/$page/$main/$result/hotels-orgmn/hotel-list/item[@permalink and @minPrice and @operatorId and @imageUrl]/card"
+    - assert: открылся оверлей отеля
+
+files:
+  - src/features/Companies/Companies.features/HotelsOrgmn/HotelsOrgmn.test/HotelsOrgmn@touch-phone.hermione.js
+
+v-team: KotTeam
+
+tlds: all

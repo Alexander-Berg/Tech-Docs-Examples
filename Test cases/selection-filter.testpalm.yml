@@ -1,0 +1,32 @@
+feature: selection-filter
+
+specs:
+  Внешний вид:
+    - params:
+        foreverdata: '1817568896'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок первого сниппета (название заголовка Тестовая страничка для selection-filter — турбо)
+    - assert: открывается турбо-страница в той же вкладке (в поисковом приложении Яндекс турбо-страница открывается в новой вкладке)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Внешний вид с label:
+    - params:
+        foreverdata: '2651467255'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок первого сниппета (название заголовка Тестовая страничка для labeled selection-filter — турбо)
+    - assert: открывается турбо-страница в той же вкладке (в поисковом приложении Яндекс турбо-страница открывается в новой вкладке)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Перевод `selection-filter` в неактивное состояние [manual]:
+    - automation: TURBOUI-7506
+    - do: открыть страницу https://yandex.ru/turbo?stub=form/selection-filter-disabled.json
+    - assert: открылась страница "Форма с отключенным selection-filter"
+    - do: нажать на селект "Все каналы"
+    - assert: форма не открывается (форма не активна)
+
+files:
+  - features/blocks/selection-filter/selection-filter.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: olga0321, dakhetov
+
+tlds: none

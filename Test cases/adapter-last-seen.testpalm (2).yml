@@ -1,0 +1,22 @@
+feature: Метка времени посещения сайта
+
+specs:
+  Внешний вид. Метка в начале сниппета:
+    - params:
+        foreverdata: '2790087806'
+        user_time: '20180625'
+    - do: получить выдачу по запросу 'foreverdata'
+    - screenshot: в первых четырёх результатах выдачи есть метка времени посещения сайта в соответствии со скриншотом [snippet]
+    - assertMetrics: '-'
+
+files:
+  - features/touch-phone/adapter-last-seen/adapter-last-seen.hermione.js
+
+v-team: Beauty
+
+manager: shmakova
+
+tags:
+  - reviewed
+
+tlds: all

@@ -1,0 +1,23 @@
+feature: LcCheckout
+
+specs:
+  Должен переключаться способ оплаты на desktop:
+    - do: Открыть страницу примера блока LcCheckout (https://yandex.ru/turbo?stub=lccheckout/default.json)
+    - assert: LcCheckout должен отображаться корректно и без сообщений об ошибках
+    - screenshot: Внешний вид соответствует скриншоту [pickup-desktop]
+    - do: Выбрать вторую опцию в поле "Способ получения"
+    - assert: Изменятся поля плучения заказа
+    - screenshot: Внешний вид LcCheckout соответствует скриншоту [delivery]
+  LcCheckout при выбранной онлайн оплате:
+    - do: Открыть страницу примера блока LcCheckout с выбранной онлайн оплатой (https://yandex.ru/turbo?stub=lccheckout/with-only-online-payment.json)
+    - assert: LcCheckout должен отображаться корректно и без сообщений об ошибках
+    - screenshot: Внешний вид соответствует скриншоту [online-payment]
+
+files:
+  - platform/components/LcCheckout/__tests__/LcCheckout@desktop.hermione.js
+
+v-team: Lc
+
+manager: osumerina
+
+tlds: none

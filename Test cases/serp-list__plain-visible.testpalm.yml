@@ -1,0 +1,47 @@
+feature: Счетчик видимости страницы для пререндера
+experiment: просто в html
+
+specs:
+  Счетчик bk848484 должен быть на странице:
+    - params:
+        prefetch: '1'
+    - do: получить выдачу по запросу 'Простой запрос'
+    - tech: на сервере сработал счетчик /tech/prefetch/visibility/html/valid с vars-ами
+    - assert: на странице есть текст bk848484(//...) в одном скрытом блоке
+    - do: нажать "Показать ещё"
+    - tech: в коде страницы присутствуют 2 скрытых блока счетчика видимости с текстом bk848484(//...)
+  Отправляется только браузером:
+    - params:
+        prefetch: '1'
+    - do: получить саджест в подсказка по запросу 'Елена Ширко'
+    - tech: на сервере сработал счетчик /tech/prefetch/visibility/html/valid с vars-ами
+    - tech: у загруженной в фоне страницы не отправился счетчик serp/page/open
+    - assertMetrics:
+      - web.tech.total_prefetch_show_count
+      - daily.total_session_count
+    - do: открыть страницу по подсказке саджеста
+    - tech: на странице есть текст bk848484(//...) в одном скрытом блоке с классом serp-bk-counter
+    - tech: после показа пререндереной страницы отправлен счетчик serp/page/open
+    - assertMetrics:
+      - web.tech.total_prefetch_show_count
+      - daily.total_session_count
+  Счётчик видимости для замешанной рекламы:
+    - params:
+        prefetch: '1'
+        exp_flags:
+          - direct_move_docs=1
+        foreverdata: '1668273189'
+    - do: получить выдачу по запросу 'foreverdata'
+    - tech: на странице есть быть текст bk848484(//...) в одном скрытом блоке
+    - tech: счётчик имеет все link_tail от рекламы /count/link_head=link_tail1=link_tail2=link_tail3
+
+files:
+  - features/touch-phone/serp-list/serp-list__plain-visible.hermione.js
+
+tags:
+  - no_assessors
+  - skip_e2e_check
+
+v-team: Velocity
+
+tlds: none

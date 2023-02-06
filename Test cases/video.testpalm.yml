@@ -1,0 +1,55 @@
+feature: Видео
+type: Обычный (тайтл без шаблона)
+
+tlds: [ru, kz, by, ua, com, com.tr]
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу 'rammstein клипы'
+    - assert: в результатах поиска присутствует колдунщик Яндекс.Видео с клипами
+    - screenshot: примерный внешний вид колдунщика [https://jing.yandex-team.ru/files/vtroshina//2018-02-06_14-16-47-4tbxu.png]
+    - tech: на экране колдунщик Яндекс.Видео 
+
+  Проверка ссылок:
+    - tag: [smoke]
+    - do: нажать на ссылку в заголовке колдунщика
+    - assert: |
+        открылась страница сервиса Яндекс.Видео (url содержит /video/search)
+        вся страница это заглушка с предложением установить более актуальный браузер
+        ссылки на браузеры кликабельны и ведут на корректные источники
+    - screenshot: внешний вид заглушки [https://jing.yandex-team.ru/files/kirrysin/Image_2020-10-10_22-53-34.png]
+    - do: вернуться на поисковую выдачу и нажать на сниппет видео в видео колдунщика
+    - assert: |
+        открылась страница сервиса Яндекс.Видео (url содержит /video/preview)
+        вся страница это заглушка с предложением установить более актуальный браузер
+        ссылки на браузеры кликабельны и ведут на корректные источники
+    - screenshot: внешний вид заглушки [https://jing.yandex-team.ru/files/kirrysin/Image_2020-10-10_22-53-34.png]
+
+  Проверка счетчика при клике в заголовок колдунщика:
+    - tags: [smoke, smoke_extended]
+    - do: нажать на ссылку в заголовке колдунщика
+    - tech: отправился счетчик /snippet/video/more
+
+  Проверка счетчика при клике в ролик в колдунщике:
+    - tags: [smoke, smoke_extended]
+    - do: нажать на любое видео, кроме первого, предложенное в колдунщике
+    - tech: отправился счетчик /snippet/video/item/title
+
+files:
+  - features/desktop/video/video.hermione.js
+
+priority:
+  - high
+
+manager:
+  - sterpugova
+
+v-team: Video
+
+tags:
+  - video
+  - button
+  - meta
+  - wizard
+  - smart_tv
+  - reviewed

@@ -1,0 +1,20 @@
+feature: LcButtonList
+
+tags: no_assessors
+
+specs:
+  Внешний вид блока:
+    - do: открыть страницу примера блока lcButtonList (yandex.ru/turbo?stub=lcbuttonlist/default.json)
+    - assert: список кнопок виден на странице
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/components/LcButtonList/__tests__/LcButtonList.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: olimiya, shinuta
+
+tlds: none

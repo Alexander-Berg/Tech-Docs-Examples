@@ -1,0 +1,15 @@
+feature: Яндекс.Здоровье
+
+specs:
+  Внешний вид фильтров:
+    - do: открыть страницу https://yandex.ru/turbo?stub=healthstatfilter/default.json
+    - screenshot: внешний вид фильтров соответствует скриншоту [plain]
+
+files:
+  - platform/components/HealthStatFilter/__tests__/HealthStatFilter.hermione.js
+
+v-team: Health
+
+manager: alenka-md
+
+tlds: ru

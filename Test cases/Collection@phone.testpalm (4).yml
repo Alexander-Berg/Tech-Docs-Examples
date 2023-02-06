@@ -1,0 +1,58 @@
+feature: ecom-tap
+
+params:
+  exp_flags:
+    - turbo-app-morda-redesign=1
+
+specs:
+  Collection:
+    Внешний вид блока:
+      - do: перейти по ссылке https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog/main/?morda=1&ecommerce_main_page_preview=1
+      - assert: на странице есть карусель "Товары со скидками"
+      - screenshot: внешний вид соответствует скриншоту [plain]
+
+    Внешний вид карточки с 3 изображениями:
+      - tags: no_assessors # используется патч
+      - do: перейти по ссылке https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog/main/?morda=1&ecommerce_main_page_preview=1&patch=setCollectionItems&imagesCount=3
+      - assert: на странице есть карусель "Товары со скидками"
+      - screenshot: внешний вид соответствует скриншоту [plain]
+
+    Внешний вид карточки с 4 изображениями:
+      - tags: no_assessors # используется патч
+      - do: перейти по ссылке https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog/main/?morda=1&ecommerce_main_page_preview=1&patch=setCollectionItems&imagesCount=4
+      - assert: на странице есть карусель "Товары со скидками"
+      - screenshot: внешний вид соответствует скриншоту [plain]
+
+    Внешний вид карточки с 7 изображениями:
+      - tags: no_assessors # используется патч
+      - do: перейти по ссылке https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog/main/?morda=1&ecommerce_main_page_preview=1&patch=setCollectionItems&imagesCount=7
+      - assert: на странице есть карусель "Товары со скидками"
+      - screenshot: внешний вид соответствует скриншоту [plain]
+
+    Сохранение позиции скролла при навигации:
+      - do: перейти по ссылке https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog/main/?morda=1&ecommerce_main_page_preview=1
+      - assert: |
+          на странице есть карусель "Товары со скидками"
+          карусель можно проскроллить вправо
+      - do: проскроллить карусель вправо
+      - do: кликнуть на вторую карточку в карусели
+      - assert: произошел переход на соответствующий каталог
+      - do: вернуться на главную с помощью верхней кнопки навигации
+      - assert: позиция скролла карусели "Товары со скидками" осталась в том же положении
+
+    Подгрузка данных при скролле:
+      - do: перейти по ссылке https://yandex.ru/turbo/zymbo.ru/n/yandexturbocatalog/main/?morda=1&ecommerce_main_page_preview=1
+      - assert: |
+          на странице есть карусель "Товары со скидками"
+          карусель можно проскроллить вправо
+      - do: проскроллить карусель до конца вправо
+      - assert: произошла подгрузка новых карточек в карусели
+
+files:
+  - experiments/turbo-app-morda-redesign/components/Collection/__tests__/Collection@phone.hermione.js
+
+tags: ecom-tap
+
+tlds: ru
+
+v-team: Turbo

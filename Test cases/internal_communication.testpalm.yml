@@ -1,0 +1,38 @@
+feature: Коммуникация с кандидатом
+type: Внутренняя коммуникация
+
+specs:
+  Добавление сообщения:
+    - do: открыть страницу претендента /applications/<id_претендента>/
+    - assert: |
+        внизу страницы претендента есть пустое поле 'Текст сообщения'
+        пример внешнего вида [application_message_form]
+    - do: установить фокус в поле 'Текст сообщения'
+    - assert: |
+        открылось поле для ввода текста сообщения
+        появилась кнопка 'Добавить файлы'
+        появилась кнопка 'Отправить'
+        пример внешнего вида [application_message_form_focused]
+    - do: ввести текст сообщения
+    - assert: пример внешнего вида [application_message_form_filled]
+    - do: клик на кнопку 'Отправить'
+    - assert: |
+        над полем 'Текст сообщения' появился введенный комментарий
+        в новом комментарии отображается время его добавления
+        поле 'Текст сообщения' очистилось
+        форма для ввода сообщения не свернулась
+        фокус установлен в поле 'Текст сообщения'
+        пример внешнего вида [application_messages_updated]
+
+tags:
+  - reviewed
+
+priority: blocker
+
+files:
+    - tests/hermione/suites/desktop/candidates/communication/internal_communication/internal_communication.hermione.js
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

@@ -1,0 +1,23 @@
+feature: Custom-HTML [React]
+
+specs:
+  beforeEach:
+    - do: Открыть https://yandex.ru/turbo?stub=custom%2Fcustom-html-react.json
+
+  Внешний вид:
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  CSS классы:
+    - tags: no_assessors
+    - tech: должен добавлять в class значение из className но не из mix
+
+files:
+  - platform/components/Custom/__tests__/Custom.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: olga0321, dakhetov
+
+tlds: none

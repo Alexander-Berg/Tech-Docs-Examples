@@ -1,0 +1,22 @@
+feature: Гринурл
+type: Кастомный
+
+specs:
+  По умолчанию:
+    - do: получить выдачу по запросу 'Пластиковые окна'
+    - screenshot: внешний вид [custom-green-url]
+    - assert: кастомный гринурл присутствует в рекламном сниппете
+    - assert: ссылка с гринурла ведёт на yabs.yandex.ru/count
+
+files:
+  - features/desktop/serp-adv-item/custom-green-url.hermione.js
+
+tags:
+  - no_assessors
+  - reviewed
+  - skip_e2e_check
+  - adv
+
+v-team: Distribution
+
+tlds: [ru]

@@ -1,0 +1,55 @@
+feature: Спец.размещение
+type: Экстралинки
+
+params:
+  foreverdata: '1720084576'
+
+specs:
+  Пожаловаться на результат с блокировщиком:
+    - do: включить adguard
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: в гринурле рекламного сниппетов есть кнопка '...'
+    - do: кликнуть на '...'
+    - assert: появился попап с пунктами меню (пунктов может быть несколько)
+    - screenshot: пример внешнего вида выпадушки [plain]
+    - do: навести курсор на один из пунктов списка
+    - assert: пункт списка под курсором выделяется цветом
+    - screenshot: пример внешнего вида [hover]
+    - do: кликнуть в первый пункт меню
+    - tech: сработал счётчик path='/tech/direct/ad/siteinfo'
+    - assertMetrics: '*'
+  Пожаловаться на результат без блокировщика:
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: в гринурле рекламного сниппетов есть кнопка '...'
+    - do: кликнуть на '...'
+    - assert: появился попап с пунктами меню
+    - screenshot: пример внешнего вида выпадушки [plain]
+    - do: навести курсор на один из пунктов списка
+    - assert: пункт списка под курсором выделяется цветом
+    - screenshot: пример внешнего вида [hover]
+    - do: кликнуть в первый пункт меню
+    - tech: сработал счётчик path='/tech/direct/ad/abuse/reason', vars='action=dynamic_click,pos='
+    - assert: появилось модальное окно с благодарностью
+    - screenshot: пример внешнего вида [direct-abuse-modal]
+    - do: проверить ссылку 'Яндекс.Директ'
+    - assert: ссылка ведет на страницу yandex.ru/support/direct/
+    - tech: на ссылке есть счетчик path='/tech/direct/ad/abuse/popup/more'
+    - do: кликнуть в кнопку 'ОК' в окне
+    - tech: сработал счетчик path='/tech/direct/ad/abuse/popup/ok', vars='action=dynamic_click'
+    - assert: модальное окно зарылось
+    - assertMetrics: '*'
+
+files:
+  - features/desktop/serp-adv-item/serp-adv-item__extralinks.hermione.js
+
+tags:
+  - organic
+  - reviewed
+  - skip_e2e_check
+  - adv
+  - adblock
+  - extralink
+
+v-team: Distribution
+
+tlds: all

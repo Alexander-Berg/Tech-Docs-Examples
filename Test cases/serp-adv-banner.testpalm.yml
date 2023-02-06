@@ -1,0 +1,39 @@
+feature: Медиабаннер
+type: МКБ
+
+specs:
+  Внешний вид и проверка ссылок:
+      - tags:
+          - smoke
+      - params:
+          foreverdata: '3787828229'
+      - do: получить выдачу по запросу 'foreverdata' (для планшетов выдача в ландшафтной ориентации)
+      - assert: медийно-контекстный баннер присутствует справа на странице [https://jing.yandex-team.ru/files/pdzianisevich/YAndeks__zadan_pustoi_poiskovyi_zapros_%E2%80%94_YAndeks.Brauzer_2020-06-26_00.28.36.png]
+      - tech: сработал счетчик path='/bs_stats/banners/mkb'
+      - tech: ссылка на картинке содержит yabs ссылку
+      - tech: на баннере есть счетчик path='/bs_stats/banners/mkb'
+      - counter: /bs_stats/banners/mkb
+files:
+  - features/desktop/serp-adv-banner/serp-adv-banner.hermione.js
+
+tlds:
+  - ru
+  - by
+  - kz
+  - com.tr
+
+requests:
+  ru: 'окна пвх'
+  by: 'окна пвх'
+  kz: 'окна пвх'
+  com.tr: 'oteller'
+
+v-team: Distribution
+
+tags:
+  - smoke_extended
+  - skip_e2e_check
+  - reviewed
+  - adv
+  - right_column_adv
+  - MCB

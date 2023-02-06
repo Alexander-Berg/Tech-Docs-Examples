@@ -1,0 +1,40 @@
+feature: LcCards(desktop)
+
+tags: no_assessors
+
+specs:
+  Обычные карточки:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lccards/default.json)
+    - screenshot: внешний вид соответствует скриншоту [desktop-default]
+  Карточки без указания ширины:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lccards/without-width-s3.json)
+    - screenshot: внешний вид соответствует скриншоту [desktop-without-width-s3]
+  Карточки без указания ширины (аватарница):
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lccards/without-width.json)
+    - screenshot: внешний вид соответствует скриншоту [desktop-without-width]
+  Карточки с кнопкой CTA:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lccards/ctaButton.json)
+    - screenshot: внешний вид соответствует скриншоту [desktop-button]
+    - do: навести курсор на первую карточку
+    - screenshot: внешний вид соответствует скриншоту [desktop-button-hover]
+  Карточки с ссылкой CTA:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lccards/ctaLink.json)
+    - screenshot: внешний вид соответствует скриншоту [desktop-link]
+    - do: навести курсор на первую карточку
+    - screenshot: внешний вид соответствует скриншоту [desktop-link-hover]
+  Карточки с модальным окном:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lccards/ctaModal.json)
+    - screenshot: внешний вид соответствует скриншоту [desktop-with-hidden-modal]
+    - do: нажать на кнопку "Получить" на первой карточке
+    - screenshot: внешний вид соответствует скриншоту [desktop-with-visible-modal]
+
+files:
+  - platform/components/LcCards/__tests__/LcCards@desktop.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: ratyulenev
+
+tlds: none

@@ -1,0 +1,59 @@
+feature: Основное настройки
+
+import-steps:
+    - tests/hermione/suites/desktop/shared-steps/backoffice.testpalm.steps.yml
+
+tlds: ru
+
+specs:
+    beforeEach:
+        - attach: Открытие настроек
+
+    Общий осмотр настроек:
+        - automation: YDO-6833
+        - assert: |
+            есть плашка с именем-фамилией и подписью "Редактировать профиль"
+            есть плашка "О сервисе"
+            есть плашка "Выйти"
+    О сервисе:
+        - automation: YDO-6833
+        - do: нажать "О сервисе"
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/tony-prots/2019-05-21_19-19-55.png]
+        - assert: открылось окно "О Кабинете оператора"
+
+    Документация:
+        - automation: YDO-6833
+        - do: нажать "О сервисе"
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/tony-prots/2019-05-21_19-19-55.png]
+        - do: нажать на "Документация"
+        - assert: открылась новая вкладка https://tech.yandex.ru/dialogs/chats/doc/manage-chats-docpage/
+
+    Обратная связь:
+        - automation: YDO-6833
+        - do: нажать "О сервисе"
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/tony-prots/2019-05-21_19-19-55.png]
+        - do: нажать на "Обратная связь"
+        - assert: открылась новая вкладка https://tech.yandex.ru/dialogs/chats/doc/feedback-docpage/
+
+    Пользовательское соглашение:
+        - automation: YDO-6833
+        - do: нажать "О сервисе"
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/tony-prots/2019-05-21_19-19-55.png]
+        - do: нажать на "Пользовательское соглашение"
+        - assert: открылась новая вкладка https://yandex.ru/legal/dialogues_interface_termsofuse/
+
+    Яндекс:
+        - automation: YDO-6833
+        - do: нажать "О сервисе"
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/tony-prots/2019-05-21_19-19-55.png]
+        - do: нажать на "Яндекс"
+        - assert: открылся Яндекс в новой вкладке
+
+files: []
+
+v-team: Uslugi
+
+tags:
+    - no_assessors
+    - skip_manual_check
+    - floyd

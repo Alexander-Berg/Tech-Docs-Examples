@@ -1,0 +1,41 @@
+feature: LcTextBlock
+
+tags: no_assessors
+
+specs:
+  SEO тэги:
+    Блок без тэга:
+      - do: открыть страницу (https://yandex.ru/turbo?stub=lctextblock/default.json)
+      - screenshot: внешний вид соответствует скриншоту [plain]
+    Блок с SEO тэгом none:
+      - do: открыть страницу (https://yandex.ru/turbo?stub=lctextblock/div.json)
+      - screenshot: внешний вид соответствует скриншоту [plain]
+    Блок с SEO тэгом h1:
+      - do: открыть страницу (https://yandex.ru/turbo?stub=lctextblock/h1.json)
+      - screenshot: внешний вид соответствует скриншоту [plain]
+    Блок с SEO тэгом h2:
+      - do: открыть страницу (https://yandex.ru/turbo?stub=lctextblock/h2.json)
+      - screenshot: внешний вид соответствует скриншоту [plain]
+    Блок с SEO тэгом h3:
+      - do: открыть страницу (https://yandex.ru/turbo?stub=lctextblock/h3.json)
+      - screenshot: внешний вид соответствует скриншоту [plain]
+    Блок с SEO тэгом h4:
+      - do: открыть страницу (https://yandex.ru/turbo?stub=lctextblock/h4.json)
+      - screenshot: внешний вид соответствует скриншоту [plain]
+    Блок с SEO тэгом h5:
+      - do: открыть страницу (https://yandex.ru/turbo?stub=lctextblock/h5.json)
+      - screenshot: внешний вид соответствует скриншоту [plain]
+    Блок с SEO тэгом h6:
+      - do: открыть страницу (https://yandex.ru/turbo?stub=lctextblock/h6.json)
+      - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/components/LcTextBlock/__tests__/LcTextBlock.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: ratyulenev
+
+tlds: none

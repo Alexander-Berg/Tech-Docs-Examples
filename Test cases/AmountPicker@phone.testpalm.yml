@@ -1,0 +1,60 @@
+feature: Amount-Picker
+
+params:
+    analytics-disabled: '1'
+
+browsers:
+  - ios-safari-12-touch
+  - ios-safari-11-touch
+  - ios-safari-10-touch
+  - ios-safari-9-touch
+
+specs:
+  afterEach:
+    - tech: страница не содержит клиентских ошибок
+
+  Внешний вид блока:
+    - do: открыть ссылку yandex.ru/turbo?stub=amountpicker/default.json
+    - assert: загрузился компонент выбора количества
+
+  Количество уменьшается на 1 при нажатии на "-":
+    - do: открыть ссылку yandex.ru/turbo?stub=amountpicker/default.json
+    - do: нажать на кнопку со знаком "-"
+    - assert: убедиться, что начальное значение поля input уменьшилось на 1
+
+  Количество увеличивается на 1 при нажатии на "+":
+    - do: открыть ссылку yandex.ru/turbo?stub=amountpicker/default.json
+    - do: нажать на кнопку со знаком "+"
+    - assert: убедиться, что начальное значение поля input увеличилось на 1
+
+  По достижении минимального количества кнопка "-" не нажимается:
+    - do: открыть ссылку yandex.ru/turbo?stub=amountpicker/default.json
+    - do: нажать на кнопку со знаком "-" до достижения минимального количества
+    - assert: убедиться, что кнопка со знаком "-" не нажимается
+
+  По достижении максимального количества кнопка "+" не нажимается:
+    - do: открыть ссылку yandex.ru/turbo?stub=amountpicker/big-value.json
+    - do: нажать на кнопку со знаком "+" до достижения максимального количества
+    - assert: убедиться, что кнопка со знаком "+" не нажимается
+
+  Если оставить инпут пустым и убрать курсор, в инпут вписывается 1:
+    - do: открыть ссылку yandex.ru/turbo?stub=amountpicker/test.json
+    - do: установить курсор в поле инпута, очистить значение бэкспейсом с клавиатуры
+    - assert: инпут пустой, курсор находится в поле инпута
+    - do: кликнуть по странице (вне инпута)
+    - assert: в инпут записался 1
+
+tags:
+  - e-commerce
+  - no_assessors #раскатили новый дизайн на 100%
+
+files:
+  - platform/components/AmountPicker/__tests__/AmountPicker@phone.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: olga0321, dakhetov
+
+tlds: none

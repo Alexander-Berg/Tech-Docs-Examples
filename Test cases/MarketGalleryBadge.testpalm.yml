@@ -1,0 +1,21 @@
+feature: marketGalleryBadge
+
+specs:
+  Внешний вид бейджа type_new:
+    - do: открыть страницу примера блока MarketGalleryBadge (https://yandex.ru/turbo?stub=marketgallerybadge/new.json)
+    - assert: должен отобразиться бэйджик «Новинка» синего цвета
+    - screenshot: внешний вид соответствует скриншоту [new]
+
+  Внешний вид бейджа type_customer-choice:
+    - do: открыть страницу примера блока MarketGalleryBadge (https://yandex.ru/turbo?stub=marketgallerybadge/customer-choise.json)
+    - assert: должен отобразиться бэйджик «Выбор покупателей» зелёного цвета
+    - screenshot: внешний вид соответствует скриншоту [customer-choice]
+
+files:
+    - platform/components/MarketGalleryBadge/__tests__/MarketGalleryBadge.hermione.js
+
+v-team: Market
+
+manager: seoshnik
+
+tlds: none

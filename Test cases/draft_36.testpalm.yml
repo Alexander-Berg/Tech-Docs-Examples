@@ -1,0 +1,13 @@
+feature:  Умный дом - розетка - переключатели в пп
+
+specs:
+    Умный дом - розетка - переключатели в пп:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/1867
+        - release_Webview
+        - release_Smarthome
+        - smarthome_regress
+        - platform_common
+    - do: "Description Прямо в ПП возможно включать/выключать устройство"
+    - do: "Открыть страницу устройства в ПП, включать/выключать кнопку"
+    - assert: "Розетка включается/выключается соответственно"

@@ -1,0 +1,45 @@
+feature: Смартбаннер React
+type: В режиме маскировки
+experiment: Скрываем смарт-баннер от блокировщика генерируя рандомное имя для блока
+
+params:
+  exp_flags:
+    - hideads=1
+    - smartbanner_atom=1
+
+specs:
+  В режиме маскировки на выдаче блока с классом 'DistrSmartbanner' не должно быть:
+    - params:
+        exp_flags: hidedist=1
+    - do: получить выдачу по любому запросу с включённым режимом маскировки
+    - assert: смартбаннер виден на выдаче
+    - tech: элемент смартбаннер DistrSmartbanner нет в исходном коде (смотреть в Elements в DevTools)
+  С выключенным режимом маскировки на выдаче должен быть СБ с классом 'DistrSmartbanner':
+    - params:
+        exp_flags: hidedist=0
+    - do: получить выдачу по любому запросу с выключенным режимом маскировки
+    - assert: смартбаннер виден на выдаче
+    - tech: элемент смартбаннер DistrSmartbanner присутствует в исходном коде (смотреть в Elements в DevTools)
+
+files:
+  - src/features/DistrSmartbannerReact/DistrSmartbannerReact.test/distr-smartbanner-mask-block/DistrSmartbanner-mask-block@touch-phone.hermione.js
+
+tlds:
+    - ru
+    - by
+    - kz
+    - ua
+
+tags:
+  - no_assessors
+  - reviewed
+  - skip_e2e_check
+  - distribution
+  - smartbanner
+  - adblock
+
+v-team: Distribution
+
+browsers:
+  notFor:
+    - searchapp-phone

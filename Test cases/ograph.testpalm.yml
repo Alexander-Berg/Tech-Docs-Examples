@@ -1,0 +1,27 @@
+feature: Open Graph
+
+specs-integration:
+  Должны быть мета-теги OG на yandex.ru:
+    - tags: no_assessors
+    - do: открыть https://yandex.ru/turbo?text=https://ru.wikipedia.org/wiki/Слоновые
+    - assert: на странице присутствует мета-тег og:title со значением «Слоновые»
+    - assert: на странице присутствует мета-тег og:description
+    - assert: на странице присутствует мета-тег og:url
+    - assert: на странице присутствует мета-тег og:site_name со значением «ru.wikipedia.org»
+    - assert: на странице присутствует мета-тег og:image
+
+  Не должно быть редиректа с turbopages.org:
+    - tags: no_assessors
+    - do: открыть под юзерагентом робота страницу https://ru-wikipedia-org.turbopages.org/ru.wikipedia.org/s/wiki/Слоновые
+    - assert: страница загрузилась без редиректа
+
+files:
+  - features/common/ograph.hermione.e2e.js
+
+v-team: Turbo
+
+manager: skolznev
+
+qa-engineer: fzvolinsky
+
+tlds: none

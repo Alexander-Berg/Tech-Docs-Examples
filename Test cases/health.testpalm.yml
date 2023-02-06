@@ -1,0 +1,35 @@
+feature: Яндекс.Здоровье
+
+specs:
+  Брендирование:
+    - do: открыть страницу '/turbo?stub=health%2Ffor-brand.json&brand=health'
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Статья:
+    - do: открыть страницу '/turbo?stub=health%2Farticle.json&brand=health&exp_flags=adv-disabled=0&hermione_advert=stub'
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Поиск:
+    - do: открыть страницу '/turbo?stub=health%2Fsearch.json&brand=health'
+    - screenshot: внешний вид соответствует скриншоту [search]
+
+  Профиль врача:
+    - do: открыть страницу '/turbo?stub=health%2Fprofile.json&brand=health&exp_flags=adv-disabled=0&hermione_advert=stub'
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Профиль клиники:
+    - do: открыть страницу '/turbo?stub=health%2Fprofile-clinic.json&brand=health&exp_flags=adv-disabled=0&hermione_advert=stub'
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Профиль сайта:
+    - do: открыть страницу '/turbo?stub=health%2Fprofile-website.json&brand=health&exp_flags=adv-disabled=0&hermione_advert=stub'
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/applications/health/__tests__/health.hermione.js
+
+v-team: Health
+
+manager: alenka-md
+
+tlds: ru

@@ -1,0 +1,40 @@
+feature: Колдунщик Дзена
+type: Аватар и мета в сниппете блоггера
+
+specs:
+  params:
+    foreverdata: '2944813093'
+  beforeEach:
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на выдаче присутствует колдунщик дзена
+  Внешний вид:
+    - screenshot: внешний вид [meta-without-greenurl-top-info]
+  Тайтл:
+    - do: нажать на тайтл колдунщика
+    - assert: открылся сервис Яндекс.Дзен
+    - tech: сработал счетчик '/$page/$main/$result/zen/title'
+  Шапка с метой о блоггере:
+    - do: нажать на шапку с метой о блоггере
+    - assert: открылся сервис Яндекс.Дзен
+    - tech: сработал счетчик '/$page/$main/$result/zen/zen-header/author-link'
+
+specs-integration:
+  Присутствует на выдаче:
+    - do: получить выдачу по запросу 'вилсаком в дзене' (альтернативный вариант "хабр в дзене")
+    - assert: на выдаче присутствует колдунщик дзена с тайтлом и выделенной шапкой
+
+tlds:
+  - ru
+
+counter: /$page/$main/$result[@wizard_name="zen" and @subtype="channel"]
+
+tags:
+  - react
+  - zen
+  - reviewed
+
+files:
+  - src/features/Zen/_channel/Zen_channel.test/Zen_channel@touch-phone.hermione.js
+  - src/features/Zen/_channel/Zen_channel.test/Zen_channel@touch-phone.hermione.e2e.js
+
+v-team: Freshness

@@ -1,0 +1,34 @@
+feature: Дистрибуционный тизер
+type: На второй странице c длинным заголовоком
+
+params:
+  foreverdata: '2304875010'
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: дистротизера не должно быть в выдаче
+    - do: нажать на кнопку 'Показать ещё'
+    - assert: должен появиться дистротизер на второй странице
+  Внешний вид nextpage-long horizontal:
+    - label: TeaserNextLong-{{SET_NAME}}
+    - screenshot: внешний вид [plain]
+    - do: повернуть устройство в ландшафтную (горизонтальную) ориентацию
+    - screenshot: пример внешнего вида в ландшафтной ориентации [horizontal]
+
+files:
+  - features/distr-teaser/distr-teaser_theme_nextpage-long@touch-phone.hermione.js
+
+v-team: Distribution
+
+tags:
+  - skip_e2e_check
+  - distribution
+
+tlds:
+  - ru
+  - by
+
+browsers:
+  notFor:
+    - searchapp-phone

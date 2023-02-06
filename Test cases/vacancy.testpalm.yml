@@ -1,0 +1,60 @@
+feature: Вакансия
+
+specs:
+  Проверка действующей вакансии [manual]:
+    - automation: VACANCIES-780
+    - do: открыть страницу /jobs/vacancies/<действующая вакансия>
+    - do: нажать на кнопку "Откликнуться" в приветствующем блоке
+    - assert: |
+        страница проскроллилась до формы
+        в url добавилось /#form
+  Проверка архивной вакансии [manual]:
+    - automation: VACANCIES-780
+    - do: открыть страницу /jobs/vacancies/<архивная вакансия>
+    - screenshot: внешний вид блока тегов [https://jing.yandex-team.ru/files/alex-murashev/tags_touch.png]
+  Проверка формы [manual]:
+    - automation: VACANCIES-780
+    - do: открыть страницу вакансии - /jobs/vacancies/<действующая вакансия с кнопками выбора типа резюме>
+    - screenshot: внешний вид формы [https://jing.yandex-team.ru/files/alex-murashev/form_url_touch.png]
+    - do: заполнить требуемые поля формы
+    - do: нажать на кнопку "Файл с резюме"
+    - assert: |
+        активна нажатая кнопка
+        поле для ссылки сменилось на кнопку загрузки файла 
+    - do: нажать на кнопку "Ссылка на резюме"
+    - assert: |
+        активна нажатая кнопка
+        появилось заполненное поле для указания ссылки на резюме
+    - do: нажать на кнопку "Файл с резюме"
+    - do: перевести устройство в горизонтальное положение
+    - screenshot: значения в полях не сбросились [https://jing.yandex-team.ru/files/alex-murashev/form_file_completed_desktop.png]
+    - do: перевести устройство в вертикальное положение
+    - do: нажать на кнопку загрузки файла
+    - do: загрузить файл с резюме
+    - do: нажать кнопку "Отправить"
+    - assert: форма пропала
+    - screenshot: появляется блок, благодарящий за отправку отклика [https://jing.yandex-team.ru/files/alex-murashev/vacancy_thanks_touch.png]
+  Проверка обязательных полей формы [manual]:
+    - automation: VACANCIES-780
+    - do: открыть страницу вакансии - /jobs/vacancies/<действующая вакансия с кнопками выбора типа резюме>
+    - do: нажать кнопку "Отправить"
+    - screenshot: появились ошибки у обязательных к заполнению полей [https://jing.yandex-team.ru/files/alex-murashev/form_error_url_touch.png]
+    - do: нажать на кнопку "Файл с резюме"
+    - assert: у кнопки загрузки файла отображается ошибка
+    - do: перевести устройство в горизонтальное положение
+    - screenshot: ошибки у обязательных к заполнению полей остались [https://jing.yandex-team.ru/files/alex-murashev/form_error_file_desktop.png]
+
+platform:
+  - touch
+
+tlds:
+  - ru
+  - by
+  - ua
+
+priority: blocker
+
+browsers:
+  - android-yandex-browser-touch
+  - android-browser-touch
+  - ios-safari-touch

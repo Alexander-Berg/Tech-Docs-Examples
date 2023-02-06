@@ -1,0 +1,137 @@
+feature: metrika
+
+params:
+  exp_flags:
+    - turboforms_endpoint=https://test-turbo-forms.common.yandex.ru/
+    - analytics-disabled=1
+
+browsers:
+  - ios-safari-12-touch
+  - ios-safari-11-touch
+  - ios-safari-10-touch
+  - ios-safari-9-touch
+
+specs:
+  Цели:
+    Блок widget-feedback в extras:
+      - do: перейти на https://yandex.ru/turbo?stub=metrika/goals-extras.json&exp_flags=analytics-disabled=0&_ym_debug=1
+      - do: дождаться загрузми метрики (Ya.Metrika)
+      - do: кликнуть по иконке 'Vk'
+      - tech: Отправляется цель метрики 'widget-feedback' на счетчик 46417413
+
+  Хиты:
+    Автоматическая бесконечная лента:
+      - do: перейти на https://yandex.ru/turbo?stub=metrika/infinite-1-auto.json&exp_flags=analytics-disabled=0&_ym_debug=1
+      - do: проскролить до конца страницы
+      - tech: Загрузилась связанная новость
+      - do: перейти на связанную новость
+      - tech: Для счетчика 45135375-2 произошел хит
+      - tech: В параметрах __ym хита указано "load_method = related_auto"
+
+  Ecommerce-отчёт:
+    Событие detail:
+      - do: перейти на https://yandex.ru/turbo?stub=page/nike.json
+      - tech: в window.dataLayer должен быть сохранён просмотр карточки товара
+      - tech: в window.yaDataLayer должен быть сохранён аналогичный просмотр с префиксом магазина
+
+    Событие detail в бесконечной ленте:
+      - do: перейти на https://yandex.ru/turbo?stub=page/nike.json
+      - do: проскролить страницу до конца вниз и дождаться загрузки следующего товара
+      - do: проскролить, чтобы второй товар стал полностью виден
+      - tech: в window.dataLayer должен быть сохранён просмотр карточки второго товара
+
+    Событие detail в бесконечной ленте с переключением вкладок браузера:
+      - do: перейти на https://yandex.ru/turbo?text=https%3A%2F%2Fhobbygames.ru%2Fzapretnaja-pustinja
+      - do: проскролить страницу до конца вниз и дождаться загрузки следующего товара
+      - do: проскролить, чтобы второй товар стал полностью виден
+      - do: нажать на кнопку «Добавить в корзину» у второго товара
+      - assert: открылась новая вкладка с адресом оригинального магазина
+      - do: переключиться обратно на вкладку с турбо-страницей товаров
+      - tech: в window.dataLayer последней записью должен быть сохранён просмотр карточки второго товара
+      - tech: в window.dataLayer всего три записи событий
+
+    Событие add:
+      - do: перейти на https://yandex.ru/turbo?text=https%3A%2F%2Foris-parquet.ru%2Fmarket%2Fgoods%2Fpaneli_mdf_vstavka
+      - do: нажать на кнопку «Добавить в корзину»
+      - tech: в window.dataLayer должно быть сохранено действие добавления товара в корзину
+
+    Событие add при автоматическом добавлении товара в корзину:
+      - do: перейти на https://yandex.ru/turbo?text=https%3A%2F%2Foris-parquet.ru%2Fmarket%2Fgoods%2Fpaneli_mdf_vstavka&autoadd=norelocate
+      - assert: продукт автоматически добавился в корзину
+      - tech: в window.dataLayer должно быть сохранено действие добавления товара в корзину
+
+    Событие add при переходе во внешнюю корзину с карточки товара:
+      - do: перейти на https://yandex.ru/turbo?text=https%3A%2F%2Fhobbygames.ru%2Fzapretnaja-pustinja
+      - do: нажать на кнопку «В корзину»
+      - tech: в window.dataLayer должно быть сохранено действие добавления товара в корзину
+
+    Событие add при изменении количества в корзине:
+      - do: перейти на https://yandex.ru/turbo?text=https%3A%2F%2Foris-parquet.ru%2Fmarket%2Fgoods%2Fpaneli_mdf_vstavka&patch=cartInitialState
+      - do: нажать на кнопку «Добавить в корзину»
+      - do: нажать на кнопку «Перейти в корзину» и дождаться открытия корзины
+      - do: нажать на кнопку увеличения количества единиц товара в корзине
+      - tech: в window.dataLayer должно быть сохранено действие добавления товара в корзину с указанием одной единицы
+
+    Событие add при покупке с витрины:
+      - do: перейти на https://yandex.ru/turbo?stub=productslist%2Fwith-buttons-and-cart.json
+      - do: нажать на кнопку «В корзину»
+      - tech: в window.dataLayer должно быть сохранено действие добавления товара в корзину с указанием одной единицы
+
+    Событие add при переходе во внешнюю корзину со списка товаров:
+      - do: перейти на https://yandex.ru/turbo?text=hobbygames.ru%2Fyandexturbocatalog%2F&category_id=28774&srcrwr=SEARCH_SAAS_LISTINGS:SAAS_ANSWERS
+      - do: нажать на кнопку «В корзину»
+      - tech: в window.dataLayer должно быть сохранено действие добавления товара в корзину с указанием одной единицы
+      - tech: в window.yaDataLayer должно быть сохранено аналогичное действие с префиксом магазина
+
+    Событие remove:
+      - do: перейти на https://yandex.ru/turbo?text=https%3A%2F%2Foris-parquet.ru%2Fmarket%2Fgoods%2Fpaneli_mdf_vstavka&patch=cartInitialState
+      - do: нажать на кнопку «Добавить в корзину»
+      - do: нажать на кнопку «Перейти в корзину» и дождаться открытия корзины
+      - do: нажать на кнопку «Удалить», чтобы удалить товар из корзины
+      - tech: в window.dataLayer должно быть сохранено действие удаления товара из корзины
+
+    Событие remove при изменении количества в корзине:
+      - do: перейти на https://yandex.ru/turbo?text=https%3A%2F%2Foris-parquet.ru%2Fmarket%2Fgoods%2Fpaneli_mdf_vstavka&patch=cartInitialState
+      - do: нажать на кнопку «Добавить в корзину»
+      - do: нажать на кнопку «Перейти в корзину» и дождаться открытия корзины
+      - do: нажать на кнопку увеличения количества единиц товара в корзине
+      - do: нажать на кнопку уменьшения количества единиц товара в корзине
+      - tech: в window.dataLayer должно быть сохранено действие удаления товара из корзины с указанием одной единицы
+
+    Событие purchase:
+      - do: перейти на https://yandex.ru/turbo?stub=ecomcartpage%2Fdefault.json
+      - do: нажать на кнопку «Оформить заказ»
+      - assert: появилось окно оформления заказа
+      - do: ввести имя «Роман»
+      - do: ввести телефон «+7 999 1234567»
+      - do: ввести email «test@test.ru»
+      - do: выбрать доставку самовывозом
+      - do: выбрать способ оплаты наличными при получении
+      - do: нажать на кнопку «Отправить»
+      - tech: в window.dataLayer должно быть сохранено действие отправки заказа
+
+    Событие purchase в покупке в 1 клик:
+      - do: перейти на https://yandex.ru/turbo?text=https%3A%2F%2Foris-parquet.ru%2Fmarket%2Fgoods%2Fdub_kantri_4776&exp_flags=analytics-disabled=0
+      - do: нажать на кнопку «Купить в 1 клик»
+      - do: дожлаться появления окна оформления заказа
+      - do: ввести имя «Роман»
+      - do: ввести телефон «+7 999 1234567»
+      - do: ввести email «test@test.ru»
+      - do: нажать на кнопку «Отправить»
+      - tech: в window.dataLayer должно быть сохранено действие отправки заказа
+
+tags:
+  - no_assessors
+  - skip_e2e_check
+  - e-commerce
+
+files:
+  - features/touch-phone/blocks/metrika/metrika.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: spv
+
+tlds: none

@@ -1,0 +1,10 @@
+feature: Устройство - лампочка
+
+files:
+  - tests/hermione/suites/touch/legacy/device-light/device-light.hermione.js
+
+specs:
+  'Страница лампочки':
+    - automation: TODO
+  'Вкладка "Режимы" на странице лампочки':
+    - automation: TODO

@@ -1,0 +1,41 @@
+feature: Все
+type: Колдунщик переговорок
+
+specs:
+  beforeEach:
+    - do: открыть страницу поиска /search?text=<название_переговорки>
+    - assert: |
+        открылась страница на вкладке 'Все'
+        на странице отображается колдунщик переговорок
+        у колдунщика есть название переговорки, местоположение, номера телефонов, кнопка бронирования
+  Проверка функциональности [manual]:
+    - automation: ISEARCH-6479
+    - screenshot: пример внешнего вида колдунщика переговорок [https://jing.yandex-team.ru/files/grikyan91/6_etazh_minsk__Poisk_po_Intranetu_nashlos_1_2020-08-03_12-21-23.png]
+    - do: проверить ссылку в названии переговорки 
+    - assert: ссылка содержит http://staff.yandex-team.ru/map/#/conference_room/name_exchange/<exchange_название_переговорки>
+    - tech: при клике на ссылку дернулся clck.yandex.ru/click/
+    - do: проверить ссылку на местоположении переговорки
+    - assert: ссылка содержит http://staff.yandex-team.ru/map/#/conference_room/name_exchange/<exchange_название_переговорки>
+    - do: клик на номер телефона переговорки
+    - assert: произошел звонок на ваш cпособ связи по умолчанию
+    - do: проверить ссылку на кнопку 'Забронировать'
+    - assert: ссылка содержит http://calendar.yandex-team.ru/event-add?invited=<exchange_название_переговорки>%40yandex-team.ru
+  Проверка ката [manual]:
+    - automation: ISEARCH-6479
+    - do: перезадать поисковый запрос с названием офиса или номером этажа (где больше 2х переговорок)
+    - assert: |
+        на странице отображается колдунщик переговорок
+        у колдунщика есть кат 'еще <количество_найденных> переговорок'
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/grikyan91/avrora__Poisk_po_Intranetu_nashlos_59_2020-06-01_14-49-21.png]
+    - do: клик на 'еще <количество_найденных> переговорок'
+    - screenshot: отобразились остальные найденные переговорки [https://jing.yandex-team.ru/files/grikyan91/avrora__Poisk_po_Intranetu_nashlos_59_2020-06-01_15-34-49.png]
+
+tags:
+  - reviewed
+
+priority: critical
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

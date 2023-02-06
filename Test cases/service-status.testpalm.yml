@@ -1,0 +1,44 @@
+feature: Статус сервиса
+
+specs:
+  beforeEach:
+    - do: (PREPARE) запустить в Runner сценарий "api/v4/services/ PATCH статус сервиса" (https://github.yandex-team.ru/pixel/abc-runner)
+    - do: (PREPARE) проверить, что у сервиса с id=3922 статус - "Развивается" (/services/postman_servise_for_patch/)
+
+  Изменение статуса сервиса:
+    - do: отправить запрос "Изменение статуса на develop" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: ответ на запрос должен содержать поля вида [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-03-05%2014-34-33.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+    - do: отправить запрос "Изменение статуса на supported" с токеном "robot-cat-leopold"
+    - assert: пришёл ответ со статусом "200"
+    - screenshot: ответ на запрос должен содержать поля вида [https://jing.yandex-team.ru/files/pixel/Screenshot%20from%202021-03-05%2014-37-57.png]
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS"
+
+  Пользователь с ограниченной ролью не может менять статус сервиса:
+    - do: отправить запрос "Изменение статуса на develop Ограниченная роль" с токеном "robot-cat-matroskin"
+    - assert: пришёл ответ со статусом "403" и телом "Your permissions are not enough"
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS" 
+
+  Пользователь с сильно ограниченной ролью не может менять статус сервиса:
+    - do: отправить запрос "Изменение статуса на develop Сильно ограниченная роль" с токеном "robot-cat-bayun"
+    - assert: пришёл ответ со статусом "403" и телом "Your permissions are not enough"
+    - do: кликнуть по табе "Test Results" в Response части postman UI
+    - assert: на табе "Test Results" все тесты со статусом "PASS" 
+
+priority: blocker
+
+files:
+  - tests/unit/services/api/test_services.py
+
+tags:
+  - reviewed
+  - no_assessors
+  - postman_automation
+  - fitcher:abc:src/blocks/desktop/service-state/**
+  - fitcher:abc:src/blocks/desktop/service-name-state-editor/**
+  - fitcher:plan:tests/unit/services/api/test_services.py
+

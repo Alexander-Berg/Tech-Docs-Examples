@@ -1,0 +1,37 @@
+feature: Скролл в списке чатов
+
+import-steps:
+    - tests/hermione/suites/messenger/shared-steps/open-messenger.testpalm.steps.yml
+
+tlds: ru
+
+specs:
+
+    Скролл ползунком[manual]:
+        - automation: MSSNGRFRONT-1929
+        - attach: Открытие мессенджера
+        - do: уменьшить размер окна с мессенджером, что бы был возможен скролл в списке чатов
+        - do: навести курсор на список чатов
+        - assert: отобразился ползунок скролла
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/tony-prots/Chaty_dlya_biznesa_2019-02-13_18-48-40.png]
+        - do: навести курсор на ползунок
+        - assert: ползунок увеличился  в размере
+        - do: проскроллить вниз списка чатов с помощью ползунка
+        - assert: список чатов скроллится
+
+    Скролл мышью-трекпадом[manual]:
+        - automation: MSSNGRFRONT-1929
+        - attach: Открытие мессенджера
+        - do: уменьшить размер окна с мессенджером, что бы был возможен скролл в списке чатов
+        - do: навести курсор на список чатов
+        - do: с помощью колесика мыши или трекпада проскроллить список чатов вниз
+        - assert: список чатов скроллится
+
+files: []
+
+v-team: Chat
+
+tags:
+    - chamb
+    - yamb #TODO: заменить ссылки
+    - y-team #TODO: заменить ссылки

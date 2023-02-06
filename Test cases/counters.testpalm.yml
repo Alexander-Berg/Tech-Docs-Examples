@@ -1,0 +1,99 @@
+feature: counters
+
+tags: no_assessors
+
+specs:
+
+  Бесконечная лента:
+    Происходят правильные хиты метрик:
+      - do: перейти на yandex.ru/turbo?stub=page/povarenok-infinite-1.json&exp_flags=analytics-disabled=0
+      - tech: Для счетчика 12345678-1 произошел хит с правильными параметрами
+      - tech: Для счетчика 12345678-2 произошел хит с правильными параметрами
+      - tech: Для счетчика 12345678-3 произошел хит с правильными параметрами
+      - tech: Для счетчика 12345678-4 произошел хит с правильными параметрами
+      - tech: Должен произойти запрос на kraken.rambler.ru
+      - tech: Должен произойти запрос на google-analytics.com
+      - tech: Должен произойти запрос на top-fwz1.mail.ru
+      - tech: Должен произойти запрос на www.tns-counter.ru
+      - tech: Должен произойти запрос на counter-yadro.ru
+      - do: проскролить до конца страницы
+      - tech: Загрузилась связанная новость
+      - tech: Для счетчика 12345678-1 остался один инстанс
+      - tech: Для счетчика 12345678-2 остался один инстанс
+      - tech: Для счетчика 12345678-3 остался один инстанс
+      - tech: Для счетчика 12345678-4 остался один инстанс
+      - do: перейти на связанную новость
+      - tech: Для счетчика 12345678-1 (второго инстанса) произошел хит с правильными параметрами
+      - tech: Для счетчика 12345678-2 (второго инстанса) произошел хит с правильными параметрами
+      - tech: Для счетчика 12345678-3 (второго инстанса) произошел хит с правильными параметрами
+      - tech: Для счетчика 12345678-4 (второго инстанса) произошел хит с правильными параметрами
+      - tech: Должен произойти запрос на kraken.rambler.ru
+      - tech: Должен произойти запрос на google-analytics.com
+      - tech: Должен произойти запрос на top-fwz1.mail.ru
+      - tech: Должен произойти запрос на www.tns-counter.ru
+      - tech: Должен произойти запрос на counter-yadro.ru
+      - do: проскролить в начало страницы
+      - do: проспролить обратно до связанной новости
+      - tech: Для счетчика 12345678-1 (второго инстанса) не произошло хитов
+      - tech: Для счетчика 12345678-2 (второго инстанса) не произошло хитов
+      - tech: Для счетчика 12345678-3 (второго инстанса) не произошло хитов
+      - tech: Для счетчика 12345678-4 (второго инстанса) не произошло хитов
+      - tech: Не должен отправляться запрос на kraken.rambler.ru
+      - tech: Не должен отправляться запрос на google-analytics.com
+      - tech: Не должен отправляться запрос на top-fwz1.mail.ru
+      - tech: Не должен отправляться запрос на www.tns-counter.ru
+      - tech: Не должен отправляться запрос на counter-yadro.ru
+
+    Правильно обрабатывается utm_referrer:
+      - do: перейти на yandex.ru/turbo?stub=page/povarenok-infinite-1.json&exp_flags=analytics-disabled=0&utm_referrer=http://example.com
+      - tech: Для счетчика 12345678-1 произошел хит с referrer=http://example.com в параметрах
+      - tech: Должен произойти запрос на kraken.rambler.ru с rf:http://example.com
+
+    Правильно обрабатывается флаг ga-referrer-originUrl:
+      - do: перейти на yandex.ru/turbo?stub=page/povarenok-infinite-1.json&exp_flags=analytics-disabled=0&utm_referrer=http://example.com&exp_flags=ga-referrer-originUrl=1
+      - tech: Для счетчика 12345678-1 произошел хит с referrer=http://example.com в параметрах
+      - tech: Должен произойти запрос на kraken.rambler.ru с rf:http://example.com
+      - tech: Должен произойти запрос на google-analytics.com с dr:https://www.povarenok.ru/recipes/show/25436/
+      - do: проскролить до конца страницы
+      - tech: Загрузилась связанная новость
+      - tech: Должен произойти запрос на kraken.rambler.ru с rf:http://example.com
+      - tech: Должен произойти запрос на google-analytics.com с dr:https://www.povarenok.ru/recipes/show/112697/
+
+    В iframe не инитится метрика без сообщения overlay-slider-active:
+      - do: перейти на /turbo?stub=page/povarenok-infinite-1.json&exp_flags=analytics-disabled=0&in-iframe&check_swipe
+      - tech: Метрика не должна загружаться
+      - do: Отправить postMessage с action=overlay-slider-active
+      - tech: Для счетчика 12345678-1 произошел хит с правильными параметрами
+
+  Клиентские redir-счетчики:
+    Отправка в отдельную таблицу:
+      Происходит при наличии turbo_ic и эксп флага send-ic-to-turbo-redir в урле:
+        - do: перейти на /turbo?text=test_news&turbo_ic=testTurboIC&exp_flags=send-ic-to-turbo-redir=1
+        - tech: все отправленные счетчики имеют параметр table=turbo_redir_log
+        - tech: все отправленные счетчики имеют параметр turbo_ic=testTurboIC
+
+      Не происходит при отсутствии turbo_ic и эксп флага send-ic-to-turbo-redir в урле:
+        - do: перейти на /turbo?text=test_news
+        - tech: все отправленные счетчики не имеют параметра table
+        - tech: все отправленные счетчики не имеют параметра turbo_ic
+
+      Не происходит при отсутствии turbo_ic в урле:
+        - do: перейти на /turbo?text=test_news&exp_flags=send-ic-to-turbo-redir=1
+        - tech: все отправленные счетчики не имеют параметра table
+        - tech: все отправленные счетчики не имеют параметра turbo_ic
+
+      Не происходит при отсутствии эксп флага send-ic-to-turbo-redir в урле:
+        - do: перейти на /turbo?text=test_news&turbo_ic=testTurboIC
+        - tech: все отправленные счетчики не имеют параметра table
+        - tech: все отправленные счетчики не имеют параметра turbo_ic
+
+files:
+- features/common/blocks/counters/counters.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: olga0321
+
+tlds: none

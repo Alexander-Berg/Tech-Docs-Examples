@@ -1,0 +1,22 @@
+feature: Внешняя коммуникация
+type: Отображение вкладки
+
+specs:
+    Несколько писем на вкладке внешней коммуникации [manual]:
+        - automation: FEMIDA-4828
+        - do: открыть страницу кандидата /candidates/<id_кандидата>/messages/ где есть несколько писем за разные месяцы
+        - assert: |
+            открылась страница кандидата с открытой вкладкой 'Внешняя коммуникация'
+            возлле названия вкладки есть кол-во писем
+            на вкладке письма отсортированы по месяцам
+        - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/grikyan91/Ivan_Petrov__Femida_2019-06-27_17-01-31.png]
+
+tags:
+  - reviewed
+
+priority: critical
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

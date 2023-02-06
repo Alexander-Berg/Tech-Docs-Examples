@@ -1,0 +1,20 @@
+feature: Счётчик типа шаблонов
+
+description: Если будут проблемы с тестом, проверить хотя бы 1 браузер на каждой платформе, не забудьте searchapp
+
+specs:
+  Счётчик показа типа шаблонов:
+    - do: получить выдачу по пустому запросу
+    - tech: сработал блокстат-счётчик `/tech/ui/web/touch`
+
+files:
+  - features/touch-phone/template-counter/template-counter.hermione.js
+
+v-team: Velocity
+
+tags:
+  - no_assessors
+  - counters
+  - skip_e2e_check
+
+tlds: none

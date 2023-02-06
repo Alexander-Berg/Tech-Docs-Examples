@@ -1,0 +1,23 @@
+feature: LcJobsActualVacancies
+
+tags: no_assessors
+
+specs:
+  Базовый вид:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcjobsactualvacancies/default.json)
+    - screenshot: внешний вид соответствует скриншоту [default]
+
+  С сервисом:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcjobsactualvacancies/with_services.json)
+    - screenshot: внешний вид соответствует скриншоту [with_services]
+
+files:
+  - platform/components/LcJobsActualVacancies/__tests__/LcJobsActualVacancies.hermione.js
+
+v-team: Backoffice
+
+manager: kiparis
+
+qa-engineer: grikyan
+
+tlds: none

@@ -1,0 +1,75 @@
+feature: Саджест
+type: Тыква
+
+params:
+  exp_flags:
+   - suggest_front_params=pumpkin_tier=4
+
+specs:
+  beforeEach:
+    - do: получить выдачу по запросу "привет"
+    - assert: получена выдача по указанному запросу
+    - do: кликнуть в поисковую строку
+    - assert: появился саджест
+  Внешний вид:
+    - tags:
+        - smoke_extended
+        - suggest_regress
+    - screenshot: открытый саджест [plain]
+    - assertMetrics: '*'
+  Клик в подсказку:
+    - tags:
+        - smoke_extended
+        - suggest_regress
+    - do: кликнуть на первую пословную подсказку
+    - assert: |
+        тект выбранной пословной подсказки добавлен в поисковую строку
+        элементы саджеста обновились
+    - do: кликнуть на кнопку "Найти"
+    - assert: |
+        саджест закрылся
+        выдача перезагрузилась
+        текст перезапроса состоит из изначального запроса "привет" + первая выбранная пословная подсказка
+    - assertMetrics: '*'
+
+specs-integration:
+  Клик в подсказку:
+    - do: получить выдачу по запросу "привет"
+    - assert: получена выдача по указанному запросу
+    - do: кликнуть в поисковую строку
+    - assert: появился саджест
+    - do: кликнуть на первую пословную подсказку
+    - assert: |
+        тект выбранной пословной подсказки добавлен в поисковую строку
+        элементы саджеста обновились
+    - do: кликнуть на кнопку "Найти"
+    - assert: |
+        саджест закрылся
+        выдача перезагрузилась
+        получена выдача по запросу, состоящему из изначального запроса "привет" + первая выбранная пословная подсказка
+
+
+files:
+  - features/touch-phone/suggest/suggest-pumpkin.hermione.js
+  - features/touch-phone/suggest/suggest-pumpkin.hermione.e2e.js
+
+tags:
+  - suggest
+  - input
+  - reviewed
+
+qa-engineer:
+  - etestova
+
+v-team: Suggest
+
+priority: high
+
+tlds:
+  - ru
+  - by
+  - ua
+  - kz
+  - uz
+  - com
+  - com.tr

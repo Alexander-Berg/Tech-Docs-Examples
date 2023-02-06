@@ -1,0 +1,27 @@
+feature: LcAddToCart
+
+tags: no_assessors
+
+specs:
+  Добавление товара в корзину:
+    - do: открыть ссылку https://yandex.ru/turbo?stub=lccart/clear-data.json
+    - assert: на странице есть фраза "Корзина пуста"
+    - do: открыть ссылку https://yandex.ru/turbo?stub=lcaddtocart/default.json
+    - screenshot: внешний вид соответствует скриншоту [empty]
+    - do: нажать на кнопку
+    - screenshot: внешний вид соответствует скриншоту [first]
+    - do: нажать на кнопку
+    - screenshot: внешний вид соответствует скриншоту [second]
+    - do: обновить страницу
+    - screenshot: внешний вид соответствует скриншоту [refresh]
+
+files:
+  - platform/components/LcAddToCart/__tests__/LcAddToCart.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: olimiya, shinuta
+
+tlds: none

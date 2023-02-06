@@ -1,0 +1,53 @@
+feature: YandexMarketCheck
+
+specs:
+  Внешний вид:
+    - params:
+        exp_flags:
+          - turbo-app-any-ua=1
+          - turbo-app-tested-by-market=1
+    - do: перейти по ссылке https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog/market_check/
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Переход с карточки товара:
+    - params:
+        exp_flags:
+          - turbo-app-any-ua=1
+          - turbo-app-tested-by-market=1
+    - do: перейти по ссылке https://yandex.ru/turbo/spideradio.github.io/s/rnd/fwj3pt
+    - assert: Открылась страница с продуктом
+    - do: Нажать на ссылку "Магазин проверен Яндекс.Маркетом"
+    - assert: открылась страница с информацией "Магазин проверен Яндекс.Маркетом"
+    - do: Нажать на ссылку "< Назад"
+    - assert: Открылась страница с продуктом
+
+  Переход с страницы "О магазине":
+    - params:
+        exp_flags:
+          - turbo-app-any-ua=1
+          - turbo-app-tested-by-market=1
+    - do: перейти по ссылке https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog/about/
+    - assert: Открылась страница "О Магазине"
+    - do: Нажать на ссылку "Магазин проверен Яндекс.Маркетом"
+    - assert: открылась страница с информацией "Магазин проверен Яндекс.Маркетом"
+    - do: Нажать на ссылку "< Назад"
+    - assert: Открылась страница "О Магазине"
+
+  Кнопка "Сообщить о проблеме" ведет на ФОС:
+    - params:
+        exp_flags:
+          - turbo-app-any-ua=1
+          - turbo-app-tested-by-market=1
+    - do: перейти по ссылке https://yandex.ru/turbo/spideradio.github.io/n/yandexturbocatalog/market_check/
+    - assert: открылась страница с информацией "Магазин проверен Яндекс.Маркетом"
+    - do: Найти кнопку "Сообщить о проблеме"
+    - assert: Кнопка "Сообщить о проблеме" ведет на ссылку "https://forms.yandex.ru/surveys/10023469.2596112ebb92735d531815bd8ca83c8860c8c25f/?shopname=spideradio.github.io"
+
+files:
+  - experiments/turbo-app-tested-by-market/components/YandexMarketCheck/__tests__/YandexMarketCheck@phone.hermione.js
+
+tags: ecom-tap
+
+tlds: ru
+
+v-team: Turbo

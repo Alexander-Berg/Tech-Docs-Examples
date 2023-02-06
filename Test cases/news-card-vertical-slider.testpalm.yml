@@ -1,0 +1,24 @@
+feature: Карта вертикального слайдера c доскролом в Новостях (news-card-vertical-slider)
+
+specs:
+  Внешний вид вертикального слайдера Новостей:
+    - params:
+        foreverdata: '4118421932'
+    - do: получить выдачу по запросу 'foreverdata' и кликнуть в заголовок первого сниппета (название заголовка Тестовая страница для компонента NewsCardVerticalSlider — Турбо)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Длинные названия изданий переносятся на новую строку со знаком ракеты:
+    - do: открыть страницу "yandex.ru/turbo?stub=newscardverticalslider/longAgencyName.json"
+    - assert: |
+            название агентства у первой новости переносится на новую строку
+            ракета располагается на одной строке со временем
+    - screenshot: внешний вид названия агентсва соответствует скриншоту [plain]
+
+files:
+  - platform/components/NewsCardVerticalSlider/__tests__/news-card-vertical-slider.hermione.js
+
+v-team: News
+
+manager: glushneva
+
+tlds: none

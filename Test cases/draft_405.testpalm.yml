@@ -1,0 +1,18 @@
+feature:  Умный дом - задержки в сценариях - 2 параллельных действия
+
+specs:
+    Умный дом - задержки в сценариях - 2 параллельных действия:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/3462
+        - release_Webview
+        - release_Smarthome
+        - platform_common
+        - testid_394744
+        - webview_regress
+        - iot_scenario
+    - do: "Создать сценарий, содержащий 2 действия на какие-нибудь любые устройства УД"
+    - assert: "Действия отображаются в одном блоке; ![](https://jing.yandex-team.ru/files/osennikovak/2021-08-23T17:05:52Z.046a6ef.png)"
+    - do: "Добавить ещё действие на конкретную колонку"
+    - assert: "Отображается последним в списке, в том же блоке; ![](https://jing.yandex-team.ru/files/osennikovak/2021-08-23T17:09:14Z.c7b6ac5.png)"
+    - do: "Добавить ещё действие на `любую колонку`"
+    - assert: "Отображается в том же блоке, но в самом верху; ![](https://jing.yandex-team.ru/files/osennikovak/2021-08-23T17:09:57Z.7a557d5.png)"

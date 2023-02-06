@@ -1,0 +1,30 @@
+feature: Открытие чата по ссылке
+
+import-steps:
+    - tests/hermione/suites/messenger/shared-steps/open-chat.testpalm.steps.yml
+
+specs:
+    Открывается чат по ссылке:
+        - attach: Открытие чата по ссылке
+        - assert: показалась боковая панель со списком чатов
+        - assert: в списке чатов есть один элемент
+
+    Переходит в чат по join-ссылке[manual]:
+        - automation: MSSNGRFRONT-4029
+        - attach: Переход в чат по join-ссылке
+        - assert: показалась боковая панель со списком чатов
+
+    Переходит к сообщению в чате по join-ссылке[manual]:
+        - automation: MSSNGRFRONT-4029
+        - attach: Переход к сообщению в чате по join-ссылке
+        - assert: показалась боковая панель со списком чатов
+
+v-team: Chat
+
+files:
+    - tests/hermione/suites/messenger/open-by-url/open-by-url.chamb.desktop.hermione.ts
+
+tags:
+    - no_assessors
+
+tlds: none

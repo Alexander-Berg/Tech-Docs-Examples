@@ -1,0 +1,15 @@
+feature: Карусель
+
+specs:
+  Внешний вид:
+    - do: открыть страницу "https://yandex.ru/turbo?stub=newscarousel/default.json"
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/components/NewsCarousel/__tests__/news-carousel@desktop.hermione.js
+
+v-team: News
+
+manager: glushneva
+
+tlds: none

@@ -1,0 +1,37 @@
+feature: autoload2
+
+specs:
+  Отправка parent-reqid при листании вниз:
+    - tags: no_assessors
+    - do: открыть страницу https://yandex.ru/turbo?text=logomebel.ru%2Fyandexturbocatalog%2F
+    # Поменять на `window.__GLOBAL_STATE__.store.global.reqid`
+    # после завершения экспримента с https://st.yandex-team.ru/TURBOUI-4285
+    - do: узнать reqid первой страницы товаров, выполнив в консоле `JSON.parse(document.body.dataset.bem).page.reqid`
+    - do: пролистать страницу до конца вниз и дождаться загрузки второй страницы
+    - assert: parent-reqid запроса за второй страницей совпадает с reqid первой страницы
+    - do: получить reqid второй страницы, узнав его из ответа AJAX-запроса за этой страницей
+    - do: пролистать страницу до конца вниз и дождаться загрузки третьей страницы
+    - assert: parent-reqid запроса за третьей страницей совпадает с reqid второй страницы
+
+  Отправка parent-reqid при листании вверх:
+    - tags: no_assessors
+    - do: открыть страницу https://yandex.ru/turbo?text=logomebel.ru%2Fyandexturbocatalog%2F&page=4
+    # Поменять на `window.__GLOBAL_STATE__.store.global.reqid`
+    # после завершения экспримента с https://st.yandex-team.ru/TURBOUI-4285
+    - do: узнать reqid первой страницы товаров, выполнив в консоле `JSON.parse(document.body.dataset.bem).page.reqid`
+    - do: проскролить примерно на ряд выше четвёртой страницы и дождаться загрузки третьей страницы
+    - assert: parent-reqid запроса за третьей страницей совпадает с reqid четвертой страницы
+    - do: получить reqid третьей страницы, узнав его из ответа AJAX-запроса за этой страницей
+    - do: проскролить примерно на ряд выше третьей страницы и дождаться загрузки второй страницы
+    - assert: parent-reqid запроса за второй страницей совпадает с reqid тртьей страницы
+
+files:
+  - platform/components/Autoload2/__tests__/Autoload2@phone.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: olga0321, dakhetov
+
+tlds: none

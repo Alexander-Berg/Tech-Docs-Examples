@@ -1,0 +1,27 @@
+feature: GeolocationControl
+
+specs:
+  Внешний вид блока:
+    - tags: no_assessors
+    - do: открыть страницу примера блока GeolocationControl (https://yandex.ru/turbo?stub=geolocationControl/default.json)
+    - assert: блок должен быть виден с закрашенной стрелкой
+    - screenshot: внешний вид соответствует скриншоту [current]
+    - do: нажать на стрелку
+    - assert: браузер запрашивает разрешение на проверку местоположения
+    - assert: в процессе запроса иконка имеет пульсирующую анимацию
+    - do: согласиться с браузером
+    - assert: появляется ошибка «Нет соединения с интернетом», т.к. мы пытаемся отправить координаты в недоступную ручку
+    - screenshot: внешний вид ошибки соответствует скриншоту [error-popup]
+    - do: закрыть ошибку крестиком
+    - assert: ошибка убралась
+    - assert: блок виден с незакрашенной стрелкой
+    - screenshot: внешний вид ошибки соответствует скриншоту [plain]
+
+files:
+  - platform/components/GeolocationControl/__tests__/GeolocationControl.hermione.js
+
+v-team: Weather
+
+manager: sergets
+
+tlds: none

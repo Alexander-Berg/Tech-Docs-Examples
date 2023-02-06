@@ -1,0 +1,43 @@
+feature: Видеозвонки в q
+
+import-steps:
+    - tests/hermione/suites/messenger/shared-steps/open-messenger.testpalm.steps.yml
+
+specs:
+
+  Видеозвонки в q[manual]:
+    - automation: MSSNGRFRONT-3724
+    - attach: Открытие чата q
+    - do: найти в поиске "Эхобот звонков"
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/ismateush/uhura_2019-07-30T16:48:53.jpg]
+    - do: открыть чат с ботом
+    - do: в шапке чата кликнуть на иконку телефона
+    - do: в выпадающем меню выбрать "Видеовызов"
+    - do: если есть запрос, то разрешить использовать камеру и микрофон
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/ismateush/uhura_2019-07-30T17:59:15.jpg]
+    - assert: |
+        открылось окно видеозвонка
+        на экране транслируется видео с камеры (если она подключена)
+        в левом углу в превью транслируется видео с камеры (если она подключена)
+        если камеры нет отображается заглушка, иконка камеры перечеркнута
+        слева в списке чатов отображается продолжительность звонка
+    - screenshot: пример внешнего вида с камерой [https://jing.yandex-team.ru/files/ismateush/uhura_2019-07-30T18:15:44.jpg]
+    - do: завершить звонок
+    - assert: отобразился экран оценки звонка
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/ismateush/uhura_2019-07-30T18:03:45.jpg]
+    - do: нажать "не хочу оценивать"
+    - assert: экран оценки закрылся, открыт чат с эхоботом
+
+files: []
+
+v-team: Chat
+
+tags:
+  - release
+  - no_assessors
+  - q
+
+tlds: ru
+
+browsers:
+    - chrome-desktop

@@ -1,0 +1,14 @@
+feature:  ПП - Настройки - Возраст сказок в ПП
+
+specs:
+    ПП - Настройки - Возраст сказок в ПП:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/3201
+        - release_Webview
+        - platform_common
+    - do: "Открыть Устройства - Настройки - Контент"
+    - assert: "Отображается раздел Сказки; [Пример](https://jing.yandex-team.ru/files/levkovskayama/Снимок%20экрана%202021-07-21%20в%2022.27.07.png)"
+    - do: "Нажать Сказки"
+    - assert: "По умолчанию стоит 5 лет ; ![](https://jing.yandex-team.ru/files/osennikovak/2021-04-08T10:48:19Z.1725ec9.png)"
+    - do: "Пролистать `влево` до нуля, затем `вправо` до 12"
+    - assert: "Когда долистали до 0 и до 12 соответственно левый и правый плюсик задизейблены; При перелистывании есть следующие группы:; ; до года - 3 малыши; ![](https://jing.yandex-team.ru/files/osennikovak/2021-04-08T10:50:23Z.6deae62.png); 4 - 7 средний (картинка выше); 8 - 12 взрослые; ![](https://jing.yandex-team.ru/files/osennikovak/2021-04-08T10:49:51Z.2751b91.png)"

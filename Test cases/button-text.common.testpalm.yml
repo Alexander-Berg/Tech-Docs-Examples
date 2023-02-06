@@ -1,0 +1,22 @@
+feature: Текст кнопки
+
+specs:
+  before:
+    - do: открыть тестовый стенд с виджетом
+
+  Текст кнопки отображается и обрезается по длине:
+    - do: выставить параметр конструктора buttonText=Напишите нам!
+    - screenshot: текст кнопки корректно отображается [button-text-short]
+    - do: выставить параметр конструктора buttonText=Невероятно длинный текст кнопки
+    - screenshot: текст кнопки обрезается по длине [button-text-long]
+
+files:
+  - tests/hermione/suites/widget/button-text/button-text.common.hermione.js
+
+v-team: Chat
+
+tags:
+    - no_assessors
+    - widget
+
+tlds: all

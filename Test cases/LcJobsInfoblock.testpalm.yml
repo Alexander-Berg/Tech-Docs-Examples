@@ -1,0 +1,22 @@
+feature: LcJobsInfoblock
+
+tags: no_assessors
+
+specs:
+  Базовый вид:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcjobsinfoblock/default.json)
+    - screenshot: внешний вид соответствует скриншоту [default]
+  Компактный вид:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcjobsinfoblock/compact.json)
+    - screenshot: внешний вид соответствует скриншоту [compact]
+
+files:
+  - platform/components/LcJobsInfoblock/__tests__/LcJobsInfoblock.hermione.js
+
+v-team: Backoffice
+
+manager: kiparis
+
+qa-engineer: grikyan
+
+tlds: none

@@ -1,0 +1,25 @@
+feature: Объектный ответ
+type: Карточка объекта
+experiment: Жирные заголовки
+
+params:
+  exp_flags:
+    - OO_card_title_bold=1
+
+specs:
+  Общие проверки:
+    - do: получить выдачу по запросу 'Мадонна'
+    - assert: |
+        на выдаче есть карточка объекта
+        в карточке есть списки с жирными заголовками
+    - screenshot: пример внешнего вида [plain]
+
+files:
+  - features/desktop/z-entity-search/card/experiments/OO_card_title_bold/OO_card_title_bold.hermione.js
+
+v-team: OO
+
+tags:
+  - oo_feature_card
+
+tlds: all

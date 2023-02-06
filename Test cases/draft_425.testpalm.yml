@@ -1,0 +1,16 @@
+feature:  Умный дом - Azuma - Карусель - Нет комнат
+
+specs:
+    Умный дом - Azuma - Карусель - Нет комнат:
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/3936
+        - release_Webview
+        - platform_common
+        - webview_regress
+        - azuma
+    - do: "Description Azuma - новый стиль главной страницы Устройств"
+    - do: "Preconditions Дом без комнат с устройствами, избранных нет"
+    - do: "Перейти в дом без комнат с устройствами"
+    - assert: "- 2 раздела: `Устройства` с устройствами в доме и `Сценарии`; ; <img src=`https://testpalm-api.yandex-team.ru/testcases/alice/3936/attachment/618059ce3822ca00228c44f0` alt=`Скриншот` width=`200`/>; ; "
+    - do: "Переключаться по разделам тапами"
+    - assert: "Переключение между ними корректно работает без морганий; ; "

@@ -1,0 +1,28 @@
+feature: Опечатка и Ко
+type: 0 в запросе
+
+specs:
+  Базовое поведение:
+    - do: получить выдачу по запросу '0'
+    - screenshot: Внешний вид соответствует скриншоту [plain]
+    - assert: опечаточника нет на странице
+    - assert: в поисковой стрелке значение '0'
+    - assertMetrics: '*'
+
+files:
+  - features/common/misspell/misspell-zero.hermione.js
+
+v-team: Freshness
+
+tags:
+  - misspell
+  - reviewed
+  # в ямле проверяется только corner-case, интеграционный тест не нужен
+  - skip_e2e_check
+
+tlds:
+  - ru
+  - by
+  - ua
+  - kz
+  - uz

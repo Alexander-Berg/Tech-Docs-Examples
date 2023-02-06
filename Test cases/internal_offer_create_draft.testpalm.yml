@@ -1,0 +1,31 @@
+feature: Внутренний оффер
+type: Создание черновика
+
+specs:
+  Создание внутреннего оффера:
+    - do: открыть страницу претендента, который является сотрудником Яндекса либо outstaff со статусом 'В работе' на вакансию со статусом 'В работе'/applications/<id_претендента>/
+    - screenshot: присутствует кнопка '...' [application_actions]
+    - do: нажать на '...' в шапке претендента
+    - screenshot: открылась выпадушка [application_menu_popup]
+    - do: в выпадушке нажать 'Создать оффер'
+    - screenshot: открылся поп-ап 'Создание оффера' [application_form_create_offer]
+    - do: нажать 'Создать оффер'
+    - assert: |
+        открылась страница редактирования оффера /offers/<id_оффера>/edit/
+        в поле 'Полное имя' указан кандидат, на которого создается оффер
+        в поле 'Тип вывода' автоматически выбран тип 'Ротация'
+        поле 'Логин' автоматически заполнено логином кандидата
+    - screenshot: пример внешнего вида страницы оффера в режиме редактирования с выбранными по умолчанию параметрами [application_form_create_offer_success]
+
+tags:
+  - reviewed
+
+priority: blocker
+
+files:
+  - tests/hermione/suites/desktop/candidates/internal_offers/internal_offer_create_draft/internal_offer_create_draft.hermione.js
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

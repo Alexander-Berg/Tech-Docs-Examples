@@ -1,0 +1,21 @@
+feature: Новостной медиа-блок на десктопе
+
+specs:
+  Базовый вид блока - фото и видео:
+    - do: открыть https://yandex.ru/turbo?stub=newsmediastack/default.json
+    - assert: новостной медиа-блок с фото и видео виден
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+  Базовый вид блока - фото:
+    - do: открыть https://yandex.ru/turbo?stub=newsmediastack/default.json
+    - assert: новостной медиа-блок с фото виден
+    - screenshot: внешний вид соответствует скриншоту [plain-photo]
+
+files:
+  - platform/components/NewsMediaStack/__tests__/NewsMediaStack@desktop.hermione.js
+
+v-team: News
+
+manager: glushneva
+
+tlds: none

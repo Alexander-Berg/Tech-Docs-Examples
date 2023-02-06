@@ -1,0 +1,16 @@
+feature: marketRatingDistribution
+
+specs:
+    Внешний вид блока:
+        - do: открыть страницу примера блока MarketRatingDistribution (https://yandex.ru/turbo?stub=marketratingdistribution/default.json)
+        - assert: должны быть виден блок распределения отзывов
+        - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+    - platform/components/MarketRatingDistribution/__tests__/MarketRatingDistribution@phone.hermione.js
+
+v-team: Market
+
+manager: seoshnik
+
+tlds: none

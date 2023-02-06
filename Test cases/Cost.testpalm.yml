@@ -1,0 +1,26 @@
+feature: cost
+
+specs:
+  Внешний вид:
+    locale = ru:
+      - do: открыть ссылку https://yandex.ru/turbo?stub=cost/cost.json
+      - screenshot: внешний вид соответствует скриншоту [plain]
+
+    locale = en:
+      - do: открыть ссылку https://yandex.ru/turbo?stub=cost/cost.json&l10n=en
+      - screenshot: внешний вид соответствует скриншоту [plain]
+
+    locale = uk:
+      - do: открыть ссылку https://yandex.ru/turbo?stub=cost/cost.json&l10n=uk
+      - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/components/Cost/__tests__/Cost.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: olga0321, dakhetov
+
+tlds: none

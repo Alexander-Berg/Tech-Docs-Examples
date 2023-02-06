@@ -1,0 +1,30 @@
+feature: LcGridBlockButton
+
+tags: no_assessors
+
+specs:
+  Секция LcGridBlockButton:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcgridblockbutton/default.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Секция LcGridBlockButton c кастомной темой:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcgridblockbutton/with-custom-theme.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Секция LcGridBlockButton c кастомным выравниванием:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcgridblockbutton/with-custom-align.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Секция LcGridBlockButton c кастомными отступами:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcgridblockbutton/with-custom-text-paddings.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+  Секция LcGridBlockButton c кастомными скруглениями углов:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=lcgridblockbutton/with-custom-borders.json)
+    - screenshot: внешний вид соответствует скриншоту [plain]
+files:
+  - platform/components/LcGridBlockButton/__tests__/LcGridBlockButton.hermione.js
+
+v-team: Lc
+
+manager: nuyakshin
+
+qa-engineer: arsmesh
+
+tlds: none

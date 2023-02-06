@@ -1,0 +1,31 @@
+feature: Факт
+type: Саджест (Списки)
+experiment: Изменение количества показываемых элементов
+
+specs:
+  С "читать полностью":
+    - params:
+        foreverdata: '1167028438'
+        exp_flags: fact_list_visible_count=6
+    - do: получить выдачу по запросу "foreverdata"
+    - assert: на странице присутствует факт-список, количество показанных элементов списка равно 6
+  Один элемент списка не скрывается за читать еще:
+    - params:
+        foreverdata: '1167028438'
+        exp_flags: fact_list_visible_count=8
+    - do: получить выдачу по запросу "foreverdata"
+    - assert: на странице присутствует факт-список, количество показанных элементов списка равно 9, скрытых элементов списка - нет
+
+files:
+  - features/adapter-suggest-fact/fact_list_visible_count/adapter-suggest-fact@common.hermione.js
+
+v-team: Facts
+
+tlds:
+  - ru
+  - by
+  - ua
+  - kz
+  - uz
+  - com.tr
+  - com

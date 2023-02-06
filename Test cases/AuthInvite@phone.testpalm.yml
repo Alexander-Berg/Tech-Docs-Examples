@@ -1,0 +1,44 @@
+feature: Auth Invite
+
+params:
+  exp_flags:
+    - analytics-disabled=1
+
+browsers:
+  - ios-safari-12-touch
+  - ios-safari-11-touch
+  - ios-safari-10-touch
+  - ios-safari-9-touch
+
+specs:
+
+  Внешний вид блока:
+    - do: открыть ссылку yandex.ru/turbo?stub=authinvite/registration.json
+    - assert: внешний вид соответствует скриншоту [registration]
+    - do: открыть ссылку yandex.ru/turbo?stub=authinvite/login.json
+    - assert: внешний вид соответствует скриншоту [login]
+
+  Проверка ссылки регистрации:
+    - do: открыть ссылку yandex.ru/turbo?stub=authinvite/registration.json
+    - do: нажать на кнопку "Зарегистрироваться"
+    - assert: ссылка https://passport.yandex.ru/registration открылась в новой вкладке
+
+  Проверка ссылки авторизации:
+    - do: открыть ссылку yandex.ru/turbo?stub=authinvite/login.json
+    - do: нажать на кнопку "Войти"
+    - assert: ссылка https://passport.yandex.ru/auth открылась в новой вкладке
+
+tags:
+  - e-commerce
+  - no_assessors #раскатили новый дизайн на 100%
+
+files:
+  - platform/components/AuthInvite/__tests__/AuthInvite@phone.hermione.js
+
+v-team: Turbo
+
+manager: tanzwuta
+
+qa-engineer: spv
+
+tlds: none

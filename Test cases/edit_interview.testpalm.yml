@@ -1,0 +1,30 @@
+feature: Секция
+type: Редактирование
+
+specs:
+  Редактирование секции [manual]:
+    - automation: FEMIDA-4886
+    - do: открыть страницу кандидата с назначенными секциями /candidates/<id_кандидата>/interviews/
+    - do: навести курсор на секцию в статусе 'Назначена'
+    - screenshot: появилась иконка карандаша [https://jing.yandex-team.ru/files/grikyan91/Monosnap_2019-07-10_18-12-04.png]
+    - do: клик на карандаш
+    - assert: открылся попап для редактирования секции
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/grikyan91/Ekaterinna-Anna_Horoshenkaya-Horoshenkaya__Femida_2019-07-10_18-14-02.png]
+    - do: изменить название секции
+    - do: изменить того, кто проведет секцию
+    - do: клик 'Сохранить'
+    - assert: |
+        попап закрылся
+        изменилось название секции
+        изменилось поле 'Проведет'
+    - screenshot: пример внешнего вида [https://jing.yandex-team.ru/files/grikyan91/Ekaterinna-Anna_Horoshenkaya-Horoshenkaya__Femida_2019-07-10_18-16-04.png]
+
+tags:
+  - reviewed
+
+priority: critical
+
+browsers:
+  - yandex-browser-desktop
+  - firefox-desktop
+  - safari-desktop

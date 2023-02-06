@@ -1,0 +1,43 @@
+feature: Общий транспортный колдунщик
+experiment: Форма
+
+specs:
+  # По мотивам бага https://st.yandex-team.ru/SERP-98622
+  Должна выводиться при отсутствии офферов:
+    - do: получить выдачу по запросу 'расстояние от новосибирска до намангана самолете'
+    - assert: показался колдунщик авиабилетов
+    - screenshot: внешний вид [avia-form]
+  Проверка внешнего вида авиа:
+    - params:
+        exp_flags: 'GEO_otk_granny_form=avia'
+    - do: получить выдачу по запросу 'авиабилеты Москва Санкт-Петербург'
+    - assert: показался колдунщик авиабилетов
+    - screenshot: внешний вид [avia-form]
+  Проверка внешнего вида поезда:
+    - params:
+        exp_flags: 'GEO_otk_granny_form=rasp'
+    - do: получить выдачу по запросу 'поезд Москва Санкт-Петербург'
+    - assert: показался колдунщик поездов
+    - screenshot: внешний вид [trains-form]
+  Проверка внешнего вида автобусы:
+    - params:
+        exp_flags: 'GEO_otk_granny_form=bus'
+    - do: получить выдачу по запросу 'автобус Москва Санкт-Петербург'
+    - assert: показался колдунщик автобусов
+    - screenshot: внешний вид [bus-form]
+  Проверка формы поездов:
+    - params:
+        exp_flags: 'GEO_otk_granny_form=rasp'
+    - do: получить выдачу по запросу 'поезд Москва Санкт-Петербург'
+    - assert: показался колдунщик поездов
+    - tech: action формы указывает на travel.yandex.ru/trains/search
+
+files:
+  - features/touch-phone/transports/geo-common-form/geo-common-form.hermione.js
+
+tlds: [ru, by, ua, kz]
+
+v-team: KotTeam
+
+tags:
+  - skip_e2e_check

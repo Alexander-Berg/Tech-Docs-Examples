@@ -1,0 +1,20 @@
+feature: Адаптер рекламы
+type: Сайтлинки
+
+params:
+  foreverdata: '2285653561'
+
+specs:
+  Ограничение максимального количества показываемых сайтлинков:
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: у сниппета спец. размещения 4 сайтлинка
+
+files:
+  - features/desktop/serp-adv-item/serp-adv-item__sitelinks-limit/adapter-adv__sitelinks-limit.hermione.js
+
+tags:
+  - skip_e2e_check
+
+v-team: Distribution
+
+tlds: [ru]

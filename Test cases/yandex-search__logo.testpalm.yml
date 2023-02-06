@@ -1,0 +1,77 @@
+feature: Лого
+
+langs: ru, tr
+
+specs:
+  Базовые проверки:
+    Наличие лого и его счетчиков:
+      - tags:
+          - smoke_extended
+      - do: получить выдачу по запросу 'колендарь'
+      - do: проверить ссылку в логотипе Яндекса (на десктопах и планшетах - слева от поисковой строки)
+      - assert: открылась страница yandex.ru (либо yandex.by/yandex.ua/yandex.kz, в зависимости от вашего местоположения)
+      - tech: проверить счетчик в логотипе
+      - assertMetrics:
+          - web.reformulations_rate
+          - web.total_rerequest_count
+          - web.rerequest_per_user
+          - web.part_rerequest
+          - web.total_all_click
+          - web.total_request_count
+          - web.total_click_count
+          - web.tech_part_misc_click
+          - web.abandonment
+          - web.full_abandonment
+          - web.empty_query_rate
+          - web.empty_serps_rate
+    Внешний вид:
+      - params:
+          l10n: tr
+          tld: com.tr
+      - do: получить выдачу по запросу 'календарь' с параметрами в урле ?l10n=tr&tld=com.tr
+      - assert: шапка с логотипом присуствует на выдаче
+      - screenshot: внешний вид [https://jing.yandex-team.ru/files/pdzianisevich/Yandex__bo%C5%9F_sorgu_yap%C4%B1ld%C4%B1_%E2%80%94_YAndeks.Brauzer_2020-06-25_20.49.01.png]
+    Проверка данных с бекенда:
+      - params:
+          user_time: '20180910'
+      - do: получить выдачу по запросу 'календарь', добавив в урл параметр &user_time=20180910
+      - do: установить ширину окна браузера 1000
+      - assert: шапка со специальным логотипом присуствует на выдаче
+      - screenshot: внешний вид [logo-backend]
+      - do: установить ширину окна браузера 980
+      - assert: логотим изменился на маленький
+      - screenshot: внешний вид [logo-narrow]
+    Внешний вид в турции:
+      - params:
+          l10n: tr
+          tld: com.tr
+      - do: получить выдачу по запросу 'календарь'
+      - assert: шапка с логотипом присуствует на выдаче
+      - screenshot: внешний вид [logo-tr]
+    Проверка логотипа для дисплеев разной плотности пикселей:
+      - browsers:
+          notFor:
+            - firefox
+      - params:
+          user_time: '20180910'
+      - do: получить выдачу по запросу 'календарь'
+      - assert: шапка с логотипом присуствует на выдаче
+      - assert: на дисплеях с ретиной должен быть один логотип
+      - assert: на дисплеях с неретиной должен быть другой логотип
+      - screenshot: внешний вид [another-pixel-ratio]
+
+files:
+  - features/desktop/yandex-search/yandex-search__logo.hermione.js
+
+tags:
+  - skip_e2e_check
+  - serp_header
+
+v-team: Distribution
+
+tlds:
+  - ru
+  - by
+  - ua
+  - kz
+  - uz

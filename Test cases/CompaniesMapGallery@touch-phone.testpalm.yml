@@ -1,0 +1,68 @@
+feature: Одна организация
+type: Галерея с фото и картой
+
+specs-integration:
+  Наличие элементов:
+    - do: получить выдачу по запросу 'кафе пушкин' _ALTERNATIVE_SEARCH_QUERIES_
+    - assert: |
+        на выдаче есть карточка организации,
+        в карточке организации есть галерея с фото и картой
+
+specs:
+  Общие проверки:
+    beforeEach:
+      - do: получить выдачу по запросу 'кафе пушкин'
+      - assert: |
+          на странице присутствует карточка Одной организации
+          в карточке Одной организации есть блок с картой и фотографиями
+    Внешний вид:
+      - screenshot: внешний вид [plain]
+    Клик в карту:
+      - do: нажать на карту
+      - tech: сработал счётчик /$page/$main/$result/composite/companies-map-gallery/photo-tiles/scroller/map[@behaviour@type = "dynamic"]
+      - assert: на странице появился оверлей с картой
+    Увеличение после скрола:
+      - do: проскроллить карту вбок
+      - assert: карта сместилась и увеличилась
+      - screeenshot: внешний вид [expanded]
+    Все фото:	
+      - do: кликнуть в фотографию с лейблом "Все фото X". Если фоторгафию не видно, то нужно проскроллить карту.
+      - assert: открылся оверлей с просмотрщиком фотографий
+      - tech: сработал счётчик /$page/$main/$result/composite/companies-map-gallery/photo-tiles/scroller/item[@type = "All"]
+    Кнопка "Все фото":
+      - do: проскроллить ряд с картой и фото до конца
+      - assert: появилась ссылка "Все фото"
+      - do: кликнуть по ссылке "Все фото"
+      - assert: открылся оверлей одной организации на вкладке "Фото"
+  Карта в отелях открывает серповый сайдблок:
+    - do: получить выдачу по запросу 'отель рэдиссон славянская'
+    - assert: |
+        на странице присутствует карточка Одной организации
+        в карточке Одной организации есть блок с картой и фотографиями
+    - do: кликнуть на карту
+    - assert: открылся сайдблок с картой и минибейджом
+  Проверка externalId:
+    - tags:
+      - no_assessors
+    - do: получить выдачу по запросу "кафе пушкин"
+    - assert: |
+        на странице присутствует карточка организации
+        в карточке организации есть галерея с фото и картой
+    - do: нажать на карту
+    - assert: открылся оверлей с картой
+    - tech: сработал счётчик path="/$page/$main/$result[@externalId@entity="organization" and @externalId@id="1018907821"]/composite/companies-map-gallery/photo-tiles/scroller/map"
+
+files:
+  - src/features/Companies/Companies.features/CompaniesMapGallery/CompaniesMapGallery.test/CompaniesMapGallery@touch-phone.hermione.e2e.js
+  - src/features/Companies/Companies.features/CompaniesMapGallery/CompaniesMapGallery.test/CompaniesMapGallery@touch-phone.hermione.js
+
+tlds: all
+
+v-team: VanillaGeo
+
+tags:
+  - react
+  - hasE2E
+  - geo
+  - geo_one_org
+  - geo_one_org_gallery

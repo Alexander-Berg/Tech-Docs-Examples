@@ -1,0 +1,15 @@
+feature:  Моя Алиса - залогин через вкладку "Умный дом" 
+
+specs:
+    Моя Алиса - залогин через вкладку "Умный дом" :
+    - tags: 
+        - https://testpalm.yandex-team.ru/alice/testcases/3062
+        - release_Webview
+        - surface_my_alice
+        - platform_ios
+        - platform_android
+    - do: "Preconditions Выйти из аккаунта в ПП; Открыть диалог с Алисой; "
+    - do: "Перейти на вкладку `Умный дом`"
+    - assert: "Отображается экран https://jing.yandex-team.ru/files/osennikovak/uhura_2020-12-03T21%3A03%3A30.602358.jpg"
+    - do: "Зайти в аккаунт с колонками/устройствами УД; "
+    - assert: "Отображается список устройств; В левом верхнем углу нет стрелки `назад`"

@@ -1,0 +1,77 @@
+feature: Hotels / Карусель
+
+specs:
+  Rum метрики:
+    Сабмит формы:
+      - tags:
+          - carousel
+          - submit
+      - do: получить выдачу по запросу "отели"
+      - assert: над поисковой выдачей появилась карусель отелей во всю ширину экрана
+      - do: выбрать даты проживания
+      - tech: |
+          проверить наличие счётчика '/tech/perf/delta'
+          с counterId='companies_hotels-desktop_carousel_form_changed'
+          и наличие в нем переменных time.start, time.end, delta
+      - tech: |
+          проверить наличие счётчика
+          path='/tech/perf/resource_timing'
+          с counterId='companies_hotels-desktop_carousel_form_changed'
+    Взаимодействие с картой:
+      - tags:
+          - carousel
+          - button
+          - map
+          - zoom
+          - pin
+      - do: получить выдачу по запросу "отели"
+      - assert: над поисковой выдачей появилась карусель отелей во всю ширину экрана
+      - do: переключиться в режим карты по клику в карточку карты в карусели
+      - assert: появилась карта с пинами отелей
+      - do: кликнуть по кнопке увеличения масштаба
+      - assert: загрузились новые пины
+      - tech: |
+          проверить наличие счётчика '/tech/perf/delta'
+          с counterId='companies_hotels-desktop_carousel_map_interaction'
+          и наличие в нем переменных time.start, time.end, delta
+      - tech: |
+          проверить наличие счётчика
+          path='/tech/perf/resource_timing'
+          с counterId='companies_hotels-desktop_carousel_map_interaction'
+    Загрузка карточки по клику на пин:
+      - tags:
+          - carousel
+          - map
+          - button
+          - pin
+      - do: получить выдачу по запросу "отели"
+      - assert: над поисковой выдачей появилась карусель отелей во всю ширину экрана
+      - do: переключиться в режим карты по клику в карточку карты в карусели
+      - assert: появилась карта с пинами отелей
+      - do: кликнуть в любой пин
+      - assert: загрузилась карточка организации
+      - tech: |
+          проверить наличие счётчика '/tech/perf/delta'
+          с counterId='companies_hotels-desktop_carousel_map_card'
+          и наличие в нем переменных time.start, time.end, delta
+      - tech: |
+          проверить наличие счётчика
+          path='/tech/perf/resource_timing'
+          с counterId='companies_hotels-desktop_carousel_map_card'
+
+files:
+  - features/companies/hotels/hotels-carousel/hotels-carousel-rum@desktop.hermione.js
+
+v-team: KotTeam
+
+counter: /parallel/result/wiz/companies/travel_map/upper/tabs/list/showcase
+
+tags:
+  - no_assessors
+  - skip_e2e_check
+
+tlds:
+  - ru
+  - by
+  - kz
+  - ua

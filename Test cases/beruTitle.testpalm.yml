@@ -1,0 +1,16 @@
+feature: beruTitle
+
+specs:
+  Внешний вид блока:
+    - do: открыть страницу (https://yandex.ru/turbo?stub=berutitle/default.json)
+    - assert: должны быть видны разные вариации блока заголовка
+    - screenshot: внешний вид соответствует скриншоту [plain]
+
+files:
+  - platform/components/BeruTitle/__tests__/beruTitle.hermione.js
+
+v-team: Beru
+
+manager: seoshnik
+
+tlds: none

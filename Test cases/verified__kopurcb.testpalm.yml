@@ -1,0 +1,48 @@
+feature: Метка
+type: Web-сайты кредитных организаций и участников рынка ценных бумаг
+
+specs:
+  В рекламе:
+    - params:
+        foreverdata: '2961825744'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: рекламный сниппет с меткой 'ЦБ РФ' присутствует на странице
+    - screenshot: вид сниппета с меткой [plain]
+    - do: кликнуть в метку (если задание выполняется на десктопе - навести мышку на метку)
+    - assert: появился тултип
+    - tech: сработал счётчик показа тултипа path='/$page/$main/$result[@type="adv"]/listing'
+    - screenshot: вид сниппета с меткой и тултипом [hover]
+    - do: проверить первую ссылку внутри тултипа
+    - assert: ссылка открывает сайт ЦБ РФ в новой вкладке
+    - tech: на ссылке есть счетчик path='/$page/$main/$result[@type="adv"]/listing/link'
+    - do: проверить вторую ссылку внутри тултипа
+    - assert: ссылка открывает сайт ЦБ РФ в новой вкладке
+    - tech: на ссылке есть счетчик path='/$page/$main/$result[@type="adv"]/listing/link'
+  В органике:
+    - params:
+        foreverdata: '3872394229'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: органический сниппет с меткой 'ЦБ РФ' присутствует на странице
+    - screenshot: вид сниппета с меткой [plain]
+    - do: кликнуть в метку (если задание выполняется на десктопе - навести мышку на метку)
+    - assert: появился тултип
+    - tech: сработал счётчик показа тултипа path='/$page/$main/$result[@type="organic"]/listing'
+    - screenshot: вид сниппета с меткой и тултипом [hover]
+    - do: проверить первую ссылку внутри тултипа
+    - assert: ссылка открывает сайт ЦБ РФ в новой вкладке
+    - tech: на ссылке есть счетчик path='/$page/$main/$result[@type="organic"]/listing/link'
+    - do: проверить вторую ссылку внутри тултипа
+    - assert: ссылка открывает сайт ЦБ РФ в новой вкладке
+    - tech: на ссылке есть счетчик path='/$page/$main/$result[@type="organic"]/listing/link'
+
+files:
+  - features/common/verified/__kopurcb/verified__kopurcb.hermione.js
+
+tags:
+  - reviewed
+  - skip_e2e_check
+
+v-team: Beauty
+
+tlds:
+  - ru

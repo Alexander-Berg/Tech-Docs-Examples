@@ -1,0 +1,8 @@
+feature: Отели
+type: ''
+description: ''
+specs:
+  'Тач: Различные состояния карточек на странице поиска отелей':
+    - do: 'https://testpalm.yandex-team.ru/testcase/travel-923'
+manual: true
+Сервис: Отели

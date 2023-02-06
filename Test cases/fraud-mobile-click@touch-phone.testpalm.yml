@@ -1,0 +1,34 @@
+feature: Завирусованный сниппет для мобильного GSM-спама
+
+specs:
+  Проверка ссылок:
+    - params:
+        text: foreverdata
+        rearr: gsmop=ANY;scheme_Local/FilterBanned/Snippets/CategMaskMarkupSrc/fraud_mobile_test=1
+        foreverdata: '3202790902'
+    - do: получить выдачу Поиска по запросу 'foreverdata'
+    - screenshot: вид по умолчанию [plain]
+    - assert: ссылка в тайтле сниппета с предупреждением работает и ведёт на внешний сайт
+    - tech: проверить счетчик в тайтле
+    - assert: ссылка в гринурле сниппета с предупреждением работает и ведёт на внешний сайт
+    - tech: проверить счетчик в гринурле
+    - assert: ссылка в надписи-предупреждении ведёт на страницу поддержки 'yandex.ru/support/...'
+    - tech: проверить счетчик в надписи-предупреждении
+
+files:
+  - features/fraud-mobile-click/fraud-mobile-click@touch-phone.hermione.js
+
+priority: normal
+
+v-team: Turbo
+
+counter: /$page/$main/$result[@type="organic"]/fraudmobileclick
+
+tlds:
+  - ru
+  - by
+  - kz
+
+tags:
+  - reviewed
+  - skip_e2e_check

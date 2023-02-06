@@ -1,0 +1,27 @@
+feature: Колдунщик рандомных изображений с поделяшкой
+
+specs:
+  beforeEach:
+    - params:
+        foreverdata: '3849158746'
+        exp_flags: 'freshness_random_image_share=1'
+    - do: получить выдачу по запросу 'foreverdata'
+    - assert: на выдаче присутствует колдунщик рандомных изображений
+
+  Внешний вид:
+    - screenshot: внешний вид [random-image-game-share]
+
+  Счётчик:
+    - do: нажать на кнопку "Поделиться"
+    - assert: появилась шторка с выбором соц. сетей для шэринга
+    - tech: отправился счетчик '/$page/$main/$result/randon-image-game/share-button'
+
+files:
+  - src/features/RandomImageGame/RandomImageGame.test/RandomImageGame_share@touch-phone.hermione.js
+
+tags:
+  - skip_e2e_check
+
+v-team: Freshness
+
+tlds: all

@@ -1,0 +1,24 @@
+feature: Патчер тестовых данных БК
+
+description: |
+  Работает только в dev-сервере при выполнении запросов как с использованием дампов данных, так и на живых данных.
+  Фича включается передачей параметра запроса `data-patchers=yabs:path/to/trafaret`.
+  Сценарий проверяет работоспособность плагина dev-сервера.
+
+specs:
+  Должен подставлять тестовые данные поверх дампа:
+    - params:
+        data-patchers: trafaret1/test_trafaret_1
+    - do: получить выдачу по запросу "бордер-колли"
+    - assert: на первой позиции баннер oknadomkom.ru
+
+files:
+  - features/common/yabs-data-patcher/yabs-data-patcher.hermione.js
+
+tags:
+  - no_assessors
+  - skip_e2e_check
+
+v-team: Common
+
+tlds: none

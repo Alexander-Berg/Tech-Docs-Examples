@@ -1,0 +1,13 @@
+feature: Главная страница
+
+specs:
+    Заголовок:
+        - do: перейти по адресу /stub
+        - assert: заголовок во вкладке браузера равен 'Stub'
+        - assert: на странице есть заголовок красного цвета
+        - screenshot: внешний вид [title]
+
+# v-team: your team
+
+files:
+    - tests/hermione/suites/touch-phone/title/title.hermione.js

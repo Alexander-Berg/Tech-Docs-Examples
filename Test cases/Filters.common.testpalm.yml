@@ -1,0 +1,52 @@
+feature: SearchPage
+
+specs:
+  Фильтр по бренду:
+    Раскрытие фильтра:
+      - do: открыть https://yandex.ru/products/search?text=телефон
+      - assert: |
+          открылась страница с товарами
+          на странице есть фильтр по бренду
+      - screenshot: внешний вид [plain]
+      - do: кликнуть на фильтр бренда
+      - assert: открылся список брендов
+      - tech: сработал счетчик path="$page.$main.product-list-vendor-filter.button"
+      - screenshot: внешний вид [expanded]
+      - do: выбрать первый бренд
+      - tech: сработал счетчик path="$page.$main.product-list-vendor-filter"
+      - screenshot: внешний вид [checked]
+    Работает фильтрация списка брендов:
+      - do: открыть https://yandex.ru/products/search?text=телефон
+      - assert: |
+          открылась страница с товарами
+          на странице есть фильтр по бренду
+      - do: кликнуть на фильтр бренда
+      - assert: открылся список брендов
+      - do: ввести в поисковой строке "App"
+      - assert: список брендов отфильтровался
+    Обновляет выдачу после выбора значения:
+      - do: открыть https://yandex.ru/products/search?text=телефон
+      - assert: |
+          открылась страница с товарами
+          на странице есть фильтр по бренду
+      - do: кликнуть на фильтр бренда
+      - assert: открылся список брендов
+      - do: кликнуть в первый бренд в списке
+      - do: кликнуть на кнопку "Применить"
+      - assert: список товаров обновился после применения фильтра
+      - tech: сработал счетчик path="$page.$main.product-list-vendor-filter"
+    Обновляет выдачу после сброса выбранного значения:
+      - do: открыть https://yandex.ru/products/search?text=телефон&glfilter=7893318:10500168
+      - assert: |
+          открылась страница с товарами
+          на странице есть фильтр по бренду
+      - do: кликнуть на фильтр бренда
+      - assert: открылся список брендов
+      - do: кликнуть на кнопку "Сбросить"
+      - assert: список товаров обновился после применения фильтра
+      - tech: сработал счетчик path="$page.$main.product-list-vendor-filter"
+
+v-team: goods
+
+files:
+  - src/pages/SearchPage/tests/Filters/Filters.common.hermione.ts
