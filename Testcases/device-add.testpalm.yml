@@ -1,8 +1,0 @@
-feature: Устройство - добавление
-
-files:
-  - tests/hermione/suites/touch/legacy/device-add/device-add.hermione.js
-
-specs:
-  'Длинное название дома':
-    - automation: TODO

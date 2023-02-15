@@ -1,6 +1,0 @@
-feature: New feature
-
-specs:
-  Another nested specs:
-    The first it case:
-      - do: something 1

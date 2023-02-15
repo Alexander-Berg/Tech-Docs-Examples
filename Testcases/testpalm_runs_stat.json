@@ -1,7 +1,0 @@
-[
-  {
-    "statfaceReport": "Market_Vendors/CodeHealth/TestPalm%20Runs",
-    "collectScript": "make configure && make bootstrap && npm run testpalm:runs",
-    "resultFile": "runs/testpalm_runs_stat.json"
-  }
-]

@@ -1,6 +1,0 @@
-Поиск вакансий [manual]:
-  - do: проверить внешний вид блока поиска
-  - screenshot: пример внешнего вида блока поиска [https://jing.yandex-team.ru/files/alex-murashev/vacancies_search_block_filters_touch-pad.png]
-  - do: ввести текст в поле поиска
-  - do: перевести устройство в горизонтальное положение
-  - screenshot: пример внешнего вида блока поиска [https://jing.yandex-team.ru/files/alex-murashev/vacancies_search_block_text_desktop.png]

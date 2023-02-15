@@ -1,6 +1,0 @@
-default:
-  API-key: API-key
-internal:
-  audience: internal
-external:
-  audience: external

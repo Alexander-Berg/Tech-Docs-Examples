@@ -1,8 +1,0 @@
-Открытие виджета c чатом для внешних сайтов:
-    - do: на странице стенда виджета в url после yandex.ru удалить все параметры и добавить '/chat?build=widget-loader&build_script=widget&iframeUrl=/chat?build=widget%26guid=de839857-f649-43f5-af72-03551a3a485f'
-
-Открытие виджета для сервисов Яндекса:
-    - do: на странице стенда виджета в url после yandex.ru удалить все параметры и добавить '/chat?build=widget-loader&build_script=widget_ya&iframeUrl=/chat?build=chamb'
-
-Открытие виджета для внутренних сервисов Яндекса:
-    - do: на странице стенда виджета в url после yandex.ru удалить все параметры и добавить '/chat?build=widget-loader&build_script=widget_ya_internal&iframeUrl=https://<1234.pr | 1-2-3.release>.messenger.alpha.yandex-team.ru/embed/', где 1234 - номер пулреквеста; 1-2-3 - номер релиза

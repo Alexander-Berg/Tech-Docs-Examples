@@ -1,8 +1,0 @@
-feature: Устройство - голосовые команды
-
-files:
-  - tests/hermione/suites/touch/legacy/device-voice/device-voice.hermione.js
-
-specs:
-  'Длинное название устройства':
-    - automation: TODO

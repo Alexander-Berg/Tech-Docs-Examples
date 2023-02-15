@@ -1,3 +1,0 @@
-OWNER(
-    g:cpp-contrib
-)

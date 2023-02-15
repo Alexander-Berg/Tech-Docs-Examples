@@ -1,9 +1,0 @@
-Открытие личного чата:
-    - do: открыть внутренний мессенджер Q.yandex-team (если запросил авторизацию, авторизоваться со своими данными стаффа или тестовыми данными логин robot-kristinovich пароль dve0MWDsiSRk_U3)
-    - assert: открылся мессенджер
-    - do: найти в поиске (поле в правом верхнем углу окна чата) любого человека
-    - screenshot: поле поиска [https://jing.yandex-team.ru/files/lapkinakris/Messenger_2019-02-20_15-44-38.png]
-    - assert: найден нужный человек
-    - do: кликнуть (или тапнуть) на его имя или аватарку
-    - assert: создан и открылся личный чат
-    - screenshot: пример личного чата [https://jing.yandex-team.ru/files/lapkinakris/Messenger_1_novoe_soobschenie_2019-02-20_15-50-57.png]

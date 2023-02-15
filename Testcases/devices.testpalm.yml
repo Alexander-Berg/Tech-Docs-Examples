@@ -1,8 +1,0 @@
-feature: Устройства
-
-files:
-  - tests/hermione/suites/touch/legacy/devices/devices.hermione.js
-
-specs:
-  'Длинное название устройства':
-    - automation: TODO
